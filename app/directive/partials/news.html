@@ -1,0 +1,12 @@
+<div>
+	<a class="gotosource" ng-click="uriOpened(content)" href="{{content.news.resourceUri}}">
+		<img class="hero" ng-src="{{content.news.imageUri}}">
+		<div class="tabel">
+			<div class="cell news">
+				<h1>{{content.news.title}}</h1>
+				<p>{{content.news.content}}...</p>
+				<p class="small grey">{{content.news.pubDate | time:compareNow}}</p>
+			</div>
+		</div>
+	</a>									
+</div>

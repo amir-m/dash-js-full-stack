@@ -1,0 +1,69 @@
+<article id="{{d._id}}">
+	<div class="front">
+		<header>
+			<h1 class="dash-title">
+				<img class="small-icon" ng-src="{{d.iconSmall}}">
+				{{d.title}} • <span>{{d.selectedSetting || 'Current Location'}}</span></h1>
+			<a class="settings-btn" ng-click="flipSettings()">
+				<span>
+					<img src="https://s3.amazonaws.com/s3.dashbook.co/dbkapp/img/settings-btn.png">
+				</span>
+			</a>
+		</header>
+
+		<div class="viewport">
+			<div class="flipsnap" style="width:{{_width*d.content.length}}px;">
+				<section ng-repeat="content in d.content">
+					<geo ng-show="d.dashType == 'geo'"></geo>
+					<slideshow ng-show="d.dashType == 'slideshow'"></slideshow>
+					<news ng-show="d.dashType == 'text'"></news>
+					<stats></stats>
+				</section>
+			</div>
+		</div>
+		
+		<p class="no-settings grey" ng-show="!d.content || d.content.length == 0">No content is available at this time.</p>
+
+		<div class="slide-indicator" id="pointer-{{d._id}}">
+			<span ng-repeat="content in d.content" id ="{{d._id}}{{content._id}}"></span>
+			<!-- <span class="load-more" ng-show="d.content.length > 1"></span> -->
+		</div>
+	</div>
+
+	<div class="back">
+		<header>
+			<h1><img class="small-icon" ng-src="{{d.iconSmall}}">
+				{{d.title}} • <span>Settings</span></h1>
+			<a class="info-submitted" ng-click="flipSettings()">
+				<span>
+					<img src="https://s3.amazonaws.com/s3.dashbook.co/dbkapp/img/settings-btn.png">
+				</span>
+			</a>
+		</header>
+
+		<div class="settings">
+			<p class="no-settings grey" ng-show="d.settingType == 'text'">This dash has no settings</p>
+			<ul ng-show="d.settingType == 'radio'">
+				<li ng-repeat="setting in d.settings" ng-class="{selected: setting == d.selectedSetting	}" ng-click="selectSetting($index)">
+					{{setting}}
+				</li>
+			</ul>
+
+			<form ng-show="d.settingType == 'textInput'">
+				<input id="{{d._id}}-input-text" class="clearable" type="text" placeholder="Search" name="search_term" value="{{d.selectedSetting}}">
+				<button ng-click="updateInputText()">Save</button>
+			</form>
+			<footer>
+				<a class="remove-btn" ng-click="removeDash()" id="{{d._id}}-remove-btn">
+					<img src="https://s3.amazonaws.com/s3.dashbook.co/dbkapp/img/remove-btn.png">
+					Remove
+				</a>					
+				<p class="credit">Powered by {{d.credits}}</p>
+			</footer>
+		</div>
+	</div>
+
+	<div class="spinner">
+		<img src="https://s3.amazonaws.com/s3.dashbook.co/dbkapp/img/spinner-icon.png">
+	</div>
+</article>

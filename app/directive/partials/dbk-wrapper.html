@@ -1,0 +1,16 @@
+<div class="dbk-wrapper">
+	<header class="dbk-header">
+		<a class="sort-btn" id="toggleSortable" style="left: 0">
+			<img src="http://s3.amazonaws.com/s3.dashbook.co/dbkapp/img/sortable-btn.png">
+		</a>
+		
+		<img src="img/dbk-logo.png">
+		<a class="library-btn" ng-click="showLibrary()">
+			<img src="http://s3.amazonaws.com/s3.dashbook.co/dbkapp/img/library-btn.png">
+		</a>
+
+	</header>
+	<div class="all-dashes" id="sortable" sortable>
+		<dash ng-repeat="d in myDashes"></dash>
+	</div>
+</div>

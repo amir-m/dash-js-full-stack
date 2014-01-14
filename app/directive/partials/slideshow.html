@@ -1,0 +1,16 @@
+<div>
+	<a class="gotosource" href="{{content.slideshow.resourceUri}}" ng-click="uriOpened(content)">
+		<img class="hero" ng-src="{{content.slideshow.imageUri}}">
+		<div class="tabel">
+			<div class="cell" ng-show="content.slideshow.avatar">
+				<img class="avatar" ng-src="{{content.slideshow.avatar}}">
+			</div>
+			<div class="cell" ng-show="d.dashType == 'slideshow'">
+				<h1>{{content.slideshow.title}}</h1>
+				<p>By {{content.slideshow.author}}</p>
+				<p class="small grey" ng-show="d.title != 'BeHance'">{{content.slideshow.pubDate | time:compareNow}}
+				</p>
+			</div>
+		</div>
+	</a>									
+</div>

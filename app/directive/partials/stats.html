@@ -1,0 +1,30 @@
+<div>
+	<a class="gotosource" ng-click="uriOpened(content)" href="{{content.stats.resourceUri}}">
+		<img class="hero" ng-src="{{content.stats.imageUri}}">
+		<div class="tabel">
+			<div class="cell" ng-show="content.stats.avatar">
+				<img class="avatar plain" ng-src="{{content.stats.avatar}}">
+			</div>
+			<div class="cell" ng-show="d.dashType == 'stats'">
+				<h1>{{content.stats.title}}</h1>
+				<p class="small grey">{{content.stats.pubDate | time:compareNow}}
+				</p>
+			</div>
+
+		</div> 
+		<div class="tabel equal">
+			<div class="cell middle centered" ng-show="d.dashType == 'stats'">
+				<h1>{{content.stats.detail1}}</h1>
+				<p class="small grey">{{content.stats.label1}}</p>
+			</div>
+			<div class="cell middle centered" ng-show="d.dashType == 'stats'">
+				<h1>{{content.stats.detail2}}</h1>
+				<p class="small grey">{{content.stats.label2}}</p>
+			</div>
+			<div class="cell middle centered" ng-show="d.dashType == 'stats'">
+				<h1>{{content.stats.detail3}}</h1>
+				<p class="small grey">{{content.stats.label3}}</p>
+			</div>
+		</div>
+	</a>									
+</div>

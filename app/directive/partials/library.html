@@ -1,0 +1,19 @@
+<div class="library-wrapper">
+	<ul>
+		<li ng-repeat="d in dashes">
+			<div class="cell">
+				<img class="large-icon" ng-src="{{d.iconLarge}}">
+			</div>
+			<div class="cell large">
+				<h1>{{d.title}}</h1>
+				<p>{{d.description}}</p>
+				<p class="credit">Powered By {{d.credits}}</p>
+			</div>
+			<a class="add-btn" ng-click="add(d)" id="{{d._id}}-lib-add-btn">
+				<img src="https://s3.amazonaws.com/s3.dashbook.co/dbkapp/img/add-btn.png">
+				Add
+			</a>
+		</li>
+	</ul>
+	
+</div>
