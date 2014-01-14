@@ -1,7 +1,6 @@
 var cluster = require('cluster'),
 	express = require("express"),
 	redis = require('redis'),
-	zmq = require('zmq'),
 	app = express(),
 	mongoose = require('mongoose'),
 	cookie = require('cookie'),
