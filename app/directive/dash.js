@@ -7,7 +7,8 @@ angular.module('DashbookApp')
     return {
       restrict: 'E',
       replace: true,
-      templateUrl: '//s3.amazonaws.com/dbk-assets/dash.html',
+      // templateUrl: '//s3.amazonaws.com/dbk-assets/dash.html', 
+      templateUrl: '/partials/dash.html', 
       link: function (scope, element, attrs) {
         // console.log(window.document.cookie)
 

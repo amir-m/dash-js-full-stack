@@ -4,7 +4,8 @@ angular.module('DashbookApp', [])
   .config(['$routeProvider',function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: '//s3.amazonaws.com/dbk-assets/main.html',
+        // templateUrl: '//s3.amazonaws.com/dbk-assets/main.html',
+        templateUrl: 'views/main.html',
         controller: 'MainCtrl',
         resolve: {
           dashes: ['Dashloader', function(Dashloader){

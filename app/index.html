@@ -5,7 +5,7 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, target-densityDpi=device-dpi" />
-    <link rel="stylesheet" href="//d3ja36xsw697l.cloudfront.net/main.min.css">
+    <link rel="stylesheet" href="styles/main.css">
     <link rel="apple-touch-startup-image" href="//s3.amazonaws.com/s3.dashbook.co/default/ipad-landscape-default.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)" />
     <link rel="apple-touch-startup-image" href="//s3.amazonaws.com/s3.dashbook.co/default/ipad-portrait-default.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)" />
     <link rel="apple-touch-startup-image" href="//s3.amazonaws.com/s3.dashbook.co/default/default-568h.png" media="screen and (max-device-width: 320px)" />
@@ -20,6 +20,26 @@
     <script src="//d3ja36xsw697l.cloudfront.net/jquery-ui-1.10.3.custom.min.js"></script>
     <script src="//d3ja36xsw697l.cloudfront.net/duck-punch.js"></script>
     <script src="//s3.amazonaws.com/dbk-assets/flipsnap.js"></script>
+    <!-- 
     <script src="//s3.amazonaws.com/dbk-assets/main.min.js"></script>
+     -->
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="service/DashLoader.js"></script>
+    <script src="directive/dash.js"></script>
+    <script src="directive/dbkWrapper.js"></script>
+    <script src="directive/geo.js"></script>
+    <script src="directive/holder.js"></script>
+    <script src="directive/inputClreable.js"></script>
+    <script src="directive/library.js"></script>
+    <script src="directive/slideshow.js"></script>
+    <script src="directive/news.js"></script>
+    <script src="directive/sortable.js"></script>
+    <script src="directive/stats.js"></script>
+    <script src="filter/time.js"></script>
+    <!-- endbuild -->
+
 </body>
 </html>
