@@ -6,8 +6,7 @@
     "mongoose": "3.8.1",
     "redis": "0.9.1",
     "aws-sdk": "1.13.0",
-    "cookie": "0.1.0",
-    "zmq": "2.5.1"
+    "cookie": "0.1.0"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
