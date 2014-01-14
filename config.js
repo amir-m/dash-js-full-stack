@@ -13,8 +13,9 @@ module.exports = function(express, app, mongoose, cookie, models, publisher) {
 		app.use(express.bodyParser());
 		app.use(express.methodOverride());
 		
-		// app.use(express.logger('dev'));
+		app.use(express.logger('dev'));
 		app.set('port', process.env.PORT || 80);
+		// app.use(app.logger)
 	});
 
 	app.use(function(req, res, next){
@@ -105,7 +106,7 @@ module.exports = function(express, app, mongoose, cookie, models, publisher) {
 			// next();
 		}	
 		else {
-			console.log(req.path);
+			// console.log(req.path);
 			next()
 		};
 	});
