@@ -21,8 +21,9 @@ require('./config')(express, app, mongoose, cookie, models, publisher);
 var routes = {
 	index: require('./routes/index')(models, publisher, cookie),
 	dashes: require('./routes/dashes')(models, publisher, mongoose),
+	settings: require('./routes/settings')(models, publisher),
 	accounts: require('./routes/accounts')(models),
-	settings: require('./routes/settings')(models, publisher)
+	oauth: require('./routes/accounts')(models)
 };
 
 require('./router')(routes, app);
