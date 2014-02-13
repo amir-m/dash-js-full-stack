@@ -92,50 +92,6 @@ module.exports = function  (models, publisher) {
 
 	};
 
-	// var create = function (req, res, next) {
-	// 	if (!req.params.uuid || !req.params.id)
-	// 		return res.send(400);
-	// 	models.dashes.Dash.findOne({ _id: req.params.id }, function(error, dash){
-			
-	// 		if (error) {
-	// 			console.log(error)
-	// 			return res.send(500);
-	// 			throw error
-	// 		};
-	// 		if (!dash) return res.send(400);
-	// 		var selected = '';			if (dash.settingType == 'radio')
-	// 			selected = dash.settings[0];
-	// 		models.dashes.UserDash.create({
-	// 			_id: models.dashes.objectId(),
-	// 			dash_id: dash._id,
-	// 			dashType: dash.dashType,
-	// 			location: {
-	// 				lat: ,
-	// 				log: 
-	// 			},
-	// 			user: req.params.uuid,
-	// 			title: dash.title,
-	// 			subTitle: dash.subTitle,
-	// 			description: dash.description,
-	// 			credits: dash.credits,
-	// 			iconLarge: dash.iconLarge,
-	// 			iconSmall: dash.iconSmall,
-	// 			settings: dash.settings,
-	// 			selectedSetting: selected,
-	// 			settingType: dash.settingType
-	// 		}, function(error, dash){
-	// 			if (error) {
-	// 				console.log(error)
-	// 				return res.send(500);
-	// 				throw error;
-	// 			};
-	// 			return res.send(dash);
-	// 		});
-			
-	// 	});
-
-	// };
-
 	var remove = function (req, res, next) {
 		if (!req.params.id)
 			return res.send(400);
@@ -274,21 +230,23 @@ module.exports = function  (models, publisher) {
 			});
 		}
 		else if (req.query.t == 'Dribbble Stats') {
-			var username = req.query.s;
-			username = username ? username : 'm_mozafarian';
-			var sort = {'stats.pubDate': -1};
-			col.find({username: username})
-			.skip(skip)
-			.limit(10)
-			.sort(sort)
-			.exec(function(error, docs){
-				if (error) {
-					res.send(500);
-					throw error
-				};
-				var s = docs.length;
-				return res.send({content: docs, skip: skip + s});
-			});
+			setTimeout(function(){
+				var username = req.query.s;
+				username = username ? username : 'm_mozafarian';
+				var sort = {'stats.pubDate': -1};
+				col.find({username: username})
+				.skip(skip)
+				.limit(10)
+				.sort(sort)
+				.exec(function(error, docs){
+					if (error) {
+						res.send(500);
+						throw error
+					};
+					var s = docs.length;
+					return res.send({content: docs, skip: skip + s});
+				});
+			}, 3000);
 		}
 
 		else if (req.query.t == 'Coffee Near Me') {

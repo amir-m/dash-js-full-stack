@@ -20,7 +20,7 @@ module.exports = function(models) {
 
 				if (dashes[i].settingType == 'radio')
 					selected = dashes[i].settings[0];
-				else if (dashes[i].settingType == 'text') {
+				else if (dashes[i].settingType == 'text' || dashes[i].settingType == 'textInput') {
 					selected = dashes[i].settings;	
 				}
 
