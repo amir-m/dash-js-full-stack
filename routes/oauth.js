@@ -1,4 +1,4 @@
-module.exports = function  () {
+module.exports = function  (models) {
 	
 	var twitter_signin = function (req, res, next) {
 		console.log('twitter')
