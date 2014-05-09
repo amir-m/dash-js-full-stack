@@ -1,3 +1,5 @@
+stackTraceLimit = Infinity;
+
 module.exports = function(express, app, mongoose, cookie, models, publisher) {
 
 	var connectionString = "mongodb://admin:admin@karl.mongohq.com:10006/dbk";
@@ -8,18 +10,19 @@ module.exports = function(express, app, mongoose, cookie, models, publisher) {
 		console.log('connected to mongoDB: %s', connectionString);
 	});
 
-	app.configure(function(){
-		app.set('views', __dirname + '/app');
-		app.use(express.bodyParser());
-		app.use(express.methodOverride());
-		
-		app.use(express.logger('dev'));
-		app.set('port', process.env.PORT || 80);
-		// app.use(app.logger)
-	});
+	app.set('views', __dirname + '/app');
+	app.use(require('body-parser')());
+	app.use(require('method-override')());
+	
+	app.use(require('morgan')('dev'));
+	app.set('port', process.env.PORT || 8080);
+	// app.configure(function(){
+	// 	// app.use(app.logger)
+	// });
 
 	app.use(function(req, res, next){
 
+		// console.log('req.path:');
 		// console.log(req.path);
 
 		// res.cookie('uuid', 'NEYxOEU4NjctMjQzOS00NzMzLUI0QzgtQjE4N0QxNEQzNDU3', { maxAge: 100*60*1000, httpOnly: false });
@@ -27,12 +30,13 @@ module.exports = function(express, app, mongoose, cookie, models, publisher) {
 		// res.cookie('latitude', '45.495744', { maxAge: 100*60*1000, httpOnly: false });
 		// res.cookie('longitude', '-73.563195', { maxAge: 100*60*1000, httpOnly: false });
 
-		// return next();
-		if (req.path == '/relaunch' || req.path == '/') {
-			console.log(req.path);
-			console.log(req.body);
-			console.log(req.headers);
-		}
+		return next();
+		
+		// if (req.path == '/relaunch' || req.path == '/') {
+		// 	console.log(req.path);
+		// 	console.log(req.body);
+		// 	console.log(req.headers);
+		// }
 		// if (req.path == '/' || req.path == '/relaunch' || req.path == '/exit' || req.path == '/update') {
 		// 	console.log(req.path);
 		// 	console.log(req.body);
@@ -111,6 +115,7 @@ module.exports = function(express, app, mongoose, cookie, models, publisher) {
 		};
 	});
 
+
 	// app.get('/', function(req, res) {
 	// 	console.log(req.path)
 	// 	// process.stdout.write('@[logs.dashbookers] ' + JSON.stringify(requestor) + '\n');
@@ -122,7 +127,6 @@ module.exports = function(express, app, mongoose, cookie, models, publisher) {
 
 	app.use(express.static(__dirname + '/app'));
 
-	app.use(app.router);
 	// var connectionString = process.env.MONGOLAB_URI ? 
 	// 	process.env.MONGOLAB_URI : 
 

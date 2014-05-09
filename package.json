@@ -2,11 +2,15 @@
   "name": "dashbookapp",
   "version": "0.0.1",
   "dependencies": {
-    "express": "3.0.0",
-    "mongoose": "3.8.1",
-    "redis": "0.9.1",
-    "aws-sdk": "1.13.0",
-    "cookie": "0.1.0"
+    "express": "*",
+    "mongoose": "*",
+    "redis": "*",
+    "aws-sdk": "*",
+    "cookie": "*",
+    "connect": "*",
+    "body-parser": "*",
+    "method-override": "*",
+    "morgan": "*"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

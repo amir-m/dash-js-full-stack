@@ -1,3 +1,5 @@
+stackTraceLimit = Infinity;
+
 var cluster = require('cluster'),
 	express = require("express"),
 	redis = require('redis'),
@@ -13,7 +15,7 @@ var models = {
 	users: require('./models/user') (mongoose)
 };
 
-publisher = redis.createClient(6379, '54.203.69.195');
+publisher = redis.createClient(6379, '54.185.233.146');
 
 
 require('./config')(express, app, mongoose, cookie, models, publisher);
@@ -22,8 +24,8 @@ var routes = {
 	index: require('./routes/index')(models, publisher, cookie),
 	dashes: require('./routes/dashes')(models, publisher, mongoose),
 	settings: require('./routes/settings')(models, publisher),
-	accounts: require('./routes/accounts')(models),
-	oauth: require('./routes/accounts')(models)
+	accounts: require('./routes/accounts').init(models)	
+	// oauth: require('./routes/accounts')(models)
 };
 
 require('./router')(routes, app);

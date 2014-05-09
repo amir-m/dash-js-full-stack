@@ -16,7 +16,7 @@ module.exports = function(routes, app) {
 	app.post('/init/:id', routes.index.init);
 	app.post('/update', routes.index.update);
 	app.post('/relaunch', routes.index.relaunch);
-	app.post('/twitter/signin', routes.oauth.twitter_signin);
+	// app.post('/twitter/signin', routes.oauth.twitter_signin);
 	app.post('/exit', routes.index.exit);
 	app.put('/dashes/:id/:uuid', routes.dashes.create);
 	app.get('/dashes/:id', routes.dashes.read);
@@ -29,4 +29,5 @@ module.exports = function(routes, app) {
 	app.post('/readcontent', routes.dashes.uirOpened); 
 	app.get('/dashes/:id/settings', routes.settings.read);
 	app.post('/dashes/:id/settings', routes.settings.update); 
+
 }

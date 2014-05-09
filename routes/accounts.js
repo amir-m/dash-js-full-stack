@@ -1,15 +1,16 @@
-module.exports = function  () {
-	
-	var create = function (req, res, next) {
-		
-	};
+var models = null,
+	self = this;
 
-	var read = function (req, res, next) {
-		
-	};
+exports.init = function(m) {
+	models = m;
+	return self;
+};
 
-	return {
-		create: create,
-		read: read
-	}
-}
+exports.create = function (req, res, next) {	
+};
+
+exports.read = function (req, res, next) {
+};
+
+exports.remove = function (req, res, next) {
+};
