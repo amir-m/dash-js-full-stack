@@ -2,7 +2,7 @@ stackTraceLimit = Infinity;
 
 module.exports = function(express, app, mongoose, cookie, models, publisher) {
 
-	var connectionString = "mongodb://admin:admin@karl.mongohq.com:10006/dbk";
+	var connectionString = "mongodb://admin:IuT603JamshEqplE2N&0}x!@candidate.19.mongolayer.com:10061/dbk";
 	// var connectionString = "mongodb://admin:foundersfuel2013@54.214.165.124:27017/dashbook";
  
 	mongoose.connect(connectionString, function(err){

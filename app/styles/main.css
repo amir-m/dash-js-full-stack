@@ -606,3 +606,12 @@ span.load-more {
 		width: 152px;
 	}
 }
+
+.shrink-dash {
+    -webkit-animation: ease-in-out jiggle 70ms infinite alternate;
+}
+
+@-webkit-keyframes jiggle {
+    0% {-webkit-transform: rotate(1deg);}
+    100% {-webkit-transform: rotate(-1deg)}
+}

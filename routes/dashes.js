@@ -168,9 +168,6 @@ module.exports = function  (models, publisher) {
 
 				if (!userDash) return res.send(400);
 
-				console.log('found: 213')
-				console.log(userDash)
-				
 				return res.send(userDash);
 			});
 	};
@@ -338,13 +335,14 @@ module.exports = function  (models, publisher) {
 
 	var library = function (req, res, next) {
 
-		models.dashes.Dash.find({})
-		.exec(function (error, dashes) {
+		models.dashes.Dash.find(function (error, dashes) {
 
 			if (error) {
-				return res.send(500);
+				res.send(500);
 				throw error
 			};
+
+			console.log(dashes)
 
 			res.send(dashes);
 		})

@@ -1,4 +1,15 @@
-module.exports = function (mongoose) {
+module.exports = function (mongoose, redisClient) {
+
+	var dashes_ids = [ 
+	'dash:NTJhOWRmMGYxODNiNTAwMDAwMDAwMDAx',
+	'dash:NTI5NjNiMGYwZWZhNzI1ZTliMDAwMDAx',
+	'dash:NTI5NjJmYzUyMzQ3ZjUxZDliMDAwMDAx',
+	'dash:NTI5NjM5ZTlmOGZjY2Q1ODliMDAwMDAx',
+	'dash:NTI5NjM4NTg2NGZmOGU0YzliMDAwMDAx',
+	'dash:NTI5NjNhNjFmNTliN2Y1YzliMDAwMDAx',
+	'dash:NTI5NjMyNWY1OGM5YmIzNzliMDAwMDAx',
+	'dash:NTI5NjM2YmZiMTcxMzg0NTliMDAwMDAx',
+	'dash:NTI5NjJmYzUyNzQ3ZjUxADLiQDBzMDAy' ];
 
 	var DashSchema = new mongoose.Schema({
 		_id: {type: String, required: true, unique: true},
@@ -36,7 +47,12 @@ module.exports = function (mongoose) {
 		return new Buffer((new mongoose.Types.ObjectId).toString()).toString('base64');
 	};
 
-	var Dash = mongoose.model('Dash', DashSchema);
+	// var Dash = mongoose.model('Dash', DashSchema);
+	var Dash = {
+		findOne: findOneDash,
+		find: findDash
+	};
+
 	var UserDash = mongoose.model('UserDash', UserDashSchema);
 
 	var PopularDribbleShot = mongoose.model('PopularDribbleShot', new mongoose.Schema({
@@ -358,10 +374,28 @@ var DribbbleStat = mongoose.model('DribbbleStat', new mongoose.Schema({
 		colName: {type: String, default: 'Behance'} 
 	}));
 
+	function findOneDash() {
+
+	};
+	function findDash(callback) {
+
+		var d = [];
+
+		for (var i = 0; i < dashes_ids.length; ++i) {
+			
+			(function(i){
+				redisClient.hgetall(dashes_ids[i], function(error, _dash) {
+					if (error) throw error;
+					d.push(_dash);
+				});
+			}(i));
+		}
+	};
+
 	return {
+		objectId: _objectId,
 		Dash: Dash,
 		UserDash: UserDash,
-		objectId: _objectId,
 		PopularDribbleShot: PopularDribbleShot,
 		EveryoneDribbleShot: EveryoneDribbleShot,
 		DebutsDribbleShot: DebutsDribbleShot,
@@ -384,6 +418,7 @@ var DribbbleStat = mongoose.model('DribbbleStat', new mongoose.Schema({
 		DribbblePlayer: DribbblePlayer,
 		DribbbleShot: DribbbleShot,
 		BadInput: BadInput,
-		Behance: Behance
+		Behance: Behance,
+		findDash: findDash
 	}
 };

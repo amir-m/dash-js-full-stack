@@ -11,12 +11,13 @@ var cluster = require('cluster'),
 var forked = false;
 
 var models = {
-	dashes: require('./models/dash')(mongoose),
+	dashes: require('./models/dash')(mongoose, publisher),
 	users: require('./models/user') (mongoose)
 };
 
 publisher = redis.createClient(6379, '54.185.233.146');
 
+require('./helpers')(models, publisher).insertDashesToRedisBackend();
 
 require('./config')(express, app, mongoose, cookie, models, publisher);
 
