@@ -362,8 +362,6 @@ module.exports = function  (models, publisher) {
 
 	};
 
-	
-
 	return {
 		create: create,
 		remove: remove,

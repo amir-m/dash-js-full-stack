@@ -10,14 +10,21 @@ var cluster = require('cluster'),
     cpuCount = require('os').cpus().length;
 var forked = false;
 
+
+publisher = redis.createClient(6379, '54.185.233.146');
+
 var models = {
 	dashes: require('./models/dash')(mongoose, publisher),
 	users: require('./models/user') (mongoose)
 };
 
-publisher = redis.createClient(6379, '54.185.233.146');
+// require('./helpers')(models, publisher).insertDashesToRedisBackend();
 
-require('./helpers')(models, publisher).insertDashesToRedisBackend();
+setTimeout(function() {
+	models.dashes.Dash.find(function(dashes){
+		console.log(dashes);
+	});
+}, 2000);
 
 require('./config')(express, app, mongoose, cookie, models, publisher);
 

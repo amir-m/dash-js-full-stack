@@ -4,7 +4,7 @@
 	"avatar": "",
 	"title": "Private Dash",
 	"description": "This is a private dash.",
-	"credits": "Via Dashbench", 
+	"credits": "Dashbench", 
 	"iconLarge": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/default_large_icon.png",
 	"iconSmall": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/default_small_icon.png",
 	"settingType": "textInput",
@@ -22,7 +22,7 @@
 	"iconSmall": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/dribbble_small_icon.png",
 	"settingType": "radio",
 	"location": "",
-	"settings": ["Popular", "Debut", "Everyone"]
+	"settings": "Popular:Debut:Everyone"
 },
 {
 	"_id": "NTJhOWRmMGYxODNiNTAwMDAwMDAwMDAx",
@@ -48,7 +48,7 @@
 	"iconSmall": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/behance_small_icon.png",
 	"settingType": "radio",
 	"location": "",
-	"settings": ["Featured", "Most Appreciated", "Most Recent"]
+	"settings": "Featured:Most Appreciated:Most Recent"
 },
 {
 	"_id": "NTI5NjM2YmZiMTcxMzg0NTliMDAwMDAx",
@@ -61,7 +61,7 @@
 	"iconSmall": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/news_small_icon.png",
 	"settingType": "radio",
 	"location": "",
-	"settings": ["TechCrunch", "ESPN", "New York Times", "Mashable", "Wired", "Inc.com", "Fast Company", "Forbes", "Core77", "Design Milk", "Business Insider"]
+	"settings": "TechCrunch:ESPN:New York Times:Mashable:Wired:Inc.com:Fast Company:Forbes:Core77:Design Milk:Business Insider"
 },
 {
 	"_id": "NTI5NjM4NTg2NGZmOGU0YzliMDAwMDAx",
@@ -85,8 +85,8 @@
 	"credits": "Google Places",
 	"iconLarge": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/coffee_large_icon.png",
 	"iconSmall": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/coffee_small_icon.png",
-	"location": {},
-	"settings": {}
+	"location": "",
+	"settings": ""
 },
 {
 	"_id": "NTI5NjNhNjFmNTliN2Y1YzliMDAwMDAx",
@@ -110,5 +110,5 @@
 	"iconLarge": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/food_near_me_large_icon.png",
 	"iconSmall": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/food_near_me_small_icon.png",
 	"location": "",
-	"settings": {}
+	"settings": ""
 }]

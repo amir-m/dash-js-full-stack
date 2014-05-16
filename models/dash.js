@@ -383,11 +383,24 @@ var DribbbleStat = mongoose.model('DribbbleStat', new mongoose.Schema({
 
 		for (var i = 0; i < dashes_ids.length; ++i) {
 			
+			// redisClient.del(dashes_ids[i]);
+
 			(function(i){
+				
 				redisClient.hgetall(dashes_ids[i], function(error, _dash) {
+					
 					if (error) throw error;
+
+					if (_dash.settingType == 'radio') {
+						_dash.settings = _dash.settings.split(":");
+					}
+
 					d.push(_dash);
+
+					if (i == (dashes_ids.length - 1)) callback(d);
+
 				});
+
 			}(i));
 		}
 	};
@@ -418,7 +431,6 @@ var DribbbleStat = mongoose.model('DribbbleStat', new mongoose.Schema({
 		DribbblePlayer: DribbblePlayer,
 		DribbbleShot: DribbbleShot,
 		BadInput: BadInput,
-		Behance: Behance,
-		findDash: findDash
+		Behance: Behance
 	}
 };
