@@ -3,10 +3,10 @@
 angular.module('DashbookApp')
   .directive('typeText', [function () {
     return {
-      template: '<div></div>',
+      // templateUrl: '//s3.amazonaws.com/dbk-assets/dash.html', 
+      templateUrl: '/partials/type-text.html', 
       restrict: 'E',
       link: function postLink(scope, element, attrs) {
-        element.text('this is the typeText directive');
       }
     };
   }]);

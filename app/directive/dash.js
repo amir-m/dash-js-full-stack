@@ -409,14 +409,32 @@ angular.module('DashbookApp')
               console.log(apiResponseJson);
               console.log(scope.d.privateDash);
 
-              for (var i = 0; i < apiResponseJson.length; ++i) {
-                if (scope.d.privateDash)
+              var content = [];
+
+              for (var i = 0; i < apiResponseJson[scope.d.privateDash.container].length; ++i) {
+                if (scope.d.privateDash.type_indicator == 'type_image') {
+                  
+                  var footer = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.footer_key;
+                  var image = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.image_key;
+                  // console.log('footer = apiResponseJson.'+footer+';');
+                  // console.log('image = apiResponseJson.'+image+';');
+                  eval('footer = apiResponseJson.'+footer+';');
+                  eval('image = apiResponseJson.'+image+';');
+                  content.push({
+                    main_img: image,
+                    footer: footer
+                  });
+                }
+                else if (scope.d.privateDash.type_indicator == 'type_text') {
+                  
+                }
+                else {
+
+                }
               };
 
-              return;
-
-              $scope.apply();
-
+              scope.d.content = content;
+              scope.safeApply();
               attachFlipsnap();
 
             }

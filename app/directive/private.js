@@ -3,10 +3,10 @@
 angular.module('DashbookApp')
   .directive('private', [function () {
     return {
-      template: '<div></div>',
+      // templateUrl: '//s3.amazonaws.com/dbk-assets/dash.html', 
+      templateUrl: '/partials/private.html', 
       restrict: 'E',
       link: function postLink(scope, element, attrs) {
-        element.text('this is the private directive');
       }
     };
   }]);

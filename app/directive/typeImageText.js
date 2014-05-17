@@ -3,10 +3,11 @@
 angular.module('DashbookApp')
   .directive('typeImageText', [function () {
     return {
-      template: '<div></div>',
+// templateUrl: '//s3.amazonaws.com/dbk-assets/dash.html', 
+      templateUrl: '/partials/type-image-text.html', 
       restrict: 'E',
       link: function postLink(scope, element, attrs) {
-        element.text('this is the typeImageText directive');
+
       }
     };
   }]);
