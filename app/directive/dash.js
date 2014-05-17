@@ -415,10 +415,8 @@ angular.module('DashbookApp')
                 if (scope.d.privateDash.type_indicator == 'type_image') {
                   
                   var footer = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.footer_key;
-                  var image = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.image_key;
-                  // console.log('footer = apiResponseJson.'+footer+';');
-                  // console.log('image = apiResponseJson.'+image+';');
                   eval('footer = apiResponseJson.'+footer+';');
+                  var image = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.image_key;
                   eval('image = apiResponseJson.'+image+';');
                   content.push({
                     main_img: image,
@@ -426,16 +424,38 @@ angular.module('DashbookApp')
                   });
                 }
                 else if (scope.d.privateDash.type_indicator == 'type_text') {
-                  
+                  var footer = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.footer_key;
+                  var text = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.text_key;
+                  var header = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.header_key;
+                  eval('footer = apiResponseJson.'+footer+';');
+                  eval('text = apiResponseJson.'+text+';');
+                  eval('header = apiResponseJson.'+header+';');
+                  content.push({
+                    text: text,
+                    footer: footer,
+                    header: header
+                  });
                 }
                 else {
-
+                  var footer = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.footer_key;
+                  eval('footer = apiResponseJson.'+footer+';');
+                  var header = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.header_key;
+                  eval('header = apiResponseJson.'+header+';');
+                  var image = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.image_key;
+                  eval('image = apiResponseJson.'+image+';');
+                  content.push({
+                    main_img: image,
+                    footer: footer,
+                    header: header
+                  });
                 }
               };
 
               scope.d.content = content;
-              scope.safeApply();
+              scope.d.content.splice(0, 10);
               attachFlipsnap();
+              scope.safeApply();
+              scope.$broadcast('resize');
 
             }
           });
