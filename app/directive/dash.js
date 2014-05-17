@@ -11,8 +11,6 @@ angular.module('DashbookApp')
       templateUrl: '/partials/dash.html', 
       link: function (scope, element, attrs) {
         
-        console.log(scope.d);
-
         $('#sortable').prop( "disabled", true );
 
         $(element).mousedown(function(e) {
@@ -52,14 +50,10 @@ angular.module('DashbookApp')
           if (scope.d.selectedSetting) {
             $http.get('/content?t='+scope.d.title+'&s='+scope.d.selectedSetting+'&skip='+scope.skip)
             .success(function(data){
-              $('#' + scope.d._id + ' .spinner').hide();
-
+            
               scope.d.notFound = null;
-              console.log(data);
-
-              attachFlipsnap();
-
-              $('#' + scope.d._id + ' .spinner').hide();
+              scope.d.privateDash = data;
+              apiCall(data);
             })
             .error(function(error, code) { 
               $('#' + scope.d._id + ' .spinner').hide();
@@ -402,6 +396,33 @@ angular.module('DashbookApp')
         function toRad(num) {
           return num * (Math.PI / 180); 
         };
+
+        function apiCall() {
+          $.ajax({
+            "url": scope.d.privateDash.api_end_point,
+            "dataType": "jsonp",
+            "crossDomain": true,
+            "success": function(apiResponseJson, status, headers){
+
+              $('#' + scope.d._id + ' .spinner').hide();
+              
+              console.log(apiResponseJson);
+              console.log(scope.d.privateDash);
+
+              for (var i = 0; i < apiResponseJson.length; ++i) {
+                if (scope.d.privateDash)
+              };
+
+              return;
+
+              $scope.apply();
+
+              attachFlipsnap();
+
+            }
+          });
+          
+        }
 
       }
     };

@@ -92,6 +92,7 @@ module.exports = function (mongoose, redisClient) {
 		delete u['confirmation_id'];
 		delete u['user_name'];
 		delete u['user_email'];
+		delete u['user_id'];
 		return u;
 	};
 
