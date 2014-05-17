@@ -59,7 +59,12 @@
 			</ul>
 
 			<form ng-show="d.settingType == 'textInput'">
-				<input id="{{d._id}}-input-text" class="clearable" type="text" placeholder="Search" name="search_term" value="{{d.selectedSetting}}">
+				<input 
+					id="{{d._id}}-input-text" 
+					class="clearable" type="text" 
+					placeholder="Search" 
+					name="search_term" 
+					value="{{d.selectedSetting}}">
 				<p ng-show="d.notFound" class="centered">Dash Not Found!</p>
 				<button 
 					ng-show="d.dashType == 'privateDash'" 

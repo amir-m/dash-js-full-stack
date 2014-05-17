@@ -318,7 +318,8 @@ module.exports = function  (models, publisher) {
 			});
 		}
 
-		else if (req.query.t == 'Private') {
+		else if (req.query.t == 'Private Dash') {
+		
 			col.findOne({ dash_title: req.query.s })
 			.exec(function(error, doc){
 				if (error) {

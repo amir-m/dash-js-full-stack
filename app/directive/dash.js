@@ -48,22 +48,29 @@ angular.module('DashbookApp')
         }
 
         if (scope.d.dashType == 'privateDash') {
-          $http.get('/content?t='+scope.d.title+'&s='+scope.d.selectedSetting+'&skip='+scope.skip)
-          .success(function(data){
-            
-            dash.notFound = null;
-            console.log(data);
 
-            attachFlipsnap();
+          if (scope.d.selectedSetting) {
+            $http.get('/content?t='+scope.d.title+'&s='+scope.d.selectedSetting+'&skip='+scope.skip)
+            .success(function(data){
+              $('#' + scope.d._id + ' .spinner').hide();
 
+              scope.d.notFound = null;
+              console.log(data);
+
+              attachFlipsnap();
+
+              $('#' + scope.d._id + ' .spinner').hide();
+            })
+            .error(function(error, code) { 
+              $('#' + scope.d._id + ' .spinner').hide();
+              if (code == 404) {
+                scope.d.notFound = true;
+              }
+            });
+          }
+          else {
             $('#' + scope.d._id + ' .spinner').hide();
-          })
-          .error(function(error, code) { 
-            if (code == 404) {
-              dash.notFound = true;
-            }
-          });
-          
+          }
         }
         else {
 
@@ -109,6 +116,7 @@ angular.module('DashbookApp')
             // }
             scope.d.selectedSetting = $('#' + scope.d._id + '-input-text').val();
             scope.d.selectedSetting = scope.d.selectedSetting.toLowerCase();
+
             var __id = null;
             var colName = scope.d.content ? scope.d.content.colName : scope.d.title
             if (scope.d.content && scope.d.content._id)
@@ -156,7 +164,7 @@ angular.module('DashbookApp')
           if ($('#' + scope.d._id + '-input-text').val()) {
             $('#' + scope.d._id + ' .spinner').show();
             scope.d.selectedSetting = $('#' + scope.d._id + '-input-text').val();
-            scope.d.selectedSetting = scope.d.selectedSetting.toLowerCase();
+            // scope.d.selectedSetting = scope.d.selectedSetting.toLowerCase();
             var __id = null;
             var colName = scope.d.content ? scope.d.content.colName : scope.d.title
             if (scope.d.content && scope.d.content._id)
@@ -175,24 +183,10 @@ angular.module('DashbookApp')
               timestamp: new Date().getTime()
             })
             .success(function(data){
-              ++totalFetches;
               scope.flipSettings();
-              if (data.needCallBack) {
-                scope.d.content = [];
-                scope.skip = data.skip;
-                // console.log(data)
-                scheduleContentFecth(data.callBackInterval);
-              }
-              else {
-                if (scope.d.dashType == 'geo') return calculateScalar(data);
-                totalFetches = 0;
-                scope.skip = data.skip;
-
-                scope.d.content = data.content;
-                $('#' + scope.d._id + ' .spinner').hide();
-                attachFlipsnap();
-                scope.safeApply();
-              }
+              $('#' + scope.d._id + ' .spinner').hide();
+              attachFlipsnap();
+              scope.safeApply();
             })
             .error(function(error){
               console.log(error);

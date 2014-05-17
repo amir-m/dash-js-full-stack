@@ -148,7 +148,9 @@ module.exports = function  (models, publisher) {
 
 				if (!dash) return res.send(400);
 
-				dash.selectedSetting = req.body.textInput.toLowerCase();
+				if (req.body.title != 'Private Dash')
+					dash.selectedSetting = req.body.textInput.toLowerCase();
+				else dash.selectedSetting = req.body.textInput;
 
 				dash.save(function(error){
 					
@@ -295,7 +297,7 @@ module.exports = function  (models, publisher) {
 						
 					}
 					else if (req.body.title == 'Private Dash') {
-						
+
 						models.dashes.PrivateDash.findOne({ 
 							dash_title: req.body.textInput 
 						}, function(error, doc){
@@ -303,21 +305,23 @@ module.exports = function  (models, publisher) {
 							if (!doc) {
 								return res.send(404);		
 							}
-						});
 
-						models.users.UserSession.findOne({_id: req.body.sid}, function(error, doc){
-							if (!error) {
-								doc.terms.push({
-						            latitude: req.body.latitude,
-						            longitude: req.body.longitude,
-						            content_id: req.body.content_id,
-						            colName: req.body.colName,
-						            settings: req.body.settings,
-						            timestamp: req.body.timestamp
-								});
-								doc.save();
-							}
+							return res.send(doc.json());
 						});
+						// TODO: Save to UserSession 
+						// models.users.UserSession.findOne({_id: req.body.sid}, function(error, doc){
+						// 	if (!error) {
+						// 		doc.terms.push({
+						//             latitude: req.body.latitude,
+						//             longitude: req.body.longitude,
+						//             content_id: req.body.content_id,
+						//             colName: req.body.colName,
+						//             settings: req.body.settings,
+						//             timestamp: req.body.timestamp
+						// 		});
+						// 		doc.save();
+						// 	}
+						// });
 					}
 
 					else return res.send(400);

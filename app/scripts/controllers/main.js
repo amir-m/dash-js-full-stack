@@ -7,6 +7,11 @@ angular.module('DashbookApp')
     
     $rootScope.myDashes = dashes;
 
+    for (var i = 0; i < $rootScope.myDashes.length; ++i) {
+        if (!$rootScope.myDashes[i]._id && $rootScope.myDashes[i].id)
+            $rootScope.myDashes[i]._id = $rootScope.myDashes[i].id;
+    };
+
     $rootScope.safeApply = function() {
     	if ($rootScope.$$phase != '$apply' && $rootScope.$$phase != '$digest')
       		$rootScope.$apply();
