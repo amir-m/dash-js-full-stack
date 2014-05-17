@@ -10,7 +10,8 @@ angular.module('DashbookApp')
       // templateUrl: '//s3.amazonaws.com/dbk-assets/dash.html', 
       templateUrl: '/partials/dash.html', 
       link: function (scope, element, attrs) {
-        // console.log(window.document.cookie)
+        
+        console.log(scope.d);
 
         $('#sortable').prop( "disabled", true );
 
@@ -46,21 +47,48 @@ angular.module('DashbookApp')
           $('.table').addClass('location');
         }
 
-        $http.get('/content?t='+scope.d.title+'&s='+scope.d.selectedSetting+'&skip='+scope.skip)
-        .success(function(data){
-          if (data.content.length == 0) return showEmptyContent();
+        if (scope.d.dashType == 'privateDash') {
+          $http.get('/content?t='+scope.d.title+'&s='+scope.d.selectedSetting+'&skip='+scope.skip)
+          .success(function(data){
+            if (data.content.length == 0) return showEmptyContent();
 
-          if (scope.d.dashType == 'geo') return calculateScalar(data);
+            if (scope.d.dashType == 'geo') return calculateScalar(data);
 
-          scope.d.content = data.content;
-          scope.skip = data.skip;
-          scope.safeApply();
+            scope.d.content = data.content;
+            scope.skip = data.skip;
+            scope.safeApply();
 
-          attachFlipsnap();
+            attachFlipsnap();
 
-          $('#' + scope.d._id + ' .spinner').hide();
-        })
-        .error(function(error){throw error;});
+            $('#' + scope.d._id + ' .spinner').hide();
+          })
+          .error(function(error) { 
+            throw error; 
+          });
+          
+        }
+        else {
+
+          $http.get('/content?t='+scope.d.title+'&s='+scope.d.selectedSetting+'&skip='+scope.skip)
+          .success(function(data){
+            if (data.content.length == 0) return showEmptyContent();
+
+            if (scope.d.dashType == 'geo') return calculateScalar(data);
+
+            scope.d.content = data.content;
+            scope.skip = data.skip;
+            scope.safeApply();
+
+            attachFlipsnap();
+
+            $('#' + scope.d._id + ' .spinner').hide();
+          })
+          .error(function(error) { 
+            throw error; 
+          });
+
+        }
+
         var flipped = false;
 
         function tog(v){return v?'addClass':'removeClass';} 
@@ -120,7 +148,56 @@ angular.module('DashbookApp')
               }
             })
             .error(function(error){
-              // console.log(error);
+              console.log(error);
+            });
+          }
+          else return;
+        };
+
+        scope.updatePrivateDashSetting = function() {
+          if ($('#' + scope.d._id + '-input-text').val()) {
+            $('#' + scope.d._id + ' .spinner').show();
+            scope.d.selectedSetting = $('#' + scope.d._id + '-input-text').val();
+            scope.d.selectedSetting = scope.d.selectedSetting.toLowerCase();
+            var __id = null;
+            var colName = scope.d.content ? scope.d.content.colName : scope.d.title
+            if (scope.d.content && scope.d.content._id)
+              __id = scope.d.content._id;
+            $http.post('/dashes/'+scope.d._id+'/settings', {
+              textInput: scope.d.selectedSetting,
+              uuid: scope.uuid,
+              settingType: 'textInput',
+              title: scope.d.title,
+              skip: 0,
+              sid: $rootScope.sid,
+              latitude: $rootScope.latitude,
+              longitude: $rootScope.longitude,
+              content_id: __id,
+              colName: colName,
+              timestamp: new Date().getTime()
+            })
+            .success(function(data){
+              ++totalFetches;
+              scope.flipSettings();
+              if (data.needCallBack) {
+                scope.d.content = [];
+                scope.skip = data.skip;
+                // console.log(data)
+                scheduleContentFecth(data.callBackInterval);
+              }
+              else {
+                if (scope.d.dashType == 'geo') return calculateScalar(data);
+                totalFetches = 0;
+                scope.skip = data.skip;
+
+                scope.d.content = data.content;
+                $('#' + scope.d._id + ' .spinner').hide();
+                attachFlipsnap();
+                scope.safeApply();
+              }
+            })
+            .error(function(error){
+              console.log(error);
             });
           }
           else return;

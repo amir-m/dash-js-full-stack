@@ -20,11 +20,11 @@ var models = {
 
 // require('./helpers')(models, publisher).insertDashesToRedisBackend();
 
-setTimeout(function() {
-	models.dashes.Dash.find(function(dashes){
-		console.log(dashes);
-	});
-}, 2000);
+// setTimeout(function() {
+// 	models.dashes.Dash.find(function(dashes){
+// 		console.log(dashes);
+// 	});
+// }, 2000);
 
 require('./config')(express, app, mongoose, cookie, models, publisher);
 

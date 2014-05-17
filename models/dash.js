@@ -55,6 +55,49 @@ module.exports = function (mongoose, redisClient) {
 
 	var UserDash = mongoose.model('UserDash', UserDashSchema);
 
+	var PrivateDashSchema = new mongoose.Schema({
+
+		id: String,
+		confirmation_id: String,
+		
+		dashType: { type: String, default: 'privateDash'},
+		api_end_point: String,
+		dash_title: String,
+		dash_type: String,
+	  	type_indicator: String,
+	  	header: String,
+	  	text: String,
+	  	main_img: String,
+	  	footer: String,
+	  	image_key: String,
+	  	container: String,
+	  	footer_key: String,
+
+		user_id: String,
+		user_name: String,
+		user_email: String,
+
+		view_count: { type: Number, default: 0 },
+		add_count: { type: Number, default: 0 },
+
+		confirmed: { type: Boolean, default: false },
+		created_at: Date,
+		confirmed_at: Date
+	});
+
+	PrivateDashSchema.methods.json = function(pass) {
+		var u = this.toObject();
+		delete u['_id'];
+		delete u['__v'];
+		delete u['confirmation_id'];
+		delete u['user_name'];
+		delete u['user_email'];
+		return u;
+	};
+
+	PrivateDashSchema.set('toObject', { virtuals: true });
+	var PrivateDash = mongoose.model('PrivateDash', PrivateDashSchema);
+
 	var PopularDribbleShot = mongoose.model('PopularDribbleShot', new mongoose.Schema({
 		_id: String,
 		by: String,
@@ -374,9 +417,20 @@ var DribbbleStat = mongoose.model('DribbbleStat', new mongoose.Schema({
 		colName: {type: String, default: 'Behance'} 
 	}));
 
-	function findOneDash() {
+	function findOneDash(id, callback) {
+		redisClient.hgetall('dash:'+id, function(error, _dash){
 
+			if (error) throw error;
+
+			if (_dash.settingType == 'radio') {
+				_dash.settings = _dash.settings.split(":");
+			}
+
+			callback(null, _dash);
+
+		});
 	};
+
 	function findDash(callback) {
 
 		var d = [];
@@ -397,7 +451,7 @@ var DribbbleStat = mongoose.model('DribbbleStat', new mongoose.Schema({
 
 					d.push(_dash);
 
-					if (i == (dashes_ids.length - 1)) callback(d);
+					if (i == (dashes_ids.length - 1)) callback(null, d);
 
 				});
 
@@ -431,6 +485,7 @@ var DribbbleStat = mongoose.model('DribbbleStat', new mongoose.Schema({
 		DribbblePlayer: DribbblePlayer,
 		DribbbleShot: DribbbleShot,
 		BadInput: BadInput,
-		Behance: Behance
+		Behance: Behance,
+		PrivateDash: PrivateDash
 	}
 };

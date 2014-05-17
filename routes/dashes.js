@@ -29,7 +29,8 @@ module.exports = function  (models, publisher) {
 		'Places Near Me': models.dashes.PlacesSearchResult,
 		'Food Near Me': models.dashes.PlacesSearchResult,
 		'Sidebar.io': models.dashes.SideBarIO,
-		'Dribbble Stats': models.dashes.DribbbleStat
+		'Dribbble Stats': models.dashes.DribbbleStat,
+		'Private Dash': models.dashes.PrivateDash
 	}, 
 	geo = ['Coffee Near Me', 'Places Near Me', 'Food Near Me'],
 	pubMap = {
@@ -42,7 +43,7 @@ module.exports = function  (models, publisher) {
 		if (!req.params.uuid || !req.params.id)
 			return res.send(400);
 
-		models.dashes.Dash.findOne({ _id: req.params.id }, function(error, dash){
+		models.dashes.Dash.findOne(req.params.id, function(error, dash){
 			
 			if (error) {
 				console.log(error)
@@ -175,7 +176,7 @@ module.exports = function  (models, publisher) {
 	var readData = function(req, res, next) {
 		var col;
 
-		console.log(req.query.s)
+		console.log(req.query)
 
 		if (map[req.query.t] && !map[req.query.t][req.query.s])
 			col = map[req.query.t];
@@ -184,11 +185,14 @@ module.exports = function  (models, publisher) {
 			col = map[req.query.t][req.query.s];
 
 
-		else return res.send(400);
+		else {
+			return res.send(400);
+		}
 
-		// console.log(req.query.t, req.query.s)
 
-		if (!col.find) return res.send(400);
+		if (!col.find) {
+			return res.send(400);
+		}
 
 		var skip = parseInt(req.query.skip);
 		skip = isNaN(skip) ? 0 : skip;
@@ -315,6 +319,17 @@ module.exports = function  (models, publisher) {
 			});
 		}
 
+		else if (req.query.t == 'Private') {
+			col.findOne({ dash_title: req.query.s })
+			.exec(function(error, doc){
+				if (error) {
+					res.send(500);
+					throw error
+				};
+				return res.send({content: docs, skip: skip + s});
+			});
+		}
+
 		else {
 			var sort = {'news.pubDate': -1};
 			col.find()
@@ -335,15 +350,14 @@ module.exports = function  (models, publisher) {
 
 	var library = function (req, res, next) {
 
+		console.log('LIBRARY GET /dashes');
+
 		models.dashes.Dash.find(function (error, dashes) {
 
 			if (error) {
 				res.send(500);
-				throw error
+				throw error;
 			};
-
-			console.log(dashes)
-
 			res.send(dashes);
 		})
 	};

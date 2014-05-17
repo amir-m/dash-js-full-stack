@@ -3,7 +3,14 @@
 		<header>
 			<h1 class="dash-title">
 				<img class="small-icon" ng-src="{{d.iconSmall}}">
-				{{d.title}} • <span>{{d.selectedSetting || 'Current Location'}}</span></h1>
+				{{d.title}} • 
+				<span ng-show="d.dashType == 'privateDash'">
+					{{d.selectedSetting || 'No Dash Selected'}}
+				</span>
+				<span ng-show="d.dashType != 'privateDash'">
+					{{d.selectedSetting || 'Current Location'}}
+				</span>
+			</h1>
 			<a class="settings-btn" ng-click="flipSettings()">
 				<span>
 					<img src="https://s3.amazonaws.com/s3.dashbook.co/dbkapp/img/settings-btn.png">
@@ -28,6 +35,7 @@
 		<div class="slide-indicator" id="pointer-{{d._id}}">
 			<span ng-repeat="content in d.content" id ="{{d._id}}{{content._id}}"></span>
 			<!-- <span class="load-more" ng-show="d.content.length > 1"></span> -->
+
 		</div>
 	</div>
 
@@ -52,7 +60,15 @@
 
 			<form ng-show="d.settingType == 'textInput'">
 				<input id="{{d._id}}-input-text" class="clearable" type="text" placeholder="Search" name="search_term" value="{{d.selectedSetting}}">
-				<button ng-click="updateInputText()">Save</button>
+				<p ng-show="d.notFound" class="centered">Dash Not Found!</p>
+				<button 
+					ng-show="d.dashType == 'privateDash'" 
+					ng-click="updatePrivateDashSetting()"
+				>Save
+				</button>
+				<button 
+					ng-show="d.dashType != 'privateDash'" 
+					ng-click="updateInputText()">Save</button>
 			</form>
 			<footer>
 				<a class="remove-btn" ng-click="removeDash()" id="{{d._id}}-remove-btn">
