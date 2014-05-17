@@ -174,9 +174,8 @@ module.exports = function  (models, publisher) {
 	};
 
 	var readData = function(req, res, next) {
+		
 		var col;
-
-		console.log(req.query)
 
 		if (map[req.query.t] && !map[req.query.t][req.query.s])
 			col = map[req.query.t];
@@ -326,7 +325,10 @@ module.exports = function  (models, publisher) {
 					res.send(500);
 					throw error
 				};
-				return res.send({content: docs, skip: skip + s});
+				
+				if (!doc) return res.send(404);
+
+				return res.send(doc.json());
 			});
 		}
 

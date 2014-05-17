@@ -50,20 +50,18 @@ angular.module('DashbookApp')
         if (scope.d.dashType == 'privateDash') {
           $http.get('/content?t='+scope.d.title+'&s='+scope.d.selectedSetting+'&skip='+scope.skip)
           .success(function(data){
-            if (data.content.length == 0) return showEmptyContent();
-
-            if (scope.d.dashType == 'geo') return calculateScalar(data);
-
-            scope.d.content = data.content;
-            scope.skip = data.skip;
-            scope.safeApply();
+            
+            dash.notFound = null;
+            console.log(data);
 
             attachFlipsnap();
 
             $('#' + scope.d._id + ' .spinner').hide();
           })
-          .error(function(error) { 
-            throw error; 
+          .error(function(error, code) { 
+            if (code == 404) {
+              dash.notFound = true;
+            }
           });
           
         }
