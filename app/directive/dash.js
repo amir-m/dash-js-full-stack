@@ -50,7 +50,6 @@ angular.module('DashbookApp')
           if (scope.d.selectedSetting) {
             $http.get('/content?t='+scope.d.title+'&s='+scope.d.selectedSetting+'&skip='+scope.skip)
             .success(function(data){
-            
               scope.d.notFound = null;
               scope.d.privateDash = data;
               apiCall(data);
@@ -178,12 +177,19 @@ angular.module('DashbookApp')
             })
             .success(function(data){
               scope.flipSettings();
-              $('#' + scope.d._id + ' .spinner').hide();
-              attachFlipsnap();
-              scope.safeApply();
+              scope.d.notFound = null;
+              scope.d.privateDash = data;
+              apiCall(data);
+              // $('#' + scope.d._id + ' .spinner').hide();
+              // attachFlipsnap();
+              // scope.safeApply();
             })
-            .error(function(error){
-              console.log(error);
+            .error(function(error, code){
+              $('#' + scope.d._id + ' .spinner').hide();
+              if (code == 404) {
+                scope.d.notFound = true;
+              }
+
             });
           }
           else return;
@@ -405,9 +411,6 @@ angular.module('DashbookApp')
             "success": function(apiResponseJson, status, headers){
 
               $('#' + scope.d._id + ' .spinner').hide();
-              
-              console.log(apiResponseJson);
-              console.log(scope.d.privateDash);
 
               var content = [];
 
