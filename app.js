@@ -33,7 +33,6 @@ var routes = {
 	dashes: require('./routes/dashes')(models, publisher, mongoose),
 	settings: require('./routes/settings')(models, publisher),
 	accounts: require('./routes/accounts').init(models)	
-	// oauth: require('./routes/accounts')(models)
 };
 
 require('./router')(routes, app);
