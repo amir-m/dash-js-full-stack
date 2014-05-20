@@ -54,7 +54,6 @@ module.exports = function (models, publisher, cookie) {
 
 	var update = function (req, res, next) {
 
-		console.log(req.headers);
 		console.log(req.body);
 
 		var time = new Date().getTime();
