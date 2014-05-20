@@ -1,0 +1,559 @@
+html {
+	padding: 0;
+	margin: 0;
+	background-color: #0d212b;
+	height: 100%;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	font-size: 14px;
+	color: #fff;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	overflow: hidden;
+	height: 100%;
+}
+
+*:not(input) {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none; /* Disable selection/Copy of UIWebView */
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}
+
+img {
+	width: 100%;
+}
+
+a, a:hover {
+	text-decoration: none;
+	color: inherit;
+}
+
+h1, h2, h3 {
+	margin-top: 0;
+	margin-bottom: 0.5em;
+	font-weight: 300;
+}
+
+h1 {
+	line-height: 1.8em;
+	font-size: 1.4em;
+	font-weight: 300;
+}
+
+p {
+	margin-top: 0;
+	margin-bottom: 0.5em;
+}
+
+input:focus {
+	outline: none;
+}
+
+.smooth-scrolling {
+	overflow-y: scroll;
+  	-webkit-overflow-scrolling: touch;
+}
+
+.dbk-wrapper {
+	display: block;
+	position: relative;
+	height: 100%;
+	transition: -moz-transform .25s ease-in-out;
+	-moz-transition: -moz-transform .25s ease-in-out;
+	-webkit-transition: -webkit-transform .25s ease-in-out;
+	z-index: 5;
+}
+
+.dbk-header {
+	position: static;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 75px;
+	text-align: center;
+	z-index: 2;
+	
+	background: rgba(24,56,70, 0.95);
+	border-bottom: 2px solid #193c4c;
+}
+
+.dbk-header img {
+	max-width: 120px;
+	margin: 3em auto;
+}
+
+.library-btn {
+	width: 40px;
+	height: 32px;
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 2.4em 0.5em;
+	background: transparent url(../img/library-btn.png) no-repeat center center;
+	background-size: 50%;
+}
+
+.all-dashes {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding: 75px 0 0 0;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	background: #0d212b;
+	z-index: -1;
+}
+
+
+/*---------Flip Effect----------*/
+
+.dashbook {
+	z-index: 900;
+	-webkit-transform: rotateX(0deg) rotateY(0deg);
+	-webkit-transform-style: preserve-3d;
+	-webkit-backface-visibility: hidden;
+	-webkit-transition: all .6s ease-in-out;
+	visibility: visible;
+
+}
+.m-flip .dashbook {
+	z-index: 900;
+	-webkit-transform: rotateY(-180deg);
+	visibility: hidden;
+}
+
+.library {
+	-webkit-transform: rotateY(180deg);
+	-webkit-transform-style: preserve-3d;
+	-webkit-backface-visibility: hidden;
+	-webkit-transition: all .6s ease-in-out;
+	visibility: hidden;
+}
+
+.m-flip .library {
+	z-index: 1000;
+	-webkit-transform: rotateX(0deg) rotateY(0deg);
+	visibility: visible;
+}
+
+/*---------Spinner Effect----------*/
+
+.spinner {
+	width: 80px;
+	height: 80px;
+	background-color: rgba(0,0,0,0.5);
+	border-radius: 10px;
+	position: absolute;
+	display: table-cell;
+	margin: auto;
+	top: 0; left:0; right:0; bottom:0;
+	z-index: 11111;
+}
+
+.spinner img {
+	position:absolute;
+	width: 30px;
+	height: 30px;
+	margin: auto;
+	top:0; left:0; right:0; bottom:0;
+	-webkit-animation-name:bounce_circularG;
+	-webkit-animation-duration: 1000ms;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-direction:linear;
+	-webkit-transform-origin: center center;
+	animation-name:bounce_circularG;
+	animation-duration: 500ms;
+	animation-iteration-count:infinite;
+	animation-direction:linear;
+	transform-origin: center center;
+}
+@-webkit-keyframes bounce_circularG{0%{	-webkit-transform: rotate(360deg);} 100%{-webkit-transform: rotate(0deg);}}
+
+/*Header and Body ENDS*/
+
+/*General Dash Library STARTS*/
+
+/*General Dash Library ENDS*/
+
+
+/*General Dash layout STARTS*/
+
+article {
+	width: 96%;
+	margin: 0 auto;
+	position: relative;
+}
+
+article header h1 {
+	font-size: 0.7em;
+	font-weight: bold;
+	text-transform: uppercase;
+	line-height: 0.5em;
+	margin-left: 0.5em;
+	position: relative;
+}
+article header h1 span {
+	text-transform: capitalize;
+	font-weight: 300;
+}
+article header h1 img {
+	width: 10px;
+	height: 10px;
+	margin-top: 6px;
+	margin-right: 0.2em;
+	vertical-align: text-bottom;
+}
+
+.settings-btn, .info-submitted {
+	width: 40px;
+	height: 40px;
+	display: block;
+	position: absolute;
+	top: -10px;
+	right: -6px;
+}
+.settings-btn span, .info-submitted span {
+	width: 2px;
+	height: 8px;
+	padding: 4px 7px;
+	display: block;
+	border: 1px solid #fff;
+	border-radius: 16px;
+	background: url(../img/settings-btn.png) no-repeat center;
+	background-size: 15%;
+	margin: 12px;
+}
+
+.front, .back {
+	min-height: 80px;
+	margin: 0.8em auto 1.2em;
+	border: solid 1px #17313d;
+	border-radius: 3px;
+	position: relative;
+	background: #0e2936;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+	
+	-webkit-perspective: 600px;
+	-moz-perspective: 600px;
+}
+.flip .front {
+	display: none;
+}
+.back {
+	display: none;
+}
+.flip .back {
+	display: block;
+}
+
+.viewport {
+    width: 298px;
+    overflow: hidden;
+    margin: 0 auto;
+    -webkit-transform: translateZ(0); /* Optional: When heavy at iOS6+ */
+}
+
+.viewport section {
+    float: left;
+    width: 298px;
+	margin-right: 17px;
+}
+
+.viewport section > div {
+	border-bottom: 1px solid #163240;
+	margin-bottom: 1em;
+	position:relative;
+	min-height: 70px;
+}
+
+.viewport section > div:last-child {
+	border-bottom: none;
+	margin-bottom: 0;
+	padding-bottom: 0.5em;
+}
+
+.slide-indicator {
+	text-align: center;
+	padding-bottom: 5px;
+}
+.slide-indicator span {
+	background-color: #fff;
+	display: inline-block;
+	width: 6px;
+	height: 6px;
+	border-radius: 4px;
+	margin: 0 2px;
+	vertical-align: middle;
+}
+.slide-indicator .current {
+	background-color: transparent;
+	border: 1px solid #fff;
+}
+
+.table {
+	display: table;
+}
+
+.cell {
+	display: table-cell;
+	vertical-align: top;
+	padding: 0.5em;
+}
+
+.middle {
+	vertical-align: middle;
+}
+
+.hero {
+	padding: 0.5em;
+	width: 284px;
+}
+.avatar {
+	border-radius: 8px;
+	width: 50px;
+}
+
+.location-btn {
+	background: url(../img/location-btn.png) no-repeat center center;
+	background-size: 20px;
+}
+
+.location-btn a {
+	width: 40px;
+	height: 40px;
+	display: block;
+}
+
+.grey {
+	color: #666;
+}
+
+.bold {
+	font-weight: 400;
+}
+
+.centered {
+	text-align: center;
+}
+
+.middle {
+	vertical-align: middle;
+}
+
+.scalar {
+}
+.unit {
+	font-size: 0.7em;
+}
+/*General Dash layout ENDS*/
+
+
+/*Temps layout STARTS*/
+
+.location .large-cell {
+	width: 180px;
+	max-width: 180px;
+	overflow: hidden;
+}
+
+.location .small-cell {
+	max-width: 80px;
+	overflow: hidden;
+}
+
+
+/*General Dash layout ENDS*/
+
+/*General Dash Settings STARTS*/
+
+.settings ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 1em 2%;
+	border-radius: 2px;
+	color: #666;
+	background: #fff;
+	max-height: 158px;
+	min-height: 44px;
+	overflow: scroll;
+}
+
+.settings li {
+	padding: 1em 0.5em;
+	padding-left: 0;
+	margin-left: 1em;
+	border-bottom: 1px solid #ccc;
+}
+
+.settings li:last-child {
+	border: none;
+}
+
+.settings .selected {
+	background: url(../img/list-box-selected.png) no-repeat 95% center;
+	background-size: 14px;
+}
+
+.settings form {
+	width: 100%;
+	margin-top: 0.5em;
+}
+
+.settings form input {
+	width: 230px;
+	padding: 1em 0.8em;
+	display: block;
+	margin: 1em auto;
+	border: none;
+	border-radius: 2px;
+}
+
+.clearable{
+  background: #fff url(../img/clear-field-btn.png) no-repeat 350px center;
+  background-size: auto 60%;
+  transition: background 0.4s;
+}
+.clearable.x{
+  background-position: 222px center;
+}
+.clearable.onX{
+  cursor:pointer;
+}
+
+.settings button {
+	width: 60%;
+	padding: 0.5em 2em;
+	border: 1px solid #fff;
+	display: block;
+	color: #fff;
+	font-size: 1.2em;
+	background-color: transparent;
+	border-radius: 2px;
+	font-weight: 300;
+	margin: 0.5em auto 1.5em;
+}
+
+.settings footer {
+	height: 2.8em;
+	border-top: 1px solid #163240;
+	padding-top: 1em;
+	font-size: 0.8em;
+	line-height: 1.8em;
+}
+.remove-btn, .add-btn {
+	width: 0px;
+	height: 20px;
+	overflow: hidden;
+	padding-left: 20px;
+	margin-left: 2%;
+	display: block;
+	float: left;
+	border: 1px solid #fff;
+	border-radius: 20px;
+	background: url(../img/remove-btn.png) no-repeat 5px center;
+	background-size: 10px;
+}
+
+.expand {
+	width: 50px;
+	-webkit-transition: all ease-in-out 400ms;
+}
+
+.credit {
+	float: right;
+	margin-right: 2%;
+	color: #666;
+	line-height: 2em;
+}
+
+/*General Dash Settings ENDS*/
+
+/*Library STARTS*/
+
+.push-screen {
+	-webkit-transform: translate3D(-80%,0,0);
+}
+
+.library-wrapper {
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 80%;
+	height: 100%;
+	z-index: 1;
+	background: #0b1c24;
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.library-wrapper ul {
+	padding: 0;
+	list-style-type: none;
+}
+
+.library-wrapper li {
+	margin-left: 2em;
+	border-bottom: 1px solid #0e2936;
+	padding: 1em 0 2.5em;
+}
+
+.large-icon {
+	width: 20px;
+	height: 20px;
+	padding: 0.25em;
+	margin-left: -1.5em;
+	margin-top: 0.25em;
+}
+
+.library-wrapper li h1 {
+	font-size: 1.2em;
+	font-weight: 300;
+}
+.library-wrapper li p {
+	font-size: 0.9em;
+}
+
+.library-wrapper .large {
+	width: 100%;
+}
+
+.library-wrapper .credit {
+	float: none;
+}
+
+.add-btn {
+	background: url(../img/add-btn.png) no-repeat 5px center;
+	background-size: 10px;
+	font-size: 0.8em;
+	line-height: 1.9em;
+	float: right;
+	margin-right: 1em;
+}
+
+.add-btn.expand {
+	width: 26px;
+}
+
+
+/*@media only screen 
+and (max-device-height : 480px) {
+	.all-dashes {
+	height: 391px;
+	}
+	.library .all-dashes {
+		height: 411px;
+	}
+	.library .bg-move {
+		min-height: 391px;
+	}
+}*/
