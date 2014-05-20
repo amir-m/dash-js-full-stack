@@ -2,38 +2,38 @@ module.exports = function  (models, publisher) {
 
 	var cookie = require('cookie');
 
-	var map = {
-		'Dribbble': {
-			'Everyone': models.dashes.EveryoneDribbleShot,
-			'Popular': models.dashes.PopularDribbleShot,
-			'Debut': models.dashes.DebutsDribbleShot
-		},
-		'News': {
-			'Business Insider': models.dashes.BusinessInsider,
-			Wired: models.dashes.Wired,
-			VentureBeat: models.dashes.VentureBeat,
-			TechCrunch: models.dashes.TechCrunch,
-			'New York Times': models.dashes.NewYorkTimes,
-			Mashable: models.dashes.Mashable,
-			'Inc.com': models.dashes.IncCom,
-			Forbes: models.dashes.Forbes,
-			'Fast Company': models.dashes.FastCompany,
-			ESPN: models.dashes.ESPN,
-			Core77: models.dashes.Core77,
-			'Design Milk': models.dashes.DesignMilk
-		},
-		'BeHance': models.dashes.Behance,
-		'Coffee Near Me': models.dashes.PlacesSearchResult,
-		'Places Near Me': models.dashes.PlacesSearchResult,
-		'Food Near Me': models.dashes.PlacesSearchResult,
-		'Sidebar.io': models.dashes.SideBarIO,
-		'Dribbble Stats': models.dashes.DribbbleStat,
-		'Private Dash': models.dashes.PrivateDash
-	},
-	pubMap = {
-		'BeHance': 'behance',
-		'Places Near Me': 'places'
-	};
+	// var map = {
+	// 	'Dribbble': {
+	// 		'Everyone': models.dashes.EveryoneDribbleShot,
+	// 		'Popular': models.dashes.PopularDribbleShot,
+	// 		'Debut': models.dashes.DebutsDribbleShot
+	// 	},
+	// 	'News': {
+	// 		'Business Insider': models.dashes.BusinessInsider,
+	// 		Wired: models.dashes.Wired,
+	// 		VentureBeat: models.dashes.VentureBeat,
+	// 		TechCrunch: models.dashes.TechCrunch,
+	// 		'New York Times': models.dashes.NewYorkTimes,
+	// 		Mashable: models.dashes.Mashable,
+	// 		'Inc.com': models.dashes.IncCom,
+	// 		Forbes: models.dashes.Forbes,
+	// 		'Fast Company': models.dashes.FastCompany,
+	// 		ESPN: models.dashes.ESPN,
+	// 		Core77: models.dashes.Core77,
+	// 		'Design Milk': models.dashes.DesignMilk
+	// 	},
+	// 	'BeHance': models.dashes.Behance,
+	// 	'Coffee Near Me': models.dashes.PlacesSearchResult,
+	// 	'Places Near Me': models.dashes.PlacesSearchResult,
+	// 	'Food Near Me': models.dashes.PlacesSearchResult,
+	// 	'Sidebar.io': models.dashes.SideBarIO,
+	// 	'Dribbble Stats': models.dashes.DribbbleStat,
+	// 	'Private Dash': models.dashes.PrivateDash
+	// },
+	// pubMap = {
+	// 	'BeHance': 'behance',
+	// 	'Places Near Me': 'places'
+	// };
 
 	var create = function (req, res, next) {
 		

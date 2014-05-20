@@ -29,12 +29,12 @@ module.exports = function(express, app, mongoose, cookie, models, redisClient) {
 		// console.log('req.path:');
 		// console.log(req.path);
 
-		res.cookie('uuid', 'pakmeNEYxOEU4NjctMjQzOS00NzMzLUI0QzgtQjE4N0QxNEQzNDU3', { maxAge: 100*60*1000, httpOnly: false });
-		res.cookie('sid', 'NTJhYjcwY2M3YjNhNTk3ODYxMDAwMDAx', { maxAge: 100*60*1000, httpOnly: false });
-		res.cookie('latitude', '45.495744', { maxAge: 100*60*1000, httpOnly: false });
-		res.cookie('longitude', '-73.563195', { maxAge: 100*60*1000, httpOnly: false });
+		// res.cookie('uuid', 'NEYxOEU4NjctMjQzOS00NzMzLUI0QzgtQjE4N0QxNEQzNDU3', { maxAge: 100*60*1000, httpOnly: false });
+		// res.cookie('sid', 'NTJhYjcwY2M3YjNhNTk3ODYxMDAwMDAx', { maxAge: 100*60*1000, httpOnly: false });
+		// res.cookie('latitude', '45.495744', { maxAge: 100*60*1000, httpOnly: false });
+		// res.cookie('longitude', '-73.563195', { maxAge: 100*60*1000, httpOnly: false });
 
-		return next();
+		// return next();
 		
 		// if (req.path == '/relaunch' || req.path == '/') {
 		// 	console.log(req.path);
@@ -47,14 +47,21 @@ module.exports = function(express, app, mongoose, cookie, models, redisClient) {
 		// 	console.log(req.headers);
 		// }
 		if (req.path == '/') {
-			if (!req.headers['x-latitude'] || !req.headers['x-longitude'] || !req.headers['x-userid'])
+			if (!req.headers['x-latitude'] || !req.headers['x-longitude'] || !req.headers['x-userid']) {
 				// return res.redirect('http://dashbookapp.com');
-				return next();
-
-
-			var uuid = req.headers['x-userid'],
-				lat = parseFloat(req.headers['x-latitude']),
-				lon = parseFloat(req.headers['x-longitude']);
+				if (!req.query.uuid || !req.query.lat || !req.query.lon)
+					return next();
+				else {
+					var uuid = req.query.uuid,
+						lat = parseFloat(req.query.lat),
+						lon = parseFloat(req.query.lon);
+				}
+			}
+			else {
+				var uuid = req.headers['x-userid'],
+					lat = parseFloat(req.headers['x-latitude']),
+					lon = parseFloat(req.headers['x-longitude']);
+			}
 
 			// uuid is hashed 
 			if (uuid.indexOf('-') != -1) {
@@ -78,51 +85,40 @@ module.exports = function(express, app, mongoose, cookie, models, redisClient) {
 				},
 				function(user, callback) {
 					
+					// New Dashbook User
 					if (!user) {
 						
-						var sid = models.id();
-
 						models.User.create({
 							uuid: uuid,
-							created_at: new Date().getTime(),
-							sid: sid, 
 							lat: lat,
-							lon: lon
+							lon: lon,
+							dashes: '',
+							created_at: new Date().getTime(),
 						});
 
-						callback(null, sid);
+						callback(null);
 
 					}
+					// User Exist, check the session
 					else {
 						models.Session.createOrUpdate({
 							uuid: uuid,
 							lat: lat,
 							lon: lon,
 							created_at: new Date().getTime().toString()
-						}, function(error, sid){
-							if (error) {
-								res.send(500);
-								throw error;
-							}
-							callback(null, sid);
 						});
+						callback(null);
 					}
 				},
-				function(sid, callback) {
+				function(callback) {
 					res.cookie('uuid', uuid, { maxAge: 100*60*1000, httpOnly: false });
-					res.cookie('sid', sid, { maxAge: 100*60*1000, httpOnly: false });
 					res.cookie('latitude', lat, { maxAge: 100*60*1000, httpOnly: false });
 					res.cookie('longitude', lon, { maxAge: 100*60*1000, httpOnly: false });
 					next();
 				}
 			]);
 
-			
-
-			console.log(lat, lon, req.headers['x-time']);
-
-
-			// models.UserDash.findOne({user: uuid}, function(error, user){
+			// models.UserDash.findOne({ user: uuid }, function(error, user){
 			// 	console.log('about to find dashes of ', uuid);
 			// 	if (error) return console.log(error);
 

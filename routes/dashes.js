@@ -4,46 +4,46 @@ module.exports = function  (models, publisher) {
 
 	var cookie = require('cookie');
 
-	var map = {
-		'Dribbble': {
-			'Everyone': models.dashes.EveryoneDribbleShot,
-			'Popular': models.dashes.PopularDribbleShot,
-			'Debut': models.dashes.DebutsDribbleShot
-		},
-		'News': {
-			'Business Insider': models.dashes.BusinessInsider,
-			Wired: models.dashes.Wired,
-			VentureBeat: models.dashes.VentureBeat,
-			TechCrunch: models.dashes.TechCrunch,
-			'New York Times': models.dashes.NewYorkTimes,
-			Mashable: models.dashes.Mashable,
-			'Inc.com': models.dashes.IncCom,
-			Forbes: models.dashes.Forbes,
-			'Fast Company': models.dashes.FastCompany,
-			ESPN: models.dashes.ESPN,
-			Core77: models.dashes.Core77,
-			'Design Milk': models.dashes.DesignMilk
-		},
-		'BeHance': models.dashes.Behance,
-		'Coffee Near Me': models.dashes.PlacesSearchResult,
-		'Places Near Me': models.dashes.PlacesSearchResult,
-		'Food Near Me': models.dashes.PlacesSearchResult,
-		'Sidebar.io': models.dashes.SideBarIO,
-		'Dribbble Stats': models.dashes.DribbbleStat,
-		'Private Dash': models.dashes.PrivateDash
-	}, 
-	geo = ['Coffee Near Me', 'Places Near Me', 'Food Near Me'],
-	pubMap = {
-		'BeHance Project Search': 'behance',
-		'Places Near Me': 'places'
-	};
+	// var map = {
+	// 	'Dribbble': {
+	// 		'Everyone': models.EveryoneDribbleShot,
+	// 		'Popular': models.PopularDribbleShot,
+	// 		'Debut': models.DebutsDribbleShot
+	// 	},
+	// 	'News': {
+	// 		'Business Insider': models.BusinessInsider,
+	// 		Wired: models.Wired,
+	// 		VentureBeat: models.VentureBeat,
+	// 		TechCrunch: models.TechCrunch,
+	// 		'New York Times': models.NewYorkTimes,
+	// 		Mashable: models.Mashable,
+	// 		'Inc.com': models.IncCom,
+	// 		Forbes: models.Forbes,
+	// 		'Fast Company': models.FastCompany,
+	// 		ESPN: models.ESPN,
+	// 		Core77: models.Core77,
+	// 		'Design Milk': models.DesignMilk
+	// 	},
+	// 	'BeHance': models.Behance,
+	// 	'Coffee Near Me': models.PlacesSearchResult,
+	// 	'Places Near Me': models.PlacesSearchResult,
+	// 	'Food Near Me': models.PlacesSearchResult,
+	// 	'Sidebar.io': models.SideBarIO,
+	// 	'Dribbble Stats': models.DribbbleStat,
+	// 	'Private Dash': models.PrivateDash
+	// }, 
+	// geo = ['Coffee Near Me', 'Places Near Me', 'Food Near Me'],
+	// pubMap = {
+	// 	'BeHance Project Search': 'behance',
+	// 	'Places Near Me': 'places'
+	// };
 	
 	var create = function (req, res, next) {
 		
 		if (!req.params.uuid || !req.params.id)
 			return res.send(400);
 
-		models.dashes.Dash.findOne(req.params.id, function(error, dash){
+		models.Dash.findOne(req.params.id, function(error, dash){
 			
 			if (error) {
 				console.log(error)
@@ -62,8 +62,8 @@ module.exports = function  (models, publisher) {
 				
 			}
 
-			models.dashes.UserDash.create({
-				_id: models.dashes.objectId(),
+			models.UserDash.create({
+				_id: models.objectId(),
 				dash_id: dash._id,
 				dashType: dash.dashType,
 				location: {
@@ -96,7 +96,7 @@ module.exports = function  (models, publisher) {
 	var remove = function (req, res, next) {
 		if (!req.params.id)
 			return res.send(400);
-		models.dashes.UserDash.findOne({ _id: req.params.id }, function (error, userDash){
+		models.UserDash.findOne({ _id: req.params.id }, function (error, userDash){
 
 			if (error) {
 				return res.send(500);
@@ -142,7 +142,7 @@ module.exports = function  (models, publisher) {
 					$in: list
 				}; 
 			}
-			models.dashes.UserDash.find(q, function (error, userDash){
+			models.UserDash.find(q, function (error, userDash){
 
 				if (error) {
 					res.send(500);
@@ -160,7 +160,7 @@ module.exports = function  (models, publisher) {
 		}
 
 		else 
-			models.dashes.UserDash.find(q, function (error, userDash){
+			models.UserDash.find(q, function (error, userDash){
 
 				if (error) {
 					return res.send(500);
@@ -355,7 +355,7 @@ module.exports = function  (models, publisher) {
 
 		console.log('LIBRARY GET /dashes');
 
-		models.dashes.Dash.find(function (error, dashes) {
+		models.Dash.find(function (error, dashes) {
 
 			if (error) {
 				res.send(500);
@@ -367,7 +367,7 @@ module.exports = function  (models, publisher) {
 
 	var uirOpened = function (req, res, next) {
 
-		models.users.UserSession.findOne({ _id: req.body.sid }, function(error, doc) {
+		models.UserSession.findOne({ _id: req.body.sid }, function(error, doc) {
 			if (error) {
 				console.log(error);
 				return res.send(500);

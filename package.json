@@ -10,7 +10,8 @@
     "connect": "*",
     "body-parser": "*",
     "method-override": "*",
-    "morgan": "*"
+    "morgan": "*",
+    "async": "*"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
