@@ -86,8 +86,8 @@ UserSessionSchema.statics.createFromCache = function(session) {
 			timestamp: new Date((splited_loc[i].split(':'))[0]).getTime(),
 			latitude: parseInt((splited_loc[i].split(':'))[1]),
 			longitude: parseInt((splited_loc[i].split(':'))[2]),
-			content_id: splited_cl[i].split(':'))[3],
-			col_name: splited_cl[i].split(':'))[4]
+			content_id: splited_cl[i].split(':')[3],
+			col_name: splited_cl[i].split(':')[4]
 		});
 	};
 
