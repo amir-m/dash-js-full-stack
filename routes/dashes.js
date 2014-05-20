@@ -367,15 +367,8 @@ module.exports = function  (models, publisher) {
 
 	var uirOpened = function (req, res, next) {
 
-		models.UserSession.findOne({ _id: req.body.sid }, function(error, doc) {
-			if (error) {
-				console.log(error);
-				return res.send(500);
-			}
-			doc.clicks.push(req.body);
-			doc.save();
-			res.send(200);
-		});
+        models.Session.click(req.body);
+        res.send(200);
 
 	};
 

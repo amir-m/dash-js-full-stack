@@ -278,11 +278,10 @@ angular.module('DashbookApp')
         scope.uriOpened = function(content) {
           $http.post('/readcontent', {
             uuid: $rootScope.uuid,
-            sid: $rootScope.sid,
             latitude: $rootScope.latitude,
             longitude: $rootScope.longitude,
-            content_id: content._id,
-            colName: content.colName,
+            content_id: content.id,
+            col_name: content.colName,
             timestamp: new Date().getTime()
           });
         }

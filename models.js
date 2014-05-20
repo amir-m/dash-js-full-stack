@@ -50,7 +50,7 @@ var UserSessionSchema = new mongoose.Schema({
 	uuid: String,
 	is_active: { type: Boolean, default: true },
 	is_defective: { type: Boolean, default: false },
-	begin_time: Date,
+	begin_time: Number,
 	end_time: Number,
 	duration: Number,
 	update_times: [],
@@ -60,6 +60,30 @@ var UserSessionSchema = new mongoose.Schema({
 });
 
 UserSessionSchema.statics.createFromCache = function(session) {
+	
+	var loc = [], splited_loc = session.locations.split('|');
+	
+	for (var i = 0; i < splited_loc.length; ++i) {
+		loc.push({
+			timestamp: new Date((splited_loc[i].split(':'))[0]).getTime(),
+			latitude: parseInt((splited_loc[i].split(':'))[1]),
+			longitude: parseInt((splited_loc[i].split(':'))[2]),
+		});
+	};
+
+	var user_session = new UserSession({
+		id: _objectId(),
+		uuid: session.uuid,
+		is_active: session.is_active,
+		is_defective: session.is_defective,
+		begin_time: new Date(session.begin_time).getTime(),
+		end_time: new Date(session.end_time).getTime(),
+		duration: parseInt(end_time) - parseInt(begin_time),
+		update_times: session.update_times.split('|'),
+		locations: [],
+		clicks: [],
+		terms: []	
+	});
 	console.log(session);
 };
 
@@ -236,7 +260,7 @@ function createUser(user) {
 
 function createSession(session) {
 	
-	console.log(session)
+	// console.log(session)
 
 	redisClient.hmset('session:'+session.uuid, {
 		uuid: session.uuid,
@@ -283,6 +307,21 @@ function createOrUpdateSession(options) {
 	});
 };
 
+function clickSession(click) {
+	// Format: 	'timestamp:uuid:latitude:longitude:content_id:col_name'
+	redisClient.hget('session:'+click.uuid, 'clicks', function (error, clicks) {
+		if (error) throw error;
+
+		if (clicks.length > 0) {
+			clicks += '|';
+		}
+
+		clicks += click.timestamp+':'+click.uuid+':'+click.latitude+':'+click.longitude+':'+content_id+':'+col_name;
+
+		redisClient.hset('session:'+click.uuid, 'clicks', clicks);
+	});
+};
+
 function cipher (text) {
 	// change the key
 	var key = 'NmU5MTgzYzJhNjM1N2JkZjhhMjAxZDc5OWM0ODFlZDYzMTYxNmQ3Ng';
@@ -313,7 +352,8 @@ var User = {
 var Session = {
 	create: createSession,
 	createOrUpdate: createOrUpdateSession,
-	deleteSession: deleteSession
+	deleteSession: deleteSession, 
+	click: clickSession
 };
 
 exports.config = config;
