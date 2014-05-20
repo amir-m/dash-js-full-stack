@@ -54,36 +54,23 @@ module.exports = function (models, publisher, cookie) {
 
 	var update = function (req, res, next) {
 
-		console.log(req.body);
-
 		var uuid = req.body['x-userid'],
 			lat = parseFloat(req.body['x-latitude']),
 			lon = parseFloat(req.body['x-longitude']);
 
-		var time = new Date().getTime();
-		if (req.headers.cookie && cookie.parse(req.headers.cookie).sid 
-		&& req.headers['x-lat'] && req.headers['x-lon'] && req.headers['x-uuid']) {
+		var timestamp = new Date().getTime();
+
+		if (uuid && lat && lon) {
 
 			publisher.publish('initialize', lat+'|'+lon+'|'+uuid);
 
 			res.send(200);
 
-			models.users.UserSession.findOne({_id: cookie.parse(req.headers.cookie).sid}, 
-				function(error, session){
-					
-					if (error) return console.log(error);
-					if (!session) return console.log('Invalid session update request!');
-
-					session.locations.push({
-						latitude: parseFloat(req.headers['x-lat']),
-						longitude: parseFloat(req.headers['x-long'])
-					});
-					
-					session.updateTimes.push(time);
-
-					session.save(function(error){
-
-					});
+			models.Session.updateSession({
+				timestamp: timestamp,
+				uuid: uuid,
+				latitude: lat,
+				longitude: lon,
 			});
 		}
 		else res.send(400);

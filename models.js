@@ -53,7 +53,7 @@ var UserSessionSchema = new mongoose.Schema({
 	begin_time: Number,
 	end_time: Number,
 	duration: Number,
-	update_times: [],
+	updates: [],
 	locations: [],
 	clicks: [],
 	terms: []
@@ -62,12 +62,32 @@ var UserSessionSchema = new mongoose.Schema({
 UserSessionSchema.statics.createFromCache = function(session) {
 	
 	var loc = [], splited_loc = session.locations.split('|');
+	var up = [], splited_up = session.updates.split('|');
+	var cl = [], splited_cl = session.clicks.split('|');
 	
 	for (var i = 0; i < splited_loc.length; ++i) {
 		loc.push({
 			timestamp: new Date((splited_loc[i].split(':'))[0]).getTime(),
 			latitude: parseInt((splited_loc[i].split(':'))[1]),
 			longitude: parseInt((splited_loc[i].split(':'))[2]),
+		});
+	};
+
+	for (var i = 0; i < splited_up.length; ++i) {
+		up.push({
+			timestamp: new Date((splited_up[i].split(':'))[0]).getTime(),
+			latitude: parseInt((splited_up[i].split(':'))[1]),
+			longitude: parseInt((splited_up[i].split(':'))[2]),
+		});
+	};
+
+	for (var i = 0; i < splited_cl.length; ++i) {
+		cl.push({
+			timestamp: new Date((splited_loc[i].split(':'))[0]).getTime(),
+			latitude: parseInt((splited_loc[i].split(':'))[1]),
+			longitude: parseInt((splited_loc[i].split(':'))[2]),
+			content_id: splited_cl[i].split(':'))[3],
+			col_name: splited_cl[i].split(':'))[4]
 		});
 	};
 
@@ -79,12 +99,15 @@ UserSessionSchema.statics.createFromCache = function(session) {
 		begin_time: new Date(session.begin_time).getTime(),
 		end_time: new Date(session.end_time).getTime(),
 		duration: parseInt(end_time) - parseInt(begin_time),
-		update_times: session.update_times.split('|'),
-		locations: [],
-		clicks: [],
+		updates: up,
+		locations: loc,
+		clicks: cl,
 		terms: []	
 	});
-	console.log(session);
+
+	user_session.save(function(error){
+		if (error) throw error;
+	});
 };
 
 var UserSession = mongoose.model('UserSession', UserSessionSchema);
@@ -250,7 +273,7 @@ function createUser(user) {
 	user.begin_time = user.created_at;
 	user.end_time = '';
 	user.duration = '';
-	user.update_times = '';
+	user.updates = '';
 	user.locations = 'lat:'+user.lat+'|lon:'+user.lat;
 	user.clicks = '';
 	user.terms = '';
@@ -270,7 +293,7 @@ function createSession(session) {
 		begin_time: session.begin_time || new Date().getTime().toString(),
 		end_time: '',
 		duration: '',
-		update_times: '',
+		updates: '',
 		locations: session.locations,
 		clicks: '',
 		terms: ''
@@ -310,15 +333,31 @@ function createOrUpdateSession(options) {
 function clickSession(click) {
 	// Format: 	'timestamp:uuid:latitude:longitude:content_id:col_name'
 	redisClient.hget('session:'+click.uuid, 'clicks', function (error, clicks) {
+
 		if (error) throw error;
 
 		if (clicks.length > 0) {
 			clicks += '|';
 		}
 
-		clicks += click.timestamp+':'+click.uuid+':'+click.latitude+':'+click.longitude+':'+content_id+':'+col_name;
+		clicks += click.timestamp+':'+click.latitude+':'+click.longitude+':'+content_id+':'+col_name;
 
 		redisClient.hset('session:'+click.uuid, 'clicks', clicks);
+	});
+};
+
+function updateSession(update) {
+
+	redisClient.hget('session:'+update.uuid, 'updates', function (error, updates) {
+		if (error) throw error;
+
+		if (updates.length > 0) {
+			updates += '|';
+		}
+
+		updates += update.timestamp+':'+update.latitude+':'+update.longitude;
+
+		redisClient.hset('session:'+update.uuid, 'updates', updates);
 	});
 };
 
@@ -353,7 +392,8 @@ var Session = {
 	create: createSession,
 	createOrUpdate: createOrUpdateSession,
 	deleteSession: deleteSession, 
-	click: clickSession
+	click: clickSession,
+	update: updateSession
 };
 
 exports.config = config;
