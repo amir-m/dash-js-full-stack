@@ -59,8 +59,8 @@ var UserSessionSchema = new mongoose.Schema({
 	terms: []
 });
 
-UserSessionSchema.methods.createFromCache = function(session) {
-	
+UserSessionSchema.statics.createFromCache = function(session) {
+	console.log(session);
 };
 
 var UserSession = mongoose.model('UserSession', UserSessionSchema);
@@ -158,7 +158,7 @@ var ContentSchema = new mongoose.Schema({
 
 PrivateDashSchema.set('toObject', { virtuals: true });
 
-var Content = mongoose.model('', ContentSchema);
+var Content = mongoose.model('Content', ContentSchema);
 
 function _objectId() {
 	var id = (new mongoose.Types.ObjectId).toString();
@@ -235,6 +235,9 @@ function createUser(user) {
 };
 
 function createSession(session) {
+	
+	console.log(session)
+
 	redisClient.hmset('session:'+session.uuid, {
 		uuid: session.uuid,
 		created_at: session.created_at,
@@ -244,9 +247,9 @@ function createSession(session) {
 		end_time: '',
 		duration: '',
 		update_times: '',
-		locations: 'lat:'+session.lat+'lon:'+session.lon,
+		locations: session.locations,
 		clicks: '',
-		terms: '',
+		terms: ''
 	});
 
 };
@@ -256,7 +259,7 @@ function deleteSession(uuid) {
 };
 
 function createOrUpdateSession(options) {
-	
+
 	redisClient.hgetall('session:'+options.uuid, function(error, session){
 		
 		if (error) return callback(error);
@@ -264,16 +267,17 @@ function createOrUpdateSession(options) {
 		if (!session || session.length == 0) 
 			return createSession(options, callback);
 
-		session[0].is_active = false;
-		session[0].is_defective = true;
-		session[0].end_time = new Date().getTime().toString();
+		session.is_active = false;
+		session.is_defective = true;
+		session.end_time = new Date().getTime().toString();
 
-		UserSession.createFromCache(session[0]);
+		UserSession.createFromCache(session);
 
-		session[0].is_active = true;
-		session[0].is_defective = false;
-		session[0].begin_time = options.created_at;
-		session[0].end_time = '';
+		session.is_active = true;
+		session.is_defective = false;
+		session.begin_time = options.created_at;
+		session.end_time = '';
+		session.locations = 'lat:'+options.lat+'|lon:'+options.lat;
 
 		createSession(options);
 	});
