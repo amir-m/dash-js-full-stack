@@ -1,0 +1,17 @@
+/* Horizental Scrollable table */
+@mixin h-scroll-table ($view-height, $item-width, $item-height:auto) {
+	width: auto;
+    height: $view-height;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    
+	> article {
+		width: $item-width;
+		height: $item-height;
+		display: inline-block;
+		vertical-align: middle;
+		text-align: center;
+	}
+
+}
