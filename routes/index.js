@@ -56,6 +56,10 @@ module.exports = function (models, publisher, cookie) {
 
 		console.log(req.body);
 
+		var uuid = req.body['x-userid'],
+			lat = parseFloat(req.body['x-latitude']),
+			lon = parseFloat(req.body['x-longitude']);
+
 		var time = new Date().getTime();
 		if (req.headers.cookie && cookie.parse(req.headers.cookie).sid 
 		&& req.headers['x-lat'] && req.headers['x-lon'] && req.headers['x-uuid']) {
