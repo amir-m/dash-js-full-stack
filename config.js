@@ -1,6 +1,8 @@
 stackTraceLimit = Infinity;
 
-module.exports = function(express, app, mongoose, cookie, models, publisher) {
+module.exports = function(express, app, mongoose, cookie, models, redisClient) {
+
+	var async = require('async');
 
 	var connectionString = "mongodb://admin:IuT603JamshEqplE2N&0}x!@candidate.19.mongolayer.com:10061/dbk";
 	// var connectionString = "mongodb://admin:foundersfuel2013@54.214.165.124:27017/dashbook";
@@ -19,6 +21,8 @@ module.exports = function(express, app, mongoose, cookie, models, publisher) {
 	// app.configure(function(){
 	// 	// app.use(app.logger)
 	// });
+
+	var helpers = require('./helpers')(models, redisClient);
 
 	app.use(function(req, res, next){
 
@@ -52,61 +56,80 @@ module.exports = function(express, app, mongoose, cookie, models, publisher) {
 				lat = parseFloat(req.headers['x-latitude']),
 				lon = parseFloat(req.headers['x-longitude']);
 
-			console.log(lat, lon, req.headers['x-time']);
+			// uuid is hashed 
+			if (uuid.indexOf('-') != -1) {
+				uuid = helpers.getBase64Encoding(uuid);
+			};
 
-			publisher.publish('initialize', lat+'|'+lon+'|'+uuid);
+			redisClient.publish('initialize', lat+'|'+lon+'|'+uuid);
 
-			models.users.UserSession.findOne({uuid: uuid, isActive: true}, function(error, session){
-				if (error) {
-					console.log(error);
-					return res.send(500);
-				};
+			async.waterfall([
+				function(callback) {
 
-				if (session) {
-					session.isActive = false;
-					session.isDefective = true;
-					session.endTime = new Date().getTime();
-					session.locations.push({
-						latitude: parseFloat(req.headers['x-latitude']),
-						longitude: parseFloat(req.headers['x-longitudeg'])
+					redisClient.hgetall('user:'+uuid, function(error, user){
+				
+						if (error) {
+							res.send(500);
+							throw error;
+						}
+
+						callback(null, user);
 					});
+				},
+				function(user, callback) {
 					
-					session.updateTimes.push(new Date().getTime());
-					session.save();
-				}
-				var s = new models.users.UserSession({
-					_id: models.users.objectId(),
-					beginTime: new Date().getTime(),
-					uuid: uuid,
-					locations: [{
-						latitude: lat,
-						longitude: lon
-					}],
-					updateTimes: [new Date().getTime()]
-				});
-				console.log('about to create session for ', uuid);
-				s.save(function(error){
-					if (error)
-						console.log(error);
-					else console.log('sesssion created for user ', uuid);
-					res.cookie('uuid', s.uuid, { maxAge: 100*60*1000, httpOnly: false });
-					res.cookie('sid', s._id, { maxAge: 100*60*1000, httpOnly: false });
+					if (!user) {
+						
+						var sid = models.id();
+
+						models.User.create({
+							uuid: uuid,
+							created_at: new Date().getTime(),
+							sid: sid, 
+							lat: lat,
+							lon: lon
+						});
+
+						callback(null, sid);
+
+					}
+					else {
+						models.Session.createOrUpdate({
+							uuid: uuid,
+							lat: lat,
+							lon: lon,
+							created_at: new Date().getTime().toString()
+						}, function(error, sid){
+							if (error) {
+								res.send(500);
+								throw error;
+							}
+							callback(null, sid);
+						});
+					}
+				},
+				function(sid, callback) {
+					res.cookie('uuid', uuid, { maxAge: 100*60*1000, httpOnly: false });
+					res.cookie('sid', sid, { maxAge: 100*60*1000, httpOnly: false });
 					res.cookie('latitude', lat, { maxAge: 100*60*1000, httpOnly: false });
 					res.cookie('longitude', lon, { maxAge: 100*60*1000, httpOnly: false });
 					next();
+				}
+			]);
 
-				});
+			
 
-			});
+			console.log(lat, lon, req.headers['x-time']);
 
-			models.dashes.UserDash.findOne({user: uuid}, function(error, user){
-				console.log('about to find dashes of ', uuid);
-				if (error) return console.log(error);
 
-				if (!user) {
-					require('./helpers')(models).createDefaultDashes(uuid);
-				};
-			});
+			// models.UserDash.findOne({user: uuid}, function(error, user){
+			// 	console.log('about to find dashes of ', uuid);
+			// 	if (error) return console.log(error);
+
+			// 	if (!user) {
+			// 		// require('./helpers')(models).createDefaultDashes(uuid);
+			// 	};
+			// });
 			// next();
 		}	
 		else {

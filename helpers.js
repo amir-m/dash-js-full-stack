@@ -12,7 +12,7 @@ module.exports = function(models, redisClient) {
 
 	function createDefaultDashes(uuid) {
 		console.log('about to create default dashes for ', uuid);
-		models.dashes.Dash.find({ _id: { $in: defaultDashes} }, 
+		models.Dash.find({ _id: { $in: defaultDashes} }, 
 		function(error, dashes){
 			
 			if (error) {
@@ -57,9 +57,14 @@ module.exports = function(models, redisClient) {
 		});
 	};
 
+	function getBase64(base) {
+		return (new Buffer(base).toString('base64'));
+	};
+
 	return {
 		createDefaultDashes: createDefaultDashes,
-		insertDashesToRedisBackend: insertDashesToRedisBackend
+		insertDashesToRedisBackend: insertDashesToRedisBackend,
+		getBase64Encoding: getBase64
 	};
 };
 

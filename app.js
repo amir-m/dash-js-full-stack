@@ -13,10 +13,12 @@ var forked = false;
 
 publisher = redis.createClient(6379, '54.185.233.146');
 
-var models = {
-	dashes: require('./models/dash').config(mongoose, publisher),
-	users: require('./models/user').config(mongoose)
-};
+// var models = {
+// 	dashes: require('./models/dash').config(mongoose, publisher),
+// 	users: require('./models/user').config(mongoose)
+// };
+
+var models = require('./models/dash').config(mongoose, publisher);
 
 // require('./helpers')(models, publisher).insertDashesToRedisBackend();
 
