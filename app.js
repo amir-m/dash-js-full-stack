@@ -10,7 +10,6 @@ var cluster = require('cluster'),
     cpuCount = require('os').cpus().length;
 var forked = false;
 
-
 publisher = redis.createClient(6379, '54.185.233.146');
 
 // var models = {

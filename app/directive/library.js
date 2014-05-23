@@ -22,12 +22,12 @@ angular.module('DashbookApp')
           if (!dash.addRequested) {
             dash.addRequested = true;
             $(document).find(".expand").removeClass("expand");
-            $('#'+dash._id+'-lib-add-btn').addClass("expand");
+            $('#'+dash.id+'-lib-add-btn').addClass("expand");
             return;
           };
           dash.addRequested = false;
           $(document).find(".expand").removeClass("expand");
-        	$http.put('/dashes/'+dash._id+'/'+$rootScope.uuid)
+        	$http.put('/dashes/'+dash.id+'/'+$rootScope.uuid)
         	.success(function(data, status){
             scope.addDash(data);
             scope.safeApply();

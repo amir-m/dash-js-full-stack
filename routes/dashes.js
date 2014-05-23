@@ -4,39 +4,42 @@ module.exports = function  (models, publisher) {
 
 	var cookie = require('cookie');
 
-	// var map = {
-	// 	'Dribbble': {
-	// 		'Everyone': models.EveryoneDribbleShot,
-	// 		'Popular': models.PopularDribbleShot,
-	// 		'Debut': models.DebutsDribbleShot
-	// 	},
-	// 	'News': {
-	// 		'Business Insider': models.BusinessInsider,
-	// 		Wired: models.Wired,
-	// 		VentureBeat: models.VentureBeat,
-	// 		TechCrunch: models.TechCrunch,
-	// 		'New York Times': models.NewYorkTimes,
-	// 		Mashable: models.Mashable,
-	// 		'Inc.com': models.IncCom,
-	// 		Forbes: models.Forbes,
-	// 		'Fast Company': models.FastCompany,
-	// 		ESPN: models.ESPN,
-	// 		Core77: models.Core77,
-	// 		'Design Milk': models.DesignMilk
-	// 	},
-	// 	'BeHance': models.Behance,
-	// 	'Coffee Near Me': models.PlacesSearchResult,
-	// 	'Places Near Me': models.PlacesSearchResult,
-	// 	'Food Near Me': models.PlacesSearchResult,
-	// 	'Sidebar.io': models.SideBarIO,
-	// 	'Dribbble Stats': models.DribbbleStat,
-	// 	'Private Dash': models.PrivateDash
-	// }, 
-	// geo = ['Coffee Near Me', 'Places Near Me', 'Food Near Me'],
-	// pubMap = {
-	// 	'BeHance Project Search': 'behance',
-	// 	'Places Near Me': 'places'
-	// };
+	var map = {
+		'Dribbble': {
+			'Everyone': 'EveryoneDribbleShot',
+			'Popular': 'PopularDribbleShot',
+			'Debut': 'DebutsDribbleShot'
+		},
+		'News': {
+			'Business Insider': 'BusinessInsiderFeed',
+			Wired: 'WiredFeed',
+			VentureBeat: 'VentureBeatFeed',
+			TechCrunch: 'TechCrunchFeed',
+			'New York Times': 'NewYorkTimesFeed',
+			Mashable: 'MashableFeed',
+			'Inc.com': 'IncComFeed',
+			Forbes: 'ForbesFeed',
+			'Fast Company': 'FastCompanyFeed',
+			ESPN: 'ESPNFeed',
+			Core77: 'Core77Feed',
+			'Design Milk': 'DesignMilkFeed'
+		},
+		'BeHance': {
+			'Featured': 'BehanceFeatured',
+			'Most Appreciated': 'BehanceMostAppreciated',
+			'Most Recent': 'BehanceMostRecent'
+		},
+		'Coffee Near Me': 'PlacesSearchResult',
+		'Places Near Me': 'PlacesSearchResult',
+		'Food Near Me': 'PlacesSearchResult',
+		'Dribbble Stats': 'DribbbleStat',
+		'Private Dash': models.PrivateDash
+	}, 
+	geo = ['Coffee Near Me', 'Places Near Me', 'Food Near Me'],
+	pubMap = {
+		'BeHance Project Search': 'behance',
+		'Places Near Me': 'places'
+	};
 	
 	var create = function (req, res, next) {
 		
@@ -51,43 +54,47 @@ module.exports = function  (models, publisher) {
 				throw error
 			};
 
+			console.log(dash);
+
 			if (!dash) return res.send(400);
 
 			var selected = '';			
 
-			if (dash.settingType == 'radio')
+			if (dash.setting_type == 'radio')
 				selected = dash.settings[0];
-			else if (dash.settingType == 'text') {
+			else if (dash.setting_type == 'text') {
 				selected = dash.settings;
-				
 			}
 
-			models.UserDash.create({
-				_id: models.objectId(),
-				dash_id: dash._id,
-				dashType: dash.dashType,
+			var ud = new models.UserDash({
+				id: models.id(),
+				dash_id: dash.id,
+				dash_type: dash.dash_type,
 				location: {
 					lat: req.params.lat,
 					lon: req.params.lon
 				},
 				user: req.params.uuid,
 				title: dash.title,
-				subTitle: dash.subTitle,
+				sub_title: dash.sub_title,
 				description: dash.description,
 				credits: dash.credits,
-				iconLarge: dash.iconLarge,
-				iconSmall: dash.iconSmall,
+				icon_large: dash.icon_large,
+				icon_small: dash.icon_small,
 				settings: dash.settings,
-				selectedSetting: selected,
-				settingType: dash.settingType
-			}, function(error, dash){
-				if (error) {
-					console.log(error)
-					return res.send(500);
-					throw error;
-				};
-				return res.send(dash);
+				selected_setting: selected,
+				setting_type: dash.setting_type
 			});
+			ud.save(function(error){
+					if (error) {
+						console.log(error)
+						res.send(500);
+						throw error;
+					};
+
+					res.send(ud.json());
+					models.User.addDash(req.params.uuid, ud.id);
+				});
 			
 		});
 
@@ -126,7 +133,7 @@ module.exports = function  (models, publisher) {
 
 		var q = { 
 			user: req.params.id, 
-			isActive: true
+			is_active: true
 		};
 
 		if (req.query) {
@@ -138,7 +145,7 @@ module.exports = function  (models, publisher) {
 				}
 			}
 			if (list.length > 0) {
-				q['_id'] = { 
+				q['id'] = { 
 					$in: list
 				}; 
 			}
@@ -167,7 +174,10 @@ module.exports = function  (models, publisher) {
 					throw error
 				};
 
+				console.log(userDash);
+
 				if (!userDash) return res.send(400);
+
 
 				return res.send(userDash);
 			});
@@ -176,6 +186,10 @@ module.exports = function  (models, publisher) {
 	var readData = function(req, res, next) {
 		
 		var col;
+
+		console.log(req.query.t)
+		console.log(req.query.s)
+		// return res.send(200);
 
 		if (map[req.query.t] && !map[req.query.t][req.query.s])
 			col = map[req.query.t];
@@ -189,12 +203,10 @@ module.exports = function  (models, publisher) {
 		}
 
 
-		if (!col.find) {
-			return res.send(400);
-		}
 
 		var skip = parseInt(req.query.skip);
 		skip = isNaN(skip) ? 0 : skip;
+
 
 		if (req.query.t == 'BeHance') {
 
@@ -234,7 +246,10 @@ module.exports = function  (models, publisher) {
 				var username = req.query.s;
 				username = username ? username : 'm_mozafarian';
 				var sort = {'stats.pubDate': -1};
-				col.find({username: username})
+				models.Content.find({
+					collection_name: col,
+					'user_profile.username': username
+				})
 				.skip(skip)
 				.limit(10)
 				.sort(sort)
@@ -244,6 +259,7 @@ module.exports = function  (models, publisher) {
 						throw error
 					};
 					var s = docs.length;
+					console.log('injaaa');
 					return res.send({content: docs, skip: skip + s});
 				});
 			}, 3000);
@@ -334,8 +350,10 @@ module.exports = function  (models, publisher) {
 		}
 
 		else {
-			var sort = {'news.pubDate': -1};
-			col.find()
+			var sort = {'news.pub_date': -1};
+			models.Content.find({
+				collection_name: col
+			})
 			.skip(skip)
 			.limit(10)
 			.sort(sort)

@@ -1,5 +1,6 @@
 var self = this,
 	mongoose = require('mongoose'),
+	crypto = require('crypto'),
 	redisClient,
 	dashes_ids = [ 
 		'dash:NTJhOWRmMGYxODNiNTAwMDAwMDAwMDAx',
@@ -15,6 +16,9 @@ var self = this,
 		'PopularDribbleShot':  '',
 		'EveryoneDribbleShot': '',
 		'DebutsDribbleShot': '',
+		'BehanceFeatured': '',
+		'BehanceMostAppreciated': '',
+		'BehanceMostRecent': '',
 		'BusinessInsiderFeed': '' ,
 		'WiredFeed': '',
 		'VentureBeatFeed': '',
@@ -122,13 +126,15 @@ var DashSchema = new mongoose.Schema({
 	icon_large: String,
 	icon_small: String,
 	setting_type: String,
+	handler_placeholder: String,
+	collection_name: String,
 	settings: {}
 });
 
 var UserDashSchema = new mongoose.Schema({
 	id: { type: String, required: true, unique: true },
 	dash_id: String,
-	uuid: { type: String, required: true },
+	user: { type: String, required: true },
 	title: { type: String, required: true },
 	dash_type: String,
 	location: String,
@@ -139,9 +145,18 @@ var UserDashSchema = new mongoose.Schema({
 	icon_small: String,
 	setting_type: String,
 	selected_setting: String,
+	handler_placeholder: String, 
 	is_active: {type: Boolean, default: true},
+	collection_name: String,
 	settings: {}
 });
+
+UserDashSchema.methods.json = function(pass) {
+	var u = this.toObject();
+	delete u['_id'];
+	delete u['__v'];
+	return u;
+};
 
 var UserDash = mongoose.model('UserDash', UserDashSchema);
 
@@ -191,16 +206,20 @@ var PrivateDash = mongoose.model('PrivateDash', PrivateDashSchema);
 
 var ContentSchema = new mongoose.Schema({
 	id: String,
+	collection_name: String,
 	source_id: String,
-	content_type: String,
+	resource_uri: String,
 	term: String,
-	slideshow: {},
-	news: {},
-	stats: {},
-	user_profile: {},
-	content: {},
-	geo: {},
-	collection_name: String
+	content_type: [], 
+	components: {}
+	// desc_comp: {},
+	// hero_comp: {},
+	// geo_comp: {},
+	// footer_comp: {},
+	// sports_comp: {},
+	// weather_comp: {},
+	// stats_comp: {},
+	// charts_comp: {}
 });
 
 PrivateDashSchema.set('toObject', { virtuals: true });
@@ -280,7 +299,31 @@ function createUser(user) {
 
 	createSession(user)
 };
+function addDashUser(uuid, dash_id) {
+	
+	redisClient.hgetall('user:'+uuid, function(error, user){
+		var dashes = user.dashes;
 
+		if (dashes.length > 0) dashes += '|';
+
+		dashes += dash_id;
+
+		redisClient.hset('user:'+uuid, 'dashes', dashes);
+	});
+};
+function getDashesUser(uuid, callback) {
+	
+	redisClient.hget('user:'+uuid, 'dashes', function (error, dashes) {
+
+		if (error) {
+			return callback(error);
+		}
+
+		if (dashes.length == 0) callback(null, null);
+
+		callback(null, dashes.split('|'));
+	});
+};
 function createSession(session) {
 	
 	// console.log(session)
@@ -300,6 +343,7 @@ function createSession(session) {
 	});
 
 };
+
 
 function deleteSession(uuid) {
 	redisClient.del('session:'+uuid);
@@ -385,7 +429,9 @@ var Dash = {
 };
 
 var User = {
-	create: createUser
+	create: createUser,
+	addDash: addDashUser,
+	getDashes: getDashesUser
 };
 
 var Session = {

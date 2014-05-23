@@ -6,7 +6,7 @@
 	"description": "This is a private dash.",
 	"credits": "Dashbench", 
 	"icon_large": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/default_large_icon.png",
-	"iconSmall": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/default_small_icon.png",
+	"icon_small": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/default_small_icon.png",
 	"setting_type": "textInput",
 	"location": "",
 	"settings": ""
@@ -19,7 +19,7 @@
 	"description": "Displays Dribbble shots for the Popular, Debut, and Everyone categories",
 	"credits": "Dribbble", 
 	"icon_large": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/dribbble_large_icon.png",
-	"iconSmall": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/dribbble_small_icon.png",
+	"icon_small": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/dribbble_small_icon.png",
 	"setting_type": "radio",
 	"location": "",
 	"settings": "Popular:Debut:Everyone"
@@ -32,10 +32,10 @@
 	"description": "Displays the stats (likes, comments, views) of a player’s dribbble shots",
 	"credits": "Dribbble",
 	"icon_large": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/dribbble_stats_large_icon.png",
-	"iconSmall": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/dribbble_stats_small_icon.png",
+	"icon_small": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/dribbble_stats_small_icon.png",
 	"setting_type": "textInput",
 	"location": "",
-	"settings": "m_mozafarian"
+	"settings": ""
 },
 {
 	"id": "NTI5NjMyNWY1OGM5YmIzNzliMDAwMDAx",
@@ -45,7 +45,7 @@
 	"description": "Displays BeHance projects for the Featured, Most Appreciated, Most Recent",
 	"credits": "BeHance",
 	"icon_large": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/behance_large_icon.png",
-	"iconSmall": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/behance_small_icon.png",
+	"icon_small": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/behance_small_icon.png",
 	"setting_type": "radio",
 	"location": "",
 	"settings": "Featured:Most Appreciated:Most Recent"
@@ -58,7 +58,7 @@
 	"description": "Displays the headlines for a variety of new publications",
 	"credits": "Dashbook",
 	"icon_large": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/news_large_icon.png",
-	"iconSmall": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/news_small_icon.png",
+	"icon_small": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/news_small_icon.png",
 	"setting_type": "radio",
 	"location": "",
 	"settings": "TechCrunch:ESPN:New York Times:Mashable:Wired:Inc.com:Fast Company:Forbes:Core77:Design Milk:Business Insider"
@@ -72,9 +72,9 @@
 	"description": "Displays the daily, designer-centric articles from Sidebar.io",
 	"credits": "Sidebar.io",
 	"icon_large": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/sidebar_io_large_icon.png",
-	"iconSmall": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/sidebar_io_small_icon.png",
+	"icon_small": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/sidebar_io_small_icon.png",
 	"location": "",
-	"settings": "Latest News"
+	"settings": ""
 },
 {
 	"id": "NTI5NjM5ZTlmOGZjY2Q1ODliMDAwMDAx",
@@ -84,7 +84,7 @@
 	"description": "Find the closest cup of coffee based on your current location",
 	"credits": "Google Places",
 	"icon_large": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/coffee_large_icon.png",
-	"iconSmall": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/coffee_small_icon.png",
+	"icon_small": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/coffee_small_icon.png",
 	"location": "",
 	"settings": ""
 },
@@ -95,7 +95,7 @@
 	"description": "Find places based on your current location and a search term",
 	"credits": "Google Places",
 	"icon_large": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/places_near_me_large_icon.png",
-	"iconSmall": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/places_near_me_small_icon.png",
+	"icon_small": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/places_near_me_small_icon.png",
 	"setting_type" : "textInput",
 	"location": "",
 	"settings": ""
@@ -108,7 +108,7 @@
 	"description": "Find the closest restaurants based on your current location",
 	"credits": "Google Places",
 	"icon_large": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/food_near_me_large_icon.png",
-	"iconSmall": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/food_near_me_small_icon.png",
+	"icon_small": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/food_near_me_small_icon.png",
 	"location": "",
 	"settings": ""
 }]

@@ -1,0 +1,18 @@
+<a class="gotosource comp-wrapper" href="{{content.resource_uri}}">
+	<div class="weather-comp table">
+		<div class="cell small-cell  bottom-aligned">
+			<h1 class="scalar">
+				{{content.components.weather_comp.scalar}}
+				<span class="unit"><sup>&deg;C</sup></span></h1>
+		</div>
+		<div class="cell large-cell middle-aligned">
+			<div>
+				<img src="{{content.components.weather_comp.weather_img}}">
+			</div>
+		</div>
+		<div class="cell small-cell bottom-aligned">
+			<p class="scalar">H: {{content.components.weather_comp.high}}<span class="unit"><sup>&deg;C</sup></span></p>
+			<p class="scalar">L: {{content.components.weather_comp.low}}<span class="unit"><sup>&deg;C</sup></span></p>
+		</div>
+	</div>
+</a>

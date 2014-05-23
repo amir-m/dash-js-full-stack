@@ -6,7 +6,7 @@ module.exports = function(models, redisClient) {
 
 	function insertDashesToRedisBackend() {
 		for (var i = 0; i < dashes.length; ++i) {
-			redisClient.hmset("dash:"+dashes[i]._id, dashes[i]);
+			redisClient.hmset("dash:"+dashes[i].id, dashes[i]);
 		}
 	};
 

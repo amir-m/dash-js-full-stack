@@ -1,32 +1,33 @@
-<article id="{{d._id}}">
+<article id="{{d.id}}">
 	<div class="front">
 		<header>
 			<h1 class="dash-title">
-				<img class="small-icon" ng-src="{{d.iconSmall}}">
+				<img class="small-icon" ng-src="{{d.icon_small}}">
 				{{d.title}} • 
-				<span ng-show="d.dashType == 'privateDash'">
-					{{d.selectedSetting || 'No Dash Selected'}}
+				<span ng-show="d.dash_type == 'privateDash'">
+					{{d.selected_setting || 'No Dash Selected'}}
 				</span>
-				<span ng-show="d.dashType != 'privateDash'">
-					{{d.selectedSetting || 'Current Location'}}
+				<span ng-show="d.dash_type != 'privateDash'">
+					{{d.selected_setting || 'Current Location'}}
 				</span>
 			</h1>
 			<a class="settings-btn" ng-click="flipSettings()">
 				<span>
-					<img src="https://s3.amazonaws.com/s3.dashbook.co/dbkapp/img/settings-btn.png">
+					<!-- <img src="https://s3.amazonaws.com/s3.dashbook.co/dbkapp/img/settings-btn.png"> -->
 				</span>
 			</a>
 		</header>
 
 		<div class="viewport">
 			<div class="flipsnap" style="width:{{_width*d.content.length}}px;">
-				<section ng-repeat="content in d.content">
-					<geo ng-show="d.dashType == 'geo'"></geo>
-					<slideshow ng-show="d.dashType == 'slideshow'"></slideshow>
-					<news ng-show="d.dashType == 'text'"></news>
-					<stats ng-show="d.dashType == 'stats'"></stats>
-					<private ng-show="d.dashType == 'privateDash'"></private>
-				</section>
+				<!-- <section ng-repeat="content in d.content"> -->
+				<comp-container>
+					<geo ng-show="d.dash_type == 'geo'"></geo>
+					<slideshow ng-show="d.dash_type == 'slideshow'"></slideshow>
+					<news ng-show="d.dash_type == 'text'"></news>
+					<stats ng-show="d.dash_type == 'stats'"></stats>
+					<private ng-show="d.dash_type == 'privateDash'"></private>
+				</comp-container>
 			</div>
 		</div>
 		
@@ -34,8 +35,6 @@
 
 		<div class="slide-indicator" id="pointer-{{d._id}}">
 			<span ng-repeat="content in d.content" id ="{{d._id}}{{content._id}}"></span>
-			<!-- <span class="load-more" ng-show="d.content.length > 1"></span> -->
-
 		</div>
 	</div>
 
@@ -53,7 +52,7 @@
 		<div class="settings">
 			<p class="no-settings grey" ng-show="d.settingType == 'text'">This dash has no settings</p>
 			<ul ng-show="d.settingType == 'radio'">
-				<li ng-repeat="setting in d.settings" ng-class="{selected: setting == d.selectedSetting	}" ng-click="selectSetting($index)">
+				<li ng-repeat="setting in d.settings" ng-class="{selected: setting == d.selected_setting	}" ng-click="selectSetting($index)">
 					{{setting}}
 				</li>
 			</ul>
@@ -64,15 +63,15 @@
 					class="clearable" type="text" 
 					placeholder="Search" 
 					name="search_term" 
-					value="{{d.selectedSetting}}">
+					value="{{d.selected_setting}}">
 				<p ng-show="d.notFound" class="centered">Dash Not Found!</p>
 				<button 
-					ng-show="d.dashType == 'privateDash'" 
+					ng-show="d.dash_type == 'privateDash'" 
 					ng-click="updatePrivateDashSetting()"
 				>Save
 				</button>
 				<button 
-					ng-show="d.dashType != 'privateDash'" 
+					ng-show="d.dash_type != 'privateDash'" 
 					ng-click="updateInputText()">Save</button>
 			</form>
 			<footer>

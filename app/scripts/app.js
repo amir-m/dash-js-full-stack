@@ -45,8 +45,8 @@ angular.module('DashbookApp', [])
               $rootScope.longitude = parseFloat(value);
           }
 
-          if ('NUM1MEZEODMtQkFDMy00MDgzLTgzQ0ItMTU4NjUyRjIyNTdB' == $rootScope.uuid 
-              || 'NTk3NTFBRTItNTc4Ri00QTVGLUExNUQtOTVDRUM2MzBBRjY5'  == $rootScope.uuid)
+          // if ('NUM1MEZEODMtQkFDMy00MDgzLTgzQ0ItMTU4NjUyRjIyNTdB' == $rootScope.uuid 
+          //     || 'NTk3NTFBRTItNTc4Ri00QTVGLUExNUQtOTVDRUM2MzBBRjY5'  == $rootScope.uuid)
             $rootScope.showMe = true;
 
           if ($rootScope.$$phase != '$apply' && $rootScope.$$phase != '$digest')

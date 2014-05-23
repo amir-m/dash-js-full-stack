@@ -17,7 +17,7 @@ angular.module('DashbookApp')
           clearTimeout(this.downTimer);
           this.downTimer = setTimeout(function() {
             $('#sortable').prop( "disabled", false );
-            // console.log(scope.d._id);
+            // console.log(scope.d.id);
           }, 2000);
         }).mouseup(function(e) {
           $('#sortable').prop( "disabled", true );
@@ -47,28 +47,30 @@ angular.module('DashbookApp')
 
         if (scope.d.dashType == 'privateDash') {
 
-          if (scope.d.selectedSetting) {
-            $http.get('/content?t='+scope.d.title+'&s='+scope.d.selectedSetting+'&skip='+scope.skip)
+          if (scope.d.selected_setting) {
+            $http.get('/content?t='+scope.d.title+'&s='+scope.d.selected_setting+'&skip='+scope.skip)
             .success(function(data){
               scope.d.notFound = null;
               scope.d.privateDash = data;
               apiCall(data);
             })
             .error(function(error, code) { 
-              $('#' + scope.d._id + ' .spinner').hide();
+              $('#' + scope.d.id + ' .spinner').hide();
               if (code == 404) {
                 scope.d.notFound = true;
               }
             });
           }
           else {
-            $('#' + scope.d._id + ' .spinner').hide();
+            $('#' + scope.d.id + ' .spinner').hide();
           }
         }
         else {
 
-          $http.get('/content?t='+scope.d.title+'&s='+scope.d.selectedSetting+'&skip='+scope.skip)
+          $http.get('/content?t='+scope.d.title+'&s='+scope.d.selected_setting+'&skip='+scope.skip)
           .success(function(data){
+            console.log(data);
+            return;
             if (data.content.length == 0) return showEmptyContent();
 
             if (scope.d.dashType == 'geo') return calculateScalar(data);
@@ -79,7 +81,7 @@ angular.module('DashbookApp')
 
             attachFlipsnap();
 
-            $('#' + scope.d._id + ' .spinner').hide();
+            $('#' + scope.d.id + ' .spinner').hide();
           })
           .error(function(error) { 
             throw error; 
@@ -100,22 +102,22 @@ angular.module('DashbookApp')
         });
 
         scope.updateInputText = function() {
-          if ($('#' + scope.d._id + '-input-text').val()) {
-            $('#' + scope.d._id + ' .spinner').show();
-            // if (scope.d.selectedSetting == $('#' + scope.d._id + '-input-text').val()) {
-            //   $('#' + scope.d._id + ' .spinner').hide();
+          if ($('#' + scope.d.id + '-input-text').val()) {
+            $('#' + scope.d.id + ' .spinner').show();
+            // if (scope.d.selected_setting == $('#' + scope.d.id + '-input-text').val()) {
+            //   $('#' + scope.d.id + ' .spinner').hide();
             //   scope.flipSettings();
             //   return;
             // }
-            scope.d.selectedSetting = $('#' + scope.d._id + '-input-text').val();
-            scope.d.selectedSetting = scope.d.selectedSetting.toLowerCase();
+            scope.d.selected_setting = $('#' + scope.d.id + '-input-text').val();
+            scope.d.selected_setting = scope.d.selected_setting.toLowerCase();
 
             var __id = null;
             var colName = scope.d.content ? scope.d.content.colName : scope.d.title
-            if (scope.d.content && scope.d.content._id)
-              __id = scope.d.content._id;
-            $http.post('/dashes/'+scope.d._id+'/settings', {
-              textInput: scope.d.selectedSetting,
+            if (scope.d.content && scope.d.content.id)
+              __id = scope.d.content.id;
+            $http.post('/dashes/'+scope.d.id+'/settings', {
+              textInput: scope.d.selected_setting,
               uuid: scope.uuid,
               settingType: 'textInput',
               title: scope.d.title,
@@ -141,7 +143,7 @@ angular.module('DashbookApp')
                 scope.skip = data.skip;
 
                 scope.d.content = data.content;
-                $('#' + scope.d._id + ' .spinner').hide();
+                $('#' + scope.d.id + ' .spinner').hide();
                 attachFlipsnap();
                 scope.safeApply();
               }
@@ -154,16 +156,16 @@ angular.module('DashbookApp')
         };
 
         scope.updatePrivateDashSetting = function() {
-          if ($('#' + scope.d._id + '-input-text').val()) {
-            $('#' + scope.d._id + ' .spinner').show();
-            scope.d.selectedSetting = $('#' + scope.d._id + '-input-text').val();
-            // scope.d.selectedSetting = scope.d.selectedSetting.toLowerCase();
+          if ($('#' + scope.d.id + '-input-text').val()) {
+            $('#' + scope.d.id + ' .spinner').show();
+            scope.d.selected_setting = $('#' + scope.d.id + '-input-text').val();
+            // scope.d.selected_setting = scope.d.selected_setting.toLowerCase();
             var __id = null;
             var colName = scope.d.content ? scope.d.content.colName : scope.d.title
-            if (scope.d.content && scope.d.content._id)
-              __id = scope.d.content._id;
-            $http.post('/dashes/'+scope.d._id+'/settings', {
-              textInput: scope.d.selectedSetting,
+            if (scope.d.content && scope.d.content.id)
+              __id = scope.d.content.id;
+            $http.post('/dashes/'+scope.d.id+'/settings', {
+              textInput: scope.d.selected_setting,
               uuid: scope.uuid,
               settingType: 'textInput',
               title: scope.d.title,
@@ -180,12 +182,12 @@ angular.module('DashbookApp')
               scope.d.notFound = null;
               scope.d.privateDash = data;
               apiCall(data);
-              // $('#' + scope.d._id + ' .spinner').hide();
+              // $('#' + scope.d.id + ' .spinner').hide();
               // attachFlipsnap();
               // scope.safeApply();
             })
             .error(function(error, code){
-              $('#' + scope.d._id + ' .spinner').hide();
+              $('#' + scope.d.id + ' .spinner').hide();
               if (code == 404) {
                 scope.d.notFound = true;
               }
@@ -198,12 +200,12 @@ angular.module('DashbookApp')
         scope.selectSetting = function(index) {
           var selectedTime = new Date().getTime();
             scope.flipSettings()
-            $('#' + scope.d._id + ' .spinner').show();
+            $('#' + scope.d.id + ' .spinner').show();
 
-            scope.d.selectedSetting = scope.d.settings[index];
+            scope.d.selected_setting = scope.d.settings[index];
 
-            $http.post('/dashes/'+scope.d._id+'/settings', {
-              selectedSetting: scope.d.selectedSetting,
+            $http.post('/dashes/'+scope.d.id+'/settings', {
+              selected_setting: scope.d.selected_setting,
               uuid: scope.uuid,
               settingType: 'radio',
               sid: $rootScope.sid,
@@ -212,10 +214,10 @@ angular.module('DashbookApp')
               timestamp: new Date().getTime()
             }).success(function(data){
               if (new Date().getTime() - selectedTime > 1000) {
-                $('#' + scope.d._id).addClass('loading');
+                $('#' + scope.d.id).addClass('loading');
                 scope.d.content = data.content;
                 scope.skip = data.skip;
-                $('#' + scope.d._id + ' .spinner').hide();
+                $('#' + scope.d.id + ' .spinner').hide();
                 
                 attachFlipsnap();
                 scope.safeApply();
@@ -224,8 +226,8 @@ angular.module('DashbookApp')
                 $timeout(function(){
                   scope.d.content = data.content;
                   scope.skip = data.skip;
-                  $('#' + scope.d._id).removeClass('loading');
-                  $('#' + scope.d._id + ' .spinner').hide();
+                  $('#' + scope.d.id).removeClass('loading');
+                  $('#' + scope.d.id + ' .spinner').hide();
                   scope.safeApply();
                   attachFlipsnap();
                 }, 1000 - (new Date().getTime() - selectedTime));
@@ -239,12 +241,12 @@ angular.module('DashbookApp')
         scope.flipSettings = function() {
           if ($rootScope.sortableEnabled) return;
           if (flipped) {
-            $('#' + scope.d._id ).removeClass('flip');
+            $('#' + scope.d.id ).removeClass('flip');
             scope.d.removeRequested = false;
-            $('#' + scope.d._id + '-remove-btn').removeClass('expand');
+            $('#' + scope.d.id + '-remove-btn').removeClass('expand');
           }
           else {
-            $('#' + scope.d._id ).addClass('flip');
+            $('#' + scope.d.id ).addClass('flip');
           }
 
           flipped = !flipped;
@@ -255,18 +257,18 @@ angular.module('DashbookApp')
           if (!scope.d.removeRequested) {
             scope.d.removeRequested = true;
             $(document).find(".expand").removeClass("expand");
-            $('#'+scope.d._id+'-remove-btn').addClass("expand");
+            $('#'+scope.d.id+'-remove-btn').addClass("expand");
             return;
           };
           scope.d.removeRequested = true;
           $(document).find(".expand").removeClass("expand");
-          $('#' + scope.d._id + '-remove-btn').addClass('expand');
+          $('#' + scope.d.id + '-remove-btn').addClass('expand');
 
-          $http.delete('/dashes/'+scope.d._id).success(function(){
+          $http.delete('/dashes/'+scope.d.id).success(function(){
 
             scope.deleteDash(scope.d);
-            $('#' + scope.d._id ).hide();
-            $('#' + scope.d._id ).remove();
+            $('#' + scope.d.id ).hide();
+            $('#' + scope.d.id ).remove();
             scope.safeApply();
           
           })
@@ -288,14 +290,14 @@ angular.module('DashbookApp')
 
         function attachFlipsnap() {
 
-          flipsnap = Flipsnap('#'+scope.d._id+ ' .flipsnap');
+          flipsnap = Flipsnap('#'+scope.d.id+ ' .flipsnap');
           
           setTimeout(function(){
             flipsnap.refresh();
             // pointer = $('.slide-indicator span'); 
-            pointer = $('#pointer-'+scope.d._id+' span'); 
+            pointer = $('#pointer-'+scope.d.id+' span'); 
             if (!scope.d.content || scope.d.content.length == 0) return;
-            $('#'+scope.d._id+scope.d.content[0]._id).addClass('current');
+            $('#'+scope.d.id+scope.d.content[0].id).addClass('current');
             flipsnap.element.addEventListener('fspointmove', function() {
               pointer.filter('.current').removeClass('current');
               pointer.eq(flipsnap.currentPoint).addClass('current');
@@ -305,7 +307,7 @@ angular.module('DashbookApp')
 
         function scheduleContentFecth(interval) {
           setTimeout(function(){
-            $http.get('/content?t='+scope.d.title+'&s='+scope.d.selectedSetting+'&skip='+scope.skip)
+            $http.get('/content?t='+scope.d.title+'&s='+scope.d.selected_setting+'&skip='+scope.skip)
             .success(function(data){
               ++totalFetches;
               if (data.content.length == 0) {
@@ -327,7 +329,7 @@ angular.module('DashbookApp')
                 scope.d.content = data.content;
                 scope.skip = data.skip;
                 scope.safeApply();
-                $('#' + scope.d._id + ' .spinner').hide();
+                $('#' + scope.d.id + ' .spinner').hide();
                 // scheduleContentFecthAndAppend(5000);
                 attachFlipsnap();
               }
@@ -338,13 +340,13 @@ angular.module('DashbookApp')
 
         function showEmptyContent() {
           // console.log('empty');
-          $('#' + scope.d._id + ' .spinner').hide();
+          $('#' + scope.d.id + ' .spinner').hide();
         };
 
         function scheduleContentFecthAndAppend(interval) {
 
           setTimeout(function(){
-            $http.get('/content?t='+scope.d.title+'&s='+scope.d.selectedSetting+'&skip='+scope.skip)
+            $http.get('/content?t='+scope.d.title+'&s='+scope.d.selected_setting+'&skip='+scope.skip)
             .success(function(data) {
               
               scope.skip = data.skip;
@@ -360,10 +362,10 @@ angular.module('DashbookApp')
 
           // console.log(scope.d.dashType)
 
-          if (scope.d.dashType == 'geo' && !scope.d.selectedSetting)
+          if (scope.d.dashType == 'geo' && !scope.d.selected_setting)
             return 'Current Location';
           else
-            return scope.d.selectedSetting;
+            return scope.d.selected_setting;
         };
 
         function calculateScalar(data) {
@@ -394,7 +396,7 @@ angular.module('DashbookApp')
           };
 
           scope.safeApply();
-          $('#' + scope.d._id + ' .spinner').hide();
+          $('#' + scope.d.id + ' .spinner').hide();
           attachFlipsnap();
         };
 
@@ -409,7 +411,7 @@ angular.module('DashbookApp')
             "crossDomain": true,
             "success": function(apiResponseJson, status, headers){
 
-              $('#' + scope.d._id + ' .spinner').hide();
+              $('#' + scope.d.id + ' .spinner').hide();
 
               var content = [];
 
