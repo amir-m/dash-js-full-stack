@@ -2,6 +2,7 @@ var self = this,
 	mongoose = require('mongoose'),
 	crypto = require('crypto'),
 	redisClient,
+	connectionString = "mongodb://admin:IuT603JamshEqplE2N&0}x!@candidate.19.mongolayer.com:10061/dbk",
 	dashes_ids = [ 
 		'dash:NTJhOWRmMGYxODNiNTAwMDAwMDAwMDAx',
 		'dash:NTI5NjNiMGYwZWZhNzI1ZTliMDAwMDAx',
@@ -116,20 +117,20 @@ UserSessionSchema.statics.createFromCache = function(session) {
 
 var UserSession = mongoose.model('UserSession', UserSessionSchema);
 
-var DashSchema = new mongoose.Schema({
-	id: {type: String, required: true, unique: true},
-	title: {type: String, required: true},
-	uri: String,
-	dash_type: String,
-	description: String,
-	credits: String,
-	icon_large: String,
-	icon_small: String,
-	setting_type: String,
-	handler_placeholder: String,
-	collection_name: String,
-	settings: {}
-});
+// var DashSchema = new mongoose.Schema({
+// 	id: {type: String, required: true, unique: true},
+// 	title: {type: String, required: true},
+// 	uri: String,
+// 	dash_type: String,
+// 	description: String,
+// 	credits: String,
+// 	icon_large: String,
+// 	icon_small: String,
+// 	setting_type: String,
+// 	handler_placeholder: String,
+// 	collection_name: String,
+// 	settings: {}
+// });
 
 var UserDashSchema = new mongoose.Schema({
 	id: { type: String, required: true, unique: true },
@@ -210,6 +211,7 @@ var ContentSchema = new mongoose.Schema({
 	source_id: String,
 	resource_uri: String,
 	term: String,
+	tags: [],
 	content_type: [], 
 	components: {}
 	// desc_comp: {},
@@ -219,7 +221,8 @@ var ContentSchema = new mongoose.Schema({
 	// sports_comp: {},
 	// weather_comp: {},
 	// stats_comp: {},
-	// charts_comp: {}
+	// charts_comp: {},
+	// clone_comp: {}
 });
 
 PrivateDashSchema.set('toObject', { virtuals: true });
@@ -423,6 +426,13 @@ function decipher(text){
 	return dec;
 };
 
+function ready(callback) {
+	mongoose.connect(connectionString, function(err){
+		if (err) throw err;
+		callback();
+	});
+};
+
 var Dash = {
 	findOne: findOneDash,
 	find: findDash
@@ -451,3 +461,4 @@ exports.Dash = Dash;
 exports.PrivateDash = PrivateDash;
 exports.Content = Content;
 exports.Session = Session;
+exports.ready = ready;
