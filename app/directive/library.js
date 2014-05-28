@@ -18,11 +18,10 @@ angular.module('DashbookApp')
         });
 
         scope.add = function(dash) {
-
           if (!dash.addRequested) {
             dash.addRequested = true;
             $(document).find(".expand").removeClass("expand");
-            $('#'+dash.id+'-lib-add-btn').addClass("expand");
+            $('#'+dash.id+'-lib-add-btn span').addClass("expand");
             return;
           };
           dash.addRequested = false;

@@ -6,7 +6,7 @@ angular.module('DashbookApp')
 	'$compile',
 	function ($http, $compile) {
 		return {
-			templateUrl: '/partials/comp-container.html',
+			// templateUrl: '/partials/comp-container.html',
 			restrict: 'E',
 			link: function postLink(scope, element, attrs) {
 				console.log(scope.d);

@@ -5,9 +5,15 @@ module.exports = function(models, redisClient) {
 	var defaultDashes = ['NTI5NjJmYzUyMzQ3ZjUxZDliMDAwMDAx', 'NTJhOWRmMGYxODNiNTAwMDAwMDAwMDAx', 'NTI5NjMyNWY1OGM5YmIzNzliMDAwMDAx']
 
 	function insertDashesToRedisBackend() {
-		for (var i = 0; i < dashes.length; ++i) {
-			redisClient.hmset("dash:"+dashes[i].id, dashes[i]);
-		}
+		redisClient.keys('dash:*', function(error, _dashes){
+			if (error) throw error;
+			for (var i = 0; i < _dashes.length; ++i) {
+				redisClient.del(_dashes[i]);
+			}
+			for (var i = 0; i < dashes.length; ++i) {
+				redisClient.hmset("dash:"+dashes[i].id, dashes[i]);
+			}
+		});
 	};
 
 	function createDefaultDashes(uuid) {

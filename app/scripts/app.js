@@ -23,11 +23,10 @@ angular.module('DashbookApp', [])
 
     $rootScope._width = 315;
 
-    if (winWidth > 480)
-      $rootScope._width = 483;
+    // if (winWidth > 480)
+    //   $rootScope._width = 483;
 
         var cookie = document.cookie;
-
 
         if (cookie) {
           cookie = cookie.replace(/ /g, '');;

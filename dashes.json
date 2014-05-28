@@ -1,7 +1,7 @@
 [{
 	"id": "NTI5NjJmYzUyNzQ3ZjUxADLiQDBzMDAy",
+	"content_type": "privateDash",
 	"dash_type": "privateDash",
-	"avatar": "",
 	"title": "Private Dash",
 	"description": "This is a private dash.",
 	"credits": "Dashbench", 
@@ -13,8 +13,8 @@
 },
 {
 	"id": "NTI5NjJmYzUyMzQ3ZjUxZDliMDAwMDAx",
-	"dash_type": "slideshow",
-	"avatar": "",
+	"source_uri": "https://api.dribbble.com/shots/popular?per_page=10|^._.^|https://api.dribbble.com/shots/debuts?per_page=10|^._.^|https://api.dribbble.com/shots/everyone?per_page=10",
+	"content_type": "src_comp:hero_comp:desc_comp:footer_comp",
 	"title": "Dribbble",
 	"description": "Displays Dribbble shots for the Popular, Debut, and Everyone categories",
 	"credits": "Dribbble", 
@@ -22,12 +22,14 @@
 	"icon_small": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/dribbble_small_icon.png",
 	"setting_type": "radio",
 	"location": "",
-	"settings": "Popular:Debut:Everyone"
+	"settings": "Popular:Debut:Everyone",
+	"data_container": "shots",
+	"mapper_key": "src_comp.resource_uri:desc_comp.header:desc_comp.text:desc_comp.avatar_img:hero_comp.main_img:footer_comp.time",
+	"mapper_value": "url:player.name:title:player.avatar_url:image_url:created_at"
 },
 {
 	"id": "NTJhOWRmMGYxODNiNTAwMDAwMDAwMDAx",
-	"dash_type": "stats",
-	"avatar": "",
+	"content_type": "stats",
 	"title": "Dribbble Stats",
 	"description": "Displays the stats (likes, comments, views) of a player’s dribbble shots",
 	"credits": "Dribbble",
@@ -38,23 +40,9 @@
 	"settings": ""
 },
 {
-	"id": "NTI5NjMyNWY1OGM5YmIzNzliMDAwMDAx",
-	"dash_type": "slideshow",
-	"avatar": "",
-	"title": "BeHance",
-	"description": "Displays BeHance projects for the Featured, Most Appreciated, Most Recent",
-	"credits": "BeHance",
-	"icon_large": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/behance_large_icon.png",
-	"icon_small": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/behance_small_icon.png",
-	"setting_type": "radio",
-	"location": "",
-	"settings": "Featured:Most Appreciated:Most Recent"
-},
-{
 	"id": "NTI5NjM2YmZiMTcxMzg0NTliMDAwMDAx",
 	"title": "News",
-	"dash_type": "text",
-	"avatar": "",
+	"content_type": "text",
 	"description": "Displays the headlines for a variety of new publications",
 	"credits": "Dashbook",
 	"icon_large": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/news_large_icon.png",
@@ -64,34 +52,26 @@
 	"settings": "TechCrunch:ESPN:New York Times:Mashable:Wired:Inc.com:Fast Company:Forbes:Core77:Design Milk:Business Insider"
 },
 {
-	"id": "NTI5NjM4NTg2NGZmOGU0YzliMDAwMDAx",
-	"title": "Sidebar.io",
-	"dash_type": "text",
-	"setting_type": "text",
-	"avatar": "",
-	"description": "Displays the daily, designer-centric articles from Sidebar.io",
-	"credits": "Sidebar.io",
-	"icon_large": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/sidebar_io_large_icon.png",
-	"icon_small": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/sidebar_io_small_icon.png",
-	"location": "",
-	"settings": ""
-},
-{
 	"id": "NTI5NjM5ZTlmOGZjY2Q1ODliMDAwMDAx",
 	"title": "Coffee Near Me",
+	"source_uri": "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={latitude},{longitude}&rankBy=distance&radius=4000&keyword={keyword}&sensor=true&key=AIzaSyAfzGESbROgOjoOqJrMbtIKNRtebL3w0Lc",
+	"source_uri_keys": "{latitude}:{longitude}:{keyword}",
+	"source_uri_values": "latitude:longitude:coffee",
+	"content_type": "src_comp:geo_comp",
 	"setting_type": "text",
-	"dash_type": "geo",
 	"description": "Find the closest cup of coffee based on your current location",
 	"credits": "Google Places",
 	"icon_large": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/coffee_large_icon.png",
 	"icon_small": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/coffee_small_icon.png",
-	"location": "",
-	"settings": ""
+	"settings": "",
+	"data_container": "results",
+	"mapper_key": "geo_comp.header:geo_comp.text:geo_comp.latitude:geo_comp.longitude",
+	"mapper_value": "name:vicinity:geometry.location.lat:geometry.location.lng"
 },
 {
 	"id": "NTI5NjNhNjFmNTliN2Y1YzliMDAwMDAx",
 	"title": "Places Near Me",
-	"dash_type": "geo",
+	"content_type": "geo",
 	"description": "Find places based on your current location and a search term",
 	"credits": "Google Places",
 	"icon_large": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/places_near_me_large_icon.png",
@@ -103,7 +83,7 @@
 {
 	"id": "NTI5NjNiMGYwZWZhNzI1ZTliMDAwMDAx",
 	"title": "Food Near Me",
-	"dash_type": "geo",
+	"content_type": "geo",
 	"setting_type": "text",
 	"description": "Find the closest restaurants based on your current location",
 	"credits": "Google Places",

@@ -60,8 +60,9 @@ module.exports = function  (models, publisher) {
 
 			var selected = '';			
 
-			if (dash.setting_type == 'radio')
+			if (dash.setting_type == 'radio') {
 				selected = dash.settings[0];
+			}
 			else if (dash.setting_type == 'text') {
 				selected = dash.settings;
 			}
@@ -69,22 +70,31 @@ module.exports = function  (models, publisher) {
 			var ud = new models.UserDash({
 				id: models.id(),
 				dash_id: dash.id,
-				dash_type: dash.dash_type,
+				user: req.params.uuid,
+				title: dash.title,
 				location: {
 					lat: req.params.lat,
 					lon: req.params.lon
 				},
-				user: req.params.uuid,
-				title: dash.title,
-				sub_title: dash.sub_title,
 				description: dash.description,
 				credits: dash.credits,
-				icon_large: dash.icon_large,
 				icon_small: dash.icon_small,
-				settings: dash.settings,
+				icon_large: dash.icon_large,
+				setting_type: dash.setting_type,
 				selected_setting: selected,
-				setting_type: dash.setting_type
+				content_type: dash.content_type,
+				source_uri_keys: dash.source_uri_keys,
+				source_uri_values: dash.source_uri_values,
+				selected_source_uri: dash.source_uri[0],
+				handler_placeholder: dash.handler_placeholder,
+				data_container: dash.data_container,
+				settings: dash.settings,
+				source_uri: dash.source_uri,
+				mapper_key: dash.mapper_key,
+				mapper_value: dash.mapper_value,
+				collection_name: dash.collection_name
 			});
+
 			ud.save(function(error){
 					if (error) {
 						console.log(error)
@@ -187,8 +197,6 @@ module.exports = function  (models, publisher) {
 		
 		var col;
 
-		console.log(req.query.t)
-		console.log(req.query.s)
 		// return res.send(200);
 
 		if (map[req.query.t] && !map[req.query.t][req.query.s])
@@ -203,6 +211,7 @@ module.exports = function  (models, publisher) {
 		}
 
 
+		console.log(col);
 
 		var skip = parseInt(req.query.skip);
 		skip = isNaN(skip) ? 0 : skip;
@@ -213,7 +222,7 @@ module.exports = function  (models, publisher) {
 			col.find( { behanceType: req.query.s } )
 			.limit(10)
 			.skip(skip)
-			.sort({'slideshow.pubDate': -1})
+			// .sort({'slideshow.pubDate': -1})
 			.exec(function(error, docs){
 				if (error) {
 					res.send(500);
@@ -227,11 +236,11 @@ module.exports = function  (models, publisher) {
 		}
 		else if (req.query.t == 'Dribbble'){
 			
-			var sort = {'slideshow.pubDate': -1};
-			col.find()
+			// var sort = {'slideshow.pubDate': -1};
+			models.Content.find({ collection_name: col })
 			.skip(skip)
 			.limit(10)
-			.sort(sort)
+			// .sort(sort)
 			.exec(function(error, docs){
 				if (error) {
 					res.send(500);
@@ -252,7 +261,7 @@ module.exports = function  (models, publisher) {
 				})
 				.skip(skip)
 				.limit(10)
-				.sort(sort)
+				// .sort(sort)
 				.exec(function(error, docs){
 					if (error) {
 						res.send(500);
@@ -277,7 +286,7 @@ module.exports = function  (models, publisher) {
 			.near([parseFloat(m.longitude), parseFloat(m.latitude)])
 			.maxDistance(500)
 			.limit(10)
-			.skip(skip)
+			// .skip(skip)
 			.exec(function(error, docs){
 				if (error) {
 					res.send(500);
@@ -350,13 +359,13 @@ module.exports = function  (models, publisher) {
 		}
 
 		else {
-			var sort = {'news.pub_date': -1};
+			// var sort = {'news.pub_date': -1};
 			models.Content.find({
 				collection_name: col
 			})
 			.skip(skip)
 			.limit(10)
-			.sort(sort)
+			// .sort(sort)
 			.exec(function(error, docs){
 				if (error) {
 					res.send(500);
@@ -366,8 +375,7 @@ module.exports = function  (models, publisher) {
 				return res.send({content: docs, skip: skip + s});
 			});
 		};
-
-	}
+	};
 
 	var library = function (req, res, next) {
 

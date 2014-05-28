@@ -11,55 +11,54 @@
 					{{d.selected_setting || 'Current Location'}}
 				</span>
 			</h1>
-			<a class="settings-btn" ng-click="flipSettings()">
-				<span>
-					<!-- <img src="https://s3.amazonaws.com/s3.dashbook.co/dbkapp/img/settings-btn.png"> -->
-				</span>
-			</a>
+			<a class="settings-btn" ng-click="flipSettings()"><span></span></a>
 		</header>
 
 		<div class="viewport">
 			<div class="flipsnap" style="width:{{_width*d.content.length}}px;">
 				<!-- <section ng-repeat="content in d.content"> -->
-				<comp-container>
+					<!-- 
 					<geo ng-show="d.dash_type == 'geo'"></geo>
 					<slideshow ng-show="d.dash_type == 'slideshow'"></slideshow>
 					<news ng-show="d.dash_type == 'text'"></news>
 					<stats ng-show="d.dash_type == 'stats'"></stats>
-					<private ng-show="d.dash_type == 'privateDash'"></private>
-				</comp-container>
+					<private ng-show="d.dash_type == 'privateDash'"></private>  
+					-->
+					
 			</div>
 		</div>
 		
 		<p class="no-settings grey" ng-show="!d.content || d.content.length == 0">No content is available at this time.</p>
 
-		<div class="slide-indicator" id="pointer-{{d._id}}">
-			<span ng-repeat="content in d.content" id ="{{d._id}}{{content._id}}"></span>
+		<div class="slide-indicator" id="pointer-{{d.id}}">
+			<span ng-repeat="content in d.content"></span>
 		</div>
 	</div>
 
 	<div class="back">
 		<header>
-			<h1><img class="small-icon" ng-src="{{d.iconSmall}}">
+			<h1><img class="small-icon" ng-src="{{d.icon_small}}">
 				{{d.title}} • <span>Settings</span></h1>
-			<a class="info-submitted" ng-click="flipSettings()">
-				<span>
-					<img src="https://s3.amazonaws.com/s3.dashbook.co/dbkapp/img/settings-btn.png">
-				</span>
-			</a>
+			<a class="settings-btn" ng-click="flipSettings()"><span></span></a>
 		</header>
 
 		<div class="settings">
-			<p class="no-settings grey" ng-show="d.settingType == 'text'">This dash has no settings</p>
-			<ul ng-show="d.settingType == 'radio'">
-				<li ng-repeat="setting in d.settings" ng-class="{selected: setting == d.selected_setting	}" ng-click="selectSetting($index)">
-					{{setting}}
-				</li>
-			</ul>
-
-			<form ng-show="d.settingType == 'textInput'">
+			<p class="no-settings grey" ng-show="d.setting_type == 'text'">This dash has no settings</p>
+			<section class="list-comp">
+				<ul ng-show="d.setting_type == 'radio'">
+					<li ng-repeat="setting in d.settings" 
+						ng-class="{selected: setting == d.selected_setting}" 
+						ng-click="selectSetting($index)">
+						{{setting}}
+					</li>
+				</ul>
+			</section>
+			<section class="error-comp centered">
+				<p class="grey">This is error...</p>
+			</section>
+			<section class="input-comp" ng-show="d.setting_type == 'textInput'">
 				<input 
-					id="{{d._id}}-input-text" 
+					id="{{d.id}}-input-text" 
 					class="clearable" type="text" 
 					placeholder="Search" 
 					name="search_term" 
@@ -73,11 +72,12 @@
 				<button 
 					ng-show="d.dash_type != 'privateDash'" 
 					ng-click="updateInputText()">Save</button>
-			</form>
+			</section>
 			<footer>
-				<a class="remove-btn" ng-click="removeDash()" id="{{d._id}}-remove-btn">
-					<img src="https://s3.amazonaws.com/s3.dashbook.co/dbkapp/img/remove-btn.png">
-					Remove
+				<a class="remove-btn" ng-click="removeDash()" id="{{d.id}}-remove-btn">
+					<span>
+						Remove
+					</span>
 				</a>					
 				<p class="credit">Powered by {{d.credits}}</p>
 			</footer>

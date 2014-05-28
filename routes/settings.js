@@ -2,52 +2,56 @@ module.exports = function  (models, publisher) {
 
 	var cookie = require('cookie');
 
-	// var map = {
-	// 	'Dribbble': {
-	// 		'Everyone': models.dashes.EveryoneDribbleShot,
-	// 		'Popular': models.dashes.PopularDribbleShot,
-	// 		'Debut': models.dashes.DebutsDribbleShot
-	// 	},
-	// 	'News': {
-	// 		'Business Insider': models.dashes.BusinessInsider,
-	// 		Wired: models.dashes.Wired,
-	// 		VentureBeat: models.dashes.VentureBeat,
-	// 		TechCrunch: models.dashes.TechCrunch,
-	// 		'New York Times': models.dashes.NewYorkTimes,
-	// 		Mashable: models.dashes.Mashable,
-	// 		'Inc.com': models.dashes.IncCom,
-	// 		Forbes: models.dashes.Forbes,
-	// 		'Fast Company': models.dashes.FastCompany,
-	// 		ESPN: models.dashes.ESPN,
-	// 		Core77: models.dashes.Core77,
-	// 		'Design Milk': models.dashes.DesignMilk
-	// 	},
-	// 	'BeHance': models.dashes.Behance,
-	// 	'Coffee Near Me': models.dashes.PlacesSearchResult,
-	// 	'Places Near Me': models.dashes.PlacesSearchResult,
-	// 	'Food Near Me': models.dashes.PlacesSearchResult,
-	// 	'Sidebar.io': models.dashes.SideBarIO,
-	// 	'Dribbble Stats': models.dashes.DribbbleStat,
-	// 	'Private Dash': models.dashes.PrivateDash
-	// },
-	// pubMap = {
-	// 	'BeHance': 'behance',
-	// 	'Places Near Me': 'places'
-	// };
+var map = {
+		'Dribbble': {
+			'Everyone': 'EveryoneDribbleShot',
+			'Popular': 'PopularDribbleShot',
+			'Debut': 'DebutsDribbleShot'
+		},
+		'News': {
+			'Business Insider': 'BusinessInsiderFeed',
+			Wired: 'WiredFeed',
+			VentureBeat: 'VentureBeatFeed',
+			TechCrunch: 'TechCrunchFeed',
+			'New York Times': 'NewYorkTimesFeed',
+			Mashable: 'MashableFeed',
+			'Inc.com': 'IncComFeed',
+			Forbes: 'ForbesFeed',
+			'Fast Company': 'FastCompanyFeed',
+			ESPN: 'ESPNFeed',
+			Core77: 'Core77Feed',
+			'Design Milk': 'DesignMilkFeed'
+		},
+		'BeHance': {
+			'Featured': 'BehanceFeatured',
+			'Most Appreciated': 'BehanceMostAppreciated',
+			'Most Recent': 'BehanceMostRecent'
+		},
+		'Coffee Near Me': 'PlacesSearchResult',
+		'Places Near Me': 'PlacesSearchResult',
+		'Food Near Me': 'PlacesSearchResult',
+		'Dribbble Stats': 'DribbbleStat',
+		'Private Dash': models.PrivateDash
+	}, 
+	geo = ['Coffee Near Me', 'Places Near Me', 'Food Near Me'],
+	pubMap = {
+		'BeHance Project Search': 'behance',
+		'Places Near Me': 'places'
+	};
 
 	var create = function (req, res, next) {
 		
 	};
 
 	var update = function (req, res, next) {
+		console.log(req.body)
+		if (!req.body.setting_type) return res.send(400);
 
-		if (!req.body.settingType) return res.send(400);
-
-		if (req.body.settingType == 'radio') {
-			if (!req.body.selectedSetting || !req.body.uuid || !req.params.id)
+		if (req.body.setting_type == 'radio') {
+			if (!req.body.selected_setting || !req.body.uuid || !req.params.id)
 				return res.send(400);
 
-			models.dashes.UserDash.findOne({_id: req.params.id, user: req.body.uuid}, 
+			models.UserDash.findOne({id: req.params.id, user: req.body.uuid}, 
 			function(error, dash) {
 
 				if (error) return res.send(500);
@@ -57,7 +61,8 @@ module.exports = function  (models, publisher) {
 					return res.send(400);
 				}
 
-				dash.selectedSetting = req.body.selectedSetting;
+				dash.selected_setting = req.body.selected_setting;
+				dash.selected_source_uri = req.body.selected_source_uri;
 
 				dash.save(function(error){
 
@@ -65,27 +70,68 @@ module.exports = function  (models, publisher) {
 					
 					var col;
 
-					if (map[dash.title] && !map[dash.title][req.body.selectedSetting])
+					if (map[dash.title] && !map[dash.title][req.body.selected_setting])
 						col = map[dash.title];
 
-					else if (map[dash.title] && map[dash.title][req.body.selectedSetting])
-						col = map[dash.title][req.body.selectedSetting]
+					else if (map[dash.title] && map[dash.title][req.body.selected_setting])
+						col = map[dash.title][req.body.selected_setting]
 
 					else return res.send(400);
 
-					if (!col.find) return res.send(400);
-
 					var sort = {};
-					
-					if (dash.dashType == 'slideshow')
-						sort['slideshow.pubDate'] = -1;
 
-					else if (dash.dashType == 'text')
-						sort['news.pubDate'] = -1;
+					// if (dash.title == 'BeHance') {
+					// 	models.Content.find( { collection_name: col } )
+					// 	// .sort(sort)
+					// 	.limit(10)
+					// 	.exec(function(error, docs){
+					// 		if (error) {
+					// 			res.send(500);
+					// 			throw error
+					// 		};
+					// 		res.send({content: docs, skip: 10});
+					// 		// models.users.UserSession.findOne({id: req.body.sid}, function(error, doc){
+					// 		// 	if (!error) {
+					// 		// 		doc.terms.push({
+					// 		//             latitude: req.body.latitude,
+					// 		//             longitude: req.body.longitude,
+					// 		//             colName: 'Behance',
+					// 		//             settings: req.body.selected_setting,
+					// 		//             timestamp: req.body.timestamp
+					// 		// 		});
+					// 		// 		doc.save();
+					// 		// 	}
+					// 		// });
+					// 	});
+					// }
+					// else {
+					// 	models.Content.find()
+					// 	// .sort(sort)
+					// 	.limit(10)
+					// 	.exec(function(error, docs){
+					// 		if (error) {
+					// 			res.send(500);
+					// 			throw error
+					// 		};
+					// 		res.send({content: docs, skip: 10});
+					// 		// models.users.UserSession.findOne({id: req.body.sid}, function(error, doc){
+					// 		// 	if (!error) {
+					// 		// 		doc.terms.push({
+					// 		//             latitude: req.body.latitude,
+					// 		//             longitude: req.body.longitude,
+					// 		//             content_id: req.body.content_id,
+					// 		//             colName: req.body.colName,
+					// 		//             settings: req.body.settings,
+					// 		//             timestamp: req.body.timestamp
+					// 		// 		});
+					// 		// 		doc.save();
+					// 		// 	}
+					// 		// });
+					// 	});
+					// }
 
-					if (dash.title == 'BeHance') {
-						col.find( { behanceType: req.body.selectedSetting } )
-						.sort(sort)
+					models.Content.find()
+						// .sort(sort)
 						.limit(10)
 						.exec(function(error, docs){
 							if (error) {
@@ -93,55 +139,30 @@ module.exports = function  (models, publisher) {
 								throw error
 							};
 							res.send({content: docs, skip: 10});
-							models.users.UserSession.findOne({_id: req.body.sid}, function(error, doc){
-								if (!error) {
-									doc.terms.push({
-							            latitude: req.body.latitude,
-							            longitude: req.body.longitude,
-							            colName: 'Behance',
-							            settings: req.body.selectedSetting,
-							            timestamp: req.body.timestamp
-									});
-									doc.save();
-								}
-							});
+							// models.users.UserSession.findOne({id: req.body.sid}, function(error, doc){
+							// 	if (!error) {
+							// 		doc.terms.push({
+							//             latitude: req.body.latitude,
+							//             longitude: req.body.longitude,
+							//             content_id: req.body.content_id,
+							//             colName: req.body.colName,
+							//             settings: req.body.settings,
+							//             timestamp: req.body.timestamp
+							// 		});
+							// 		doc.save();
+							// 	}
+							// });
 						});
-					}
-					else {
-						col.find()
-						.sort(sort)
-						.limit(10)
-						.exec(function(error, docs){
-							if (error) {
-								res.send(500);
-								throw error
-							};
-							res.send({content: docs, skip: 10});
-							models.users.UserSession.findOne({_id: req.body.sid}, function(error, doc){
-								if (!error) {
-									doc.terms.push({
-							            latitude: req.body.latitude,
-							            longitude: req.body.longitude,
-							            content_id: req.body.content_id,
-							            colName: req.body.colName,
-							            settings: req.body.settings,
-							            timestamp: req.body.timestamp
-									});
-									doc.save();
-								}
-							});
-						});
-					}
 				});
 
 			});
 		}
-		else if (req.body.settingType == 'textInput') {
+		else if (req.body.setting_type == 'textInput') {
 			
 			if (!req.body.textInput || !req.body.uuid || !req.params.id)
 				return res.send(400);
 
-			models.dashes.UserDash.findOne({_id: req.params.id, user: req.body.uuid}, 
+			models.UserDash.findOne({id: req.params.id, user: req.body.uuid}, 
 			function(error, dash) {
 
 				if (error) return res.send(500);
@@ -149,8 +170,8 @@ module.exports = function  (models, publisher) {
 				if (!dash) return res.send(400);
 
 				if (req.body.title != 'Private Dash')
-					dash.selectedSetting = req.body.textInput.toLowerCase();
-				else dash.selectedSetting = req.body.textInput;
+					dash.selected_setting = req.body.textInput.toLowerCase();
+				else dash.selected_setting = req.body.textInput;
 
 				dash.save(function(error){
 					
@@ -162,7 +183,7 @@ module.exports = function  (models, publisher) {
 					
 					if (req.body.title == 'BeHance') {
 						
-						col.find({term: { $regex: req.body.textInput, $options: 'i' } })
+						models.Content.find({term: { $regex: req.body.textInput, $options: 'i' } })
 						.limit(10)
 						.skip(skip)
 						.sort({'slideshow.pubDate': -1})
@@ -185,7 +206,7 @@ module.exports = function  (models, publisher) {
 									needCallBack: false,
 									skip: skip + 10
 								});
-							models.users.UserSession.findOne({_id: req.body.sid}, function(error, doc){
+							models.users.UserSession.findOne({id: req.body.sid}, function(error, doc){
 								if (!error) {
 									doc.terms.push({
 							            latitude: req.body.latitude,
@@ -205,7 +226,7 @@ module.exports = function  (models, publisher) {
 
 						publisher.publish('DribbbleStatFetch', req.body.textInput.toLowerCase()); 
 
-						col.find({term: { $regex: req.body.textInput, $options: 'i' } })
+						models.Content.find({term: { $regex: req.body.textInput, $options: 'i' } })
 						.limit(10)
 						.skip(skip)
 						.sort({'stats.pubDate': -1})
@@ -227,7 +248,7 @@ module.exports = function  (models, publisher) {
 								needCallBack: false,
 								skip: skip + 10
 							});
-							models.users.UserSession.findOne({_id: req.body.sid}, function(error, doc){
+							models.users.UserSession.findOne({id: req.body.sid}, function(error, doc){
 								if (!error) {
 									doc.terms.push({
 							            latitude: req.body.latitude,
@@ -252,7 +273,7 @@ module.exports = function  (models, publisher) {
 							publisher.publish('places', lat+'|'+lon+'|'+req.body.textInput.toLowerCase()); 
 						}
 
-						col.find({
+						models.Content.find({
 					      term: { $regex: req.body.textInput, $options: 'i' },
 					      'geo.location': { 
 					        $geoWithin : { 
@@ -280,7 +301,7 @@ module.exports = function  (models, publisher) {
 								needCallBack: false,
 								skip: skip + 10
 							});
-							models.users.UserSession.findOne({_id: req.body.sid}, function(error, doc){
+							models.users.UserSession.findOne({id: req.body.sid}, function(error, doc){
 								if (!error) {
 									doc.terms.push({
 							            latitude: req.body.latitude,
@@ -298,7 +319,7 @@ module.exports = function  (models, publisher) {
 					}
 					else if (req.body.title == 'Private Dash') {
 
-						models.dashes.PrivateDash.findOne({ 
+						models.PrivateDash.findOne({ 
 							dash_title: req.body.textInput 
 						}, function(error, doc){
 							if (error) throw error;
@@ -309,7 +330,7 @@ module.exports = function  (models, publisher) {
 							return res.send(doc.json());
 						});
 						// TODO: Save to UserSession 
-						// models.users.UserSession.findOne({_id: req.body.sid}, function(error, doc){
+						// models.users.UserSession.findOne({id: req.body.sid}, function(error, doc){
 						// 	if (!error) {
 						// 		doc.terms.push({
 						//             latitude: req.body.latitude,

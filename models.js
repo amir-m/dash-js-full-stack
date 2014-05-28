@@ -3,16 +3,6 @@ var self = this,
 	crypto = require('crypto'),
 	redisClient,
 	connectionString = "mongodb://admin:IuT603JamshEqplE2N&0}x!@candidate.19.mongolayer.com:10061/dbk",
-	dashes_ids = [ 
-		'dash:NTJhOWRmMGYxODNiNTAwMDAwMDAwMDAx',
-		'dash:NTI5NjNiMGYwZWZhNzI1ZTliMDAwMDAx',
-		'dash:NTI5NjJmYzUyMzQ3ZjUxZDliMDAwMDAx',
-		'dash:NTI5NjM5ZTlmOGZjY2Q1ODliMDAwMDAx',
-		'dash:NTI5NjM4NTg2NGZmOGU0YzliMDAwMDAx',
-		'dash:NTI5NjNhNjFmNTliN2Y1YzliMDAwMDAx',
-		'dash:NTI5NjMyNWY1OGM5YmIzNzliMDAwMDAx',
-		'dash:NTI5NjM2YmZiMTcxMzg0NTliMDAwMDAx',
-		'dash:NTI5NjJmYzUyNzQ3ZjUxADLiQDBzMDAy'   ],
 	collections = {
 		'PopularDribbleShot':  '',
 		'EveryoneDribbleShot': '',
@@ -117,39 +107,30 @@ UserSessionSchema.statics.createFromCache = function(session) {
 
 var UserSession = mongoose.model('UserSession', UserSessionSchema);
 
-// var DashSchema = new mongoose.Schema({
-// 	id: {type: String, required: true, unique: true},
-// 	title: {type: String, required: true},
-// 	uri: String,
-// 	dash_type: String,
-// 	description: String,
-// 	credits: String,
-// 	icon_large: String,
-// 	icon_small: String,
-// 	setting_type: String,
-// 	handler_placeholder: String,
-// 	collection_name: String,
-// 	settings: {}
-// });
-
 var UserDashSchema = new mongoose.Schema({
 	id: { type: String, required: true, unique: true },
 	dash_id: String,
 	user: { type: String, required: true },
 	title: { type: String, required: true },
-	dash_type: String,
 	location: String,
-	uri: String,
 	description: String,
 	credits: String,
 	icon_large: String,
 	icon_small: String,
 	setting_type: String,
 	selected_setting: String,
+	selected_source_uri: String,
 	handler_placeholder: String, 
 	is_active: {type: Boolean, default: true},
-	collection_name: String,
-	settings: {}
+	data_container: String, // 'body.shots'
+	source_uri_keys: [],
+	source_uri_values: [],
+	settings: {},
+	content_type: [],
+	source_uri: [],
+	mapper_key: [],
+	mapper_value: [],
+	collection_name: String
 });
 
 UserDashSchema.methods.json = function(pass) {
@@ -248,6 +229,20 @@ function findOneDash(id, callback) {
 		if (_dash.setting_type == 'radio') {
 			_dash.settings = _dash.settings.split(":");
 		}
+		_dash.mapper_key = _dash.mapper_key.split(":");
+		_dash.mapper_value = _dash.mapper_value.split(":");
+		_dash.content_type = _dash.content_type.split(":");
+		_dash.source_uri = _dash.source_uri.split("|^._.^|");
+
+		if (!_dash.source_uri_keys)
+			_dash.source_uri_keys = [];
+		else 
+			_dash.source_uri_keys = _dash.source_uri_keys.split(":");
+
+		if (!_dash.source_uri_values)
+			_dash.source_uri_values = [];
+		else 
+			_dash.source_uri_values = _dash.source_uri_values.split(":");
 
 		callback(null, _dash);
 
@@ -258,28 +253,30 @@ function findDash(callback) {
 
 	var d = [];
 
-	for (var i = 0; i < dashes_ids.length; ++i) {
-		
-		// redisClient.del(dashes_ids[i]);
+	redisClient.keys('dash:*', function(error, dashes_ids){
+		if (error) throw error;
+		for (var i = 0; i < dashes_ids.length; ++i) {
 
-		(function(i){
-			
-			redisClient.hgetall(dashes_ids[i], function(error, _dash) {
+			(function(i){
 				
-				if (error) throw error;
+				redisClient.hgetall(dashes_ids[i], function(error, _dash) {
+					
+					if (error) throw error;
 
-				if (_dash.setting_type == 'radio') {
-					_dash.settings = _dash.settings.split(":");
-				}
+					if (_dash.setting_type == 'radio') {
+						_dash.settings = _dash.settings.split(":");
+					}
 
-				d.push(_dash);
+					d.push(_dash);
 
-				if (i == (dashes_ids.length - 1)) callback(null, d);
+					if (i == (dashes_ids.length - 1)) callback(null, d);
 
-			});
+				});
 
-		}(i));
-	}
+			}(i));
+		}
+	});
+
 };
 
 function createUser(user) {

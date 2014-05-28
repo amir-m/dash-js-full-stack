@@ -2,14 +2,118 @@
 
 angular.module('DashbookApp')
   .directive('dash', [
-  '$http', '$timeout', '$rootScope',
-  function ($http, $timeout, $rootScope) {
+  '$http', '$timeout', '$rootScope', '$compile',
+  function ($http, $timeout, $rootScope, $compile) {
     return {
       restrict: 'E',
       replace: true,
       // templateUrl: '//s3.amazonaws.com/dbk-assets/dash.html', 
       templateUrl: '/partials/dash.html', 
       link: function (scope, element, attrs) {
+
+        scope.d.content = [];
+
+        function apiCallEngine() {
+          
+          if (scope.d.source_uri_keys && scope.d.source_uri_keys.length > 0) {
+            if (scope.d.source_uri_keys.indexOf('{latitude}') != -1) {
+              scope.d.selected_source_uri = scope.d.selected_source_uri.replace('{latitude}', scope.latitude);
+              scope.d.source_uri_keys.splice(scope.d.source_uri_keys.indexOf('{latitude}'), 1);
+              scope.d.source_uri_values.splice(0, 1);
+            }
+            if (scope.d.source_uri_keys.indexOf('{longitude}') != -1) {
+              scope.d.selected_source_uri = scope.d.selected_source_uri.replace('{longitude}', scope.longitude);
+              scope.d.source_uri_keys.splice(scope.d.source_uri_keys.indexOf('{longitude}'), 1);
+              scope.d.source_uri_values.splice(0, 1);
+            }
+            for (var i = 0; i < scope.d.source_uri_keys.length; ++i) {
+              scope.d.selected_source_uri = scope.d.selected_source_uri.replace(scope.d.source_uri_keys[i], scope.d.source_uri_values[i]);
+            }
+          };
+
+          // scope.d.selected_source_uri += '&callback=temp';
+
+          // ajax(scope.d.selected_source_uri, function(){
+
+          // });
+
+          $.ajax({
+            "url": 'http://localhost:8000/call?'+scope.d.selected_source_uri,
+            "dataType": "json",
+            // "xhrFields": {
+            //   withCredentials: true
+            // },
+            "crossDomain": true,
+            "success": function(apiResponseJson, status, headers){
+
+              $('#' + scope.d.id + ' .spinner').hide();
+
+              var content = [];
+
+              apiResponseJson = apiResponseJson;
+
+              console.log(apiResponseJson);
+              // return;
+
+              for (var i = 0; i < apiResponseJson[scope.d.data_container].length; ++i) {
+                
+
+                apiResponseJson[scope.d.data_container][i].components = {};
+
+                var begin = '<section><div>',
+                  end = '</div></section>';
+
+                var begin = '<section><div>'
+                
+
+                for (var j = 0; j < scope.d.content_type.length; ++j) {
+                  apiResponseJson[scope.d.data_container][i].components[scope.d.content_type[j]] = {};
+                }
+
+                
+                for (var j = 0; j < scope.d.mapper_key.length; ++j) {
+                  var value = scope.d.mapper_value[j];
+                  if (scope.d.mapper_value[j].indexOf('.') != -1) {
+                    value = '';
+                    var values = scope.d.mapper_value[j].split('.');
+                    for (var k = 0; k < values.length; ++k) {
+                      value += values[k];
+                      if (k != values.length -1) value += '.';
+                    }
+                  }
+
+                  eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_key[j]+
+                    " = apiResponseJson[scope.d.data_container][i]." + value);
+                }
+
+                for (var j = 0; j < scope.d.content_type.length; ++j) {
+                  var component = '<' + scope.d.content_type[j] +'>' + '</' + scope.d.content_type[j] +'>';
+                  begin += component;
+                }
+
+                begin += end;
+                var _scope = scope.$new();
+                _scope.content = apiResponseJson[scope.d.data_container][i];
+                
+                scope.d.content.push(_scope.$id);
+
+
+                $('#'+scope.d.id + ' .flipsnap').append($compile(begin)(_scope));
+              };
+
+              scope.attachFlipsnap();
+              scope.safeApply();
+              scope.$broadcast('resize');
+              // scope.d.content.splice(0, 10);
+
+            }, 
+            "error": function(error) {
+              console.log(arguments);
+            }
+          });
+        };
+
+        apiCallEngine();
         
         $('#sortable').prop( "disabled", true );
 
@@ -66,32 +170,11 @@ angular.module('DashbookApp')
           }
         }
         else {
-
-          $http.get('/content?t='+scope.d.title+'&s='+scope.d.selected_setting+'&skip='+scope.skip)
-          .success(function(data){
-            console.log(data);
-            return;
-            if (data.content.length == 0) return showEmptyContent();
-
-            if (scope.d.dashType == 'geo') return calculateScalar(data);
-
-            scope.d.content = data.content;
-            scope.skip = data.skip;
-            scope.safeApply();
-
-            attachFlipsnap();
-
-            $('#' + scope.d.id + ' .spinner').hide();
-          })
-          .error(function(error) { 
-            throw error; 
-          });
-
         }
 
         var flipped = false;
 
-        function tog(v){return v?'addClass':'removeClass';} 
+        function tog(v){return v ? 'addClass':'removeClass';} 
 
         $(document).on('input', '.clearable', function(){
           $(this)[tog(this.value)]('x');
@@ -113,20 +196,20 @@ angular.module('DashbookApp')
             scope.d.selected_setting = scope.d.selected_setting.toLowerCase();
 
             var __id = null;
-            var colName = scope.d.content ? scope.d.content.colName : scope.d.title
+            var collection_name = scope.d.content ? scope.d.content.collection_name : scope.d.title
             if (scope.d.content && scope.d.content.id)
               __id = scope.d.content.id;
             $http.post('/dashes/'+scope.d.id+'/settings', {
               textInput: scope.d.selected_setting,
               uuid: scope.uuid,
-              settingType: 'textInput',
+              setting_type: 'textInput',
               title: scope.d.title,
               skip: 0,
               sid: $rootScope.sid,
               latitude: $rootScope.latitude,
               longitude: $rootScope.longitude,
               content_id: __id,
-              colName: colName,
+              collection_name: collection_name,
               timestamp: new Date().getTime()
             }).success(function(data){
               ++totalFetches;
@@ -161,20 +244,20 @@ angular.module('DashbookApp')
             scope.d.selected_setting = $('#' + scope.d.id + '-input-text').val();
             // scope.d.selected_setting = scope.d.selected_setting.toLowerCase();
             var __id = null;
-            var colName = scope.d.content ? scope.d.content.colName : scope.d.title
+            var collection_name = scope.d.content ? scope.d.content.collection_name : scope.d.title
             if (scope.d.content && scope.d.content.id)
               __id = scope.d.content.id;
             $http.post('/dashes/'+scope.d.id+'/settings', {
               textInput: scope.d.selected_setting,
               uuid: scope.uuid,
-              settingType: 'textInput',
+              setting_type: 'textInput',
               title: scope.d.title,
               skip: 0,
               sid: $rootScope.sid,
               latitude: $rootScope.latitude,
               longitude: $rootScope.longitude,
               content_id: __id,
-              colName: colName,
+              collection_name: collection_name,
               timestamp: new Date().getTime()
             })
             .success(function(data){
@@ -198,44 +281,29 @@ angular.module('DashbookApp')
         };
 
         scope.selectSetting = function(index) {
+          scope.d.content = [];
+          scope.$broadcast('suicide');
+          scope.d.selected_source_uri = scope.d.source_uri[index];
+          apiCallEngine();
+          scope.flipSettings();
+          $('#' + scope.d.id + ' .spinner').show();
           var selectedTime = new Date().getTime();
-            scope.flipSettings()
-            $('#' + scope.d.id + ' .spinner').show();
+          scope.d.selected_setting = scope.d.settings[index];
 
-            scope.d.selected_setting = scope.d.settings[index];
+          $http.post('/dashes/'+scope.d.id+'/settings', {
+            selected_setting: scope.d.selected_setting,
+            selected_source_uri: scope.d.selected_source_uri,
+            uuid: scope.uuid,
+            setting_type: 'radio',
+            sid: $rootScope.sid,
+            latitude: $rootScope.latitude,
+            longitude: $rootScope.longitude,
+            timestamp: new Date().getTime()
+          }).success(function(data){
 
-            $http.post('/dashes/'+scope.d.id+'/settings', {
-              selected_setting: scope.d.selected_setting,
-              uuid: scope.uuid,
-              settingType: 'radio',
-              sid: $rootScope.sid,
-              latitude: $rootScope.latitude,
-              longitude: $rootScope.longitude,
-              timestamp: new Date().getTime()
-            }).success(function(data){
-              if (new Date().getTime() - selectedTime > 1000) {
-                $('#' + scope.d.id).addClass('loading');
-                scope.d.content = data.content;
-                scope.skip = data.skip;
-                $('#' + scope.d.id + ' .spinner').hide();
-                
-                attachFlipsnap();
-                scope.safeApply();
-              }
-              else {
-                $timeout(function(){
-                  scope.d.content = data.content;
-                  scope.skip = data.skip;
-                  $('#' + scope.d.id).removeClass('loading');
-                  $('#' + scope.d.id + ' .spinner').hide();
-                  scope.safeApply();
-                  attachFlipsnap();
-                }, 1000 - (new Date().getTime() - selectedTime));
-              }
-            })
-            .error(function(error){
-              // console.log(error);
-            });
+          })
+          .error(function(error){
+          });
         };
 
         scope.flipSettings = function() {
@@ -257,7 +325,7 @@ angular.module('DashbookApp')
           if (!scope.d.removeRequested) {
             scope.d.removeRequested = true;
             $(document).find(".expand").removeClass("expand");
-            $('#'+scope.d.id+'-remove-btn').addClass("expand");
+            $('#'+scope.d.id+'-remove-btn span').addClass("expand");
             return;
           };
           scope.d.removeRequested = true;
@@ -283,12 +351,12 @@ angular.module('DashbookApp')
             latitude: $rootScope.latitude,
             longitude: $rootScope.longitude,
             content_id: content.id,
-            col_name: content.colName,
+            col_name: content.collection_name,
             timestamp: new Date().getTime()
           });
         }
 
-        function attachFlipsnap() {
+        scope.attachFlipsnap = function() {
 
           flipsnap = Flipsnap('#'+scope.d.id+ ' .flipsnap');
           
@@ -297,12 +365,12 @@ angular.module('DashbookApp')
             // pointer = $('.slide-indicator span'); 
             pointer = $('#pointer-'+scope.d.id+' span'); 
             if (!scope.d.content || scope.d.content.length == 0) return;
-            $('#'+scope.d.id+scope.d.content[0].id).addClass('current');
+            $('.slide-indicator').find('span:first-child').addClass('current');
             flipsnap.element.addEventListener('fspointmove', function() {
               pointer.filter('.current').removeClass('current');
               pointer.eq(flipsnap.currentPoint).addClass('current');
             }, false);
-          }, 0);
+          }, 1000);
         };
 
         function scheduleContentFecth(interval) {
@@ -463,9 +531,34 @@ angular.module('DashbookApp')
 
             }
           });
-          
-        }
+        };
 
+        function ajax(url, callback) {
+          
+          var xhr = new XMLHttpRequest();
+
+          if ("withCredentials" in xhr) {
+            xhr.open('GET', url, true);
+          } 
+          else if (typeof XDomainRequest != "undefined") {
+            xhr = new XDomainRequest();
+            xhr.open('GET', url);
+
+          } 
+          else {
+
+            // Otherwise, CORS is not supported by the browser.
+            throw 'call not supported'
+            xhr = null;
+          }
+          xhr.onload = function() {
+           var responseText = xhr.responseText;
+           console.log(responseText);
+          };
+
+          xhr.withCredentials = true;
+          xhr.send();
+        }
       }
     };
   }]);
