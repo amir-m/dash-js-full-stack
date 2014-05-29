@@ -14,20 +14,26 @@ angular.module('DashbookApp')
         scope.d.content = [];
 
         function apiCallEngine() {
+
+          console.log(scope.d)
           
           if (scope.d.source_uri_keys && scope.d.source_uri_keys.length > 0) {
+          // TODO: this logic won't work if latitude and longitude change, since it removes the original uri scheme
+          // There's an easy fix to this though, you can add another field to the UserDash model which can
+          // hold the original url scheme...
             if (scope.d.source_uri_keys.indexOf('{latitude}') != -1) {
               scope.d.selected_source_uri = scope.d.selected_source_uri.replace('{latitude}', scope.latitude);
-              scope.d.source_uri_keys.splice(scope.d.source_uri_keys.indexOf('{latitude}'), 1);
-              scope.d.source_uri_values.splice(0, 1);
+              // scope.d.source_uri_keys.splice(scope.d.source_uri_keys.indexOf('{latitude}'), 1);
+              // scope.d.source_uri_values.splice(0, 1);
             }
             if (scope.d.source_uri_keys.indexOf('{longitude}') != -1) {
               scope.d.selected_source_uri = scope.d.selected_source_uri.replace('{longitude}', scope.longitude);
-              scope.d.source_uri_keys.splice(scope.d.source_uri_keys.indexOf('{longitude}'), 1);
-              scope.d.source_uri_values.splice(0, 1);
+              // scope.d.source_uri_keys.splice(scope.d.source_uri_keys.indexOf('{longitude}'), 1);
+              // scope.d.source_uri_values.splice(0, 1);
             }
             for (var i = 0; i < scope.d.source_uri_keys.length; ++i) {
-              scope.d.selected_source_uri = scope.d.selected_source_uri.replace(scope.d.source_uri_keys[i], scope.d.source_uri_values[i]);
+              if (scope.d.source_uri_keys[i] != '{latitude}' && scope.d.source_uri_keys[i] != '{longitude}')
+                scope.d.selected_source_uri = scope.d.selected_source_uri.replace(scope.d.source_uri_keys[i], scope.d.source_uri_values[i]);
             }
           };
 
@@ -52,7 +58,7 @@ angular.module('DashbookApp')
 
               apiResponseJson = apiResponseJson;
 
-              console.log(apiResponseJson);
+              // console.log(apiResponseJson);
               // return;
 
               for (var i = 0; i < apiResponseJson[scope.d.data_container].length; ++i) {
@@ -84,6 +90,15 @@ angular.module('DashbookApp')
 
                   eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_key[j]+
                     " = apiResponseJson[scope.d.data_container][i]." + value);
+                }
+
+                if (scope.d.mapper_static_key) {
+                    for (var j = 0; j < scope.d.mapper_static_key.length; ++j) {
+                      var value = scope.d.mapper_static_value[j];
+  
+                      eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_static_key[j]+
+                        " = '"+value+"'");
+                    }
                 }
 
                 for (var j = 0; j < scope.d.content_type.length; ++j) {
@@ -128,12 +143,9 @@ angular.module('DashbookApp')
           clearTimeout(this.downTimer);
         });
 
-
         scope.d.removeRequested = false;
         var flipsnap;
         var pointer;
-
-        // console.log(scope.d)
 
         scope.unit = 'M';
         scope.skip = 0;
@@ -184,58 +196,94 @@ angular.module('DashbookApp')
           $(this).removeClass('x onX').val('');
         });
 
+        // scope.updateInputText = function() {
+        //   if ($('#' + scope.d.id + '-input-text').val()) {
+        //     $('#' + scope.d.id + ' .spinner').show();
+        //     // if (scope.d.selected_setting == $('#' + scope.d.id + '-input-text').val()) {
+        //     //   $('#' + scope.d.id + ' .spinner').hide();
+        //     //   scope.flipSettings();
+        //     //   return;
+        //     // }
+        //     scope.d.selected_setting = $('#' + scope.d.id + '-input-text').val();
+        //     scope.d.selected_setting = scope.d.selected_setting.toLowerCase();
+
+        //     var __id = null;
+        //     var collection_name = scope.d.content ? scope.d.content.collection_name : scope.d.title
+        //     if (scope.d.content && scope.d.content.id)
+        //       __id = scope.d.content.id;
+        //     $http.post('/dashes/'+scope.d.id+'/settings', {
+        //       textInput: scope.d.selected_setting,
+        //       uuid: scope.uuid,
+        //       setting_type: 'textInput',
+        //       title: scope.d.title,
+        //       skip: 0,
+        //       sid: $rootScope.sid,
+        //       latitude: $rootScope.latitude,
+        //       longitude: $rootScope.longitude,
+        //       content_id: __id,
+        //       collection_name: collection_name,
+        //       timestamp: new Date().getTime()
+        //     }).success(function(data){
+        //       ++totalFetches;
+        //       scope.flipSettings();
+        //       if (data.needCallBack) {
+        //         scope.d.content = [];
+        //         scope.skip = data.skip;
+        //         // console.log(data)
+        //         scheduleContentFecth(data.callBackInterval);
+        //       }
+        //       else {
+        //         if (scope.d.dashType == 'geo') return calculateScalar(data);
+        //         totalFetches = 0;
+        //         scope.skip = data.skip;
+
+        //         scope.d.content = data.content;
+        //         $('#' + scope.d.id + ' .spinner').hide();
+        //         attachFlipsnap();
+        //         scope.safeApply();
+        //       }
+        //     })
+        //     .error(function(error){
+        //       console.log(error);
+        //     });
+        //   }
+        //   else return;
+        // };
+
         scope.updateInputText = function() {
-          if ($('#' + scope.d.id + '-input-text').val()) {
-            $('#' + scope.d.id + ' .spinner').show();
-            // if (scope.d.selected_setting == $('#' + scope.d.id + '-input-text').val()) {
-            //   $('#' + scope.d.id + ' .spinner').hide();
-            //   scope.flipSettings();
-            //   return;
-            // }
-            scope.d.selected_setting = $('#' + scope.d.id + '-input-text').val();
-            scope.d.selected_setting = scope.d.selected_setting.toLowerCase();
+            if ($('#' + scope.d.id + '-input-text').val()) {
+              $('#' + scope.d.id + ' .spinner').show();
+              var selected_setting = $('#' + scope.d.id + '-input-text').val();
 
-            var __id = null;
-            var collection_name = scope.d.content ? scope.d.content.collection_name : scope.d.title
-            if (scope.d.content && scope.d.content.id)
-              __id = scope.d.content.id;
-            $http.post('/dashes/'+scope.d.id+'/settings', {
-              textInput: scope.d.selected_setting,
-              uuid: scope.uuid,
-              setting_type: 'textInput',
-              title: scope.d.title,
-              skip: 0,
-              sid: $rootScope.sid,
-              latitude: $rootScope.latitude,
-              longitude: $rootScope.longitude,
-              content_id: __id,
-              collection_name: collection_name,
-              timestamp: new Date().getTime()
-            }).success(function(data){
-              ++totalFetches;
+              console.log(scope.d)
+              scope.d.selected_setting = selected_setting.toLowerCase();
+              scope.d.selected_source_uri = scope.d.source_uri_scheme;
+
+              var index = scope.d.source_uri_keys.indexOf(scope.d.selected_setting_uri_field);
+              scope.d.source_uri_values[index] = scope.d.selected_setting;
+
+              scope.d.content = [];
+              scope.$broadcast('suicide');
+              apiCallEngine();
               scope.flipSettings();
-              if (data.needCallBack) {
-                scope.d.content = [];
-                scope.skip = data.skip;
-                // console.log(data)
-                scheduleContentFecth(data.callBackInterval);
-              }
-              else {
-                if (scope.d.dashType == 'geo') return calculateScalar(data);
-                totalFetches = 0;
-                scope.skip = data.skip;
 
-                scope.d.content = data.content;
-                $('#' + scope.d.id + ' .spinner').hide();
-                attachFlipsnap();
-                scope.safeApply();
-              }
-            })
-            .error(function(error){
-              console.log(error);
-            });
-          }
-          else return;
+              $http.post('/dashes/'+scope.d.id+'/settings', {
+                setting_type: scope.d.setting_type,
+                selected_setting: scope.d.selected_setting,
+                source_uri_values: scope.d.source_uri_values,
+                uuid: scope.uuid,
+                skip: 0,
+                latitude: $rootScope.latitude,
+                longitude: $rootScope.longitude,
+                timestamp: new Date().getTime()
+              }).success(function(data){
+                
+              })
+              .error(function(error){
+                console.log(error);
+              });
+            }
+            else return;
         };
 
         scope.updatePrivateDashSetting = function() {

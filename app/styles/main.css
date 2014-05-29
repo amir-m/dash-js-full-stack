@@ -103,7 +103,7 @@ body {
   body h1, body h2, body h3, body p {
     margin: 0 0 0.5em;
     font-weight: 300;
-    line-height: 1.8em; }
+    line-height: 1.6em; }
   body h1 {
     font-size: 1.4em; }
   body b, body strong {
@@ -389,6 +389,17 @@ article {
 .sports-comp h1 {
   line-height: 0; }
 
+.stats-comp {
+  margin: 1em auto; }
+  .stats-comp h1 {
+    line-height: 0.8em; }
+  .stats-comp p {
+    margin-bottom: 0;
+    line-height: 1em; }
+  .stats-comp .cell:nth-child(2) {
+    border-left: 1px solid #364349;
+    border-right: 1px solid #364349; }
+
 .weather-comp h1.scalar {
   font-size: 2em; }
   .weather-comp h1.scalar sup {
@@ -471,10 +482,6 @@ article {
 .clearable.onX {
   cursor: pointer; }
 
-.expand {
-  width: 50px;
-  -webkit-transition: all ease-in-out 400ms; }
-
 .credit {
   float: right;
   margin-right: 2%;
@@ -532,6 +539,9 @@ article {
   border-radius: 20px;
   background: url(../img/remove-btn.png) no-repeat 5px center;
   background-size: 10px; }
+  .remove-btn span.expand, .add-btn span.expand {
+    width: 50px;
+    -webkit-transition: all ease-in-out 400ms; }
 
 .add-btn span {
   background: url(../img/add-btn.png) no-repeat 5px center;

@@ -44,7 +44,9 @@ var map = {
 	};
 
 	var update = function (req, res, next) {
-		console.log(req.body)
+		
+		// TODO: Update the UserSession...
+
 		if (!req.body.setting_type) return res.send(400);
 
 		if (req.body.setting_type == 'radio') {
@@ -159,7 +161,7 @@ var map = {
 		}
 		else if (req.body.setting_type == 'textInput') {
 			
-			if (!req.body.textInput || !req.body.uuid || !req.params.id)
+			if (!req.body.uuid || !req.params.id)
 				return res.send(400);
 
 			models.UserDash.findOne({id: req.params.id, user: req.body.uuid}, 
@@ -170,182 +172,183 @@ var map = {
 				if (!dash) return res.send(400);
 
 				if (req.body.title != 'Private Dash')
-					dash.selected_setting = req.body.textInput.toLowerCase();
+					dash.selected_setting = req.body.selected_setting.toLowerCase();
 				else dash.selected_setting = req.body.textInput;
+
+				if (req.body.source_uri_values && req.body.source_uri_values.length > 0)
+					dash.source_uri_values = req.body.source_uri_values;
 
 				dash.save(function(error){
 					
-					if (error) return res.send(500);
+					if (error) throw error;
 
-					var col = map[dash.title], skip = req.body.skip || 0;
+					res.send(200);
+										
+					// if (req.body.title == 'BeHance') {
+						
+					// 	models.Content.find({term: { $regex: req.body.textInput, $options: 'i' } })
+					// 	.limit(10)
+					// 	.skip(skip)
+					// 	.sort({'slideshow.pubDate': -1})
+					// 	.exec(function(error, docs){
+					// 		if (error) {
+					// 			res.send(500);
+					// 			throw error
+					// 		};
 
-					skip = parseInt(skip);
+					// 		if (docs.length == 0) {
+					// 			res.send({
+					// 				needCallBack: true,
+					// 				callBackInterval: 5000,
+					// 				skip: 0
+					// 			});	
+					// 			publisher.publish(pubMap[req.body.title], + req.body.textInput)
+					// 		}
+					// 		else res.send({
+					// 				content: docs,
+					// 				needCallBack: false,
+					// 				skip: skip + 10
+					// 			});
+					// 		models.users.UserSession.findOne({id: req.body.sid}, function(error, doc){
+					// 			if (!error) {
+					// 				doc.terms.push({
+					// 		            latitude: req.body.latitude,
+					// 		            longitude: req.body.longitude,
+					// 		            content_id: req.body.content_id,
+					// 		            colName: req.body.colName,
+					// 		            settings: req.body.settings,
+					// 		            timestamp: req.body.timestamp
+					// 				});
+					// 				doc.save();
+					// 			}
+					// 		});
+					// 	});
+					// }
 					
-					if (req.body.title == 'BeHance') {
+					// else if (req.body.title == 'Dribbble Stats') {
+
+					// 	publisher.publish('DribbbleStatFetch', req.body.textInput.toLowerCase()); 
+
+					// 	models.Content.find({term: { $regex: req.body.textInput, $options: 'i' } })
+					// 	.limit(10)
+					// 	.skip(skip)
+					// 	.sort({'stats.pubDate': -1})
+					// 	.exec(function(error, docs){
+					// 		if (error) {
+					// 			res.send(500);
+					// 			throw error
+					// 		};
+
+					// 		if (docs.length == 0) {
+					// 			res.send({
+					// 				needCallBack: true,
+					// 				callBackInterval: 5000,
+					// 				skip: 0
+					// 			});	
+					// 		}
+					// 		else res.send({
+					// 			content: docs,
+					// 			needCallBack: false,
+					// 			skip: skip + 10
+					// 		});
+					// 		models.users.UserSession.findOne({id: req.body.sid}, function(error, doc){
+					// 			if (!error) {
+					// 				doc.terms.push({
+					// 		            latitude: req.body.latitude,
+					// 		            longitude: req.body.longitude,
+					// 		            content_id: req.body.content_id,
+					// 		            colName: req.body.colName,
+					// 		            settings: req.body.settings,
+					// 		            timestamp: req.body.timestamp
+					// 				});
+					// 				doc.save();
+					// 			}
+					// 		});
+					// 	});
 						
-						models.Content.find({term: { $regex: req.body.textInput, $options: 'i' } })
-						.limit(10)
-						.skip(skip)
-						.sort({'slideshow.pubDate': -1})
-						.exec(function(error, docs){
-							if (error) {
-								res.send(500);
-								throw error
-							};
+					// }
 
-							if (docs.length == 0) {
-								res.send({
-									needCallBack: true,
-									callBackInterval: 5000,
-									skip: 0
-								});	
-								publisher.publish(pubMap[req.body.title], + req.body.textInput)
-							}
-							else res.send({
-									content: docs,
-									needCallBack: false,
-									skip: skip + 10
-								});
-							models.users.UserSession.findOne({id: req.body.sid}, function(error, doc){
-								if (!error) {
-									doc.terms.push({
-							            latitude: req.body.latitude,
-							            longitude: req.body.longitude,
-							            content_id: req.body.content_id,
-							            colName: req.body.colName,
-							            settings: req.body.settings,
-							            timestamp: req.body.timestamp
-									});
-									doc.save();
-								}
-							});
-						});
-					}
-					
-					else if (req.body.title == 'Dribbble Stats') {
+					// else if (req.body.title == 'Places Near Me') {
 
-						publisher.publish('DribbbleStatFetch', req.body.textInput.toLowerCase()); 
+					// 	if (req.headers.cookie && cookie.parse(req.headers.cookie)) {
+					// 		var lat = parseFloat(cookie.parse(req.headers.cookie)['latitude']);
+					// 		var lon = parseFloat(cookie.parse(req.headers.cookie)['longitude']);
+					// 		publisher.publish('places', lat+'|'+lon+'|'+req.body.textInput.toLowerCase()); 
+					// 	}
 
-						models.Content.find({term: { $regex: req.body.textInput, $options: 'i' } })
-						.limit(10)
-						.skip(skip)
-						.sort({'stats.pubDate': -1})
-						.exec(function(error, docs){
-							if (error) {
-								res.send(500);
-								throw error
-							};
+					// 	models.Content.find({
+					//       term: { $regex: req.body.textInput, $options: 'i' },
+					//       'geo.location': { 
+					//         $geoWithin : { 
+					//           $centerSphere : [ [ lon, lat ], 0.310686 / 3959 ] 
+					//         } 
+					//       }
+					//     })
+					// 	.limit(10)
+					// 	.skip(skip)
+					// 	.exec(function(error, docs){
+					// 		if (error) {
+					// 			res.send(500);
+					// 			throw error
+					// 		};
 
-							if (docs.length == 0) {
-								res.send({
-									needCallBack: true,
-									callBackInterval: 5000,
-									skip: 0
-								});	
-							}
-							else res.send({
-								content: docs,
-								needCallBack: false,
-								skip: skip + 10
-							});
-							models.users.UserSession.findOne({id: req.body.sid}, function(error, doc){
-								if (!error) {
-									doc.terms.push({
-							            latitude: req.body.latitude,
-							            longitude: req.body.longitude,
-							            content_id: req.body.content_id,
-							            colName: req.body.colName,
-							            settings: req.body.settings,
-							            timestamp: req.body.timestamp
-									});
-									doc.save();
-								}
-							});
-						});
+					// 		if (docs.length == 0) {
+					// 			res.send({
+					// 				needCallBack: true,
+					// 				callBackInterval: 5000,
+					// 				skip: 0
+					// 			});	
+					// 		}
+					// 		else res.send({
+					// 			content: docs,
+					// 			needCallBack: false,
+					// 			skip: skip + 10
+					// 		});
+					// 		models.users.UserSession.findOne({id: req.body.sid}, function(error, doc){
+					// 			if (!error) {
+					// 				doc.terms.push({
+					// 		            latitude: req.body.latitude,
+					// 		            longitude: req.body.longitude,
+					// 		            content_id: req.body.content_id,
+					// 		            colName: req.body.colName,
+					// 		            settings: req.body.settings,
+					// 		            timestamp: req.body.timestamp
+					// 				});
+					// 				doc.save();
+					// 			}
+					// 		});
+					// 	});
 						
-					}
+					// }
+					// else if (req.body.title == 'Private Dash') {
 
-					else if (req.body.title == 'Places Near Me') {
+					// 	models.PrivateDash.findOne({ 
+					// 		dash_title: req.body.textInput 
+					// 	}, function(error, doc){
+					// 		if (error) throw error;
+					// 		if (!doc) {
+					// 			return res.send(404);		
+					// 		}
 
-						if (req.headers.cookie && cookie.parse(req.headers.cookie)) {
-							var lat = parseFloat(cookie.parse(req.headers.cookie)['latitude']);
-							var lon = parseFloat(cookie.parse(req.headers.cookie)['longitude']);
-							publisher.publish('places', lat+'|'+lon+'|'+req.body.textInput.toLowerCase()); 
-						}
+					// 		return res.send(doc.json());
+					// 	});
+					// 	// TODO: Save to UserSession 
+					// 	// models.users.UserSession.findOne({id: req.body.sid}, function(error, doc){
+					// 	// 	if (!error) {
+					// 	// 		doc.terms.push({
+					// 	//             latitude: req.body.latitude,
+					// 	//             longitude: req.body.longitude,
+					// 	//             content_id: req.body.content_id,
+					// 	//             colName: req.body.colName,
+					// 	//             settings: req.body.settings,
+					// 	//             timestamp: req.body.timestamp
+					// 	// 		});
+					// 	// 		doc.save();
+					// 	// 	}
+					// 	// });
+					// }
 
-						models.Content.find({
-					      term: { $regex: req.body.textInput, $options: 'i' },
-					      'geo.location': { 
-					        $geoWithin : { 
-					          $centerSphere : [ [ lon, lat ], 0.310686 / 3959 ] 
-					        } 
-					      }
-					    })
-						.limit(10)
-						.skip(skip)
-						.exec(function(error, docs){
-							if (error) {
-								res.send(500);
-								throw error
-							};
-
-							if (docs.length == 0) {
-								res.send({
-									needCallBack: true,
-									callBackInterval: 5000,
-									skip: 0
-								});	
-							}
-							else res.send({
-								content: docs,
-								needCallBack: false,
-								skip: skip + 10
-							});
-							models.users.UserSession.findOne({id: req.body.sid}, function(error, doc){
-								if (!error) {
-									doc.terms.push({
-							            latitude: req.body.latitude,
-							            longitude: req.body.longitude,
-							            content_id: req.body.content_id,
-							            colName: req.body.colName,
-							            settings: req.body.settings,
-							            timestamp: req.body.timestamp
-									});
-									doc.save();
-								}
-							});
-						});
-						
-					}
-					else if (req.body.title == 'Private Dash') {
-
-						models.PrivateDash.findOne({ 
-							dash_title: req.body.textInput 
-						}, function(error, doc){
-							if (error) throw error;
-							if (!doc) {
-								return res.send(404);		
-							}
-
-							return res.send(doc.json());
-						});
-						// TODO: Save to UserSession 
-						// models.users.UserSession.findOne({id: req.body.sid}, function(error, doc){
-						// 	if (!error) {
-						// 		doc.terms.push({
-						//             latitude: req.body.latitude,
-						//             longitude: req.body.longitude,
-						//             content_id: req.body.content_id,
-						//             colName: req.body.colName,
-						//             settings: req.body.settings,
-						//             timestamp: req.body.timestamp
-						// 		});
-						// 		doc.save();
-						// 	}
-						// });
-					}
-
-					else return res.send(400);
+					// else return res.send(400);
 
 				});
 

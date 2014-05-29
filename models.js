@@ -123,6 +123,8 @@ var UserDashSchema = new mongoose.Schema({
 	handler_placeholder: String, 
 	is_active: {type: Boolean, default: true},
 	data_container: String, // 'body.shots'
+	source_uri_scheme: String,
+	selected_setting_uri_field: String,
 	source_uri_keys: [],
 	source_uri_values: [],
 	settings: {},
@@ -130,6 +132,8 @@ var UserDashSchema = new mongoose.Schema({
 	source_uri: [],
 	mapper_key: [],
 	mapper_value: [],
+	mapper_static_key: [],
+	mapper_static_value: [],
 	collection_name: String
 });
 
@@ -233,6 +237,8 @@ function findOneDash(id, callback) {
 		_dash.mapper_value = _dash.mapper_value.split(":");
 		_dash.content_type = _dash.content_type.split(":");
 		_dash.source_uri = _dash.source_uri.split("|^._.^|");
+		if (_dash.mapper_static_key) _dash.mapper_static_key = _dash.mapper_static_key.split(":");
+		if (_dash.mapper_static_value) _dash.mapper_static_value = _dash.mapper_static_value.split(":");
 
 		if (!_dash.source_uri_keys)
 			_dash.source_uri_keys = [];
@@ -243,6 +249,8 @@ function findOneDash(id, callback) {
 			_dash.source_uri_values = [];
 		else 
 			_dash.source_uri_values = _dash.source_uri_values.split(":");
+
+
 
 		callback(null, _dash);
 
@@ -276,7 +284,6 @@ function findDash(callback) {
 			}(i));
 		}
 	});
-
 };
 
 function createUser(user) {
@@ -324,6 +331,7 @@ function getDashesUser(uuid, callback) {
 		callback(null, dashes.split('|'));
 	});
 };
+
 function createSession(session) {
 	
 	// console.log(session)
@@ -341,14 +349,10 @@ function createSession(session) {
 		clicks: '',
 		terms: ''
 	});
-
 };
-
-
 function deleteSession(uuid) {
 	redisClient.del('session:'+uuid);
 };
-
 function createOrUpdateSession(options) {
 
 	redisClient.hgetall('session:'+options.uuid, function(error, session){
@@ -373,7 +377,6 @@ function createOrUpdateSession(options) {
 		createSession(options);
 	});
 };
-
 function clickSession(click) {
 	// Format: 	'timestamp:uuid:latitude:longitude:content_id:col_name'
 	redisClient.hget('session:'+click.uuid, 'clicks', function (error, clicks) {
@@ -389,7 +392,6 @@ function clickSession(click) {
 		redisClient.hset('session:'+click.uuid, 'clicks', clicks);
 	});
 };
-
 function updateSession(update) {
 
 	redisClient.hget('session:'+update.uuid, 'updates', function (error, updates) {

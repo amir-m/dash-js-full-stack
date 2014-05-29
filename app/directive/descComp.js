@@ -11,10 +11,10 @@ angular.module('DashbookApp')
       	scope.$on('suicide', function(){
       		
       		$(element).parent().parent('section').remove();
-			$timeout(function(){
-      			scope.$destroy();
-  			});
-		});	
+    			$timeout(function(){
+          			scope.$destroy();
+      			});
+    		});	
       }
     };
   }]);

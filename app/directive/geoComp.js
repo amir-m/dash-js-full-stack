@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('DashbookApp')
-.directive('geoComp', [function () {
+.directive('geoComp', [
+	'$timeout',
+	'$rootScope',
+	function ($timeout, $rootScope) {
 	return {
 		templateUrl: '/partials/geo-comp.html',
 		restrict: 'E',
@@ -10,44 +13,36 @@ angular.module('DashbookApp')
 				+scope.content.components.geo_comp.latitude+','
 				+scope.content.components.geo_comp.longitude;
 
-			console.log(scope.content);
+			var R = 6371000; // meters
+			var dLat = toRad($rootScope.latitude - parseFloat(scope.content.components.geo_comp.latitude));
+			var dLon = toRad($rootScope.longitude - parseFloat(scope.content.components.geo_comp.longitude));
+			var lat1 = toRad($rootScope.latitude);
+			var lat2 = toRad(parseFloat(scope.content.components.geo_comp.latitude));
 
-			// function calculateScalar(data) {
-	  //         scope.d.content = data.content;
-	  //         scope.skip = data.skip;
+			
 
-	  //         for (var i = 0; i < scope.d.content.length; ++i) {
-	  //           var R = 6371000; // meters
-	  //           var dLat = toRad($rootScope.latitude - parseFloat(scope.d.content[i].geo.location.latitude));
-	  //           var dLon = toRad($rootScope.longitude - parseFloat(scope.d.content[i].geo.location.longitude));
-	  //           var lat1 = toRad($rootScope.latitude);
-	  //           var lat2 = toRad(parseFloat(scope.d.content[i].geo.location.latitude));
+			var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+			Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+			scope.content.components.geo_comp.scalar = Math.round(R * c);
+			scope.content.components.geo_comp.unit = Math.round(R * c) > 1000 ? 'KM' : 'M';
+			scope.content.components.geo_comp.scalar = scope.content.components.geo_comp.scalar > 1000 ? 
+				scope.content.components.geo_comp.scalar / 1000 : scope.content.components.geo_comp.scalar;
 
-	  //           var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-	  //           Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
-	  //           var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-	  //           scope.d.content[i].scalar = Math.round(R * c);
-	  //           scope.d.content[i].unit = Math.round(R * c) > 1000 ? 'KM' : 'M';
-	  //         };
+			scope.content.components.geo_comp.scalar = Math.round(scope.content.components.geo_comp.scalar * 10) / 10;
 
-	  //         scope.d.content.sort(function(a, b){
-	  //           return a.scalar - b.scalar;
-	  //         });
+			scope.safeApply();
+			
+			function toRad(num) {
+				return num * (Math.PI / 180); 
+			};
 
-	  //         for (var i = 0; i < scope.d.content.length; ++i) {
-	  //           scope.d.content[i].scalar = scope.d.content[i].scalar > 1000 ? 
-	  //           scope.d.content[i].scalar / 1000 : scope.d.content[i].scalar;
-	  //         };
-
-	  //         scope.safeApply();
-	  //         $('#' + scope.d.id + ' .spinner').hide();
-	  //         attachFlipsnap();
-	  //       };
-
-	  //       function toRad(num) {
-	  //         return num * (Math.PI / 180); 
-	  //       };
-
+			scope.$on('suicide', function() {
+      			$(element).parent().parent('section').remove();
+    			$timeout(function(){
+          			scope.$destroy();
+      			});
+    		});	
 		}
 	};
 }]);

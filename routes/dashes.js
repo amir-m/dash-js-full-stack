@@ -2,7 +2,8 @@ module.exports = function  (models, publisher) {
 
 	// publisher.send('places:' + 'lat:45.4949025|lon:-73.5654505|term:cafe');
 
-	var cookie = require('cookie');
+	var cookie = require('cookie'),
+		async = require('async');
 
 	var map = {
 		'Dribbble': {
@@ -63,7 +64,7 @@ module.exports = function  (models, publisher) {
 			if (dash.setting_type == 'radio') {
 				selected = dash.settings[0];
 			}
-			else if (dash.setting_type == 'text') {
+			else if (dash.setting_type == 'textInput') {
 				selected = dash.settings;
 			}
 
@@ -82,6 +83,8 @@ module.exports = function  (models, publisher) {
 				icon_large: dash.icon_large,
 				setting_type: dash.setting_type,
 				selected_setting: selected,
+				selected_setting_uri_field: dash.selected_setting_uri_field || '',
+				source_uri_scheme: dash.source_uri_scheme || '',
 				content_type: dash.content_type,
 				source_uri_keys: dash.source_uri_keys,
 				source_uri_values: dash.source_uri_values,
@@ -92,6 +95,8 @@ module.exports = function  (models, publisher) {
 				source_uri: dash.source_uri,
 				mapper_key: dash.mapper_key,
 				mapper_value: dash.mapper_value,
+				mapper_static_key: dash.mapper_static_key,
+				mapper_static_value: dash.mapper_static_value,
 				collection_name: dash.collection_name
 			});
 
@@ -137,60 +142,82 @@ module.exports = function  (models, publisher) {
 
 	var read = function (req, res, next) {
 
-		console.log('read all dashes request received from ', req.params.id)
-		if (!req.params.id)
-			return res.send(400);
+		if (!req.params.id) return res.send(400);
 
-		var q = { 
-			user: req.params.id, 
-			is_active: true
-		};
+		async.waterfall([
+			function(callback) {
+				models.User.getDashes(req.params.id, callback)
+			},
+			function(dashez, callback) {
 
-		if (req.query) {
-			var list = [];
+				models.UserDash.find({ id: { $in: dashez } }, function (error, userDash){
+					if (error) {
+						callback(error);
+					};
 
-			for (var i in req.query) {
-				if (i) {
-					list.push(req.query[i]);
-				}
+					callback(null, userDash);
+				});
 			}
-			if (list.length > 0) {
-				q['id'] = { 
-					$in: list
-				}; 
+		], 
+		function(error, userDash){
+			if (error) {
+				res.send([]);
+				throw error;
 			}
-			models.UserDash.find(q, function (error, userDash){
-
-				if (error) {
-					res.send(500);
-					throw error
-				};
-
-				if (!userDash) return res.send(400);
+			res.send(userDash);
+		});
 
 
-				// console.log('found: 196')
-				// console.log(userDash)
+		// var q = { 
+		// 	user: req.params.id, 
+		// 	is_active: true
+		// };
+
+		// if (req.query) {
+		// 	var list = [];
+
+		// 	for (var i in req.query) {
+		// 		if (i) {
+		// 			list.push(req.query[i]);
+		// 		}
+		// 	}
+		// 	if (list.length > 0) {
+		// 		q['id'] = { 
+		// 			$in: list
+		// 		}; 
+		// 	}
+		// 	models.UserDash.find(q, function (error, userDash){
+
+		// 		if (error) {
+		// 			res.send(500);
+		// 			throw error
+		// 		};
+
+		// 		if (!userDash) return res.send(400);
+
+
+		// 		// console.log('found: 196')
+		// 		// console.log(userDash)
 				
-				return res.send(userDash);
-			});
-		}
+		// 		return res.send(userDash);
+		// 	});
+		// }
 
-		else 
-			models.UserDash.find(q, function (error, userDash){
+		// else 
+		// 	models.UserDash.find(q, function (error, userDash){
 
-				if (error) {
-					return res.send(500);
-					throw error
-				};
+		// 		if (error) {
+		// 			return res.send(500);
+		// 			throw error
+		// 		};
 
-				console.log(userDash);
+		// 		console.log(userDash);
 
-				if (!userDash) return res.send(400);
+		// 		if (!userDash) return res.send(400);
 
 
-				return res.send(userDash);
-			});
+		// 		return res.send(userDash);
+		// 	});
 	};
 
 	var readData = function(req, res, next) {
@@ -378,8 +405,6 @@ module.exports = function  (models, publisher) {
 	};
 
 	var library = function (req, res, next) {
-
-		console.log('LIBRARY GET /dashes');
 
 		models.Dash.find(function (error, dashes) {
 

@@ -28,14 +28,14 @@ angular.module('DashbookApp')
 
   			var uri = '/dashes/'+$rootScope.uuid;
 
-        if (localStorage['myDashList'] && localStorage['myDashList'].length > 0) {
-          $rootScope.myDashList = JSON.parse(localStorage['myDashList']);
-  				uri += '?'
-  				var list = localStorage['myDashList'];
-  				list = JSON.parse(list);
-  				for (var i = 0; i < list.length; ++i)
-  					uri += i + '=' +list[i] + '&';
-  			}
+     //    if (localStorage['myDashList'] && localStorage['myDashList'].length > 0) {
+     //      $rootScope.myDashList = JSON.parse(localStorage['myDashList']);
+  			// 	uri += '?'
+  			// 	var list = localStorage['myDashList'];
+  			// 	list = JSON.parse(list);
+  			// 	for (var i = 0; i < list.length; ++i)
+  			// 		uri += i + '=' +list[i] + '&';
+  			// }
 
         // console.log(uri);
 
@@ -47,6 +47,7 @@ angular.module('DashbookApp')
 
 	    	$http.get(uri)
 	    	.success(function(dashes){
+          
           if (dashes.length == 0) {
             delete $rootScope.myDashList;
             delete localStorage['myDashList'];
