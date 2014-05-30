@@ -10,7 +10,8 @@ var cluster = require('cluster'),
     cpuCount = require('os').cpus().length;
 var forked = false;
 
-publisher = redis.createClient(6379, '54.185.233.146');
+// publisher = redis.createClient(6379, '54.185.233.146');
+publisher = redis.createClient(6379, 'dbkcache.serzbc.0001.usw2.cache.amazonaws.com');
 
 // var models = {
 // 	dashes: require('./models/dash').config(mongoose, publisher),
