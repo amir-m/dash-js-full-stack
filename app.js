@@ -20,7 +20,7 @@ publisher = redis.createClient(6379, 'dbkcache.serzbc.0001.usw2.cache.amazonaws.
 
 var models = require('./models').config(mongoose, publisher);
 
-// require('./helpers')(models, publisher).insertDashesToRedisBackend();
+require('./helpers')(models, publisher).insertDashesToRedisBackend();
 
 // setTimeout(function() {
 // 	models.dashes.Dash.find(function(dashes){
