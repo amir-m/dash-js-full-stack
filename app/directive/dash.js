@@ -39,7 +39,7 @@ angular.module('DashbookApp')
           // });
 
           $.ajax({
-            "url": 'http://localhost:8000/call?'+scope.d.selected_source_uri,
+            "url": 'http://54.185.198.125/call?'+scope.d.selected_source_uri,
             "dataType": "json",
             // "xhrFields": {
             //   withCredentials: true
