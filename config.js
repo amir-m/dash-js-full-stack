@@ -15,7 +15,7 @@ module.exports = function(express, app, mongoose, cookie, models, redisClient) {
 	app.use(require('method-override')());
 	
 	app.use(require('morgan')('dev'));
-	app.set('port', process.env.PORT || 8080);
+	app.set('port', process.env.PORT || 80);
 	// app.configure(function(){
 	// 	// app.use(app.logger)
 	// });
