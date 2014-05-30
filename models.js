@@ -237,6 +237,7 @@ function findOneDash(id, callback) {
 		_dash.mapper_value = _dash.mapper_value.split(":");
 		_dash.content_type = _dash.content_type.split(":");
 		_dash.source_uri = _dash.source_uri.split("|^._.^|");
+		console.log(_dash.source_uri)
 		if (_dash.mapper_static_key) _dash.mapper_static_key = _dash.mapper_static_key.split(":");
 		if (_dash.mapper_static_value) _dash.mapper_static_value = _dash.mapper_static_value.split(":");
 
@@ -286,6 +287,21 @@ function findDash(callback) {
 	});
 };
 
+function findOneUser (id, callback) {
+	
+	redisClient.hgetall('user:'+id, function(error, _user){
+
+		if (error) {
+			console.log('ERORR: models.findOneDash');
+			throw error;
+		}
+
+		if (_user.dashes && _user.dashes.length > 0)
+			_user.dashes = _user.dashes.split(":");
+		
+		callback(null, _user);
+	});
+};
 function createUser(user) {
 
 	redisClient.hmset('user:'+user.uuid ,{
@@ -309,11 +325,32 @@ function createUser(user) {
 function addDashUser(uuid, dash_id) {
 	
 	redisClient.hgetall('user:'+uuid, function(error, user){
+		
 		var dashes = user.dashes;
+		
+		dashes = dashes.length > 0 ? dashes.split(":") : [];
 
-		if (dashes.length > 0) dashes += '|';
+		dashes.unshift(dash_id);
 
-		dashes += dash_id;
+		dashes = dashes.length == 1 ? dashes[0] : dashes.join(":");
+
+		// if (dashes.length > 0) dashes += ':';
+
+		// dashes += dash_id;
+
+		redisClient.hset('user:'+uuid, 'dashes', dashes);
+	});
+};
+function removeDashUser(uuid, dash_id) {
+	
+	redisClient.hgetall('user:'+uuid, function(error, user){
+		
+		var dashes = user.dashes.split(':');
+
+		dashes.splice(dashes.indexOf(dash_id), 1);
+		
+		if (dashes.length > 0) dashes = dashes.join(':');
+		else dashes = '';
 
 		redisClient.hset('user:'+uuid, 'dashes', dashes);
 	});
@@ -330,6 +367,10 @@ function getDashesUser(uuid, callback) {
 
 		callback(null, dashes.split('|'));
 	});
+};
+function rearrangeUser(uuid, dashes) {
+	dashes = dashes.join(':');
+	redisClient.hset('user:'+uuid, 'dashes', dashes);
 };
 
 function createSession(session) {
@@ -438,9 +479,12 @@ var Dash = {
 };
 
 var User = {
+	findOne: findOneUser,
 	create: createUser,
 	addDash: addDashUser,
-	getDashes: getDashesUser
+	removeDash: removeDashUser,
+	getDashes: getDashesUser,
+	rearrange: rearrangeUser
 };
 
 var Session = {

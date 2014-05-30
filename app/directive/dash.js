@@ -14,13 +14,8 @@ angular.module('DashbookApp')
         scope.d.content = [];
 
         function apiCallEngine() {
-
-          console.log(scope.d)
           
           if (scope.d.source_uri_keys && scope.d.source_uri_keys.length > 0) {
-          // TODO: this logic won't work if latitude and longitude change, since it removes the original uri scheme
-          // There's an easy fix to this though, you can add another field to the UserDash model which can
-          // hold the original url scheme...
             if (scope.d.source_uri_keys.indexOf('{latitude}') != -1) {
               scope.d.selected_source_uri = scope.d.selected_source_uri.replace('{latitude}', scope.latitude);
               // scope.d.source_uri_keys.splice(scope.d.source_uri_keys.indexOf('{latitude}'), 1);
@@ -196,60 +191,6 @@ angular.module('DashbookApp')
           $(this).removeClass('x onX').val('');
         });
 
-        // scope.updateInputText = function() {
-        //   if ($('#' + scope.d.id + '-input-text').val()) {
-        //     $('#' + scope.d.id + ' .spinner').show();
-        //     // if (scope.d.selected_setting == $('#' + scope.d.id + '-input-text').val()) {
-        //     //   $('#' + scope.d.id + ' .spinner').hide();
-        //     //   scope.flipSettings();
-        //     //   return;
-        //     // }
-        //     scope.d.selected_setting = $('#' + scope.d.id + '-input-text').val();
-        //     scope.d.selected_setting = scope.d.selected_setting.toLowerCase();
-
-        //     var __id = null;
-        //     var collection_name = scope.d.content ? scope.d.content.collection_name : scope.d.title
-        //     if (scope.d.content && scope.d.content.id)
-        //       __id = scope.d.content.id;
-        //     $http.post('/dashes/'+scope.d.id+'/settings', {
-        //       textInput: scope.d.selected_setting,
-        //       uuid: scope.uuid,
-        //       setting_type: 'textInput',
-        //       title: scope.d.title,
-        //       skip: 0,
-        //       sid: $rootScope.sid,
-        //       latitude: $rootScope.latitude,
-        //       longitude: $rootScope.longitude,
-        //       content_id: __id,
-        //       collection_name: collection_name,
-        //       timestamp: new Date().getTime()
-        //     }).success(function(data){
-        //       ++totalFetches;
-        //       scope.flipSettings();
-        //       if (data.needCallBack) {
-        //         scope.d.content = [];
-        //         scope.skip = data.skip;
-        //         // console.log(data)
-        //         scheduleContentFecth(data.callBackInterval);
-        //       }
-        //       else {
-        //         if (scope.d.dashType == 'geo') return calculateScalar(data);
-        //         totalFetches = 0;
-        //         scope.skip = data.skip;
-
-        //         scope.d.content = data.content;
-        //         $('#' + scope.d.id + ' .spinner').hide();
-        //         attachFlipsnap();
-        //         scope.safeApply();
-        //       }
-        //     })
-        //     .error(function(error){
-        //       console.log(error);
-        //     });
-        //   }
-        //   else return;
-        // };
-
         scope.updateInputText = function() {
             if ($('#' + scope.d.id + '-input-text').val()) {
               $('#' + scope.d.id + ' .spinner').show();
@@ -380,11 +321,16 @@ angular.module('DashbookApp')
           $(document).find(".expand").removeClass("expand");
           $('#' + scope.d.id + '-remove-btn').addClass('expand');
 
-          $http.delete('/dashes/'+scope.d.id).success(function(){
+          $http.delete('/dashes/'+scope.d.id+'/'+scope.user.uuid).success(function(){
 
-            scope.deleteDash(scope.d);
             $('#' + scope.d.id ).hide();
             $('#' + scope.d.id ).remove();
+            
+            if (scope.myDashes) {
+              scope.myDashes.splice(scope.myDashes.indexOf(scope.d), 1);
+              scope.user.dashes.splice(scope.user.dashes.indexOf(scope.d.id), 1);
+              scope.safeApply();
+            }
             scope.safeApply();
           
           })

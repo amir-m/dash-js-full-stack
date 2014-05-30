@@ -1,3 +1,5 @@
+stackTraceLimit = Infinity;
+
 module.exports = function  (models, publisher) {
 
 	// publisher.send('places:' + 'lat:45.4949025|lon:-73.5654505|term:cafe');
@@ -54,8 +56,6 @@ module.exports = function  (models, publisher) {
 				return res.send(500);
 				throw error
 			};
-
-			console.log(dash);
 
 			if (!dash) return res.send(400);
 
@@ -116,26 +116,28 @@ module.exports = function  (models, publisher) {
 	};
 
 	var remove = function (req, res, next) {
-		if (!req.params.id)
-			return res.send(400);
-		models.UserDash.findOne({ _id: req.params.id }, function (error, userDash){
+		
+		if (!req.params.id) return res.send(400);
+
+		res.send(200);
+
+		models.User.removeDash(req.params.uuid, req.params.id);
+
+		models.UserDash.findOne({ id: req.params.id }, function (error, userDash){
 
 			if (error) {
-				return res.send(500);
 				throw error
 			};
 
 			if (!userDash) return res.send(400);
 
-			userDash.isActive = false;
+			userDash.is_active = false;
 
 			userDash.save(function(error){
 
 				if (error) {
-					return res.send(500);
 					throw error
 				};
-				return res.send(200);
 			});
 		});
 	};
@@ -146,25 +148,43 @@ module.exports = function  (models, publisher) {
 
 		async.waterfall([
 			function(callback) {
-				models.User.getDashes(req.params.id, callback)
+				models.User.findOne(req.params.id, callback);
 			},
-			function(dashez, callback) {
+			function(user, callback) {
+				
+				if (!user) callback('ERROR: user not found');
 
-				models.UserDash.find({ id: { $in: dashez } }, function (error, userDash){
-					if (error) {
-						callback(error);
-					};
+				if (!user.dashes || user.dashes.length == 0) {
+					user.dashes = [];
+					callback(null, [], user);
+				}
+				else {
+					var t = [];
+					for (var i = 0; i < user.dashes.length; ++i) {
+						t.push({ id: user.dashes[i] });
+					}
+					// { id: { $in: user.dashes }
+					models.UserDash.find({ $or: t }, function (error, userDash){
+						if (error) {
+							callback(error);
+						};
 
-					callback(null, userDash);
-				});
+						callback(null, userDash, user);
+					});
+				}
 			}
 		], 
-		function(error, userDash){
+		function(error, userDash, user){
 			if (error) {
 				res.send([]);
 				throw error;
 			}
-			res.send(userDash);
+			else {
+				res.send({
+					dashes: userDash,
+					user: user
+				});
+			}
 		});
 
 
@@ -420,7 +440,14 @@ module.exports = function  (models, publisher) {
 
         models.Session.click(req.body);
         res.send(200);
+	};
 
+	var rearrange = function(req, res, next) {
+
+		if (!req.body.uuid || !req.body.dashes || !req.body.dashes.length) return res.send(400);
+
+		models.User.rearrange(req.body.uuid, req.body.dashes);
+		res.send(200);
 	};
 
 	return {
@@ -429,6 +456,7 @@ module.exports = function  (models, publisher) {
 		read: read,
 		readData: readData,
 		library: library,
-		uirOpened: uirOpened
+		uirOpened: uirOpened,
+		rearrange: rearrange
 	}
 }

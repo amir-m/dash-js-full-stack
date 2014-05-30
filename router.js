@@ -13,7 +13,7 @@ module.exports = function(routes, app) {
 
 		res.sendfile('app/img/'+req.params[0]);
 	});
-	
+
 	app.get('/dashes/:id', routes.dashes.read);
 	app.get('/content', routes.dashes.readData);
 	app.get('/dashes', routes.dashes.library);
@@ -26,12 +26,13 @@ module.exports = function(routes, app) {
 	app.post('/exit', routes.index.exit);
 	app.post('/readcontent', routes.dashes.uirOpened); 
 	app.post('/dashes/:id/settings', routes.settings.update); 
+	app.post('/dash/rearrange', routes.dashes.rearrange); 
 	
 	app.put('/dashes/:id/:uuid', routes.dashes.create);
 	app.put('/dashes/:id/accounts', routes.accounts.create);
 	app.put('/dashes/:id/settings', routes.settings.create);
 
 	app.delete('/dashes/:id/accounts/:accId', routes.accounts.remove);
-	app.delete('/dashes/:id', routes.dashes.remove);
+	app.delete('/dashes/:id/:uuid', routes.dashes.remove);
 
 }

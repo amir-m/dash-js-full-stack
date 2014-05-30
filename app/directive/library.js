@@ -16,27 +16,6 @@ angular.module('DashbookApp')
         .error(function(error){
         	console.log(error)
         });
-
-        scope.add = function(dash) {
-          if (!dash.addRequested) {
-            dash.addRequested = true;
-            $(document).find(".expand").removeClass("expand");
-            $('#'+dash.id+'-lib-add-btn span').addClass("expand");
-            return;
-          };
-          dash.addRequested = false;
-          $(document).find(".expand").removeClass("expand");
-        	$http.put('/dashes/'+dash.id+'/'+$rootScope.uuid)
-        	.success(function(data, status){
-            scope.addDash(data);
-            scope.safeApply();
-            scope.showLibrary();
-        	})
-        	.error(function(error){
-        		console.log(error);
-        	});
-        };
-
       }
     };
   }]);

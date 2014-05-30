@@ -2,52 +2,51 @@
 
 angular.module('DashbookApp')
   .controller('MainCtrl', [
-  	'$scope', 'dashes', '$rootScope', 
-  function ($scope, dashes, $rootScope) {
+  	'$scope', 'dashes', '$rootScope', '$http',
+  function ($scope, dashes, $rootScope, $http) {
     
-    $rootScope.myDashes = dashes;
-
-    for (var i = 0; i < $rootScope.myDashes.length; ++i) {
-        if (!$rootScope.myDashes[i]._id && $rootScope.myDashes[i].id)
-            $rootScope.myDashes[i]._id = $rootScope.myDashes[i].id;
-    };
+    // $rootScope.myDashes = dashes;
 
     $rootScope.safeApply = function() {
     	if ($rootScope.$$phase != '$apply' && $rootScope.$$phase != '$digest')
       		$rootScope.$apply();
     };
 
-    $rootScope.addDash = function(dash) {
-    	if (!$rootScope.myDashes) {
-    		$rootScope.myDashes = [];
-    		$rootScope.myDashes.push(dash)
-    		$rootScope.myDashList = [];
-    		$rootScope.myDashList.push(dash._id);
-    	}
-    	else {
-    		$rootScope.myDashes.unshift(dash);
-    		$rootScope.myDashList = $rootScope.myDashList || [];
-    		$rootScope.myDashList.unshift(dash._id);
-    	}
-    	localStorage['myDashList'] = JSON.stringify($rootScope.myDashList);
+    $scope.add = function(dash) {
+
+        if (!dash.addRequested) {
+            dash.addRequested = true;
+            $(document).find(".expand").removeClass("expand");
+            $('#'+dash.id+'-lib-add-btn span').addClass("expand");
+            return;
+        };
+  
+        dash.addRequested = false;
+        
+        $(document).find(".expand").removeClass("expand");
+
+        $http.put('/dashes/'+dash.id+'/'+$rootScope.user.uuid)
+        .success(function(dash, status){
+
+            if (!$rootScope.myDashes) {
+                $rootScope.myDashes = [];
+                $rootScope.myDashes.push(dash);
+            }
+            else {
+                $rootScope.myDashes.unshift(dash);
+            }
+            $rootScope.user.dashes.unshift(dash.id);
+            $scope.showLibrary();
+            $scope.safeApply();
+        })
+        .error(function(error){
+            console.log(error);
+        });
     };
 
-    $rootScope.deleteDash = function(dash) {
-    	// $rootScope.myDashes.indexOf(dash)
-    	if ($rootScope.myDashes) {
-    		$rootScope.myDashes.splice($rootScope.myDashes.indexOf(dash), 1);
-    		$rootScope.myDashList.splice($rootScope.myDashList.indexOf(dash._id), 1);
-    		localStorage['myDashList'] = JSON.stringify($rootScope.myDashList);
-
-    		$rootScope.safeApply();
-    	}
-    }
-
-    $rootScope.reArrange = function(newArrangement) {
-        // $rootScope.myDashes = newArrangement;
-        $rootScope.myDashList = newArrangement;
-        localStorage['myDashList'] = JSON.stringify(newArrangement);
-        // console.log(localStorage['myDashList'])
+    $scope.reArrange = function(newArrangement) {
+        $rootScope.user.dashes = newArrangement;
+        $http.post('/dash/rearrange', { uuid: $scope.uuid, dashes: newArrangement });
     };
 
     var intv = setInterval(function(){
