@@ -382,7 +382,7 @@ function registerUser(user, callback) {
 
 		// email is not registered
 		if (status == 1 || status == '1') {
-			redisClient.hset('user:'+uuid, 'email', cipher(user.email), 'status', 2);
+			redisClient.hset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2);
 			callback(null, 2);
 		}
 
@@ -397,7 +397,7 @@ function registerUser(user, callback) {
 		}
 
 		else {
-			redisClient.hset('user:'+uuid, 'email', cipher(user.email), 'status', 2);
+			redisClient.hset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2);
 			callback(null, 2);
 			// callback(404);
 		}
