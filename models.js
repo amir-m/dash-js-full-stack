@@ -369,9 +369,35 @@ function getDashesUser(uuid, callback) {
 		callback(null, dashes.split('|'));
 	});
 };
-function rearrangeUser(uuid, dashes) {
+function rearrangeDashesUser(uuid, dashes) {
 	dashes = dashes.join(':');
 	redisClient.hset('user:'+uuid, 'dashes', dashes);
+};
+function register(user, callback) {
+	redisClient.hget('user:'+user.uuid, 'status', function (error, status) {
+
+		if (error) {
+			return callback(error);
+		}
+
+		// email is not registered
+		if (status == 1 || status == '1') {
+			redisClient.hset('user:'+uuid, 'email', cipher(user.email), 'status', 2);
+			callback(null, 2);
+		}
+
+		// already registered, waiting for access
+		else if (status == 2 || status == '2') {
+			callback(null, 2);
+		}
+
+		// access been already granted
+		else if (status == 3 || status == '3') {
+			callback(null, 3);
+		}
+
+		else callback(404);
+	});
 };
 
 function createSession(session) {
@@ -485,7 +511,8 @@ var User = {
 	addDash: addDashUser,
 	removeDash: removeDashUser,
 	getDashes: getDashesUser,
-	rearrange: rearrangeUser
+	rearrangeDashes: rearrangeDashesUser,
+	register: registerUser
 };
 
 var Session = {

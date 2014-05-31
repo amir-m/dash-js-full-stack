@@ -446,7 +446,7 @@ module.exports = function  (models, publisher) {
 
 		if (!req.body.uuid || !req.body.dashes || !req.body.dashes.length) return res.send(400);
 
-		models.User.rearrange(req.body.uuid, req.body.dashes);
+		models.User.rearrangeDashes(req.body.uuid, req.body.dashes);
 		res.send(200);
 	};
 
