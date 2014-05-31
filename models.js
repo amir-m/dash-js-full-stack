@@ -380,6 +380,8 @@ function registerUser(user, callback) {
 			return callback(error);
 		}
 
+		console.log(status);
+
 		// email is not registered
 		if (status == 1 || status == '1') {
 			redisClient.hset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2);
