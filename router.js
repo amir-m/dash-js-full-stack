@@ -21,6 +21,7 @@ module.exports = function(routes, app) {
 
 	app.post('/init/:id', routes.index.init);
 	app.post('/update', routes.index.update);
+	app.post('/email', routes.index.email);
 	app.post('/relaunch', routes.index.relaunch);
 	// app.post('/twitter/signin', routes.oauth.twitter_signin);
 	app.post('/exit', routes.index.exit);

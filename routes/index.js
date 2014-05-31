@@ -4,6 +4,11 @@ module.exports = function (models, publisher, cookie) {
 		
 	};
 
+	var email = function (req, res, next) {
+		console.log(req.body);
+		res.send(200);
+	};
+
 	var exit = function (req, res, next) {
 
 		res.set('Content-Type', 'application/json');
@@ -85,6 +90,7 @@ module.exports = function (models, publisher, cookie) {
 		init: init,
 		exit: exit,
 		update: update,
-		relaunch: relaunch
+		relaunch: relaunch,
+		email: email
 	}
 }
