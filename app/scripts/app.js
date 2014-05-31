@@ -15,7 +15,7 @@ angular.module('DashbookApp', [])
       })
       .when('/register', {
         // templateUrl: '//s3.amazonaws.com/dbk-assets/main.html',
-        templateUrl: 'views/main.html',
+        templateUrl: 'views/register.html',
         controller: 'RegisterCtrl',
         resolve: {
           dashes: ['$rootScope', '$location', function($rootScope, $location){
