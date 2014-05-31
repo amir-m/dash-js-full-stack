@@ -19,8 +19,8 @@ angular.module('DashbookApp')
           console.log('$rootScope.user');
           console.log($rootScope.user);
 
-          if ($rootScope.user.status != 3 || $rootScope.user.status != '3') 
-            return $location.path('/register');
+          // if ($rootScope.user.status != 3 || $rootScope.user.status != '3') 
+          //   return $location.path('/register');
 
           deffered.resolve();
 	    	})

@@ -8,7 +8,8 @@ angular.module('DashbookApp', [])
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
         resolve: {
-          dashes: ['Dashloader', function(Dashloader){
+          dashes: [
+          'Dashloader', function(Dashloader){
             return Dashloader();
           }]
         }
