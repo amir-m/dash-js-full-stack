@@ -396,7 +396,11 @@ function registerUser(user, callback) {
 			callback(null, 3);
 		}
 
-		else callback(404);
+		else {
+			redisClient.hset('user:'+uuid, 'email', cipher(user.email), 'status', 2);
+			callback(null, 2);
+			// callback(404);
+		}
 	});
 };
 
