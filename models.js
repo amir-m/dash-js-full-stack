@@ -373,7 +373,7 @@ function rearrangeDashesUser(uuid, dashes) {
 	dashes = dashes.join(':');
 	redisClient.hset('user:'+uuid, 'dashes', dashes);
 };
-function register(user, callback) {
+function registerUser(user, callback) {
 	redisClient.hget('user:'+user.uuid, 'status', function (error, status) {
 
 		if (error) {
