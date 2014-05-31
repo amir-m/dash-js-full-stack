@@ -20,7 +20,7 @@ angular.module('DashbookApp', [])
         controller: 'RegisterCtrl',
         resolve: {
           dashes: ['$rootScope', '$location', function($rootScope, $location){
-            if (!$rootScope.user) $location.path('/');
+            if (!$rootScope.user || $rootScope.user.status == 3) $location.path('/');
           }]
         }
       })
