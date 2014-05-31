@@ -12,12 +12,13 @@ angular.module('DashbookApp')
 
 	    	$http.get(uri)
 	    	.success(function(data){
-
-          if (data.user != 3 || data.user != '3') 
-            return $location.path('/register');
-
+          
           $rootScope.user = data.user;
           $rootScope.myDashes = data.dashes;
+
+          if ($rootScope.user.status != 3 || $rootScope.user.status != '3') 
+            return $location.path('/register');
+
           deffered.resolve();
 	    	})
 	    	.error(function(error){
