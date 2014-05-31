@@ -13,6 +13,16 @@ angular.module('DashbookApp', [])
           }]
         }
       })
+      .when('/register', {
+        // templateUrl: '//s3.amazonaws.com/dbk-assets/main.html',
+        templateUrl: 'views/main.html',
+        controller: 'RegisterCtrl',
+        resolve: {
+          dashes: ['$rootScope', '$location', function($rootScope, $location){
+            if (!$rootScope.user) $location.path('/');
+          }]
+        }
+      })
       .otherwise({
         redirectTo: '/'
       });
