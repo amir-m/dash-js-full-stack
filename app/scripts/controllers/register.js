@@ -17,7 +17,7 @@ angular.module('DashbookApp')
             .success(function(data){
                 console.log(data);
             })
-            .error(function(){
+            .error(function(error){
                 // TODO: Handle error
                 console.log(error);
             })
