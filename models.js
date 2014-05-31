@@ -307,7 +307,8 @@ function createUser(user) {
 	redisClient.hmset('user:'+user.uuid ,{
 		uuid: user.uuid,
 		dashes: user.dashes,
-		created_at: user.created_at
+		created_at: user.created_at,
+		status: 1 // 1: just created, 2: waiting for confirmation, 3: confirmed
 	});
 
 	user.is_active = true;
