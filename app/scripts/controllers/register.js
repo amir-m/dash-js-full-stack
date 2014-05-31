@@ -8,14 +8,14 @@ angular.module('DashbookApp')
     function ($scope, $rootScope, $http) {
         console.log($scope.user);
         $scope.email = 'email@domain.com';
-        
+
         $scope.register = function() {
             $http.post('/email', {
                 email: $scope.email,
                 uuid: $scope.uuid
             })
-            .success(function(){
-
+            .success(function(data){
+                console.log(data);
             })
             .error(function(){
                 // TODO: Handle error
