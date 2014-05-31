@@ -1,3 +1,11 @@
-<p>Enter your email: </p>
-<input>
-<button ng-click="register()">send</button>
+<div ng-show="!user.status || user.status == 1 || user.status == '1'">
+	<p>Enter your email: </p>
+	<input>
+	<button ng-click="register()">send</button>
+</div>
+
+<div ng-show="user.status == 2 || user.status == '2'">
+	<p>
+		We received your email. We'll notify you when there's a slot available... Send us an email: ouremail@dashbookapp.com
+	</p>
+</div>
