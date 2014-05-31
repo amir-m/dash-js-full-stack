@@ -210,9 +210,21 @@ var ContentSchema = new mongoose.Schema({
 	// clone_comp: {}
 });
 
+var WaitingListEntrySchema = new mongoose.Schema({
+	id: String,
+	uuid: String,
+	email: String,
+	confirmed: { type: Boolean, default: false },
+	added_from: String,
+	confirmed_by: String,
+	confirmed_at: Number,
+	created_at: Number
+});
+
 PrivateDashSchema.set('toObject', { virtuals: true });
 
 var Content = mongoose.model('Content', ContentSchema);
+var WaitingListEntry = mongoose.model('WaitingListEntry', WaitingListEntrySchema);
 
 function _objectId() {
 	var id = (new mongoose.Types.ObjectId).toString();
@@ -374,6 +386,7 @@ function rearrangeDashesUser(uuid, dashes) {
 	redisClient.hset('user:'+uuid, 'dashes', dashes);
 };
 function registerUser(user, callback) {
+	
 	redisClient.hget('user:'+user.uuid, 'status', function (error, status) {
 
 		if (error) {
@@ -384,8 +397,16 @@ function registerUser(user, callback) {
 
 		// email is not registered
 		if (status == 1 || status == '1') {
-			redisClient.hset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2);
+			redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2);
 			callback(null, 2);
+			var wle = new WaitingListEntry({
+				uuid: user.uuid,
+				email: user.email,
+				status: 1,
+				added_from: 'iOS',
+				created_at: new Date().getTime()
+			});
+			wle.save();
 		}
 
 		// already registered, waiting for access
