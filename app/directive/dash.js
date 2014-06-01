@@ -39,7 +39,7 @@ angular.module('DashbookApp')
           // });
 
           $.ajax({
-            "url": 'http://localhost:8080/call?'+scope.d.selected_source_uri,
+            "url": 'http://requestor-env.elasticbeanstalk.com/call?'+scope.d.selected_source_uri,
             "dataType": "json",
             // "xhrFields": {
             //   withCredentials: true
