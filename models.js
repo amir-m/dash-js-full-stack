@@ -211,7 +211,6 @@ var ContentSchema = new mongoose.Schema({
 });
 
 var WaitingListEntrySchema = new mongoose.Schema({
-	id: String,
 	uuid: String,
 	email: String,
 	confirmed: { type: Boolean, default: false },
@@ -387,44 +386,56 @@ function rearrangeDashesUser(uuid, dashes) {
 };
 function registerUser(user, callback) {
 	
-	redisClient.hget('user:'+user.uuid, 'status', function (error, status) {
+	WaitingListEntry.count({}, function(error, count){
+		
+		if (error) return callback(error);
 
-		if (error) {
-			return callback(error);
-		}
+		WaitingListEntry.findOne({ 
+			email: user.email
+		}, function(error, wle){
+			if (error) return callback(error);
+			if (wle) {
+				return callback(409, null, count);
+			}
+			redisClient.hget('user:'+user.uuid, 'status', function (error, status) {
 
-		console.log(status);
+				if (error) {
+					return callback(error);
+				}
 
-		// email is not registered
-		if (status == 1 || status == '1') {
-			redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2);
-			callback(null, 2);
-			var wle = new WaitingListEntry({
-				uuid: user.uuid,
-				email: user.email,
-				status: 1,
-				added_from: 'iOS',
-				created_at: new Date().getTime()
+				// email is not registered
+				if (status == 1 || status == '1') {
+					redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2);
+					callback(null, 2, count);
+					var wle = new WaitingListEntry({
+						uuid: user.uuid,
+						email: user.email,
+						status: 1,
+						added_from: 'iOS',
+						created_at: new Date().getTime()
+					});
+					wle.save();
+				}
+
+				// already registered, waiting for access
+				else if (status == 2 || status == '2') {
+					callback(null, 2, count);
+				}
+
+				// access been already granted
+				else if (status == 3 || status == '3') {
+					callback(null, 3, count);
+				}
+
+				else {
+					redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2);
+					callback(null, 2, count);
+					// callback(404);
+				}
 			});
-			wle.save();
-		}
-
-		// already registered, waiting for access
-		else if (status == 2 || status == '2') {
-			callback(null, 2);
-		}
-
-		// access been already granted
-		else if (status == 3 || status == '3') {
-			callback(null, 3);
-		}
-
-		else {
-			redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2);
-			callback(null, 2);
-			// callback(404);
-		}
+		});
 	});
+	
 };
 
 function createSession(session) {
