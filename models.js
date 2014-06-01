@@ -568,3 +568,4 @@ exports.Content = Content;
 exports.Session = Session;
 exports.ready = ready;
 exports.cipher = cipher;
+exports.WaitingListEntry = WaitingListEntry;
