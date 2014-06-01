@@ -67,10 +67,29 @@ module.exports = function(models, redisClient) {
 		return (new Buffer(base).toString('base64'));
 	};
 
+	function confirmUser(email, from, callback) {
+		email = models.cipher(email);
+		models.WaitingListEntry.findOne({ email: email }, function(error, wle){
+			
+			if (error && callback) return callback(error);
+			
+			if (!wle) return callback(404);
+
+			wle.confirmed = true;
+			wle.confirmed_by = from;
+			wle.confirmed_at = new Date().getTime();
+			wle.status = 3;
+			wle.save();
+			redisClient.hset('user:'+wle.uuid, 'status', 3);
+			if (callback) callback(null);
+		});
+	};
+
 	return {
 		createDefaultDashes: createDefaultDashes,
 		insertDashesToRedisBackend: insertDashesToRedisBackend,
-		getBase64Encoding: getBase64
+		getBase64Encoding: getBase64,
+		confirmUser: confirmUser
 	};
 };
 

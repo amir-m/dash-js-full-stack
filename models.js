@@ -430,42 +430,6 @@ function registerUser(user, callback) {
 			else {
 				callback(404);
 			}
-			// redisClient.hget('user:'+user.uuid, 'status', function (error, status) {
-
-			// 	if (error) {
-			// 		return callback(error);
-			// 	}
-
-			// 	// email is not registered
-			// 	if (status == 1 || status == '1') {
-			// 		redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2);
-			// 		callback(null, 2, count);
-			// 		var wle = new WaitingListEntry({
-			// 			uuid: user.uuid,
-			// 			email: user.email,
-			// 			status: 1,
-			// 			added_from: 'iOS',
-			// 			created_at: new Date().getTime()
-			// 		});
-			// 		wle.save();
-			// 	}
-
-			// 	// already registered, waiting for access
-			// 	else if (status == 2 || status == '2') {
-			// 		callback(null, 2, count);
-			// 	}
-
-			// 	// access been already granted
-			// 	else if (status == 3 || status == '3') {
-			// 		callback(null, 3, count);
-			// 	}
-
-			// 	else {
-			// 		redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2);
-			// 		callback(null, 2, count);
-			// 		// callback(404);
-			// 	}
-			// });
 		});
 	});
 };

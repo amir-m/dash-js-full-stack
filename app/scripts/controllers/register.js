@@ -6,7 +6,6 @@ angular.module('DashbookApp')
     '$rootScope', 
     '$http',
     function ($scope, $rootScope, $http) {
-        console.log($scope.user);
         // $scope.email = 'email@domain.com';
         $scope.conflict = false;
 
