@@ -214,7 +214,7 @@ var WaitingListEntrySchema = new mongoose.Schema({
 	uuid: String,
 	email: String,
 	app_launched: { type: Boolean, default: false },
-	app_first_launch_at: Number,
+	app_first_email_at: Number,
 	added_from: String,
 	confirmed: { type: Boolean, default: false },
 	confirmed_by: String,
@@ -321,6 +321,7 @@ function createUser(user) {
 		uuid: user.uuid,
 		dashes: user.dashes,
 		created_at: user.created_at,
+		app_first_launch_at: user.app_first_launch_at,
 		status: 1 // 1: just created, 2: waiting for confirmation, 3: confirmed
 	});
 
@@ -397,57 +398,73 @@ function registerUser(user, callback) {
 		}, function(error, wle){
 			if (error) return callback(error);
 
+			if (!wle) {
+				redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2);
+				callback(null, 2, count);
+				var wle = new WaitingListEntry({
+					uuid: user.uuid,
+					email: user.email,
+					app_launched: true,
+					status: 2,
+					added_from: 'iOS',
+					created_at: new Date().getTime()
+				});
+				wle.save();
+			}
 			// user has been registered from website, this is the first time he/she is launching the app
-			if (wle && !wle.app_launched) {
-
-				// return callback(409, null, count);
+			else if (wle && !wle.app_launched) {
+				callback(null, 2, count);
 				wle.uuid = user.uuid;
 				wle.app_launched = true;
-				wle.app_first_launch_at = new Date().getTime();
 				wle.status = 2;
 				redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2); 
 				wle.save();
-				return callback(null, 2, count);
 			}
 			else if (wle.app_launched && wle.status == 2) {
 				callback(null, 2, count);
 			}
-			redisClient.hget('user:'+user.uuid, 'status', function (error, status) {
+			else if (wle.app_launched && wle.status == 3) {
+				callback(null, 3, count);
+			}
+			else {
+				callback(404);
+			}
+			// redisClient.hget('user:'+user.uuid, 'status', function (error, status) {
 
-				if (error) {
-					return callback(error);
-				}
+			// 	if (error) {
+			// 		return callback(error);
+			// 	}
 
-				// email is not registered
-				if (status == 1 || status == '1') {
-					redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2);
-					callback(null, 2, count);
-					var wle = new WaitingListEntry({
-						uuid: user.uuid,
-						email: user.email,
-						status: 1,
-						added_from: 'iOS',
-						created_at: new Date().getTime()
-					});
-					wle.save();
-				}
+			// 	// email is not registered
+			// 	if (status == 1 || status == '1') {
+			// 		redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2);
+			// 		callback(null, 2, count);
+			// 		var wle = new WaitingListEntry({
+			// 			uuid: user.uuid,
+			// 			email: user.email,
+			// 			status: 1,
+			// 			added_from: 'iOS',
+			// 			created_at: new Date().getTime()
+			// 		});
+			// 		wle.save();
+			// 	}
 
-				// already registered, waiting for access
-				else if (status == 2 || status == '2') {
-					callback(null, 2, count);
-				}
+			// 	// already registered, waiting for access
+			// 	else if (status == 2 || status == '2') {
+			// 		callback(null, 2, count);
+			// 	}
 
-				// access been already granted
-				else if (status == 3 || status == '3') {
-					callback(null, 3, count);
-				}
+			// 	// access been already granted
+			// 	else if (status == 3 || status == '3') {
+			// 		callback(null, 3, count);
+			// 	}
 
-				else {
-					redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2);
-					callback(null, 2, count);
-					// callback(404);
-				}
-			});
+			// 	else {
+			// 		redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2);
+			// 		callback(null, 2, count);
+			// 		// callback(404);
+			// 	}
+			// });
 		});
 	});
 };

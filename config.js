@@ -66,7 +66,7 @@ module.exports = function(express, app, mongoose, cookie, models, redisClient) {
 				uuid = helpers.getBase64Encoding(uuid);
 			};
 
-			redisClient.publish('initialize', lat+'|'+lon+'|'+uuid);
+			// redisClient.publish('initialize', lat+'|'+lon+'|'+uuid);
 
 			async.waterfall([
 				function(callback) {
@@ -91,6 +91,7 @@ module.exports = function(express, app, mongoose, cookie, models, redisClient) {
 							lat: lat,
 							lon: lon,
 							dashes: '',
+							app_first_launch_at: new Date().getTime(),
 							created_at: new Date().getTime(),
 						});
 
