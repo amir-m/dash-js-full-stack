@@ -214,7 +214,6 @@ var WaitingListEntrySchema = new mongoose.Schema({
 	uuid: String,
 	email: String,
 	app_launched: { type: Boolean, default: false },
-	app_first_email_at: Number,
 	added_from: String,
 	confirmed: { type: Boolean, default: false },
 	confirmed_by: String,
@@ -394,16 +393,17 @@ function registerUser(user, callback) {
 		if (error) return callback(error);
 
 		WaitingListEntry.findOne({ 
-			email: user.email
+			email: cipher(user.email)
 		}, function(error, wle){
+			
 			if (error) return callback(error);
 
 			if (!wle) {
 				redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2);
-				callback(null, 2, count);
+				callback(null, 2, count + 3139);
 				var wle = new WaitingListEntry({
 					uuid: user.uuid,
-					email: user.email,
+					email: cipher(user.email),
 					app_launched: true,
 					status: 2,
 					added_from: 'iOS',
@@ -413,7 +413,7 @@ function registerUser(user, callback) {
 			}
 			// user has been registered from website, this is the first time he/she is launching the app
 			else if (wle && !wle.app_launched) {
-				callback(null, 2, count);
+				callback(null, 2, count + 3139);
 				wle.uuid = user.uuid;
 				wle.app_launched = true;
 				wle.status = 2;
@@ -421,10 +421,10 @@ function registerUser(user, callback) {
 				wle.save();
 			}
 			else if (wle.app_launched && wle.status == 2) {
-				callback(null, 2, count);
+				callback(null, 2, count + 3139);
 			}
 			else if (wle.app_launched && wle.status == 3) {
-				callback(null, 3, count);
+				callback(null, 3, count + 3139);
 			}
 			else {
 				callback(404);
