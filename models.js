@@ -424,6 +424,7 @@ function registerUser(user, callback) {
 				callback(null, 2, count + 3139);
 			}
 			else if (wle.app_launched && wle.status == 3) {
+				redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 3); 
 				callback(null, 3, count + 3139);
 			}
 			else {
