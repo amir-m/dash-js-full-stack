@@ -385,7 +385,7 @@ function rearrangeDashesUser(uuid, dashes) {
 	redisClient.hset('user:'+uuid, 'dashes', dashes);
 };
 function registerUser(user, callback) {
-	
+
 	WaitingListEntry.count({}, function(error, count){
 		
 		if (error) return callback(error);
@@ -395,6 +395,7 @@ function registerUser(user, callback) {
 		}, function(error, wle){
 			if (error) return callback(error);
 			if (wle) {
+				redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2);
 				return callback(409, null, count);
 			}
 			redisClient.hget('user:'+user.uuid, 'status', function (error, status) {
