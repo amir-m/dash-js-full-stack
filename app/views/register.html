@@ -16,14 +16,14 @@
 				<p>
 					Awesome! We now have you on our waiting list. There are {{count}} people ahead of you in the line. We will notify you as soon as there's a spot available.
 				</p>
-				<p>Say hi anytime</p>
+				<p><small>Say hi anytime</small></p>
 				<a href="mailto:hello@dashbookapp.com">hello@dashbookapp.com</a>
 			</div>
 			<p ng-show="">
 				This is where you wait
 			</p>
 			<div ng-show="user.status == 1 || user.status == '1'">
-				<p><small>Please enter your email below.</small></p>
+				<p><small>Please enter your email here</small></p>
 				<input type="email" ng-model="email">
 				<button ng-click="register()">Submit</button>
 			</div>
