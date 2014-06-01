@@ -602,3 +602,4 @@ exports.PrivateDash = PrivateDash;
 exports.Content = Content;
 exports.Session = Session;
 exports.ready = ready;
+exports.cipher = cipher;

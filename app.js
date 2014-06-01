@@ -22,11 +22,9 @@ var models = require('./models').config(mongoose, publisher);
 
 require('./helpers')(models, publisher).insertDashesToRedisBackend();
 
-// setTimeout(function() {
-// 	models.dashes.Dash.find(function(dashes){
-// 		console.log(dashes);
-// 	});
-// }, 2000);
+setTimeout(function() {
+	models.cipher('amir@doob.io');
+}, 1000);
 
 require('./config')(express, app, mongoose, cookie, models, publisher);
 
