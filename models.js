@@ -213,8 +213,10 @@ var ContentSchema = new mongoose.Schema({
 var WaitingListEntrySchema = new mongoose.Schema({
 	uuid: String,
 	email: String,
-	confirmed: { type: Boolean, default: false },
+	app_launched: { type: Boolean, default: false },
+	app_first_launch_at: Number,
 	added_from: String,
+	confirmed: { type: Boolean, default: false },
 	confirmed_by: String,
 	confirmed_at: Number,
 	created_at: Number
@@ -386,7 +388,7 @@ function rearrangeDashesUser(uuid, dashes) {
 };
 function registerUser(user, callback) {
 
-	WaitingListEntry.count({}, function(error, count){
+	WaitingListEntry.count({ confirmed: false }, function(error, count){
 		
 		if (error) return callback(error);
 
@@ -394,9 +396,21 @@ function registerUser(user, callback) {
 			email: user.email
 		}, function(error, wle){
 			if (error) return callback(error);
-			if (wle) {
-				redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2);
-				return callback(409, null, count);
+
+			// user has been registered from website, this is the first time he/she is launching the app
+			if (wle && !wle.app_launched) {
+
+				// return callback(409, null, count);
+				wle.uuid = user.uuid;
+				wle.app_launched = true;
+				wle.app_first_launch_at = new Date().getTime();
+				wle.status = 2;
+				redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2); 
+				wle.save();
+				return callback(null, 2, count);
+			}
+			else if (wle.app_launched && wle.status == 2) {
+				callback(null, 2, count);
 			}
 			redisClient.hget('user:'+user.uuid, 'status', function (error, status) {
 
@@ -436,7 +450,6 @@ function registerUser(user, callback) {
 			});
 		});
 	});
-	
 };
 
 function createSession(session) {
