@@ -10,7 +10,7 @@ angular.module('DashbookApp')
 
         $http.get('/email/count?uuid='+$rootScope.uuid)
         .success(function(data, status){
-            
+            console.log(data);
             d.resolve(data.count);
             
         })
