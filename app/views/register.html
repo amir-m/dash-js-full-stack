@@ -5,7 +5,7 @@
 
 	<div class="settings waiting-list">
 		<article class="input-comp">
-			<div ng-show="user.status == 2">
+			<div ng-show="!just_registered && (user.status == 2 || user.status == '2')">
 				<p>
 					We have you on our waiting list. There are {{count}} people ahead of you in the line. We will notify you as soon as there's a spot available.
 				</p>
@@ -22,9 +22,9 @@
 			<p ng-show="">
 				This is where you wait
 			</p>
-			<div ng-show="user.status == 1 || user.status == '1'">
+			<div ng-show="!just_registered && (user.status == 1 || user.status == '1')">
 				<p><small>Please enter your email here</small></p>
-				<input type="email" ng-model="email">
+				<input type="text" ng-model="email">
 				<button ng-click="register()">Submit</button>
 			</div>
 		</article>
