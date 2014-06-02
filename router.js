@@ -18,6 +18,7 @@ module.exports = function(routes, app) {
 	app.get('/content', routes.dashes.readData);
 	app.get('/dashes', routes.dashes.library);
 	app.get('/dashes/:id/settings', routes.settings.read);
+	app.get('/email/count', routes.index.count);
 
 	app.post('/init/:id', routes.index.init);
 	app.post('/update', routes.index.update);

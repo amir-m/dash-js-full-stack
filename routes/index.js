@@ -93,6 +93,11 @@ module.exports = function (models, publisher, cookie) {
 		res.send(200);
 	};
 
+	var count = function (req, res, next) {
+		console.log('count');
+		res.send(200);
+	};
+
 	return {
 		init: init,
 		exit: exit,

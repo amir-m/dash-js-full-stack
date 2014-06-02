@@ -23,7 +23,7 @@ angular.module('DashbookApp')
             .error(function(error){
                 // TODO: Handle error
                 if (error == 409) $scope.conflict = true;
-            })
+            });
         };
     }
 ]);

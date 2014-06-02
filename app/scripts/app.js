@@ -19,8 +19,9 @@ angular.module('DashbookApp', [])
         templateUrl: 'views/register.html',
         controller: 'RegisterCtrl',
         resolve: {
-          dashes: ['$rootScope', '$location', function($rootScope, $location){
+          count: ['$rootScope', '$location', function($rootScope, $location){
             if (!$rootScope.user || $rootScope.user.status == 3) $location.path('/');
+            return CountLoader();
           }]
         }
       })
