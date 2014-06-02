@@ -77,8 +77,6 @@ module.exports = function(models, redisClient) {
 			
 			if (!wle) return callback(404);
 
-			console.log(wle);
-
 			wle.confirmed = true;
 			wle.confirmed_by = from;
 			wle.confirmed_at = new Date().getTime();

@@ -213,6 +213,7 @@ var ContentSchema = new mongoose.Schema({
 var WaitingListEntrySchema = new mongoose.Schema({
 	uuid: String,
 	email: String,
+	status: String,
 	app_launched: { type: Boolean, default: false },
 	added_from: String,
 	confirmed: { type: Boolean, default: false },

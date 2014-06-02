@@ -13,11 +13,13 @@ angular.module('DashbookApp')
         $scope.count = count;
 
         $scope.register = function() {
+            $('.spinner').show();
             $http.post('/email', {
                 email: $scope.email,
                 uuid: $scope.uuid
             })
             .success(function(data, status){
+                $('.spinner').hide();
                 $scope.count = data.count;
                 if ((data.error && data.error == 409) || data.conflict) $scope.conflict = true;
                 else if (data.status == 2 || data.status == '2') {
@@ -35,12 +37,16 @@ angular.module('DashbookApp')
 
         
         function checkIfConfirmed() {
+            $('.spinner').show();
             var intv = setTimeout(function(){
                 $http.get('/me/'+$rootScope.uuid)
                 .success(function(user){
-                    console.log(user)
+
                     $rootScope.user = user;
                     if (user.status == 3 || user.status == '3') $location.path('/');
+                })
+                .error(function(){
+                    $('.spinner').hide();
                 })
             }, 5000);
         }; 
