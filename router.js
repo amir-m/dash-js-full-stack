@@ -19,7 +19,7 @@ module.exports = function(routes, app) {
 	app.get('/dashes', routes.dashes.library);
 	app.get('/dashes/:id/settings', routes.settings.read);
 	app.get('/email/count', routes.index.count);
-	app.get('/me', routes.index.getMe);
+	app.get('/me/:id', routes.index.getMe);
 
 	app.post('/init/:id', routes.index.init);
 	app.post('/update', routes.index.update);
