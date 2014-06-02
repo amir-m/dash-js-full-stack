@@ -5,9 +5,11 @@ angular.module('DashbookApp')
     '$scope', 
     '$rootScope', 
     '$http',
-    function ($scope, $rootScope, $http) {
+    'count',
+    function ($scope, $rootScope, $http, count) {
         // $scope.email = 'email@domain.com';
         $scope.conflict = false;
+        $scope.count = count;
 
         $scope.register = function() {
             $http.post('/email', {
