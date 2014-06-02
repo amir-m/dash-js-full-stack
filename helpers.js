@@ -181,5 +181,17 @@ module.exports = function(models, redisClient) {
 // 	location: {},
 // 	settings: {}
 // },
+// {
+// 	"id": "NTI5NjM2YmZiMTcxMzg0NTliMDAwMDAx",
+// 	"title": "News",
+// 	"content_type": "text",
+// 	"description": "Displays the headlines for a variety of new publications",
+// 	"credits": "Dashbook",
+// 	"icon_large": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/news_large_icon.png",
+// 	"icon_small": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/news_small_icon.png",
+// 	"setting_type": "radio",
+// 	"location": "",
+// 	"settings": "TechCrunch:ESPN:New York Times:Mashable:Wired:Inc.com:Fast Company:Forbes:Core77:Design Milk:Business Insider"
+// },
 // {_id: "NTI5NjNhNjFmNTliN2Y1YzliMDAwMDAx",title: "Places Near Me",dashType: "geo",description: "Find places based on your current location and a search term",credits: "Google Places",iconLarge: "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/places_near_me_large_icon.png",iconSmall: "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/places_near_me_small_icon.png",settingType : "textInput",location: "",settings: ""
 // },{_id: "NTI5NjNiMGYwZWZhNzI1ZTliMDAwMDAx",title: "Food Near Me",dashType: "geo",settingType: "text",description: "Find the closest restaurants based on your current location",credits: "Google Places",iconLarge: "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/food_near_me_large_icon.png",iconSmall: "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/food_near_me_small_icon.png",location: "",settings: {}}]

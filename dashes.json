@@ -50,18 +50,6 @@
 	"mapper_static_value": "Views:Likes:Comments"
 },
 {
-	"id": "NTI5NjM2YmZiMTcxMzg0NTliMDAwMDAx",
-	"title": "News",
-	"content_type": "text",
-	"description": "Displays the headlines for a variety of new publications",
-	"credits": "Dashbook",
-	"icon_large": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/news_large_icon.png",
-	"icon_small": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/news_small_icon.png",
-	"setting_type": "radio",
-	"location": "",
-	"settings": "TechCrunch:ESPN:New York Times:Mashable:Wired:Inc.com:Fast Company:Forbes:Core77:Design Milk:Business Insider"
-},
-{
 	"id": "NTI5NjNhNjFmNTliN2Y1YzliMDAwMDAx",
 	"title": "Places Near Me",
 	"source_uri": "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={latitude},{longitude}&rankBy=distance&radius=4000&keyword={keyword}&sensor=true&key={api_key}",
