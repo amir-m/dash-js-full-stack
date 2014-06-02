@@ -245,7 +245,7 @@ function findOneDash(id, callback) {
 
 		if (error) throw error;
 
-		console.log(_dash);
+		if (_dash.dash_type == 'privateDash') return callback(null, _dash);
 
 		if (_dash.setting_type == 'radio') {
 			_dash.settings = _dash.settings.split(":");
