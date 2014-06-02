@@ -402,7 +402,7 @@ function registerUser(user, callback) {
 
 			if (!wle) {
 				redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2);
-				callback(null, 2, count + 3139);
+				callback(null, 2, count + 7520);
 				var wle = new WaitingListEntry({
 					uuid: user.uuid,
 					email: cipher(user.email),
@@ -415,7 +415,7 @@ function registerUser(user, callback) {
 			}
 			// user has been registered from website, this is the first time he/she is launching the app
 			else if (wle && !wle.app_launched) {
-				callback(null, 2, count + 3139);
+				callback(null, 2, count + 7520);
 				wle.uuid = user.uuid;
 				wle.app_launched = true;
 				wle.status = 2;
@@ -423,11 +423,11 @@ function registerUser(user, callback) {
 				wle.save();
 			}
 			else if (wle.app_launched && wle.status == 2) {
-				callback(null, 2, count + 3139);
+				callback(null, 2, count + 7520);
 			}
 			else if (wle.app_launched && wle.status == 3) {
 				redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 3); 
-				callback(null, 3, count + 3139);
+				callback(null, 3, count + 7520);
 			}
 			else {
 				callback(404);
