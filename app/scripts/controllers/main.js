@@ -20,11 +20,9 @@ angular.module('DashbookApp')
             $('#'+dash.id+'-lib-add-btn span').addClass("expand");
             return;
         };
-
-        console.log(dash);
   
         dash.addRequested = false;
-        
+        $scope.showLibrary();
         $(document).find(".expand").removeClass("expand");
 
         $http.put('/dashes/'+dash.id+'/'+$rootScope.user.uuid)
