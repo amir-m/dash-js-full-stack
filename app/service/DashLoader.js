@@ -16,8 +16,11 @@ angular.module('DashbookApp')
           $rootScope.user = data.user;
           $rootScope.myDashes = data.dashes;
 
-          if ($rootScope.user.status != 3 || $rootScope.user.status != '3') 
+          if ($rootScope.user.status != 3 || $rootScope.user.status != '3') {
+            console.log('dashaaaaaagh');
+            console.log($rootScope.user.status);
             return $location.path('/register');
+          } 
 
           deffered.resolve();
 	    	})
