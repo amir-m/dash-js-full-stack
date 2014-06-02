@@ -20,6 +20,8 @@ angular.module('DashbookApp')
             $('#'+dash.id+'-lib-add-btn span').addClass("expand");
             return;
         };
+
+        console.log(dash);
   
         dash.addRequested = false;
         
