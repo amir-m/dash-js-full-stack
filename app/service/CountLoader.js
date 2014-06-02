@@ -11,12 +11,12 @@ angular.module('DashbookApp')
         $http.get('/email/count?uuid='+$rootScope.uuid)
         .success(function(data, status){
             console.log(data);
-            $scope.count = data.count;
+            $rootScope.count = data.count;
             
         })
         .error(function(error){
             // TODO: Handle error
-            if (error == 409) $scope.conflict = true;
+            if (error == 409) $rootScope.conflict = true;
         });
         
         return d.promise;
