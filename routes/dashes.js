@@ -62,7 +62,7 @@ module.exports = function  (models, publisher) {
 			var selected = '';			
 
 			if (dash.setting_type == 'radio') {
-				selected = dash.settings[0];
+				selected = dash.settings[0] || '';
 			}
 			else if (dash.setting_type == 'textInput') {
 				selected = dash.settings;
