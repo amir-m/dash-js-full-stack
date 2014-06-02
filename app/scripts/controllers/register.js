@@ -6,7 +6,8 @@ angular.module('DashbookApp')
     '$rootScope', 
     '$http',
     'count',
-    function ($scope, $rootScope, $http, count) {
+    '$location',
+    function ($scope, $rootScope, $http, count, $location) {
         // $scope.email = 'email@domain.com';
         $scope.just_registered = false;
         $scope.count = count;
