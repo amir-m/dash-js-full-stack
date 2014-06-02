@@ -27,7 +27,7 @@ setTimeout(function() {
 // 		if (error) throw error;
 // 		console.log('amir@doob.io just got confirmed');
 // 	});
-	// require('./helpers')(models, publisher).deleteAllUsers();
+	require('./helpers')(models, publisher).deleteAllUsers();
 }, 1000);
 
 require('./config')(express, app, mongoose, cookie, models, publisher);
