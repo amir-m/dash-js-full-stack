@@ -11,7 +11,7 @@ angular.module('DashbookApp')
         // $scope.email = 'email@domain.com';
         $scope.just_registered = false;
         $scope.count = count;
-
+        $('.spinner').hide();
         $scope.register = function() {
             $('.spinner').show();
             $http.post('/email', {
