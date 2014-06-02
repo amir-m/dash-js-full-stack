@@ -19,7 +19,11 @@ angular.module('DashbookApp', [])
         templateUrl: 'views/register.html',
         controller: 'RegisterCtrl',
         resolve: {
-          count: ['$rootScope', '$location', function($rootScope, $location){
+          count: [
+            '$rootScope', 
+            '$location', 
+            'CountLoader', 
+            function($rootScope, $location, CountLoader){
             if (!$rootScope.user || $rootScope.user.status == 3) $location.path('/');
 
             return CountLoader();
