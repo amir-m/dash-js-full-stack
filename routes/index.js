@@ -104,6 +104,7 @@ module.exports = function (models, publisher, cookie) {
 		exit: exit,
 		update: update,
 		relaunch: relaunch,
-		email: email
+		email: email,
+		count: count
 	}
 }
