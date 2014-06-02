@@ -17,6 +17,7 @@ angular.module('DashbookApp')
                 uuid: $scope.uuid
             })
             .success(function(data, status){
+                console.log(data);
                 $scope.count = data.count;
                 if ((data.error && data.error == 409) || data.conflict) $scope.conflict = true;
                 else if (data.status == 2 || data.status == '2') {
