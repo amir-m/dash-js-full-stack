@@ -94,7 +94,8 @@ module.exports = function (models, publisher, cookie) {
 	};
 
 	var count = function (req, res, next) {
-		console.log('count');
+
+		console.log(req.param('uuid'));
 		res.send(200);
 	};
 

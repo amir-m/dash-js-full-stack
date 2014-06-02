@@ -21,6 +21,7 @@ angular.module('DashbookApp', [])
         resolve: {
           count: ['$rootScope', '$location', function($rootScope, $location){
             if (!$rootScope.user || $rootScope.user.status == 3) $location.path('/');
+
             return CountLoader();
           }]
         }
