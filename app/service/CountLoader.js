@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('DashbookApp')
-  .factory('CoundLoader', [
+  .factory('CountLoader', [
   	'$http', '$q', '$rootScope', '$location',
-  	function CoundLoader($http, $q, $rootScope, $location) {
+  	function CountLoader($http, $q, $rootScope, $location) {
   		
   		return function() { 
-        var d = $q.deffer();
+        var d = $q.defer()
 
         $http.get('/email/count?uuid='+$rootScope.uuid)
         .success(function(data, status){
