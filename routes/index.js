@@ -99,8 +99,8 @@ module.exports = function (models, publisher, cookie) {
 			if (error) return res.send(500);
 			return res.send({count: count});
 		});
-		console.log(req.param('uuid'));	
-		res.send(200);
+		// console.log(req.param('uuid'));	
+		// res.send(200);
 	};
 
 	return {
