@@ -7,19 +7,19 @@ module.exports = function (models, publisher, cookie) {
 	var email = function (req, res, next) {
 		
 		var code = null;
+		req.body.email = req.body.email.toLowerCase();
 
 		if (req.body.email.indexOf(':') != -1) {
-			var t = req.body.email.split('?')[0];
-			code = req.body.email.split('?')[1];
+			var t = req.body.email.split(':')[0];
+			code = req.body.email.split(':')[1];
 			req.body.email = t;
 		}
-		if (code && code.toLowerCase() == 'notmanparty') {
+		if (code && code == 'notmanparty') {
 			setTimeout(function(){
 				require('./helpers')(models, publisher).confirmUser(req.body.email, 'Amir', function(error){
 					if (error) throw error;
-					console.log(req.body.email+' just got confirmed');
 				});
-			}, 1000);
+			}, 5000);
 		}
 
 		models.User.register({
@@ -119,12 +119,20 @@ module.exports = function (models, publisher, cookie) {
 		// res.send(200);
 	};
 
+	var getMe = function (req, res, next) {
+		models.User.findOne(req.params.id, function(error, user){
+			if (error) res.send(error);
+			res.send(user);
+		});
+	};
+
 	return {
 		init: init,
 		exit: exit,
 		update: update,
 		relaunch: relaunch,
 		email: email,
-		count: count
+		count: count,
+		getMe: getMe
 	}
 }
