@@ -389,6 +389,8 @@ function rearrangeDashesUser(uuid, dashes) {
 function registerUser(user, callback) {
 
 	WaitingListEntry.count({ confirmed: false }, function(error, count){
+
+		console.log(count);
 		
 		if (error) return callback(error);
 
