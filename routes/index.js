@@ -95,7 +95,7 @@ module.exports = function (models, publisher, cookie) {
 
 	var count = function (req, res, next) {
 
-		console.log(req.param('uuid'));
+		console.log(req.param('uuid'));	
 		res.send(200);
 	};
 
