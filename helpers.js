@@ -85,11 +85,20 @@ module.exports = function(models, redisClient) {
 		});
 	};
 
+	function deleteAllUsers(){
+		redisClient.keys('user:*', function(error, users){
+			if (error) throw error;
+			for (var i = 0; i < users.length; ++i)
+				redisClient.del(users[i]);
+		});
+	};
+
 	return {
 		createDefaultDashes: createDefaultDashes,
 		insertDashesToRedisBackend: insertDashesToRedisBackend,
 		getBase64Encoding: getBase64,
-		confirmUser: confirmUser
+		confirmUser: confirmUser,
+		deleteAllUsers: deleteAllUsers,
 	};
 };
 
