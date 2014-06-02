@@ -50,6 +50,8 @@ module.exports = function  (models, publisher) {
 			return res.send(400);
 
 		models.Dash.findOne(req.params.id, function(error, dash){
+
+			console.log(dash)
 			
 			if (error) {
 				console.log(error)

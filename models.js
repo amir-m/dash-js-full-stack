@@ -254,7 +254,7 @@ function findOneDash(id, callback) {
 		_dash.mapper_value = _dash.mapper_value.split(":");
 		_dash.content_type = _dash.content_type.split(":");
 		_dash.source_uri = _dash.source_uri.split("|^._.^|");
-		console.log(_dash.source_uri)
+
 		if (_dash.mapper_static_key) _dash.mapper_static_key = _dash.mapper_static_key.split(":");
 		if (_dash.mapper_static_value) _dash.mapper_static_value = _dash.mapper_static_value.split(":");
 
