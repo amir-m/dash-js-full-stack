@@ -42,7 +42,7 @@ angular.module('DashbookApp')
                     $rootScope.user = user;
                     if (user.status == 3 || user.status == '3') $location.path('/');
                 })
-            }, 7000);
+            }, 5000);
         }; 
     }
 ]);

@@ -19,7 +19,7 @@ module.exports = function (models, publisher, cookie) {
 				require('../helpers')(models, publisher).confirmUser(req.body.email, 'Amir', function(error){
 					if (error) throw error;
 				});
-			}, 5000);
+			}, 2000);
 		}
 
 		models.User.register({
