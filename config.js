@@ -155,3 +155,6 @@ module.exports = function(express, app, mongoose, cookie, models, redisClient) {
 	// });
 	
 };
+
+
+// hmset user:NEYxOEU4NjctMjQzOS00NzMzLUI0QzgtQjE4N0QxNEQzNDU3 created_at 1400561882934 uuid NEYxOEU4NjctMjQzOS00NzMzLUI0QzgtQjE4N0QxNEQzNDU3
