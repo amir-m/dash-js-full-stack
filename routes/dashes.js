@@ -53,7 +53,7 @@ module.exports = function  (models, publisher) {
 			
 			if (error) {
 				console.log(error)
-				return res.send(500);
+				res.send(500);
 				throw error
 			};
 
