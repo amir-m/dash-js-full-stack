@@ -68,12 +68,16 @@ module.exports = function(models, redisClient) {
 	};
 
 	function confirmUser(email, from, callback) {
+		
 		email = models.cipher(email);
+		
 		models.WaitingListEntry.findOne({ email: email }, function(error, wle){
 			
 			if (error && callback) return callback(error);
 			
 			if (!wle) return callback(404);
+
+			console.log(wle);
 
 			wle.confirmed = true;
 			wle.confirmed_by = from;
