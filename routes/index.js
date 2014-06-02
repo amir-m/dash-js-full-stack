@@ -95,7 +95,7 @@ module.exports = function (models, publisher, cookie) {
 
 	var count = function (req, res, next) {
 		if (!req.param('uuid')) return res.send(401);
-		models.WaitingListEntry.count({ confirmed: true }, function(error, count) {
+		models.WaitingListEntry.count({ confirmed: false }, function(error, count) {
 			if (error) return res.send(500);
 			return res.send({count: count});
 		});
