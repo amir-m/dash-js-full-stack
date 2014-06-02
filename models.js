@@ -240,6 +240,7 @@ function config (m, r) {
 };
 
 function findOneDash(id, callback) {
+	
 	redisClient.hgetall('dash:'+id, function(error, _dash){
 
 		if (error) throw error;
@@ -264,8 +265,6 @@ function findOneDash(id, callback) {
 			_dash.source_uri_values = [];
 		else 
 			_dash.source_uri_values = _dash.source_uri_values.split(":");
-
-
 
 		callback(null, _dash);
 

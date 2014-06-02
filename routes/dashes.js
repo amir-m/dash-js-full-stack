@@ -102,15 +102,15 @@ module.exports = function  (models, publisher) {
 			});
 
 			ud.save(function(error){
-					if (error) {
-						console.log(error)
-						res.send(500);
-						throw error;
-					};
+				if (error) {
+					console.log(error)
+					res.send(500);
+					throw error;
+				};
 
-					res.send(ud.json());
-					models.User.addDash(req.params.uuid, ud.id);
-				});
+				res.send(ud.json());
+				models.User.addDash(req.params.uuid, ud.id);
+			});
 			
 		});
 
