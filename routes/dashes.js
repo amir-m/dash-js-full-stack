@@ -90,7 +90,7 @@ module.exports = function  (models, publisher) {
 				content_type: dash.content_type || '',
 				source_uri_keys: dash.source_uri_keys || '',
 				source_uri_values: dash.source_uri_values || '',
-				// selected_source_uri: dash.source_uri[0] || '',
+				selected_source_uri: (dash.source_uri && dash.source_uri[0]) ? dash.source_uri[0] : '',
 				handler_placeholder: dash.handler_placeholder || '',
 				data_container: dash.data_container || '',
 				settings: dash.settings || '',
