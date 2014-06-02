@@ -25,8 +25,8 @@ module.exports = function (models, publisher, cookie) {
 		models.User.register({
 			uuid: req.body.uuid,
 			email: req.body.email
-		}, function(error, status, count){
-			if (error && error == 409) res.send({ error: 409, count: count });
+		}, function(error, status, count, conflict){
+			if ((error && error == 409) || conflict) res.send({ error: 409, count: count });
 			else if (error) return res.send(error);
 			else res.json({ status: status, count: count });
 		});
