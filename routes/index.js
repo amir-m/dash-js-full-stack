@@ -5,6 +5,7 @@ module.exports = function (models, publisher, cookie) {
 	};
 
 	var email = function (req, res, next) {
+		console.log('heloooooo')
 		models.User.register({
 			uuid: req.body.uuid,
 			email: req.body.email
