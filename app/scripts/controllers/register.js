@@ -24,6 +24,7 @@ angular.module('DashbookApp')
                     // $scope.user.status = 2;
                     $scope.just_registered = true;
                 }
+                $scope.apply();
             })
             .error(function(error){
                 // TODO: Handle error

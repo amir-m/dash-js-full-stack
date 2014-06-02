@@ -38,6 +38,11 @@ angular.module('DashbookApp', [])
 
     var winWidth = $(window).width();
 
+    $rootScope.apply = function() {
+      if ($rootScope.$$phase != '$apply' && $rootScope.$$phase != '$digest')
+        $rootScope.$apply();
+    };
+
     $rootScope._width = 315;
 
     // if (winWidth > 480)
@@ -65,8 +70,7 @@ angular.module('DashbookApp', [])
           //     || 'NTk3NTFBRTItNTc4Ri00QTVGLUExNUQtOTVDRUM2MzBBRjY5'  == $rootScope.uuid)
             $rootScope.showMe = true;
 
-          if ($rootScope.$$phase != '$apply' && $rootScope.$$phase != '$digest')
-            $rootScope.$apply();
+          $rootScope.apply();
         }
 
   }]);
