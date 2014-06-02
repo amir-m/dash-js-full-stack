@@ -97,7 +97,8 @@ module.exports = function  (models, publisher) {
 				mapper_value: dash.mapper_value,
 				mapper_static_key: dash.mapper_static_key,
 				mapper_static_value: dash.mapper_static_value,
-				collection_name: dash.collection_name
+				collection_name: dash.collection_name,
+				has_settings: dash.has_settings
 			});
 
 			ud.save(function(error){

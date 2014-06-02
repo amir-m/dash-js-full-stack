@@ -134,6 +134,7 @@ var UserDashSchema = new mongoose.Schema({
 	mapper_value: [],
 	mapper_static_key: [],
 	mapper_static_value: [],
+	has_settings: Boolean,
 	collection_name: String
 });
 

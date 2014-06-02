@@ -28,7 +28,7 @@
 			</div>
 		</div>
 		
-		<p class="no-settings grey" ng-show="!d.content || d.content.length == 0">No content is available at this time.</p>
+		<p class="no-settings grey centered" ng-show="!d.content || d.content.length == 0">No content is available at this time.</p>
 
 		<div class="slide-indicator" id="pointer-{{d.id}}">
 			<span ng-repeat="content in d.content"></span>
@@ -53,7 +53,7 @@
 					</li>
 				</ul>
 			</section>
-			<section class="error-comp centered">
+			<section class="error-comp centered" style="display:none;">
 				<p class="grey">This is error...</p>
 			</section>
 			<section class="input-comp" ng-show="d.setting_type == 'textInput'">

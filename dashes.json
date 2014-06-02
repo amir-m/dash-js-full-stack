@@ -9,7 +9,8 @@
 	"icon_small": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/default_small_icon.png",
 	"setting_type": "textInput",
 	"location": "",
-	"settings": ""
+	"settings": "",
+	"has_settings": "true"
 },
 {
 	"id": "NTI5NjJmYzUyMzQ3ZjUxZDliMDAwMDAx",
@@ -25,7 +26,8 @@
 	"settings": "Popular:Debut:Everyone",
 	"data_container": "shots",
 	"mapper_key": "src_comp.resource_uri:desc_comp.header:desc_comp.text:desc_comp.avatar_img:hero_comp.main_img:footer_comp.time",
-	"mapper_value": "url:player.name:title:player.avatar_url:image_url:created_at"
+	"mapper_value": "url:player.name:title:player.avatar_url:image_url:created_at",
+	"has_settings": "true"
 },
 {
 	"id": "NTJhOWRmMGYxODNiNTAwMDAwMDAwMDAx",
@@ -47,7 +49,8 @@
 	"mapper_key": "src_comp.resource_uri:desc_comp.avatar_img:desc_comp.text:stats_comp.stat1:stats_comp.stat2:stats_comp.stat3",
 	"mapper_value": "url:image_url:title:views_count:likes_count:comments_count",
 	"mapper_static_key": "stats_comp.label1:stats_comp.label2:stats_comp.label3",
-	"mapper_static_value": "Views:Likes:Comments"
+	"mapper_static_value": "Views:Likes:Comments",
+	"has_settings": "true"
 },
 {
 	"id": "NTI5NjNhNjFmNTliN2Y1YzliMDAwMDAx",
@@ -66,7 +69,8 @@
 	"setting_type" : "textInput",
 	"data_container": "results",
 	"mapper_key": "geo_comp.header:geo_comp.text:geo_comp.latitude:geo_comp.longitude",
-	"mapper_value": "name:vicinity:geometry.location.lat:geometry.location.lng"
+	"mapper_value": "name:vicinity:geometry.location.lat:geometry.location.lng",
+	"has_settings": "true"
 },
 {
 	"id": "NTI5NjM5ZTlmOGZjY2Q1ODliMDAwMDAx",
@@ -83,7 +87,8 @@
 	"settings": "coffee",
 	"data_container": "results",
 	"mapper_key": "geo_comp.header:geo_comp.text:geo_comp.latitude:geo_comp.longitude",
-	"mapper_value": "name:vicinity:geometry.location.lat:geometry.location.lng"
+	"mapper_value": "name:vicinity:geometry.location.lat:geometry.location.lng",
+	"has_settings": "true"
 },
 {
 	"id": "NTI5NjNiMGYwZWZhNzI1ZTliMDAwMDAx",
@@ -101,5 +106,6 @@
 	"location": "",
 	"data_container": "results",
 	"mapper_key": "geo_comp.header:geo_comp.text:geo_comp.latitude:geo_comp.longitude",
-	"mapper_value": "name:vicinity:geometry.location.lat:geometry.location.lng"
+	"mapper_value": "name:vicinity:geometry.location.lat:geometry.location.lng",
+	"has_settings": "true"
 }]
