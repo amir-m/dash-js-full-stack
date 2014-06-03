@@ -29,6 +29,9 @@ angular.module('DashbookApp')
 
 			scope.content.components.geo_comp.scalar = Math.round(scope.content.components.geo_comp.scalar * 10) / 10;
 
+			scope.content.components.geo_comp.header = scope.content.components.geo_comp.header.substr(0, 28);
+        	scope.content.components.geo_comp.text = scope.content.components.geo_comp.text.substr(0, 32);
+
 			scope.safeApply();
 			
 			function toRad(num) {
