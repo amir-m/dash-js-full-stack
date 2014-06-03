@@ -4,10 +4,11 @@
 			<h1 class="dash-title">
 				<img class="small-icon" ng-src="{{d.icon_small}}">
 				{{d.title}} • 
-				<span ng-show="d.dash_type == 'privateDash'">
+				<!-- Change d.title to d.dash_type... -->
+				<span ng-show="d.title == 'Private Dash'">
 					{{d.selected_setting || 'No Dash Selected'}}
 				</span>
-				<span ng-show="d.dash_type != 'privateDash'">
+				<span ng-show="d.title != 'Private Dash'">
 					{{d.selected_setting || 'Current Location'}}
 				</span>
 			</h1>
