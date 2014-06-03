@@ -141,7 +141,7 @@ angular.module('DashbookApp')
               if (tmp_con.length > 0) {
                 for (var i = 0; i < tmp_con.length; ++i) {
 
-                  // console.log(tmp_con[i])
+                  console.log(tmp_con[i])
 
                   var R = 6371000; // meters
                   var dLat = toRad($rootScope.latitude - parseFloat(tmp_con[i].content.components.geo_comp.latitude));
