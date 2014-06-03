@@ -9,8 +9,10 @@ angular.module('DashbookApp')
       restrict: 'E',
       link: function postLink(scope, element, attrs) {
 
-        scope.content.components.desc_comp.header = scope.content.components.desc_comp.header.substr(0, 28);
-        scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.substr(0, 32);
+        if (scope.content.components.desc_comp.header) 
+          scope.content.components.desc_comp.header = scope.content.components.desc_comp.header.substr(0, 28);
+        if (scope.content.components.desc_comp.text) 
+          scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.substr(0, 32);
 
       	scope.$on('suicide', function(){
       		

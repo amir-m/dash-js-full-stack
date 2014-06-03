@@ -384,6 +384,9 @@ angular.module('DashbookApp')
               scope.user.dashes.splice(scope.user.dashes.indexOf(scope.d.id), 1);
               scope.safeApply();
             }
+            
+            $('article:first-child').addClass('first-child');
+
             scope.safeApply();
           
           })
