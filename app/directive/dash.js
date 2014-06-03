@@ -518,11 +518,11 @@ angular.module('DashbookApp')
                   });
                 }
                 console.log(i);
-                // if (i < 10) {
+                if (i < 10) {
                   var html = '<section><private></private></section>';
                   var _scope = scope.$new();
                   _scope.content = content[i];
-                // }
+                }
                 // scope.d.content.push(_scope.$id);
 
                 $('#'+scope.d.id + ' .flipsnap').append($compile(html)(_scope));
