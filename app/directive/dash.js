@@ -527,9 +527,9 @@ angular.module('DashbookApp')
                 // scope.d.content.push(_scope.$id);
 
               };
+              content.splice(0, 10);
 
               scope.d.content = content;
-              // scope.d.content.splice(0, 10);
               scope.attachFlipsnap();
               scope.safeApply();
               // scope.$broadcast('resize');
