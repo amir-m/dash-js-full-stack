@@ -517,18 +517,19 @@ angular.module('DashbookApp')
                     header: header
                   });
                 }
-                if (i < 10) {
+                console.log(i);
+                // if (i < 10) {
                   var html = '<section><private></private></section>';
                   var _scope = scope.$new();
                   _scope.content = content[i];
-                }
+                // }
                 // scope.d.content.push(_scope.$id);
 
                 $('#'+scope.d.id + ' .flipsnap').append($compile(html)(_scope));
               };
 
               scope.d.content = content;
-              scope.d.content.splice(0, 10);
+              // scope.d.content.splice(0, 10);
               scope.attachFlipsnap();
               scope.safeApply();
               // scope.$broadcast('resize');
