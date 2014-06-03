@@ -70,8 +70,6 @@ module.exports = function  (models, publisher) {
 
 			console.log(dash)
 
-			return res.send(200);
-
 			var ud = new models.UserDash({
 				id: models.id(),
 				dash_id: dash.id,
