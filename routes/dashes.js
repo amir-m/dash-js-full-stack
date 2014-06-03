@@ -259,31 +259,10 @@ module.exports = function  (models, publisher) {
 			return res.send(400);
 		}
 
-
-		console.log(col);
-
 		var skip = parseInt(req.query.skip);
 		skip = isNaN(skip) ? 0 : skip;
 
-
-		if (req.query.t == 'BeHance') {
-
-			col.find( { behanceType: req.query.s } )
-			.limit(10)
-			.skip(skip)
-			// .sort({'slideshow.pubDate': -1})
-			.exec(function(error, docs){
-				if (error) {
-					res.send(500);
-					throw error
-				};
-
-				var s = docs.length > 10 ? 10 : docs.length;
-
-				return res.send({content: docs, skip: skip + s});
-			});
-		}
-		else if (req.query.t == 'Dribbble'){
+		if (req.query.t == 'Dribbble'){
 			
 			// var sort = {'slideshow.pubDate': -1};
 			models.Content.find({ collection_name: col })
@@ -393,6 +372,8 @@ module.exports = function  (models, publisher) {
 		}
 
 		else if (req.query.t == 'Private Dash') {
+
+			console.log(req.query.s);
 		
 			col.findOne({ dash_title: req.query.s })
 			.exec(function(error, doc){
