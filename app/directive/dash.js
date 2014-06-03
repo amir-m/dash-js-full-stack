@@ -141,8 +141,6 @@ angular.module('DashbookApp')
               if (tmp_con.length > 0) {
                 for (var i = 0; i < tmp_con.length; ++i) {
 
-                  console.log(tmp_con[i])
-
                   var R = 6371000; // meters
                   var dLat = toRad($rootScope.latitude - parseFloat(tmp_con[i]._scope.content.components.geo_comp.latitude));
                   var dLon = toRad($rootScope.longitude - parseFloat(tmp_con[i]._scope.content.components.geo_comp.longitude));
@@ -153,14 +151,7 @@ angular.module('DashbookApp')
                   Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
                   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
                   tmp_con[i]._scope.content.components.geo_comp.scalar = Math.round(R * c);
-                  tmp_con[i]._scope.content.components.geo_comp.unit = Math.round(R * c) > 1000 ? 'KM' : 'M';
-                  // tmp_con[i]._scope.content.components.geo_comp.scalar = tmp_con[i]._scope.content.components.geo_comp.scalar > 1000 ? 
-                  //   tmp_con[i]._scope.content.components.geo_comp.scalar / 1000 : tmp_con[i]._scope.content.components.geo_comp.scalar;
-                  // tmp_con[i]._scope.content.components.geo_comp.scalar = Math.round(tmp_con[i]._scope.content.components.geo_comp.scalar * 10) / 10;
-
-
-
-
+                  tmp_con[i]._scope.content.components.geo_comp.unit = Math.round(R * c) > 1000 ? 'KM' : 'M';.geo_comp.scalar * 10) / 10;
 
                 }
 
