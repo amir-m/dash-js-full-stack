@@ -154,9 +154,9 @@ angular.module('DashbookApp')
                   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
                   tmp_con[i]._scope.content.components.geo_comp.scalar = Math.round(R * c);
                   tmp_con[i]._scope.content.components.geo_comp.unit = Math.round(R * c) > 1000 ? 'KM' : 'M';
-                  tmp_con[i]._scope.content.components.geo_comp.scalar = tmp_con[i]._scope.content.components.geo_comp.scalar > 1000 ? 
-                    tmp_con[i]._scope.content.components.geo_comp.scalar / 1000 : tmp_con[i]._scope.content.components.geo_comp.scalar;
-                  tmp_con[i]._scope.content.components.geo_comp.scalar = Math.round(tmp_con[i]._scope.content.components.geo_comp.scalar * 10) / 10;
+                  // tmp_con[i]._scope.content.components.geo_comp.scalar = tmp_con[i]._scope.content.components.geo_comp.scalar > 1000 ? 
+                  //   tmp_con[i]._scope.content.components.geo_comp.scalar / 1000 : tmp_con[i]._scope.content.components.geo_comp.scalar;
+                  // tmp_con[i]._scope.content.components.geo_comp.scalar = Math.round(tmp_con[i]._scope.content.components.geo_comp.scalar * 10) / 10;
 
 
 

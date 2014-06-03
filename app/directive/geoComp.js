@@ -13,17 +13,17 @@ angular.module('DashbookApp')
 				+scope.content.components.geo_comp.latitude+','
 				+scope.content.components.geo_comp.longitude;
 
-			var R = 6371000; // meters
-			var dLat = toRad($rootScope.latitude - parseFloat(scope.content.components.geo_comp.latitude));
-			var dLon = toRad($rootScope.longitude - parseFloat(scope.content.components.geo_comp.longitude));
-			var lat1 = toRad($rootScope.latitude);
-			var lat2 = toRad(parseFloat(scope.content.components.geo_comp.latitude));
+			// var R = 6371000; // meters
+			// var dLat = toRad($rootScope.latitude - parseFloat(scope.content.components.geo_comp.latitude));
+			// var dLon = toRad($rootScope.longitude - parseFloat(scope.content.components.geo_comp.longitude));
+			// var lat1 = toRad($rootScope.latitude);
+			// var lat2 = toRad(parseFloat(scope.content.components.geo_comp.latitude));
 
-			var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-			Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
-			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-			scope.content.components.geo_comp.scalar = Math.round(R * c);
-			scope.content.components.geo_comp.unit = Math.round(R * c) > 1000 ? 'KM' : 'M';
+			// var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+			// Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+			// var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+			// scope.content.components.geo_comp.scalar = Math.round(R * c);
+			// scope.content.components.geo_comp.unit = Math.round(R * c) > 1000 ? 'KM' : 'M';
 			scope.content.components.geo_comp.scalar = scope.content.components.geo_comp.scalar > 1000 ? 
 				scope.content.components.geo_comp.scalar / 1000 : scope.content.components.geo_comp.scalar;
 
