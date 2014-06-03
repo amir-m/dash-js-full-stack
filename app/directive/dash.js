@@ -517,12 +517,12 @@ angular.module('DashbookApp')
                     header: header
                   });
                 }
-                var html = '<section><private></private></section>';
-                var _scope = scope.$new();
-                _scope.content = content[i];
-                
+                if (i < 10) {
+                  var html = '<section><private></private></section>';
+                  var _scope = scope.$new();
+                  _scope.content = content[i];
+                }
                 // scope.d.content.push(_scope.$id);
-
 
                 $('#'+scope.d.id + ' .flipsnap').append($compile(html)(_scope));
               };
@@ -531,7 +531,7 @@ angular.module('DashbookApp')
               scope.d.content.splice(0, 10);
               scope.attachFlipsnap();
               scope.safeApply();
-              scope.$broadcast('resize');
+              // scope.$broadcast('resize');
             }
           });
         };
