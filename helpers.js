@@ -16,6 +16,7 @@ module.exports = function(models, redisClient) {
 			redisClient.keys('user:*', function(error, _users){
 				if (error) throw error;
 				for (var i = 0; i < _users.length; ++i) {
+					console.log(_users[i])
 					redisClient.hmset("user:"+_users[i], 'dashes', '');
 				}
 			});
