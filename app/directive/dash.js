@@ -160,7 +160,7 @@ angular.module('DashbookApp')
           $('.table').addClass('centered');
           $('.table').addClass('location');
         }
-
+        console.log(scope.d);
         if (scope.d.title != 'Private Dash') {
           console.log(scope.d);
           if (scope.d.selected_setting) {
