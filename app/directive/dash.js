@@ -93,7 +93,10 @@ angular.module('DashbookApp')
 
                 if (scope.d.mapper_static_key) {
                     for (var j = 0; j < scope.d.mapper_static_key.length; ++j) {
+                      
                       var value = scope.d.mapper_static_value[j];
+
+                      console.log(value);
   
                       eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_static_key[j]+
                         " = '"+value+"'");
