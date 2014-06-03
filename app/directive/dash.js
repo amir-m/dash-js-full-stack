@@ -140,6 +140,27 @@ angular.module('DashbookApp')
               // TODO: Make it generic: 
               if (tmp_con.length > 0) {
                 for (var i = 0; i < tmp_con.length; ++i) {
+
+
+                  var R = 6371000; // meters
+                  var dLat = toRad($rootScope.latitude - parseFloat(tmp_con[i].components.geo_comp.latitude));
+                  var dLon = toRad($rootScope.longitude - parseFloat(tmp_con[i].components.geo_comp.longitude));
+                  var lat1 = toRad($rootScope.latitude);
+                  var lat2 = toRad(parseFloat(tmp_con[i].components.geo_comp.latitude));
+
+                  var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                  Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+                  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+                  tmp_con[i].components.geo_comp.scalar = Math.round(R * c);
+                  tmp_con[i].components.geo_comp.unit = Math.round(R * c) > 1000 ? 'KM' : 'M';
+                  tmp_con[i].components.geo_comp.scalar = tmp_con[i].components.geo_comp.scalar > 1000 ? 
+                    tmp_con[i].components.geo_comp.scalar / 1000 : tmp_con[i].components.geo_comp.scalar;
+                  tmp_con[i].components.geo_comp.scalar = Math.round(tmp_con[i].components.geo_comp.scalar * 10) / 10;
+
+
+
+
+
                   $('#'+scope.d.id + ' .flipsnap').append($compile(tmp_con[i].html)(tmp_con[i]._scope));
                   scope.d.content.push(tmp_con[i].id);
                 }
