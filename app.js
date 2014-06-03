@@ -28,7 +28,7 @@ setTimeout(function() {
 	// });
 
 	// require('./helpers')(models, publisher).insertDashesToRedisBackend();
-	// require('./helpers')(models, publisher).deleteAllUsers();
+	require('./helpers')(models, publisher).deleteAllUsers();
 }, 1000);
 
 require('./config')(express, app, mongoose, cookie, models, publisher);
