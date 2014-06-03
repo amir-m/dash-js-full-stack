@@ -88,7 +88,7 @@
 	"data_container": "results",
 	"mapper_key": "geo_comp.header:geo_comp.text:geo_comp.latitude:geo_comp.longitude",
 	"mapper_value": "name:vicinity:geometry.location.lat:geometry.location.lng",
-	"has_settings": "true"
+	"has_settings": "false"
 },
 {
 	"id": "NTI5NjNiMGYwZWZhNzI1ZTliMDAwMDAx",
@@ -107,5 +107,5 @@
 	"data_container": "results",
 	"mapper_key": "geo_comp.header:geo_comp.text:geo_comp.latitude:geo_comp.longitude",
 	"mapper_value": "name:vicinity:geometry.location.lat:geometry.location.lng",
-	"has_settings": "true"
+	"has_settings": "false"
 }]
