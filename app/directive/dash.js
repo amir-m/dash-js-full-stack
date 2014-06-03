@@ -160,7 +160,7 @@ angular.module('DashbookApp')
           $('.table').addClass('centered');
           $('.table').addClass('location');
         }
-        
+
         if (scope.d.title == 'Private Dash') {
           console.log(scope.d);
           if (scope.d.selected_setting) {
@@ -473,8 +473,8 @@ angular.module('DashbookApp')
 
         function apiCall() {
           $.ajax({
-            "url": scope.d.privateDash.api_end_point,
-            "dataType": "jsonp",
+            "url": 'http://requestor-env.elasticbeanstalk.com/call?'+scope.d.privateDash.api_end_point,
+            "dataType": "json",
             "crossDomain": true,
             "success": function(apiResponseJson, status, headers){
 
@@ -520,6 +520,7 @@ angular.module('DashbookApp')
                     header: header
                   });
                 }
+                console.log(content);
               };
 
               scope.d.content = content;
