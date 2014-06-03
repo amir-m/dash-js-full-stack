@@ -49,7 +49,7 @@ angular.module('DashbookApp')
 
               $('#' + scope.d.id + ' .spinner').hide();
 
-              var content = [];
+              var content = [], tmp_con = [];
 
               apiResponseJson = apiResponseJson;
 
@@ -102,20 +102,52 @@ angular.module('DashbookApp')
                   var component = '<' + scope.d.content_type[j] +'>' + '</' + scope.d.content_type[j] +'>';
                   begin += component;
                 }
-
-                begin += end;
-                var _scope = scope.$new();
-                _scope.content = apiResponseJson[scope.d.data_container][i];
                 
-                scope.d.content.push(_scope.$id);
+                // TODO: Make it generic: 
+                if (scope.d.title == "Food Near Me" 
+                  || scope.d.title == "Coffee Near Me" 
+                  || scope.d.title == "Places Near Me") {
+                  begin += end;
+                  var _scope = scope.$new();
+                  
+                  _scope.content = apiResponseJson[scope.d.data_container][i];
+                  
+
+                  tmp_con.push({
+                    _scope: _scope,
+                    html: begin,
+                    id: _scope.$id
+                  });
+
+                  // $('#'+scope.d.id + ' .flipsnap').append($compile(begin)(_scope));
+                  // scope.d.content.push(_scope.$id);
+                }
+
+                else {
+
+                  begin += end;
+                  var _scope = scope.$new();
+                  _scope.content = apiResponseJson[scope.d.data_container][i];
+                  
+                  scope.d.content.push(_scope.$id);
 
 
-                $('#'+scope.d.id + ' .flipsnap').append($compile(begin)(_scope));
+                  $('#'+scope.d.id + ' .flipsnap').append($compile(begin)(_scope));
+                }
+
               };
+
+              // TODO: Make it generic: 
+              if (tmp_con.length > 0) {
+                for (var i = 0; i < tmp_con.length; ++i) {
+                  $('#'+scope.d.id + ' .flipsnap').append($compile(tmp_con[i].html)(tmp_con[i]._scope));
+                  scope.d.content.push(tmp_con[i].id);
+                }
+              }
 
               scope.attachFlipsnap();
               scope.safeApply();
-              scope.$broadcast('resize');
+              // scope.$broadcast('resize');
               // scope.d.content.splice(0, 10);
 
             }, 
