@@ -13,8 +13,6 @@ angular.module('DashbookApp')
 
         scope.d.content = [];
 
-        console.log(scope.d)
-
         function apiCallEngine() {
           
           if (scope.d.source_uri_keys && scope.d.source_uri_keys.length > 0) {
@@ -131,6 +129,7 @@ angular.module('DashbookApp')
         };
 
         if (scope.d.title != 'Private Dash') apiCallEngine();
+        else $('#' + scope.d.id + ' .spinner').hide();
         
         $('#sortable').prop( "disabled", true );
 
