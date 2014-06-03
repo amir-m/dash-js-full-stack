@@ -486,7 +486,7 @@ angular.module('DashbookApp')
                   eval('footer = apiResponseJson.'+footer+';');
                   var image = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.image_key;
                   eval('image = apiResponseJson.'+image+';');
-                  content.push({
+                  if (i < 10) content.push({
                     main_img: image,
                     footer: footer
                   });
@@ -498,7 +498,7 @@ angular.module('DashbookApp')
                   eval('footer = apiResponseJson.'+footer+';');
                   eval('text = apiResponseJson.'+text+';');
                   eval('header = apiResponseJson.'+header+';');
-                  content.push({
+                  if (i < 10) content.push({
                     text: text,
                     footer: footer,
                     header: header
@@ -511,13 +511,12 @@ angular.module('DashbookApp')
                   eval('header = apiResponseJson.'+header+';');
                   var image = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.image_key;
                   eval('image = apiResponseJson.'+image+';');
-                  content.push({
+                  if (i < 10) content.push({
                     main_img: image,
                     footer: footer,
                     header: header
                   });
                 }
-                console.log(i);
                 if (i < 10) {
                   var html = '<section><private></private></section>';
                   var _scope = scope.$new();
@@ -527,7 +526,7 @@ angular.module('DashbookApp')
                 // scope.d.content.push(_scope.$id);
 
               };
-              content.splice(0, 10);
+              // content.splice(0, 10);
 
               scope.d.content = content;
               scope.attachFlipsnap();
