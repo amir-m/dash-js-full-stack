@@ -64,10 +64,7 @@ angular.module('DashbookApp')
                 apiResponseJson[scope.d.data_container][i].components = {};
 
                 var begin = '<section><div>',
-                  end = '</div></section>';
-
-                var begin = '<section><div>'
-                
+                  end = '</div></section>';                
 
                 for (var j = 0; j < scope.d.content_type.length; ++j) {
                   apiResponseJson[scope.d.data_container][i].components[scope.d.content_type[j]] = {};
@@ -520,7 +517,14 @@ angular.module('DashbookApp')
                     header: header
                   });
                 }
-                console.log(content);
+                var html = '<section><private></private></section>';
+                var _scope = scope.$new();
+                _scope.content = content[i];
+                
+                // scope.d.content.push(_scope.$id);
+
+
+                $('#'+scope.d.id + ' .flipsnap').append($compile(html)(_scope));
               };
 
               scope.d.content = content;
@@ -528,7 +532,6 @@ angular.module('DashbookApp')
               scope.attachFlipsnap();
               scope.safeApply();
               scope.$broadcast('resize');
-
             }
           });
         };
