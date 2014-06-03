@@ -151,7 +151,7 @@ angular.module('DashbookApp')
                   Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
                   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
                   tmp_con[i]._scope.content.components.geo_comp.scalar = Math.round(R * c);
-                  tmp_con[i]._scope.content.components.geo_comp.unit = Math.round(R * c) > 1000 ? 'KM' : 'M';.geo_comp.scalar * 10) / 10;
+                  tmp_con[i]._scope.content.components.geo_comp.unit = Math.round(R * c) > 1000 ? 'KM' : 'M';
 
                 }
 
