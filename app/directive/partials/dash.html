@@ -44,7 +44,7 @@
 		</header>
 
 		<div class="settings">
-			<p class="no-settings grey" ng-show="d.setting_type == 'text'">This dash has no settings</p>
+			<p class="no-settings grey" ng-show="!d.has_settings">This dash has no settings</p>
 			<section class="list-comp">
 				<ul ng-show="d.setting_type == 'radio'">
 					<li ng-repeat="setting in d.settings" 

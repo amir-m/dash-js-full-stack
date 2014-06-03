@@ -1,7 +1,6 @@
 module.exports = function (models, publisher, cookie) {
 	
-	var init = function (req, res, next) {
-		
+	var init = function (req, res, next) {		
 	};
 
 	var email = function (req, res, next) {
@@ -53,7 +52,7 @@ module.exports = function (models, publisher, cookie) {
 		var endTime = new Date(req.body['x-time']).getTime() || new Date().getTime();
 		console.log('exit %s', uuid, endTime);
 
-		models.users.UserSession.findOne({uuid: uuid}, 
+		models.users.UserSession.findOne({ uuid: uuid }, 
 		function(error, session){
 				
 			if (error) {
@@ -75,7 +74,7 @@ module.exports = function (models, publisher, cookie) {
 					res.send(500);
 					return console.log(error);
 				}
-				return res.send({success: true});
+				return res.send({ success: true });
 			});
 		});
 	};
