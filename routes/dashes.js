@@ -375,7 +375,7 @@ module.exports = function  (models, publisher) {
 
 			console.log(req.query.s);
 		
-			col.findOne({ dash_title: req.query.s })
+			col.findOne({ dash_title: { $regex: req.query.s, $options: 'i' } })
 			.exec(function(error, doc){
 				if (error) {
 					res.send(500);
