@@ -128,6 +128,8 @@ angular.module('DashbookApp')
           });
         };
 
+        console.log(scope.d);
+
         if (scope.d.title != 'Private Dash') apiCallEngine();
         else $('#' + scope.d.id + ' .spinner').hide();
         
