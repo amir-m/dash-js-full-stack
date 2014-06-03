@@ -398,7 +398,7 @@ angular.module('DashbookApp')
                 scope.safeApply();
                 $('#' + scope.d.id + ' .spinner').hide();
                 // scheduleContentFecthAndAppend(5000);
-                attachFlipsnap();
+                scope.attachFlipsnap();
               }
 
             })
@@ -464,7 +464,7 @@ angular.module('DashbookApp')
 
           scope.safeApply();
           $('#' + scope.d.id + ' .spinner').hide();
-          attachFlipsnap();
+          scope.attachFlipsnap();
         };
 
         function toRad(num) {
@@ -524,7 +524,7 @@ angular.module('DashbookApp')
 
               scope.d.content = content;
               scope.d.content.splice(0, 10);
-              attachFlipsnap();
+              scope.attachFlipsnap();
               scope.safeApply();
               scope.$broadcast('resize');
 
