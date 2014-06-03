@@ -128,8 +128,6 @@ angular.module('DashbookApp')
           });
         };
 
-        console.log(scope.d);
-
         if (scope.d.title != 'Private Dash') apiCallEngine();
         
         $('#sortable').prop( "disabled", true );
@@ -164,7 +162,7 @@ angular.module('DashbookApp')
         }
 
         if (scope.d.title != 'Private Dash') {
-
+          console.log(scope.d);
           if (scope.d.selected_setting) {
             $http.get('/content?t='+scope.d.title+'&s='+scope.d.selected_setting+'&skip='+scope.skip)
             .success(function(data){
