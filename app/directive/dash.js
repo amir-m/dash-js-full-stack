@@ -522,10 +522,10 @@ angular.module('DashbookApp')
                   var html = '<section><private></private></section>';
                   var _scope = scope.$new();
                   _scope.content = content[i];
+                  $('#'+scope.d.id + ' .flipsnap').append($compile(html)(_scope));
                 }
                 // scope.d.content.push(_scope.$id);
 
-                $('#'+scope.d.id + ' .flipsnap').append($compile(html)(_scope));
               };
 
               scope.d.content = content;
