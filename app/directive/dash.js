@@ -161,6 +161,13 @@ angular.module('DashbookApp')
 
 
 
+                }
+
+                tmp_con.sort(function(a, b){
+                  return a.components.geo_comp.scalar -b.components.geo_comp.scalar;
+                });
+
+                for (var i = 0; i < tmp_con.length; ++i) {
                   $('#'+scope.d.id + ' .flipsnap').append($compile(tmp_con[i].html)(tmp_con[i]._scope));
                   scope.d.content.push(tmp_con[i].id);
                 }
