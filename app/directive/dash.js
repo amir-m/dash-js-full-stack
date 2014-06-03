@@ -125,7 +125,7 @@ angular.module('DashbookApp')
           });
         };
 
-        apiCallEngine();
+        if () apiCallEngine();
         
         $('#sortable').prop( "disabled", true );
 
