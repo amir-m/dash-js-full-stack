@@ -182,7 +182,7 @@ var map = {
 					
 					if (error) throw error;
 
-					res.send(200);
+					res.send(dash);
 										
 					// if (req.body.title == 'BeHance') {
 						
