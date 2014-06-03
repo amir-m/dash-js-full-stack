@@ -262,6 +262,9 @@ article {
   position: relative; }
   article:first-child {
     margin-top: 90px; }
+  article.jiggle {
+    overflow: hidden;
+    height: 10em; }
   article header {
     position: relative; }
     article header h1 {
@@ -620,6 +623,22 @@ article {
     font-size: 1.3em; }
   .waiting-list a {
     color: #5eadc8; }
+
+.jiggle {
+  -webkit-animation: ease-in-out jiggle 70ms infinite alternate;
+  animation: ease-in-out jiggle 70ms infinite alternate; }
+
+@-webkit-keyframes jiggle {
+  0% {
+    -webkit-transform: rotate(1deg); }
+
+  100% {
+    -webkit-transform: rotate(-1deg); } }
+
+keyframes jiggle 0%  {
+  -webkit-transform: rotate(1deg); }
+keyframes jiggle 100%  {
+  -webkit-transform: rotate(-1deg); }
 
 /* ==========================================================================
    Helper classes

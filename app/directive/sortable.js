@@ -18,12 +18,12 @@ angular.module('DashbookApp')
     //     // activate: function(event, ui) {
         //   console.log(ui)
     //     //   // ui.$('article').each(function(){
-    //     //   //   $(this).addClass('shrink-dash');
+    //     //   //   $(this).addClass('jiggle');
     //     //   // });
     //     // },
     //     // deactivate: function(event, ui) {
     //     //   ui.$('article').each(function(){
-    //     //     $(this).removeClass('shrink-dash');
+    //     //     $(this).removeClass('jiggle');
     //     //   });
     //     // }
   		// });
@@ -46,7 +46,7 @@ angular.module('DashbookApp')
                 scrollSensitivity: 180
             });
           else $( element ).sortable('enable');
-          $('article').addClass('shrink-dash');
+          $('article').addClass('jiggle');
           $rootScope.sortableEnabled = true;
           scope.sortable = true;
 
@@ -58,7 +58,7 @@ angular.module('DashbookApp')
 
         } 
         else {
-          $('article').removeClass('shrink-dash');
+          $('article').removeClass('jiggle');
           $( element ).sortable('disable');
           $('.library-btn').click(true);
           $rootScope.sortableEnabled = false;
