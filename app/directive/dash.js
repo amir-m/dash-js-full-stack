@@ -144,19 +144,19 @@ angular.module('DashbookApp')
                   console.log(tmp_con[i])
 
                   var R = 6371000; // meters
-                  var dLat = toRad($rootScope.latitude - parseFloat(tmp_con[i].content.components.geo_comp.latitude));
-                  var dLon = toRad($rootScope.longitude - parseFloat(tmp_con[i].content.components.geo_comp.longitude));
+                  var dLat = toRad($rootScope.latitude - parseFloat(tmp_con[i]._scope.content.components.geo_comp.latitude));
+                  var dLon = toRad($rootScope.longitude - parseFloat(tmp_con[i]._scope.content.components.geo_comp.longitude));
                   var lat1 = toRad($rootScope.latitude);
-                  var lat2 = toRad(parseFloat(tmp_con[i].content.components.geo_comp.latitude));
+                  var lat2 = toRad(parseFloat(tmp_con[i]._scope.content.components.geo_comp.latitude));
 
                   var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
                   Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
                   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-                  tmp_con[i].content.components.geo_comp.scalar = Math.round(R * c);
-                  tmp_con[i].content.components.geo_comp.unit = Math.round(R * c) > 1000 ? 'KM' : 'M';
-                  tmp_con[i].content.components.geo_comp.scalar = tmp_con[i].content.components.geo_comp.scalar > 1000 ? 
-                    tmp_con[i].content.components.geo_comp.scalar / 1000 : tmp_con[i].content.components.geo_comp.scalar;
-                  tmp_con[i].content.components.geo_comp.scalar = Math.round(tmp_con[i].content.components.geo_comp.scalar * 10) / 10;
+                  tmp_con[i]._scope.content.components.geo_comp.scalar = Math.round(R * c);
+                  tmp_con[i]._scope.content.components.geo_comp.unit = Math.round(R * c) > 1000 ? 'KM' : 'M';
+                  tmp_con[i]._scope.content.components.geo_comp.scalar = tmp_con[i]._scope.content.components.geo_comp.scalar > 1000 ? 
+                    tmp_con[i]._scope.content.components.geo_comp.scalar / 1000 : tmp_con[i]._scope.content.components.geo_comp.scalar;
+                  tmp_con[i]._scope.content.components.geo_comp.scalar = Math.round(tmp_con[i]._scope.content.components.geo_comp.scalar * 10) / 10;
 
 
 
