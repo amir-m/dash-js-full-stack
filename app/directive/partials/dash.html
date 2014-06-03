@@ -66,12 +66,12 @@
 					value="{{d.selected_setting}}">
 				<p ng-show="d.notFound" class="centered">Dash Not Found!</p>
 				<button 
-					ng-show="d.dash_type == 'privateDash'" 
+					ng-show="d.title == 'Private Dash'" 
 					ng-click="updatePrivateDashSetting()"
 				>Save
 				</button>
 				<button 
-					ng-show="d.dash_type != 'privateDash'" 
+					ng-show="d.title != 'Private Dash'" 
 					ng-click="updateInputText()">Save</button>
 			</section>
 			<footer>

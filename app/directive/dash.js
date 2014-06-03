@@ -198,7 +198,6 @@ angular.module('DashbookApp')
               $('#' + scope.d.id + ' .spinner').show();
               var selected_setting = $('#' + scope.d.id + '-input-text').val();
 
-              console.log(scope.d)
               scope.d.selected_setting = selected_setting.toLowerCase();
               scope.d.selected_source_uri = scope.d.source_uri_scheme;
 
