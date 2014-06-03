@@ -62,12 +62,14 @@ module.exports = function  (models, publisher) {
 			var selected = '';			
 
 			if (dash.setting_type == 'radio') {
-				selected = dash.settings[0] || '';
+				selected = dash.settings[0];
 			}
 			else if (dash.setting_type == 'textInput') {
 				selected = dash.settings;
 			}
 
+			console.log(dash)
+			
 			var ud = new models.UserDash({
 				id: models.id(),
 				dash_id: dash.id,
@@ -81,24 +83,24 @@ module.exports = function  (models, publisher) {
 				credits: dash.credits,
 				icon_small: dash.icon_small,
 				icon_large: dash.icon_large,
-				setting_type: dash.setting_type || '',
-				selected_setting: selected || '',
+				setting_type: dash.setting_type,
+				selected_setting: selected,
 				selected_setting_uri_field: dash.selected_setting_uri_field || '',
 				source_uri_scheme: dash.source_uri_scheme || '',
-				content_type: dash.content_type || '',
-				source_uri_keys: dash.source_uri_keys || '',
-				source_uri_values: dash.source_uri_values || '',
-				selected_source_uri: (dash.source_uri && dash.source_uri[0]) ? dash.source_uri[0] : '',
-				handler_placeholder: dash.handler_placeholder || '',
-				data_container: dash.data_container || '',
-				settings: dash.settings || '',
-				source_uri: dash.source_uri || '',
-				mapper_key: dash.mapper_key || '',
-				mapper_value: dash.mapper_value || '',
-				mapper_static_key: dash.mapper_static_key || '',
-				mapper_static_value: dash.mapper_static_value || '',
-				collection_name: dash.collection_name || '',
-				has_settings: dash.has_settings || ''
+				content_type: dash.content_type,
+				source_uri_keys: dash.source_uri_keys,
+				source_uri_values: dash.source_uri_values,
+				selected_source_uri: dash.source_uri[0],
+				handler_placeholder: dash.handler_placeholder,
+				data_container: dash.data_container,
+				settings: dash.settings,
+				source_uri: dash.source_uri,
+				mapper_key: dash.mapper_key,
+				mapper_value: dash.mapper_value,
+				mapper_static_key: dash.mapper_static_key,
+				mapper_static_value: dash.mapper_static_value,
+				collection_name: dash.collection_name,
+				has_settings: dash.has_settings
 			});
 
 			ud.save(function(error){
