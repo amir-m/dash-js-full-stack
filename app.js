@@ -27,7 +27,7 @@ setTimeout(function() {
 	// 	console.log('amir@doob.io just got confirmed');
 	// });
 
-	// require('./helpers')(models, publisher).insertDashesToRedisBackend();
+	require('./helpers')(models, publisher).insertDashesToRedisBackend();
 	// require('./helpers')(models, publisher).deleteAllUsers();
 }, 1000);
 

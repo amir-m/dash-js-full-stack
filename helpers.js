@@ -13,6 +13,12 @@ module.exports = function(models, redisClient) {
 			for (var i = 0; i < dashes.length; ++i) {
 				redisClient.hmset("dash:"+dashes[i].id, dashes[i]);
 			}
+			redisClient.keys('user:*', function(error, _users){
+				if (error) throw error;
+				for (var i = 0; i < _users.length; ++i) {
+					redisClient.hmset("user:"+_users[i], 'dashes', '');
+				}
+			});
 		});
 	};
 
