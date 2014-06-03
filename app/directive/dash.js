@@ -165,7 +165,7 @@ angular.module('DashbookApp')
                 }
 
                 tmp_con.sort(function(a, b){
-                  return a.components.geo_comp.scalar -b.components.geo_comp.scalar;
+                  return a._scope.content.components.geo_comp.scalar -b._scope.content.components.geo_comp.scalar;
                 });
 
                 for (var i = 0; i < tmp_con.length; ++i) {
