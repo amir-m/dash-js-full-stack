@@ -511,6 +511,7 @@ angular.module('DashbookApp')
                   eval('header = apiResponseJson.'+header+';');
                   var image = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.image_key;
                   eval('image = apiResponseJson.'+image+';');
+                  
                   if (i < 10) content.push({
                     main_img: image,
                     footer: footer,
