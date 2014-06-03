@@ -45,8 +45,24 @@ angular.module('DashbookApp')
                scroll: true,
                 scrollSensitivity: 180
             });
-          else $( element ).sortable('enable');
-          $('article').addClass('jiggle');
+          else {
+            $( element ).sortable('enable');
+          }
+          var t = []
+          $('article').each(function(){
+            t.push(this);
+          });
+
+          for (var i = 0; i < t.length; ++i) {
+            (function(i){
+              setTimeout(function(i){
+                t[i].addClass('jiggle');
+              }, i * 150);
+            }(i));
+          }
+
+          // $('article').addClass('jiggle');
+          
           $rootScope.sortableEnabled = true;
           scope.sortable = true;
 
