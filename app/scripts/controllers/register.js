@@ -34,6 +34,7 @@ angular.module('DashbookApp')
             .error(function(error){
                 // TODO: Handle error
                 if (error == 409) $scope.conflict = true;
+                if (error == 400) $scope.badEmail = true;
             });
         };
 

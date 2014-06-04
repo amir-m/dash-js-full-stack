@@ -5,6 +5,13 @@
 
 	<div class="settings waiting-list">
 		<article class="input-comp">
+			<div ng-show="badEmail">
+				<p>
+					Wrong email address.
+				</p>
+				<p>Say hi anytime</p>
+				<a href="mailto:hello@dashbookapp.com">hello@dashbookapp.com</a>
+			</div>
 			<div ng-show="!just_registered && (user.status == 2 || user.status == '2')">
 				<p>
 					We have you on our waiting list. There are {{count}} people ahead of you in the line. We will notify you as soon as there's a spot available.

@@ -21,6 +21,8 @@ module.exports = function (models, publisher, cookie) {
 			}, 2000);
 		}
 
+		if (!isEmailAddress(req.body.email)) return res.send(400);
+
 		models.User.register({
 			uuid: req.body.uuid,
 			email: req.body.email
@@ -135,3 +137,10 @@ module.exports = function (models, publisher, cookie) {
 		getMe: getMe
 	}
 }
+
+function isEmailAddress(email) {
+
+	var pattern = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/; 
+    
+    return pattern.test(email);    
+};
