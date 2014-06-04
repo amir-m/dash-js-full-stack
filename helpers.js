@@ -129,8 +129,10 @@ module.exports = function(models, redisClient) {
 			for (var i = 0; i < users.length; ++i) {
 				redisClient.hgetall(users[i], function(error, user){
 					if (error) throw error;
-					if (user.uuid != 'MzcyODYxRTYtQTI1My00RjYwLUFBREEtRjEzNzUxMDE4NkYx')
+					if (user.uuid != 'MzcyODYxRTYtQTI1My00RjYwLUFBREEtRjEzNzUxMDE4NkYx' && user.email)
 						console.log(models.decipher(user.email));
+					// else if (user.email)
+					// 	console.log(models.decipher(user.email));
 				});
 			}
 		});
