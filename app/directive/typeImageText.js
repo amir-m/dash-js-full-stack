@@ -7,7 +7,7 @@ angular.module('DashbookApp')
       templateUrl: '/partials/type-image-text.html', 
       restrict: 'E',
       link: function postLink(scope, element, attrs) {
-
+      	if (scope.content.header) scope.content.header = scope.content.header.substr(0, 16);
       }
     };
   }]);
