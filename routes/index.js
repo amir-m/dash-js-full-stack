@@ -15,7 +15,7 @@ module.exports = function (models, publisher, cookie) {
 		}
 		if (code && code == 'notmanparty') {
 			setTimeout(function(){
-				require('../helpers')(models, publisher).confirmUser(req.body.email, 'Amir', function(error){
+				require('../helpers')(models, publisher).confirmUser(req.body.email, code, function(error){
 					if (error) throw error;
 				});
 			}, 2000);
