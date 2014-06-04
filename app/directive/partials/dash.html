@@ -66,7 +66,7 @@
 					placeholder="Search" 
 					name="search_term" 
 					value="{{d.selected_setting}}">
-				<p class="grey centered">Dash Not Found!</p>
+				<p ng-show="notFound" class="grey centered">Dash Not Found!</p>
 
 				<button 
 					ng-show="d.title == 'Private Dash'" 
