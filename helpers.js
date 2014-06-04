@@ -102,6 +102,14 @@ module.exports = function(models, redisClient) {
 		});
 	};
 
+	function fixSomething() {
+		models.WaitingListEntry.find()
+		.exec(function(error, wlz) {
+			if (error) throw error;
+			console.log(wlz);
+		})
+	};	
+
 	return {
 		createDefaultDashes: createDefaultDashes,
 		insertDashesToRedisBackend: insertDashesToRedisBackend,

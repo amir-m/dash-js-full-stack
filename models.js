@@ -213,11 +213,13 @@ var ContentSchema = new mongoose.Schema({
 
 var WaitingListEntrySchema = new mongoose.Schema({
 	uuid: String,
+	uuids: [],
 	email: String,
 	status: String,
 	app_launched: { type: Boolean, default: false },
 	added_from: String,
 	confirmed: { type: Boolean, default: false },
+	uuid_addaded_at: Number,
 	confirmed_by: String,
 	confirmed_at: Number,
 	app_launched_at: Number,
@@ -410,7 +412,9 @@ function registerUser(user, callback) {
 					email: cipher(user.email),
 					app_launched: true,
 					status: 2,
+					uuid: [user.uuid],
 					added_from: 'iOS',
+					uuid_addaded_at: [new Date().getTime()],
 					app_launched: new Date().getTime(),
 					created_at: new Date().getTime()
 				});
@@ -419,7 +423,9 @@ function registerUser(user, callback) {
 			// user has been registered from website, this is the first time he/she is launching the app
 			else if (wle && !wle.app_launched) {
 				callback(null, 2, count + 7520);
-				wle.uuid = user.uuid;
+				wle.uuid = user.uuid;,
+				wle.uuids.push(user.uuid);
+				uuid_addaded_at.push(new Date().getTime());
 				wle.app_launched = true;
 				wle.app_launched_at = new Date().getTime();
 				wle.status = 2;
@@ -428,10 +434,20 @@ function registerUser(user, callback) {
 			}
 			else if (wle.app_launched && wle.status == 2) {
 				callback(null, 2, count + 7520, true);
+				if (wle.uuids.indexOf(user.uuid) == -1) {
+					wle.uuids.push(user.uuid);
+					uuid_addaded_at.push(new Date().getTime());
+					wle.save();
+				}
 			}
 			else if (wle.app_launched && wle.status == 3) {
-				redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 3); 
 				callback(null, 3, count + 7520);
+				redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 3); 
+				if (wle.uuids.indexOf(user.uuid) == -1) {
+					wle.uuids.push(user.uuid);
+					uuid_addaded_at.push(new Date().getTime());
+					wle.save();
+				}
 			}
 			else {
 				callback(404);
