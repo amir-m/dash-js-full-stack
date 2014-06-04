@@ -211,7 +211,7 @@ angular.module('DashbookApp')
         }
 
         if (scope.d.title == 'Private Dash') {
-          // console.log(scope.d);
+          console.log(scope.d);
           $('#' + scope.d.id + ' .spinner').hide();
 
           if (scope.d.selected_setting) {
