@@ -172,6 +172,10 @@ var map = {
 				if (!dash) return res.send(400);
 
 				if (req.body.title != 'Private Dash') {
+					
+					console.log(req.body);
+					console.log(dash);
+
 					dash.selected_setting = req.body.selected_setting.toLowerCase();
 					if (req.body.source_uri_values && req.body.source_uri_values.length > 0)
 						dash.source_uri_values = req.body.source_uri_values;
