@@ -215,8 +215,10 @@ angular.module('DashbookApp')
           $('#' + scope.d.id + ' .spinner').hide();
 
           if (scope.d.selected_setting) {
+            $('#' + scope.d.id + ' .spinner').hide();
             $http.get('/content?t='+scope.d.title+'&s='+scope.d.selected_setting+'&skip='+scope.skip)
             .success(function(data){
+              $('#' + scope.d.id + ' .spinner').hide();
               scope.d.notFound = null;
               scope.d.privateDash = data;
               apiCall(data);
