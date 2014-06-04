@@ -501,7 +501,8 @@ angular.module('DashbookApp')
         };
 
         function apiCall() {
-          $.ajax({
+          console.log(scope.d.privateDash)
+          $.ajax({ 
             "url": 'http://requestor-env.elasticbeanstalk.com/call?'+scope.d.privateDash.api_end_point,
             "dataType": "json",
             "crossDomain": true,
