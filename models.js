@@ -415,7 +415,7 @@ function registerUser(user, callback) {
 					app_launched: true,
 					status: 2,
 					uuids: [user.uuid],
-					platform: 'iPhone',
+					platform: user.platform,
 					uuid_addaded_at: [new Date().getTime()],
 					app_launched: new Date().getTime(),
 					created_at: new Date().getTime()

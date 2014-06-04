@@ -114,7 +114,9 @@ module.exports = function(models, redisClient) {
 				// 	wlz[i].uuid_addaded_at.push(wlz[i].created_at);
 				// 	wlz[i].save();
 				// }
-				wlz[i].platform = wlz[i].added_from;
+				wlz[i].platform = wlz[i].added_from == 'iOS' ? 'iPhone' : wlz[i].added_from; 
+				// wlz[i].platform = wlz[i].added_from;
+
 			}
 		})
 	};	

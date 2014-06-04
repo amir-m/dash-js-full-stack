@@ -25,7 +25,7 @@ module.exports = function(express, app, mongoose, cookie, models, redisClient) {
 	app.use(function(req, res, next){
 
 		// console.log('req.path:');
-		console.log(req.headers['user-agent']);
+		// console.log();
 
 		res.cookie('uuid', 'NEYxOEU4NjctMjQzOS00NzMzLUI0QzgtQjE4N0QxNEQzNDU3', { maxAge: 100*60*1000, httpOnly: false });
 		res.cookie('sid', 'NTJhYjcwY2M3YjNhNTk3ODYxMDAwMDAx', { maxAge: 100*60*1000, httpOnly: false });
@@ -86,13 +86,15 @@ module.exports = function(express, app, mongoose, cookie, models, redisClient) {
 					// TODO: add platform (i.e. iPhone, iPad, android)
 					// New Dashbook User 
 					if (!user) {
-						
+						// TODO: Detect the user-agent in a better way...
+						var platform = req.headers['user-agent'].indexOf('iPhone') != -1 ? 'iPhone' : 'iPad';
+
 						models.User.create({
 							uuid: uuid,
 							lat: lat,
 							lon: lon,
 							dashes: '',
-							platform: 'iPhone',
+							platform: platform,
 							app_first_launch_at: new Date().getTime(),
 							created_at: new Date().getTime(),
 						});
