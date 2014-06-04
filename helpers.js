@@ -110,6 +110,7 @@ module.exports = function(models, redisClient) {
 			
 			for (var i = 0; i < wlz.length; ++i) {
 				if (wlz[i].added_from == 'iOS') {
+					console.log(wlz[i])
 					wlz[i].uuids.push(wlz[i].uuid);
 					wlz[i].uuid_addaded_at.push(wlz[i].created_at);
 					wlz[i].save();
