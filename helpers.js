@@ -129,11 +129,11 @@ module.exports = function(models, redisClient) {
 			for (var i = 0; i < users.length; ++i) {
 				redisClient.hgetall(users[i], function(error, user){
 					if (error) throw error;
-					// if (user.uuid != 'NEMzNkE4NzAtQzkxMi00Njg0LUFCMzUtQzM4OEFDRkY5Njcz' && user.email) {
-					// 	redisClient.hset('user:'+user.uuid, 'email', models.decipher(user.email))
-					// }
+					if (!user.platform) {
+						redisClient.hset('user:'+user.uuid, 'platform', 'iPhone');
+					}
 					
-						console.log(user);
+					// console.log(user);
 				});
 			}
 		});
