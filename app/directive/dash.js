@@ -599,11 +599,13 @@ angular.module('DashbookApp')
         if (scope.d.title == 'Private Dash') {
           setTimeout(function(){
             console.log(scope.d);
-            $('#' + scope.d.id + ' .spinner').hide();
           }, 0);
+          $('#' + scope.d.id + ' .spinner').hide();
+          scope.safeApply();
 
           if (scope.d.selected_setting) {
             $('#' + scope.d.id + ' .spinner').show();
+            scope.safeApply();
             $http.get('/content?t='+scope.d.title+'&s='+scope.d.selected_setting+'&skip='+scope.skip)
             .success(function(data){
               $('#' + scope.d.id + ' .spinner').hide();
