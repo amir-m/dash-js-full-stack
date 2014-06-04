@@ -600,7 +600,7 @@ angular.module('DashbookApp')
           setTimeout(function(){
             console.log(scope.d);
             $('#' + scope.d.id + ' .spinner').hide();
-          }, 000);
+          }, 0);
 
           if (scope.d.selected_setting) {
             $('#' + scope.d.id + ' .spinner').show();
