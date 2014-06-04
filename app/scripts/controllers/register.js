@@ -42,7 +42,7 @@ angular.module('DashbookApp')
             var intv = setTimeout(function(){
                 $http.get('/me/'+$rootScope.uuid)
                 .success(function(user){
-
+                    console.log(user);
                     $rootScope.user = user;
                     if (user.status == 3 || user.status == '3') $location.path('/');
                 })
