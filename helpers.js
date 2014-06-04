@@ -109,14 +109,14 @@ module.exports = function(models, redisClient) {
 			if (error) throw error;
 			
 			for (var i = 0; i < wlz.length; ++i) {
-				// console.log(wlz[i]);
+				console.log(models.decipher(wlz[i]));
 				// if (wlz[i].added_from == 'iOS' && wlz[i].uuids.indexOf(wlz[i].uuid) == -1) {
 				// 	wlz[i].uuids.push(wlz[i].uuid);
 				// 	wlz[i].uuid_addaded_at.push(wlz[i].created_at);
 				// 	wlz[i].save();
 				// }
-				wlz[i].platform = wlz[i].added_from == 'iOS' ? 'iPhone' : wlz[i].added_from; 
-				wlz[i].save();
+				// wlz[i].platform = wlz[i].added_from == 'iOS' ? 'iPhone' : wlz[i].added_from; 
+				// wlz[i].save();
 				// wlz[i].platform = wlz[i].added_from;
 
 			}

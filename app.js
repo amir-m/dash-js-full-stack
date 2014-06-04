@@ -21,7 +21,7 @@ publisher = redis.createClient(6379, 'dbkcache.serzbc.0001.usw2.cache.amazonaws.
 var models = require('./models').config(mongoose, publisher);
 
 
-// setTimeout(function() {
+setTimeout(function() {
 	// console.log('in timeout');
 	// require('./helpers')(models, publisher).confirmUser('amir@doob.io', 'Amir', function(error){
 	// 	if (error) throw error;
@@ -30,9 +30,9 @@ var models = require('./models').config(mongoose, publisher);
 
 	// require('./helpers')(models, publisher).insertDashesToRedisBackend();
 	// require('./helpers')(models, publisher).deleteAllUsers();
-	// require('./helpers')(models, publisher).fixSomething();
+	require('./helpers')(models, publisher).fixSomething();
 	
-// }, 3000);
+}, 3000);
 
 require('./config')(express, app, mongoose, cookie, models, publisher);
 

@@ -401,17 +401,17 @@ function registerUser(user, callback) {
 		if (error) return callback(error);
 
 		WaitingListEntry.findOne({ 
-			email: cipher(user.email)
+			email: user.email
 		}, function(error, wle){
 			
 			if (error) return callback(error);
 
 			if (!wle) {
-				redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2);
+				redisClient.hmset('user:'+user.uuid, 'email', user.email, 'status', 2);
 				callback(null, 2, count + 7520);
 				var wle = new WaitingListEntry({
 					uuid: user.uuid,
-					email: cipher(user.email),
+					email: user.email,
 					app_launched: true,
 					status: 2,
 					uuids: [user.uuid],
@@ -431,7 +431,7 @@ function registerUser(user, callback) {
 				wle.app_launched = true;
 				wle.app_launched_at = new Date().getTime();
 				wle.status = 2;
-				redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2); 
+				redisClient.hmset('user:'+user.uuid, 'email', user.email, 'status', 2); 
 				wle.save();
 			}
 			else if (wle.app_launched && wle.status == 2) {
@@ -444,7 +444,7 @@ function registerUser(user, callback) {
 			}
 			else if (wle.app_launched && wle.status == 3) {
 				callback(null, 3, count + 7520);
-				redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 3); 
+				redisClient.hmset('user:'+user.uuid, 'email', user.email, 'status', 3); 
 				if (wle.uuids.indexOf(user.uuid) == -1) {
 					wle.uuids.push(user.uuid);
 					uuid_addaded_at.push(new Date().getTime());
