@@ -103,7 +103,7 @@ module.exports = function(models, redisClient) {
 	};
 
 	function fixSomething() {
-		// models.WaitingListEntry.find()
+		models.WaitingListEntry.find()
 		.exec(function(error, wlz) {
 			
 			if (error) throw error;
