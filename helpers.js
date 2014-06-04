@@ -122,7 +122,7 @@ module.exports = function(models, redisClient) {
 				// wlz[i].email = models.decipher(wlz[i].email);
 				// wlz[i].save();
 			}
-		// })
+		});
 		
 		// redisClient.keys('user:*', function(error, users){
 		// 	if (error) throw error;
