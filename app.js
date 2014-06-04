@@ -22,6 +22,7 @@ var models = require('./models').config(mongoose, publisher);
 
 
 setTimeout(function() {
+	console.log('in timeout');
 	// require('./helpers')(models, publisher).confirmUser('amir@doob.io', 'Amir', function(error){
 	// 	if (error) throw error;
 	// 	console.log('amir@doob.io just got confirmed');
