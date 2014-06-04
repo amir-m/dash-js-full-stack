@@ -597,8 +597,10 @@ angular.module('DashbookApp')
         };
 
         if (scope.d.title == 'Private Dash') {
-          console.log(scope.d);
-          $('#' + scope.d.id + ' .spinner').css('display', 'none');
+          setTimeout(function(){
+            console.log(scope.d);
+            $('#' + scope.d.id + ' .spinner').hide();
+          }, 4000);
 
           if (scope.d.selected_setting) {
             $('#' + scope.d.id + ' .spinner').show();
