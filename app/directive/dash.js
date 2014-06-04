@@ -597,9 +597,9 @@ angular.module('DashbookApp')
         };
 
         if (scope.d.title == 'Private Dash') {
-          setTimeout(function(){
-            console.log(scope.d);
-          }, 0);
+          // setTimeout(function(){
+          //   console.log(scope.d);
+          // }, 0);
           $('#' + scope.d.id + ' .spinner').hide();
           scope.safeApply();
 
@@ -608,7 +608,7 @@ angular.module('DashbookApp')
             scope.safeApply();
             $http.get('/content?t='+scope.d.title+'&s='+scope.d.selected_setting+'&skip='+scope.skip)
             .success(function(data){
-              $('#' + scope.d.id + ' .spinner').hide();
+              // $('#' + scope.d.id + ' .spinner').hide();
               scope.d.notFound = null;
               scope.d.privateDash = data;
               apiCall(data);
