@@ -67,9 +67,7 @@ module.exports = function  (models, publisher) {
 			else if (dash.setting_type == 'textInput') {
 				selected = dash.settings;
 			}
-
-			console.log(dash)
-
+			
 			var ud = new models.UserDash({
 				id: models.id(),
 				dash_id: dash.id,
