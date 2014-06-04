@@ -220,6 +220,7 @@ var WaitingListEntrySchema = new mongoose.Schema({
 	confirmed: { type: Boolean, default: false },
 	confirmed_by: String,
 	confirmed_at: Number,
+	app_launched_at: Number,
 	created_at: Number
 });
 
@@ -392,8 +393,6 @@ function rearrangeDashesUser(uuid, dashes) {
 function registerUser(user, callback) {
 
 	WaitingListEntry.count({ confirmed: false }, function(error, count){
-
-		console.log(count);
 		
 		if (error) return callback(error);
 
@@ -412,6 +411,7 @@ function registerUser(user, callback) {
 					app_launched: true,
 					status: 2,
 					added_from: 'iOS',
+					app_launched: new Date().getTime(),
 					created_at: new Date().getTime()
 				});
 				wle.save();
@@ -421,6 +421,7 @@ function registerUser(user, callback) {
 				callback(null, 2, count + 7520);
 				wle.uuid = user.uuid;
 				wle.app_launched = true;
+				wle.app_launched_at = new Date().getTime();
 				wle.status = 2;
 				redisClient.hmset('user:'+user.uuid, 'email', cipher(user.email), 'status', 2); 
 				wle.save();
