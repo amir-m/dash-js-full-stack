@@ -500,7 +500,6 @@ angular.module('DashbookApp')
         };
 
         function apiCall() {
-          console.log(scope.d.privateDash)
           $.ajax({ 
             "url": 'http://requestor-env.elasticbeanstalk.com/call?'+scope.d.privateDash.api_end_point,
             "dataType": "json",
@@ -565,6 +564,9 @@ angular.module('DashbookApp')
               scope.attachFlipsnap();
               scope.safeApply();
               // scope.$broadcast('resize');
+            },
+            "error": function(error, code) {
+              if (error == 404 || code == 404) scope.d.notFound = true;
             }
           });
         };
@@ -618,7 +620,6 @@ angular.module('DashbookApp')
           }
           else {
             setTimeout(function(){
-              console.log(scope.d);
               $('#' + scope.d.id + ' .spinner').hide();
             }, 0);
           }
