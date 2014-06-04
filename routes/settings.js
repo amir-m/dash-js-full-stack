@@ -167,6 +167,9 @@ var map = {
 			models.UserDash.findOne({id: req.params.id, user: req.body.uuid}, 
 			function(error, dash) {
 
+				console.log(req.body);
+				console.log(dash);
+
 				if (error) return res.send(500);
 
 				if (!dash) return res.send(400);
