@@ -109,7 +109,7 @@ module.exports = function(models, redisClient) {
 			if (error) throw error;
 			
 			for (var i = 0; i < wlz.length; ++i) {
-				console.log(models.decipher(wlz[i].email));
+				
 				// console.log(wlz[i].email);
 				// if (wlz[i].added_from == 'iOS' && wlz[i].uuids.indexOf(wlz[i].uuid) == -1) {
 				// 	wlz[i].uuids.push(wlz[i].uuid);
@@ -117,9 +117,10 @@ module.exports = function(models, redisClient) {
 				// 	wlz[i].save();
 				// }
 				// wlz[i].platform = wlz[i].added_from == 'iOS' ? 'iPhone' : wlz[i].added_from; 
-				// wlz[i].save();
 				// wlz[i].platform = wlz[i].added_from;
 
+				wlz[i].email = models.decipher(wlz[i].email);
+				wlz[i].save();
 			}
 		})
 	};	
