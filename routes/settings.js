@@ -362,7 +362,10 @@ var map = {
 
 						dash.save(function(error){
 							dash.privateDash = doc.json();
-							console.log(doc);
+							console.log(doc.json());
+							console.log();
+							console.log();
+							console.log();
 							console.log(dash);
 							return res.send(dash);
 						});
