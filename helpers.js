@@ -130,7 +130,7 @@ module.exports = function(models, redisClient) {
 				redisClient.hgetall(users[i], function(error, user){
 					if (error) throw error;
 					if (user.uuid != 'MzcyODYxRTYtQTI1My00RjYwLUFBREEtRjEzNzUxMDE4NkYx')
-						console.log(user);
+						console.log(models.decipher(user.email));
 				});
 			}
 		});
