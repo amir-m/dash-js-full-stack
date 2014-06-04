@@ -28,6 +28,7 @@ angular.module('DashbookApp')
                     $scope.just_registered = true;
                     if ($scope.email.indexOf(':') != -1) checkIfConfirmed();
                 }
+                else if (data.status == 3) checkIfConfirmed();
                 $scope.apply();
             })
             .error(function(error){
