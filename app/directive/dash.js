@@ -601,7 +601,7 @@ angular.module('DashbookApp')
           $('#' + scope.d.id + ' .spinner').css('display', 'none');
 
           if (scope.d.selected_setting) {
-            // $('#' + scope.d.id + ' .spinner').();
+            $('#' + scope.d.id + ' .spinner').show();
             $http.get('/content?t='+scope.d.title+'&s='+scope.d.selected_setting+'&skip='+scope.skip)
             .success(function(data){
               $('#' + scope.d.id + ' .spinner').hide();
