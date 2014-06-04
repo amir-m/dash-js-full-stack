@@ -167,17 +167,11 @@ var map = {
 			models.UserDash.findOne({id: req.params.id, user: req.body.uuid}, 
 			function(error, dash) {
 
-				console.log(req.body);
-				console.log(dash);
-
 				if (error) return res.send(500);
 
 				if (!dash) return res.send(400);
 
 				if (req.body.title != 'Private Dash') {
-					
-					console.log(req.body);
-					console.log(dash);
 
 					dash.selected_setting = req.body.selected_setting.toLowerCase();
 					if (req.body.source_uri_values && req.body.source_uri_values.length > 0)
@@ -368,6 +362,8 @@ var map = {
 
 						dash.save(function(error){
 							dash.privateDash = doc.json();
+							console.log(doc);
+							console.log(dash);
 							return res.send(dash);
 						});
 					});
