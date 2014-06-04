@@ -133,7 +133,7 @@ module.exports = function(models, redisClient) {
 					// 	redisClient.hset('user:'+user.uuid, 'email', models.decipher(user.email))
 					// }
 					if (! user.email)
-						console.log("no email");
+						console.log(user);
 				});
 			}
 		});
