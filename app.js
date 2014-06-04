@@ -30,7 +30,7 @@ setTimeout(function() {
 
 	// require('./helpers')(models, publisher).insertDashesToRedisBackend();
 	// require('./helpers')(models, publisher).deleteAllUsers();
-	require('./helpers')(models, publisher).fixSomething();
+	// require('./helpers')(models, publisher).fixSomething();
 
 }, 3000);
 
