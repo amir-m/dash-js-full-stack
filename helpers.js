@@ -105,8 +105,16 @@ module.exports = function(models, redisClient) {
 	function fixSomething() {
 		models.WaitingListEntry.find()
 		.exec(function(error, wlz) {
+			
 			if (error) throw error;
-			console.log(wlz);
+			
+			for (var i = 0; i < wlz.length; ++i) {
+				if (wlz[i].added_from == 'iOS') {
+					wlz[i].uuids.push(wlz[i].uuid);
+					wlz[i].uuid_addaded_at.push(wlz[i].created_at);
+					wlz[i].save();
+				}
+			}
 		})
 	};	
 
