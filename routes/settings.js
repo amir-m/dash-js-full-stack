@@ -361,13 +361,7 @@ var map = {
 						if (!doc) return res.send(404);
 
 						dash.save(function(error){
-							dash.privateDash = doc.json();
-							console.log(doc.json());
-							console.log();
-							console.log();
-							console.log();
-							console.log(dash);
-							return res.send(dash);
+							return res.send({dash: dash, privateDash: doc.json()});
 						});
 					});
 				}

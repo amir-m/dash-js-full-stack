@@ -607,6 +607,8 @@ angular.module('DashbookApp')
             .success(function(data){
               // $('#' + scope.d.id + ' .spinner').hide();
               scope.d.notFound = null;
+              console.log(data);
+              return
               scope.d.privateDash = data;
               apiCall(data);
             })
