@@ -129,10 +129,13 @@ module.exports = function(models, redisClient) {
 			for (var i = 0; i < users.length; ++i) {
 				redisClient.hgetall(users[i], function(error, user){
 					if (error) throw error;
-					if (user.uuid != 'NEMzNkE4NzAtQzkxMi00Njg0LUFCMzUtQzM4OEFDRkY5Njcz' && user.email)
+					if (user.uuid != 'NEMzNkE4NzAtQzkxMi00Njg0LUFCMzUtQzM4OEFDRkY5Njcz' && user.email) {
 						console.log(models.decipher(user.email));
-					// else if (user.email)
-					// 	console.log(models.decipher(user.email));
+						if (models.decipher(user.email) == ';' || models.decipher(user.email) == 'q@q.com')
+							console.log('delete me ', user.uuid);
+					}
+					else if (! user.email)
+						console.log("no email");
 				});
 			}
 		});
