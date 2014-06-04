@@ -412,7 +412,7 @@ function registerUser(user, callback) {
 					email: cipher(user.email),
 					app_launched: true,
 					status: 2,
-					uuid: [user.uuid],
+					uuids: [user.uuid],
 					added_from: 'iOS',
 					uuid_addaded_at: [new Date().getTime()],
 					app_launched: new Date().getTime(),
