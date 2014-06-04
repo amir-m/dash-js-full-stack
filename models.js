@@ -423,7 +423,7 @@ function registerUser(user, callback) {
 			// user has been registered from website, this is the first time he/she is launching the app
 			else if (wle && !wle.app_launched) {
 				callback(null, 2, count + 7520);
-				wle.uuid = user.uuid;,
+				wle.uuid = user.uuid;
 				wle.uuids.push(user.uuid);
 				uuid_addaded_at.push(new Date().getTime());
 				wle.app_launched = true;
