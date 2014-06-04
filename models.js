@@ -218,6 +218,7 @@ var WaitingListEntrySchema = new mongoose.Schema({
 	status: String,
 	app_launched: { type: Boolean, default: false },
 	added_from: String,
+	platform: String,
 	confirmed: { type: Boolean, default: false },
 	uuid_addaded_at: [],
 	confirmed_by: String,
@@ -326,6 +327,7 @@ function createUser(user) {
 		uuid: user.uuid,
 		dashes: user.dashes,
 		created_at: user.created_at,
+		platform: user.platform,
 		app_first_launch_at: user.app_first_launch_at,
 		status: 1 // 1: just created, 2: waiting for confirmation, 3: confirmed
 	});
@@ -413,7 +415,7 @@ function registerUser(user, callback) {
 					app_launched: true,
 					status: 2,
 					uuids: [user.uuid],
-					added_from: 'iOS',
+					platform: 'iPhone',
 					uuid_addaded_at: [new Date().getTime()],
 					app_launched: new Date().getTime(),
 					created_at: new Date().getTime()

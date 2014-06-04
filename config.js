@@ -25,7 +25,7 @@ module.exports = function(express, app, mongoose, cookie, models, redisClient) {
 	app.use(function(req, res, next){
 
 		// console.log('req.path:');
-		// console.log(req.path);
+		console.log(req.headers);
 
 		res.cookie('uuid', 'NEYxOEU4NjctMjQzOS00NzMzLUI0QzgtQjE4N0QxNEQzNDU3', { maxAge: 100*60*1000, httpOnly: false });
 		res.cookie('sid', 'NTJhYjcwY2M3YjNhNTk3ODYxMDAwMDAx', { maxAge: 100*60*1000, httpOnly: false });
@@ -83,7 +83,8 @@ module.exports = function(express, app, mongoose, cookie, models, redisClient) {
 				},
 				function(user, callback) {
 					
-					// New Dashbook User
+					// TODO: add platform (i.e. iPhone, iPad, android)
+					// New Dashbook User 
 					if (!user) {
 						
 						models.User.create({
@@ -91,6 +92,7 @@ module.exports = function(express, app, mongoose, cookie, models, redisClient) {
 							lat: lat,
 							lon: lon,
 							dashes: '',
+							platform: 'iPhone',
 							app_first_launch_at: new Date().getTime(),
 							created_at: new Date().getTime(),
 						});
