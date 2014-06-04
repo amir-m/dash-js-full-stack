@@ -256,11 +256,14 @@ input:focus {
 .flip .back {
   display: block; }
 
+article.first-child {
+  margin-top: 90px; }
+
 article {
   width: 96%;
   margin: 0 auto;
   position: relative; }
-  article:first-child, article .first-child {
+  article:first-child {
     margin-top: 90px; }
   article:nth-child(2n+1) {
     -webkit-animation-delay: 50ms;

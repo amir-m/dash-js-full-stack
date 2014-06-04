@@ -282,8 +282,7 @@ angular.module('DashbookApp')
             .success(function(data){
               scope.flipSettings();
               scope.d.notFound = null;
-              console.log(scope.d.privateDash);
-              scope.d.privateDash = data;
+              scope.d.privateDash = data.privateDash;
               apiCall(data);
               // $('#' + scope.d.id + ' .spinner').hide();
               // attachFlipsnap();
@@ -607,8 +606,6 @@ angular.module('DashbookApp')
             .success(function(data){
               // $('#' + scope.d.id + ' .spinner').hide();
               scope.d.notFound = null;
-              console.log(data);
-              return
               scope.d.privateDash = data;
               apiCall(data);
             })
