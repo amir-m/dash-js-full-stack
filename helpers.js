@@ -116,6 +116,7 @@ module.exports = function(models, redisClient) {
 		getBase64Encoding: getBase64,
 		confirmUser: confirmUser,
 		deleteAllUsers: deleteAllUsers,
+		fixSomething: fixSomething
 	};
 };
 
