@@ -21,6 +21,7 @@ angular.module('DashbookApp')
             .success(function(data, status){
                 $('.spinner').hide();
                 $scope.count = data.count;
+                console.log(data);
                 if ((data.error && data.error == 409) || data.conflict) $scope.conflict = true;
                 else if (data.status == 2 || data.status == '2') {
                     // $scope.user.status = 2;
