@@ -282,6 +282,7 @@ angular.module('DashbookApp')
             .success(function(data){
               scope.flipSettings();
               scope.d.notFound = null;
+              console.log(scope.d.privateDash);
               scope.d.privateDash = data;
               apiCall(data);
               // $('#' + scope.d.id + ' .spinner').hide();
@@ -599,7 +600,6 @@ angular.module('DashbookApp')
 
           if (scope.d.selected_setting) {
             setTimeout(function(){
-              console.log(scope.d);
               $('#' + scope.d.id + ' .spinner').show();
             }, 0);
             $http.get('/content?t='+scope.d.title+'&s='+scope.d.selected_setting+'&skip='+scope.skip)
