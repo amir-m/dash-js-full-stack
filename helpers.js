@@ -132,7 +132,7 @@ module.exports = function(models, redisClient) {
 					// if (user.uuid != 'NEMzNkE4NzAtQzkxMi00Njg0LUFCMzUtQzM4OEFDRkY5Njcz' && user.email) {
 					// 	redisClient.hset('user:'+user.uuid, 'email', models.decipher(user.email))
 					// }
-					if (! user.email)
+					
 						console.log(user);
 				});
 			}
