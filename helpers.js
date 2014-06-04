@@ -110,7 +110,7 @@ module.exports = function(models, redisClient) {
 			
 			for (var i = 0; i < wlz.length; ++i) {
 				
-				if (wlz[i].platform == 'web')
+				if (wlz[i].uuids.length == 0)
 					console.log(wlz[i]);
 				// if (wlz[i].added_from == 'iOS' && wlz[i].uuids.indexOf(wlz[i].uuid) == -1) {
 				// 	wlz[i].uuids.push(wlz[i].uuid);
