@@ -210,33 +210,6 @@ angular.module('DashbookApp')
           $('.table').addClass('location');
         }
 
-        if (scope.d.title == 'Private Dash') {
-          console.log(scope.d);
-          $('#' + scope.d.id + ' .spinner').css('display', 'none');
-
-          if (scope.d.selected_setting) {
-            $('#' + scope.d.id + ' .spinner').hide();
-            $http.get('/content?t='+scope.d.title+'&s='+scope.d.selected_setting+'&skip='+scope.skip)
-            .success(function(data){
-              $('#' + scope.d.id + ' .spinner').hide();
-              scope.d.notFound = null;
-              scope.d.privateDash = data;
-              apiCall(data);
-            })
-            .error(function(error, code) { 
-              $('#' + scope.d.id + ' .spinner').hide();
-              if (code == 404) {
-                scope.d.notFound = true;
-              }
-            });
-          }
-          else {
-            $('#' + scope.d.id + ' .spinner').hide();
-          }
-        }
-        else {
-        }
-
         var flipped = false;
 
         function tog(v){return v ? 'addClass':'removeClass';} 
@@ -621,6 +594,33 @@ angular.module('DashbookApp')
 
           xhr.withCredentials = true;
           xhr.send();
+        };
+
+        if (scope.d.title == 'Private Dash') {
+          console.log(scope.d);
+          $('#' + scope.d.id + ' .spinner').css('display', 'none');
+
+          if (scope.d.selected_setting) {
+            $('#' + scope.d.id + ' .spinner').hide();
+            $http.get('/content?t='+scope.d.title+'&s='+scope.d.selected_setting+'&skip='+scope.skip)
+            .success(function(data){
+              $('#' + scope.d.id + ' .spinner').hide();
+              scope.d.notFound = null;
+              scope.d.privateDash = data;
+              apiCall(data);
+            })
+            .error(function(error, code) { 
+              $('#' + scope.d.id + ' .spinner').hide();
+              if (code == 404) {
+                scope.d.notFound = true;
+              }
+            });
+          }
+          else {
+            $('#' + scope.d.id + ' .spinner').hide();
+          }
+        }
+        else {
         }
       }
     };
