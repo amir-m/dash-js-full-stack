@@ -46,8 +46,8 @@
 	"location": "",
 	"settings": "m_mozafarian",
 	"data_container": "shots",
-	"mapper_key": "src_comp.resource_uri:hero_comp.stat1:hero_comp.stat2:hero_comp.stat3",
-	"mapper_value": "url:image_url:title:views_count:likes_count:comments_count",
+	"mapper_key": "src_comp.resource_uri:hero_comp.main_img:hero_comp.stat1:hero_comp.stat2:hero_comp.stat3",
+	"mapper_value": "url:image_url:views_count:likes_count:comments_count",
 	"mapper_static_key": "hero_comp.label1:hero_comp.label2:hero_comp.label3",
 	"mapper_static_value": "Views:Likes:Comments",
 	"has_settings": "true"
