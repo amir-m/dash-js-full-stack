@@ -31,7 +31,7 @@
 },
 {
 	"id": "NTJhOWRmMGYxODNiNTAwMDAwMDAwMDAx",
-	"content_type": "src_comp:hero_comp",
+	"content_type": "src_comp:hero_comp:desc_comp:footer_comp",
 	"title": "Dribbble Stats",
 	"source_uri": "https://api.dribbble.com/players/{id}/shots?page={page}&per_page=10",
 	"source_uri_scheme": "https://api.dribbble.com/players/{id}/shots?page={page}&per_page=10",
@@ -46,8 +46,8 @@
 	"location": "",
 	"settings": "m_mozafarian",
 	"data_container": "shots",
-	"mapper_key": "src_comp.resource_uri:hero_comp.main_img:hero_comp.stat1:hero_comp.stat2:hero_comp.stat3",
-	"mapper_value": "url:image_url:views_count:likes_count:comments_count",
+	"mapper_key": "src_comp.resource_uri:hero_comp.main_img:hero_comp.stat1:hero_comp.stat2:hero_comp.stat3:desc_comp.header:desc_comp.text:desc_comp.avatar_img:hero_comp.main_img:footer_comp.time",
+	"mapper_value": "url:image_url:views_count:likes_count:comments_count:player.name:title:player.avatar_url:image_url:created_at",
 	"mapper_static_key": "hero_comp.label1:hero_comp.label2:hero_comp.label3",
 	"mapper_static_value": "Views:Likes:Comments",
 	"has_settings": "true"
