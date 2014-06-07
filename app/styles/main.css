@@ -261,6 +261,7 @@ article.first-child {
 
 article {
   width: 96%;
+  max-width: 400px;
   margin: 0 auto;
   position: relative; }
   article:first-child {
@@ -313,10 +314,16 @@ article {
   margin: 0 auto;
   -webkit-transform: translateZ(0);
   /* Optional: When heavy at iOS6+ */ }
+  @media all and (min-width: 460px) {
+    .viewport {
+      width: 398px; } }
   .viewport section {
     float: left;
     width: 298px;
     margin-right: 17px; }
+    @media all and (min-width: 460px) {
+      .viewport section {
+        width: 398px; } }
     .viewport section > div {
       border-bottom: 1px solid #163240;
       margin-bottom: 1em;
@@ -569,7 +576,8 @@ article {
   -webkit-overflow-scrolling: touch; }
   .library-wrapper ul {
     padding: 0;
-    list-style-type: none; }
+    list-style-type: none;
+    height: 100%; }
     .library-wrapper ul li {
       border-bottom: 1px solid #0e2936;
       padding: 1em 0 3.5em; }
