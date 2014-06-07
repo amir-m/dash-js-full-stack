@@ -91,7 +91,7 @@ angular.module('DashbookApp')
                       
                       var value = scope.d.mapper_static_value[j];
 
-                      console.log(scope.d.mapper_static_value);
+                      // console.log(scope.d.mapper_static_value);
   
                       eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_static_key[j]+
                         " = '"+value+"'");
@@ -591,7 +591,7 @@ angular.module('DashbookApp')
           }
           xhr.onload = function() {
            var responseText = xhr.responseText;
-           console.log(responseText);
+           // console.log(responseText);
           };
 
           xhr.withCredentials = true;
