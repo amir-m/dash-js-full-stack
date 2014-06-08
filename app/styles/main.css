@@ -256,16 +256,16 @@ input:focus {
 .flip .back {
   display: block; }
 
-article.first-child {
-  margin-top: 90px; }
+article.invisible-dash {
+  margin-top: 90px;
+  height: 0px;
+  visibility: hidden; }
 
 article {
   width: 96%;
   max-width: 400px;
   margin: 0 auto;
   position: relative; }
-  article:first-child {
-    margin-top: 90px; }
   article:nth-child(2n+1) {
     -webkit-animation-delay: 50ms;
     animation-delay: 50ms; }

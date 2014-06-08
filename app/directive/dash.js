@@ -362,10 +362,10 @@ angular.module('DashbookApp')
               scope.safeApply();
             }
             
-            setTimeout(function(){
-                $('article').removeClass('first-child');
-                $('article:first-child').addClass('first-child');
-            }, 25);
+            // setTimeout(function(){
+                // $('article').removeClass('first-child');
+                // $('article:first-child').addClass('first-child');
+            // }, 25);
 
             scope.safeApply();
           
