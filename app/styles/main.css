@@ -260,6 +260,8 @@ article.invisible-dash {
   margin-top: 90px;
   height: 0px;
   visibility: hidden; }
+  article.invisible-dash.jiggle {
+    height: 0px; }
 
 article {
   width: 96%;
