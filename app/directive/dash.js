@@ -362,6 +362,7 @@ angular.module('DashbookApp')
               scope.safeApply();
             }
             
+            $('article').removeClass('first-child');
             $('article:first-child').addClass('first-child');
 
             scope.safeApply();
