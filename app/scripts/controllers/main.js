@@ -36,8 +36,10 @@ angular.module('DashbookApp')
                 $rootScope.myDashes.unshift(dash);
             }
             $rootScope.user.dashes.unshift(dash.id);
-            $('article').removeClass('first-child');
-            $('article:first-child').addClass('first-child');
+            setTimeout(function(){
+                $('article').removeClass('first-child');
+                $('article:first-child').addClass('first-child');
+            }, 25);
             $scope.safeApply();
         })
         .error(function(error){
