@@ -6,7 +6,6 @@ angular.module('DashbookApp')
 		templateUrl: '/partials/sports-comp.html',
 		restrict: 'E',
 		link: function postLink(scope, element, attrs) {
-			console.log(scope.d);
 		}
 	};
 }]);

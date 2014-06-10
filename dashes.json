@@ -32,7 +32,7 @@
 {
 	"id": "NHI5NjJwYzUBMwQ3ZjUxWDliMDAwMDAx",
 	"source_uri": "http://engine-env.elasticbeanstalk.com/fifa",
-	"content_type": "src_comp:sports_comp:footer_comp",
+	"content_type": "src_comp:sports_comp",
 	"title": "World Cup Brasil",
 	"description": "Displays World Cup matches and live scores.",
 	"credits": "FIFA", 
@@ -42,8 +42,8 @@
 	"location": "",
 	"settings": "",
 	"data_container": "data",
-	"mapper_key": "src_comp.resource_uri:sports_comp.home_team_flag:sports_comp.home_team:sports_comp.score:sports_comp.status:sports_comp.away_team_flag:sports_comp.away_team:footer_comp.footer",
-	"mapper_value": "resource_uri:home_team_flag:home_team:score:date:away_team_flag:away_team:city",
+	"mapper_key": "src_comp.resource_uri:sports_comp.home_team_flag:sports_comp.home_team:sports_comp.score:sports_comp.status:sports_comp.away_team_flag:sports_comp.away_team",
+	"mapper_value": "resource_uri:home_team_flag:home_team:score:date:away_team_flag:away_team",
 	"has_settings": "false"
 },
 {
