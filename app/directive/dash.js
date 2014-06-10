@@ -430,7 +430,7 @@ angular.module('DashbookApp')
           flipsnap.moveToPoint(scope.flipTo - 1);
           setTimeout(function(){
             console.log(scope.flipTo)
-            $('article').find('.current').removeClass('current');
+            // $('article').find('.current').removeClass('current');
             flipsnap.refresh();
             // pointer = $('.slide-indicator span'); 
             pointer = $('#pointer-'+scope.d.id+' span'); 
