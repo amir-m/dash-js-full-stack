@@ -53,28 +53,33 @@ angular.module('DashbookApp')
 
               apiResponseJson = apiResponseJson;
 
-              console.log(apiResponseJson);
-              console.log(scope.d)
-              var today = new Date(new Date().toLocaleDateString()).getTime(), last_today_index, first_today_index = -1;
-              // for (var i = 0; i < apiResponseJson.length; ++i) {
-              //   if (apiResponseJson[i].timestamp == today) {
-              //     if (first_today_index == -1) first_today_index = i;
-              //     last_today_index = i;
-              //   }
-              // }
-              // // 
-              // if (first_today_index > 2) {
-              //   first_today_index = first_today_index - 3;
-              //   last_today_index = last_today_index - 3;
-              //   apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(first_today_index, apiResponseJson.length);
-              // }
+              if (scope.d.title == 'World Cup Brasil') {
+                var today = new Date(new Date().toLocaleDateString()).getTime(), last_today_index, first_today_index = -1;
+                for (var i = 0; i < apiResponseJson.length; ++i) {
+                  if (apiResponseJson[i].timestamp == today) {
+                    if (first_today_index == -1) first_today_index = i;
+                    last_today_index = i;
+                  }
+                }
+                // 
+                if (first_today_index > 2) {
+                  first_today_index = first_today_index - 3;
+                  last_today_index = last_today_index - 3;
+                  apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(first_today_index, apiResponseJson.length);
+                }
 
-              // if ((apiResponseJson.length - last_today_index) > 3)
-              //   apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, last_today_index + 3);
+                if ((apiResponseJson.length - last_today_index) > 3)
+                  apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, last_today_index + 3);
 
-              // return;
-              // if (apiResponseJson[scope.d.data_container].length > 10) 
-              //   apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, 10);
+                scope.flipTo = first_today_index;
+
+              }
+              else {
+                scope.flipTo = false;
+
+                if (apiResponseJson[scope.d.data_container].length > 10) 
+                  apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, 10);
+              }
 
               for (var i = 0; i < apiResponseJson[scope.d.data_container].length; ++i) {
                 
@@ -408,13 +413,14 @@ angular.module('DashbookApp')
         scope.attachFlipsnap = function() {
 
           flipsnap = Flipsnap('#'+scope.d.id+ ' .flipsnap');
-          
+          // flipsnap.moveToPoint(scope.flipTo);
           setTimeout(function(){
             flipsnap.refresh();
             // pointer = $('.slide-indicator span'); 
             pointer = $('#pointer-'+scope.d.id+' span'); 
             if (!scope.d.content || scope.d.content.length == 0) return;
             $('.slide-indicator').find('span:first-child').addClass('current');
+            flipsnap.moveToPoint(4);
             flipsnap.element.addEventListener('fspointmove', function() {
               pointer.filter('.current').removeClass('current');
               pointer.eq(flipsnap.currentPoint).addClass('current');
