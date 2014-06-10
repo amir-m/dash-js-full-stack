@@ -43,7 +43,7 @@
 	"settings": "",
 	"data_container": "data",
 	"mapper_key": "src_comp.resource_uri:sports_comp.home_team_flag:sports_comp.home_team:sports_comp.score:sports_comp.status:sports_comp.away_team_flag:sports_comp.away_team",
-	"mapper_value": "url:home_team_flag:home_team:score:status:away_team_flag:away_team",
+	"mapper_value": "url:home_team_flag:home_team:score:date:away_team_flag:away_team",
 	"has_settings": "false"
 },
 {
