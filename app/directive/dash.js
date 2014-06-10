@@ -75,7 +75,7 @@ angular.module('DashbookApp')
 
               }
               else {
-                scope.flipTo = 1;
+                scope.flipTo = 4;
 
                 if (apiResponseJson[scope.d.data_container].length > 10) 
                   apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, 10);
@@ -415,7 +415,7 @@ angular.module('DashbookApp')
           flipsnap = Flipsnap('#'+scope.d.id+ ' .flipsnap');
           // flipsnap.moveToPoint(scope.flipTo);
           setTimeout(function(){
-            // if () flipsnap.moveToPoint(4);
+            flipsnap.moveToPoint(scope.flipTo - 1);
             flipsnap.refresh();
             // pointer = $('.slide-indicator span'); 
             pointer = $('#pointer-'+scope.d.id+' span'); 
