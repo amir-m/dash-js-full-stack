@@ -73,13 +73,16 @@ angular.module('DashbookApp')
                 // console.log(apiResponseJson.data.length);
 
                 if (first_today_index > 2) {
+                  console.log(first_today_index, last_today_index, apiResponseJson[scope.d.data_container].length)
                   first_today_index = first_today_index - 3;
                   last_today_index = last_today_index - 3;
                   apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(first_today_index, apiResponseJson[scope.d.data_container].length);
+                  console.log(first_today_index, last_today_index, apiResponseJson[scope.d.data_container].length)
                 }
 
-                if ((apiResponseJson[scope.d.data_container].length - last_today_index) > 3)
+                if ((apiResponseJson[scope.d.data_container].length - last_today_index) > 3) {
                   apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, last_today_index + 3);
+                }
 
                 scope.flipTo = first_today_index + 1;
 
