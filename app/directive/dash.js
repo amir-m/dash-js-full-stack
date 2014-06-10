@@ -71,7 +71,7 @@ angular.module('DashbookApp')
                 if ((apiResponseJson.length - last_today_index) > 3)
                   apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, last_today_index + 3);
 
-                scope.flipTo = first_today_index;
+                scope.flipTo = first_today_index + 1;
 
               }
               else {
@@ -196,7 +196,7 @@ angular.module('DashbookApp')
             }, 
             "error": function(error) {
               console.log(arguments);
-              apiCallEngine();
+              // apiCallEngine();
             }
           });
         };
