@@ -11,7 +11,7 @@ angular.module('DashbookApp')
       templateUrl: '/partials/dash.html', 
       link: function (scope, element, attrs) {
 
-        scope.d.content = [];
+        scope.d.content = [], scope.flipTo = 1;
 
         function apiCallEngine() {
           
@@ -420,7 +420,7 @@ angular.module('DashbookApp')
             // pointer = $('.slide-indicator span'); 
             pointer = $('#pointer-'+scope.d.id+' span'); 
             if (!scope.d.content || scope.d.content.length == 0) return;
-            $('.slide-indicator').find('span:nth-child('+6+')').addClass('current');
+            $('.slide-indicator').find('span:nth-child('+scope.flipTo.toString()+')').addClass('current');
             flipsnap.element.addEventListener('fspointmove', function() {
               pointer.filter('.current').removeClass('current');
               pointer.eq(flipsnap.currentPoint).addClass('current');
