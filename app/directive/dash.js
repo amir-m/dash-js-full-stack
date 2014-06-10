@@ -57,7 +57,7 @@ angular.module('DashbookApp')
                 var today = new Date(new Date().toLocaleDateString()).getTime(), last_today_index, first_today_index = -1;
                 for (var i = 0; i < apiResponseJson.data.length; ++i) {
                   
-                  if (apiResponseJson[i].timestamp == today) {
+                  if (apiResponseJson.data[i].timestamp == today) {
                     if (first_today_index == -1) first_today_index = i;
                     last_today_index = i;
                   }
