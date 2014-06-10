@@ -11,7 +11,7 @@ angular.module('DashbookApp')
       templateUrl: '/partials/dash.html', 
       link: function (scope, element, attrs) {
 
-        scope.d.content = [], scope.flipTo = 3;
+        scope.d.content = [], scope.flipTo = 1;
 
         function apiCallEngine() {
           
@@ -85,7 +85,7 @@ angular.module('DashbookApp')
                   apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, last_today_index + 3);
                 }
 
-                scope.flipTo = first_today_index + 1;
+                scope.flipTo = first_today_index > 1 ? first_today_index + 1 : 1;
 
               }
               else {
