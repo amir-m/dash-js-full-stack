@@ -426,6 +426,7 @@ angular.module('DashbookApp')
         scope.attachFlipsnap = function() {
 
           flipsnap = Flipsnap('#'+scope.d.id+ ' .flipsnap');
+          $('article').find('.current').removeClass('current');
           // flipsnap.moveToPoint(scope.flipTo);
           setTimeout(function(){
             flipsnap.moveToPoint(scope.flipTo - 1);
