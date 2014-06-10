@@ -54,7 +54,7 @@ angular.module('DashbookApp')
               apiResponseJson = apiResponseJson;
 
               if (scope.d.title == 'World Cup Brasil') {
-                var today = new Date(new Date().toLocaleDateString()).getTime(), last_today_index, first_today_index = -1;
+                var today = new Date(new Date().toLocaleDateString()).getTime(), last_today_index, first_today_index = -1, first_last_diff;
                 for (var i = 0; i < apiResponseJson[scope.d.data_container].length; ++i) {
 
                   apiResponseJson[scope.d.data_container][i].timestamp = new Date(apiResponseJson[scope.d.data_container][i].date).getTime();
@@ -66,6 +66,7 @@ angular.module('DashbookApp')
                     last_today_index = i;
                   }
                 }
+                first_last_diff = last_today_index - first_today_index;
                 // 
                 // console.log(today);
                 // console.log(first_today_index);
@@ -73,11 +74,11 @@ angular.module('DashbookApp')
                 // console.log(apiResponseJson.data.length);
 
                 if (first_today_index > 2) {
-                  console.log(first_today_index, last_today_index, apiResponseJson[scope.d.data_container].length)
-                  first_today_index = first_today_index - 3;
-                  last_today_index = last_today_index - 3;
-                  apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(first_today_index, apiResponseJson[scope.d.data_container].length);
-                  console.log(first_today_index, last_today_index, apiResponseJson[scope.d.data_container].length)
+                  // last_today_index = last_today_index - 3;
+                  apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(first_today_index - 3, apiResponseJson[scope.d.data_container].length);
+                  first_today_index = 3;
+                  last_today_index = first_today_index + first_last_diff;
+                  // console.log(first_today_index, last_today_index, apiResponseJson[scope.d.data_container].length)
                 }
 
                 if ((apiResponseJson[scope.d.data_container].length - last_today_index) > 3) {
