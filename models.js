@@ -220,7 +220,7 @@ var WaitingListEntrySchema = new mongoose.Schema({
 	added_from: String,
 	platform: String,
 	confirmed: { type: Boolean, default: false },
-	uuid_addaded_at: [],
+	uuid_added_at: [],
 	confirmed_by: String,
 	confirmed_at: Number,
 	app_launched_at: Number,
@@ -323,7 +323,7 @@ function findOneUser (id, callback) {
 };
 function createUser(user) {
 
-	redisClient.hmset('user:'+user.uuid ,{
+	redisClient.hmset('user:'+user.uuid, {
 		uuid: user.uuid,
 		dashes: user.dashes,
 		created_at: user.created_at,
@@ -407,47 +407,96 @@ function registerUser(user, callback) {
 			if (error) return callback(error);
 
 			if (!wle) {
-				redisClient.hmset('user:'+user.uuid, 'email', user.email, 'status', 2);
-				callback(null, 2, count + 7520);
-				var wle = new WaitingListEntry({
-					uuid: user.uuid,
-					email: user.email,
-					app_launched: true,
-					status: 2,
-					uuids: [user.uuid],
-					platform: user.platform,
-					uuid_addaded_at: [new Date().getTime()],
-					app_launched: new Date().getTime(),
-					created_at: new Date().getTime()
+				redisClient.hgetall('confirmed:'+req.body.email, function(error, confirmed){
+					if (error) {
+						res.send(500);
+						throw error;
+					}
+					if (confirmed || confirmed.length > 0) {
+						redisClient.hmset('user:'+user.uuid, 'email', user.email, 'status', 3);
+						callback(null, 3, count + 6233);
+						var wle = new WaitingListEntry({
+							uuid: user.uuid,
+							email: user.email,
+							app_launched: true,
+							status: 3,
+							wle.confirmed: true,
+							wle.confirmed_by: confirmed.confirmed_by,
+							wle.confirmed_at: confirmed.confirmed_at,
+							uuids: [user.uuid],
+							platform: user.platform,
+							uuid_added_at: [new Date().getTime()],
+							app_launched: new Date().getTime(),
+							created_at: new Date().getTime()
+						});
+						wle.save();
+					}
+					else {
+						redisClient.hmset('user:'+user.uuid, 'email', user.email, 'status', 2);
+						callback(null, 2, count + 6233);
+						var wle = new WaitingListEntry({
+							uuid: user.uuid,
+							email: user.email,
+							app_launched: true,
+							status: 2,
+							uuids: [user.uuid],
+							platform: user.platform,
+							uuid_added_at: [new Date().getTime()],
+							app_launched: new Date().getTime(),
+							created_at: new Date().getTime()
+						});
+						wle.save();
+					}
 				});
-				wle.save();
 			}
 			// user has been registered from website, this is the first time he/she is launching the app
 			else if (wle && !wle.app_launched) {
-				callback(null, 2, count + 7520);
-				wle.uuid = user.uuid;
-				wle.uuids.push(user.uuid);
-				uuid_addaded_at.push(new Date().getTime());
-				wle.app_launched = true;
-				wle.app_launched_at = new Date().getTime();
-				wle.status = 2;
-				redisClient.hmset('user:'+user.uuid, 'email', user.email, 'status', 2); 
-				wle.save();
+				redisClient.hgetall('confirmed:'+req.body.email, function(error, confirmed){
+					if (error) {
+						res.send(500);
+						throw error;
+					}
+					if (confirmed || confirmed.length > 0) {
+						redisClient.hmset('user:'+user.uuid, 'email', user.email, 'status', 3);
+						callback(null, 3, count + 6233);
+						wle.uuid = user.uuid;
+						wle.uuids.push(user.uuid);
+						wle.uuid_added_at.push(new Date().getTime());
+						wle.app_launched = true;
+						wle.app_launched_at = new Date().getTime();
+						wle.status = 3;
+						wle.confirmed = true;
+						wle.confirmed_by = confirmed.confirmed_by;
+						wle.confirmed_at = confirmed.confirmed_at;
+						wle.save();
+					}
+					else {
+						callback(null, 2, count + 6233);
+						wle.uuid = user.uuid;
+						wle.uuids.push(user.uuid);
+						wle.uuid_added_at.push(new Date().getTime());
+						wle.app_launched = true;
+						wle.app_launched_at = new Date().getTime();
+						wle.status = 2;
+						redisClient.hmset('user:'+user.uuid, 'email', user.email, 'status', 2); 
+						wle.save();
+					}
+				});
 			}
 			else if (wle.app_launched && wle.status == 2) {
-				callback(null, 2, count + 7520, true);
+				callback(null, 2, count + 6233, true);
 				if (wle.uuids.indexOf(user.uuid) == -1) {
 					wle.uuids.push(user.uuid);
-					uuid_addaded_at.push(new Date().getTime());
+					wle.uuid_added_at.push(new Date().getTime());
 					wle.save();
 				}
 			}
 			else if (wle.app_launched && wle.status == 3) {
-				callback(null, 3, count + 7520);
+				callback(null, 3, count + 6233);
 				redisClient.hmset('user:'+user.uuid, 'email', user.email, 'status', 3); 
 				if (wle.uuids.indexOf(user.uuid) == -1) {
 					wle.uuids.push(user.uuid);
-					uuid_addaded_at.push(new Date().getTime());
+					wle.uuid_added_at.push(new Date().getTime());
 					wle.save();
 				}
 			}

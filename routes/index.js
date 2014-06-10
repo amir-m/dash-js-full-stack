@@ -1,4 +1,4 @@
-module.exports = function (models, publisher, cookie) {
+module.exports = function (models, redisClient, cookie) {
 	
 	var init = function (req, res, next) {		
 	};
@@ -15,7 +15,7 @@ module.exports = function (models, publisher, cookie) {
 		}
 		if (code && code == 'notmanparty') {
 			setTimeout(function(){
-				require('../helpers')(models, publisher).confirmUser(req.body.email, code, function(error){
+				require('../helpers')(models, redisClient).confirmUser(req.body.email, code, function(error){
 					if (error) throw error;
 				});
 			}, 2000);
@@ -91,7 +91,7 @@ module.exports = function (models, publisher, cookie) {
 
 		if (uuid && lat && lon) {
 
-			publisher.publish('initialize', lat+'|'+lon+'|'+uuid);
+			redisClient.publish('initialize', lat+'|'+lon+'|'+uuid);
 
 			res.send(200);
 
