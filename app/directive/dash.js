@@ -54,6 +54,24 @@ angular.module('DashbookApp')
               apiResponseJson = apiResponseJson;
 
               console.log(apiResponseJson);
+              console.log(scope.d)
+              var today = new Date(new Date().toLocaleDateString()).getTime(), last_today_index, first_today_index = -1;
+              // for (var i = 0; i < apiResponseJson.length; ++i) {
+              //   if (apiResponseJson[i].timestamp == today) {
+              //     if (first_today_index == -1) first_today_index = i;
+              //     last_today_index = i;
+              //   }
+              // }
+              // // 
+              // if (first_today_index > 2) {
+              //   first_today_index = first_today_index - 3;
+              //   last_today_index = last_today_index - 3;
+              //   apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(first_today_index, apiResponseJson.length);
+              // }
+
+              // if ((apiResponseJson.length - last_today_index) > 3)
+              //   apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, last_today_index + 3);
+
               // return;
               // if (apiResponseJson[scope.d.data_container].length > 10) 
               //   apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, 10);
