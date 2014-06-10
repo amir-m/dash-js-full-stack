@@ -35,7 +35,7 @@
 	"content_type": "src_comp:sports_comp",
 	"title": "World Cup Brasil",
 	"description": "Displays World Cup matches and live scores.",
-	"credits": "Fifa", 
+	"credits": "FIFA", 
 	"icon_large": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/default_large_icon.png",
 	"icon_small": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/default_small_icon.png",
 	"setting_type": "",
