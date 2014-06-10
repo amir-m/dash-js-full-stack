@@ -55,11 +55,11 @@ angular.module('DashbookApp')
 
               if (scope.d.title == 'World Cup Brasil') {
                 var today = new Date(new Date().toLocaleDateString()).getTime(), last_today_index, first_today_index = -1;
-                for (var i = 0; i < apiResponseJson.data.length; ++i) {
+                for (var i = 0; i < apiResponseJson[scope.d.data_container].length; ++i) {
 
-                  apiResponseJson.data[i].timestamp = new Date(apiResponseJson.data[i].date).getTime();
+                  apiResponseJson[scope.d.data_container][i].timestamp = new Date(apiResponseJson[scope.d.data_container][i].date).getTime();
 
-                  console.log(today, apiResponseJson.data[i].timestamp)
+                  // console.log(today, apiResponseJson.data[i].timestamp)
 
                   if (apiResponseJson.data[i].timestamp == today) {
                     if (first_today_index == -1) first_today_index = i;
@@ -67,19 +67,19 @@ angular.module('DashbookApp')
                   }
                 }
                 // 
-                console.log(today);
-                console.log(first_today_index);
-                console.log(last_today_index);
-                console.log(apiResponseJson.data.length);
+                // console.log(today);
+                // console.log(first_today_index);
+                // console.log(last_today_index);
+                // console.log(apiResponseJson.data.length);
 
                 if (first_today_index > 2) {
                   first_today_index = first_today_index - 3;
                   last_today_index = last_today_index - 3;
-                  apiResponseJson.data[scope.d.data_container] = apiResponseJson.data[scope.d.data_container].splice(first_today_index, apiResponseJson.data.length);
+                  apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(first_today_index, apiResponseJson[scope.d.data_container].length);
                 }
 
-                if ((apiResponseJson.data.length - last_today_index) > 3)
-                  apiResponseJson.data[scope.d.data_container] = apiResponseJson.data[scope.d.data_container].splice(0, last_today_index + 3);
+                if ((apiResponseJson[scope.d.data_container].length - last_today_index) > 3)
+                  apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, last_today_index + 3);
 
                 scope.flipTo = first_today_index + 1;
 
