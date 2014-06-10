@@ -415,12 +415,12 @@ angular.module('DashbookApp')
           flipsnap = Flipsnap('#'+scope.d.id+ ' .flipsnap');
           // flipsnap.moveToPoint(scope.flipTo);
           setTimeout(function(){
+            flipsnap.moveToPoint(4);
             flipsnap.refresh();
             // pointer = $('.slide-indicator span'); 
             pointer = $('#pointer-'+scope.d.id+' span'); 
             if (!scope.d.content || scope.d.content.length == 0) return;
             $('.slide-indicator').find('span:first-child').addClass('current');
-            flipsnap.moveToPoint(4);
             flipsnap.element.addEventListener('fspointmove', function() {
               pointer.filter('.current').removeClass('current');
               pointer.eq(flipsnap.currentPoint).addClass('current');
