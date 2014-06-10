@@ -11,7 +11,7 @@ angular.module('DashbookApp')
 			input = parseInt(input);
 
 			
-			if (isNaN(input)) return;
+			if (isNaN(input)) return input;
 			
 			var now = new Date(), 
 				inputDate = new Date(input),
