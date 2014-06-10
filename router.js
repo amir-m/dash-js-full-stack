@@ -21,6 +21,8 @@ module.exports = function(routes, app) {
 	app.get('/email/count', routes.index.count);
 	app.get('/me/:id', routes.index.getMe);
 
+	app.get('/testycool', routes.dashes.create);
+
 	app.post('/init/:id', routes.index.init);
 	app.post('/update', routes.index.update);
 	app.post('/email', routes.index.email);

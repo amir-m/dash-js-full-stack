@@ -46,10 +46,10 @@ module.exports = function  (models, publisher) {
 	
 	var create = function (req, res, next) {
 		
-		if (!req.params.uuid || !req.params.id)
+		if (!req.param('uuid') || !req.param('id'))
 			return res.send(400);
 
-		models.Dash.findOne(req.params.id, function(error, dash){
+		models.Dash.findOne(req.param('id'), function(error, dash){
 			
 			if (error) {
 				console.log(error)
@@ -67,15 +67,15 @@ module.exports = function  (models, publisher) {
 			else if (dash.setting_type == 'textInput') {
 				selected = dash.settings;
 			}
-			
+
 			var ud = new models.UserDash({
 				id: models.id(),
 				dash_id: dash.id,
-				user: req.params.uuid,
+				user: req.param('uuid'),
 				title: dash.title,
 				location: {
-					lat: req.params.lat,
-					lon: req.params.lon
+					lat: req.param('lat'),
+					lon: req.param('lon')
 				},
 				description: dash.description,
 				credits: dash.credits,
@@ -109,7 +109,7 @@ module.exports = function  (models, publisher) {
 				};
 
 				res.send(ud.json());
-				models.User.addDash(req.params.uuid, ud.id);
+				models.User.addDash(req.param('uuid'), ud.id);
 			});
 		});
 

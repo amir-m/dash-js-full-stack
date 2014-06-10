@@ -2,7 +2,7 @@ module.exports = function(models, redisClient) {
 
 	var dashes = require('./dashes.json');
 	// dribblle, dribbble stats ad behance 
-	var defaultDashes = ['NTI5NjJmYzUyMzQ3ZjUxZDliMDAwMDAx', 'NTJhOWRmMGYxODNiNTAwMDAwMDAwMDAx', 'NTI5NjMyNWY1OGM5YmIzNzliMDAwMDAx']
+	var defaultDashes = ['NHI5NjJwYzUBMwQ3ZjUxWDliMDAwMDAx', 'NTI5NjM5ZTlmOGZjY2Q1ODliMDAwMDAx', 'NTI5NjNiMGYwZWZhNzI1ZTliMDAwMDAx']
 
 	function insertDashesToRedisBackend() {
 		redisClient.keys('dash:*', function(error, _dashes){
@@ -25,8 +25,7 @@ module.exports = function(models, redisClient) {
 
 	function createDefaultDashes(uuid) {
 		console.log('about to create default dashes for ', uuid);
-		models.Dash.find({ _id: { $in: defaultDashes} }, 
-		function(error, dashes){
+		models.Dash.find(function(error, dashes){
 			
 			if (error) {
 				console.log(error)
