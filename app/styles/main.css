@@ -131,6 +131,10 @@ input:focus {
   transition: -moz-transform .25s ease-in-out;
   -webkit-transition: -webkit-transform .25s ease-in-out;
   z-index: 5; }
+  @media all and (min-width: 1024px) {
+    .dbk-wrapper {
+      height: 768px;
+      overflow: scroll; } }
 
 .dbk-header {
   position: static;
@@ -373,10 +377,15 @@ article {
     width: 70px;
     height: 70px;
     border-radius: 100%;
-    background-color: #17313d;
     border: 5px solid #17313d;
-    overflow: hidden;
     margin-bottom: 0.5em; }
+    .table .circular-img span {
+      display: block;
+      border-radius: 100%;
+      background: #17313d no-repeat center center;
+      background-size: cover;
+      width: 100%;
+      padding-bottom: 100%; }
 
 .hero-comp {
   padding: 0.5em;
@@ -394,8 +403,8 @@ article {
     .hero-comp span.square-banner {
       padding-bottom: 100%; }
   .hero-comp .stats-comp {
-    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, 0.9) 100%);
-    background: linear, to bottom, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, 0.9) 100%;
+    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%);
+    background: linear, to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.7) 100%;
     position: absolute;
     bottom: 0;
     margin-bottom: 0.5em;
@@ -574,6 +583,10 @@ article {
   background: #0b1c24;
   overflow: auto;
   -webkit-overflow-scrolling: touch; }
+  @media all and (min-width: 1024px) {
+    .library-wrapper {
+      height: 768px;
+      overflow: scroll; } }
   .library-wrapper ul {
     padding: 0;
     list-style-type: none;
