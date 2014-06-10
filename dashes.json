@@ -31,7 +31,7 @@
 },
 {
 	"id": "NTI5NjJmYzUyMzQ3ZjUxZDliMDAwMDAx",
-	"source_uri": "https://api.dribbble.com/shots/popular?per_page=10|^._.^|https://api.dribbble.com/shots/debuts?per_page=10|^._.^|https://api.dribbble.com/shots/everyone?per_page=10",
+	"source_uri": "http://engine-env.elasticbeanstalk.com/fifa",
 	"content_type": "src_comp:sports_comp",
 	"title": "World Cup Brasil",
 	"description": "Displays World Cup matches and live scores.",
