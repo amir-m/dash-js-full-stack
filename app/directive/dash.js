@@ -11,7 +11,7 @@ angular.module('DashbookApp')
       templateUrl: '/partials/dash.html', 
       link: function (scope, element, attrs) {
 
-        scope.d.content = [], scope.flipTo = 1;
+        scope.d.content = [], scope.d.flipTo = 1;
 
         function apiCallEngine() {
           
@@ -67,14 +67,8 @@ angular.module('DashbookApp')
                   }
                 }
                 first_last_diff = last_today_index - first_today_index;
-                // 
-                // console.log(today);
-                // console.log(first_today_index);
-                // console.log(last_today_index);
-                // console.log(apiResponseJson.data.length);
 
                 if (first_today_index > 2) {
-                  // last_today_index = last_today_index - 3;
                   apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(first_today_index - 3, apiResponseJson[scope.d.data_container].length);
                   first_today_index = 3;
                   last_today_index = first_today_index + first_last_diff;
@@ -85,7 +79,7 @@ angular.module('DashbookApp')
                   apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, last_today_index + 4);
                 }
 
-                scope.flipTo = first_today_index > 1 ? first_today_index + 1 : 1;
+                scope.d.flipTo = first_today_index > 1 ? first_today_index + 1 : 1;
 
               }
               else {
@@ -426,16 +420,16 @@ angular.module('DashbookApp')
         scope.attachFlipsnap = function() {
 
           flipsnap = Flipsnap('#'+scope.d.id+ ' .flipsnap');
-          // flipsnap.moveToPoint(scope.flipTo);
-          flipsnap.moveToPoint(scope.flipTo - 1);
+          // flipsnap.moveToPoint(scope.d.flipTo);
+          flipsnap.moveToPoint(scope.d.flipTo - 1);
           setTimeout(function(){
-            console.log(scope.flipTo, scope.d.title);
+            console.log(scope.d.flipTo, scope.d.title);
             // $('article').find('.current').removeClass('current');
             flipsnap.refresh();
             // pointer = $('.slide-indicator span'); 
             pointer = $('#pointer-'+scope.d.id+' span'); 
             if (!scope.d.content || scope.d.content.length == 0) return;
-            $('.slide-indicator').find('span:nth-child('+scope.flipTo.toString()+')').addClass('current');
+            $('.slide-indicator').find('span:nth-child('+scope.d.flipTo.toString()+')').addClass('current');
             flipsnap.element.addEventListener('fspointmove', function() {
               pointer.filter('.current').removeClass('current');
               pointer.eq(flipsnap.currentPoint).addClass('current');
