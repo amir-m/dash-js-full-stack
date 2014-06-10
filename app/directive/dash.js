@@ -53,7 +53,7 @@ angular.module('DashbookApp')
 
               apiResponseJson = apiResponseJson;
 
-              // console.log(apiResponseJson);
+              console.log(apiResponseJson);
               // return;
               if (apiResponseJson[scope.d.data_container].length > 10) 
                 apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, 10);
