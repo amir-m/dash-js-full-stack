@@ -173,6 +173,7 @@ angular.module('DashbookApp')
             }, 
             "error": function(error) {
               console.log(arguments);
+              apiCallEngine();
             }
           });
         };
