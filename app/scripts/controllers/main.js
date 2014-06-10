@@ -14,9 +14,6 @@ angular.module('DashbookApp')
 
     $scope.add = function(dash) {
 
-        console.log(dash.id)
-        return;
-
         if (!dash.addRequested) {
             dash.addRequested = true;
             $(document).find(".expand").removeClass("expand");
