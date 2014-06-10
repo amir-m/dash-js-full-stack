@@ -62,9 +62,10 @@ angular.module('DashbookApp')
                   }
                 }
                 // 
+                console.log(today);
                 console.log(first_today_index);
                 console.log(last_today_index);
-                
+
                 if (first_today_index > 2) {
                   first_today_index = first_today_index - 3;
                   last_today_index = last_today_index - 3;
