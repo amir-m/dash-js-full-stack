@@ -75,7 +75,6 @@ angular.module('DashbookApp')
 
               }
               else {
-                scope.flipTo = 4;
 
                 if (apiResponseJson[scope.d.data_container].length > 10) 
                   apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, 10);
