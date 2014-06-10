@@ -82,7 +82,7 @@ angular.module('DashbookApp')
 
                 if ((apiResponseJson[scope.d.data_container].length - last_today_index) > 3) {
                   console.log(first_today_index, last_today_index, apiResponseJson[scope.d.data_container].length)
-                  apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, last_today_index + 3);
+                  apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, last_today_index + 4);
                 }
 
                 scope.flipTo = first_today_index > 1 ? first_today_index + 1 : 1;
