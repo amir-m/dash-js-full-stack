@@ -2,25 +2,25 @@
     <div class="sports-comp table centered">
         <div class="cell small-cell">
             <div class="circular-img">
-                <img ng-src="{{content.components.sports_comp.team_1_img}}">
+                <span style="background-image: url({{content.components.sports_comp.home_team_flag}})"></span>
             </div>
             <small>
-                <b>{{content.components.sports_comp.team_1}}</b>
+                <b>{{content.components.sports_comp.home_team}}</b>
             </small>
         </div>
         <div class="cell large-cell  middle-aligned">
             <h1>
-                {{content.components.sports_comp.team_1_score}} - {{content.components.sports_comp.team_2_score}}
+                {{content.components.sports_comp.score}}
             </h1>
-            <p class="grey"><small><b>{{content.components.sports_comp.game_status}}</b></small></p>
+            <p class="grey"><small><b>{{content.components.sports_comp.status}}</b></small></p>
         </div>
 
 
         <div class="cell small-cell">
             <div class="circular-img">
-                <img ng-src="{{content.components.sports_comp.team_2_img}}">
+                <span style="background-image: url({{content.components.sports_comp.away_team_flag}})"></span>
             </div>
-            <small><b>{{content.components.sports_comp.team_2}}</b></small>
+            <small><b>{{content.components.sports_comp.away_team}}</b></small>
         </div>
     </div>
 </a>
