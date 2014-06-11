@@ -79,6 +79,8 @@ angular.module('DashbookApp')
                   apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, last_today_index + 4);
                 }
 
+                console.log(apiResponseJson[scope.d.data_container].length)
+
                 scope.flipTo = first_today_index > 1 ? first_today_index + 1 : 1;
 
               }
@@ -423,7 +425,6 @@ angular.module('DashbookApp')
           // flipsnap.moveToPoint(scope.flipTo);
           flipsnap.moveToPoint(scope.flipTo - 1);
           setTimeout(function(){
-            console.log(scope.flipTo, scope.d.title);
             // $('article').find('.current').removeClass('current');
             flipsnap.refresh();
             // pointer = $('.slide-indicator span'); 
