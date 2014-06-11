@@ -32,6 +32,9 @@ module.exports = function(express, app, mongoose, cookie, models, redisClient) {
 		res.cookie('latitude', '45.495744', { maxAge: 100*60*1000, httpOnly: false });
 		res.cookie('longitude', '-73.563195', { maxAge: 100*60*1000, httpOnly: false });
 
+		req.headers['x-latitude'] = '45.495744';
+		req.headers['x-longitude'] = '-73.563195';
+		req.headers['x-userid'] = 'bNEYxOEU4NjctMjQzOS00NzMzLUI0QzgtQjE4N0QxNEQzNDU3';
 		// return next();
 		
 		// if (req.path == '/relaunch' || req.path == '/') {
