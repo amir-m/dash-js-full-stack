@@ -407,7 +407,7 @@ function registerUser(user, callback) {
 			if (error) return callback(error);
 
 			if (!wle) {
-				redisClient.hgetall('confirmed:'+req.body.email, function(error, confirmed){
+				redisClient.hgetall('confirmed:'+user.email, function(error, confirmed){
 					if (error) {
 						res.send(500);
 						throw error;
@@ -451,7 +451,7 @@ function registerUser(user, callback) {
 			}
 			// user has been registered from website, this is the first time he/she is launching the app
 			else if (wle && !wle.app_launched) {
-				redisClient.hgetall('confirmed:'+req.body.email, function(error, confirmed){
+				redisClient.hgetall('confirmed:'+user.email, function(error, confirmed){
 					if (error) {
 						res.send(500);
 						throw error;
