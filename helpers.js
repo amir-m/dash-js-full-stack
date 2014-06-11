@@ -79,35 +79,6 @@ module.exports = function(models, redisClient) {
 				});
 
 			});
-			var selected = '';			
-
-			if (dashes[i].settingType == 'radio')
-				selected = dashes[i].settings[0];
-			else if (dashes[i].settingType == 'text' || dashes[i].settingType == 'textInput') {
-				selected = dashes[i].settings;	
-			}
-
-			models.dashes.UserDash.create({
-				_id: models.dashes.objectId(),
-				dash_id: dashes[i]._id,
-				dashType: dashes[i].dashType,
-				user: uuid,
-				title: dashes[i].title,
-				subTitle: dashes[i].subTitle,
-				description: dashes[i].description,
-				credits: dashes[i].credits,
-				iconLarge: dashes[i].iconLarge,
-				iconSmall: dashes[i].iconSmall,
-				settings: dashes[i].settings,
-				selectedSetting: selected,
-				settingType: dashes[i].settingType
-			}, function(error){
-				if (error) {
-					console.log(error)
-				}
-				else console.log('default dash created for user %s', uuid);
-			});
-			
 		}
 	};
 
