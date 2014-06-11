@@ -11,7 +11,7 @@ angular.module('DashbookApp')
       templateUrl: '/partials/dash.html', 
       link: function (scope, element, attrs) {
 
-        scope.d.content = [], flipTo = 1;
+        scope.d.content = [], scope.flipTo = 1;
 
         function apiCallEngine() {
           
@@ -79,7 +79,7 @@ angular.module('DashbookApp')
                   apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, last_today_index + 4);
                 }
 
-                flipTo = first_today_index > 1 ? first_today_index + 1 : 1;
+                scope.flipTo = first_today_index > 1 ? first_today_index + 1 : 1;
 
               }
               else {
@@ -420,17 +420,17 @@ angular.module('DashbookApp')
         scope.attachFlipsnap = function() {
 
           flipsnap = Flipsnap('#'+scope.d.id+ ' .flipsnap');
-          // flipsnap.moveToPoint(flipTo);
-          flipsnap.moveToPoint(flipTo - 1);
+          // flipsnap.moveToPoint(scope.flipTo);
+          flipsnap.moveToPoint(scope.flipTo - 1);
           setTimeout(function(){
-            console.log(flipTo, scope.d.title);
+            console.log(scope.flipTo, scope.d.title);
             // $('article').find('.current').removeClass('current');
             flipsnap.refresh();
             // pointer = $('.slide-indicator span'); 
             pointer = $('#pointer-'+scope.d.id+' span'); 
             if (!scope.d.content || scope.d.content.length == 0) return;
-            $('.slide-indicator span').removeClass("current");
-            $('.slide-indicator').find('span:nth-child('+flipTo.toString()+')').addClass('current');
+            //$('.slide-indicator').find('span:nth-child('+scope.flipTo.toString()+')').addClass('current');
+            pointer.eq(flipsnap.currentPoint).addClass('current');
             flipsnap.element.addEventListener('fspointmove', function() {
               pointer.filter('.current').removeClass('current');
               pointer.eq(flipsnap.currentPoint).addClass('current');
