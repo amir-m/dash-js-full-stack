@@ -34,7 +34,7 @@ module.exports = function(express, app, mongoose, cookie, models, redisClient) {
 
 		req.headers['x-latitude'] = '45.495744';
 		req.headers['x-longitude'] = '-73.563195';
-		req.headers['x-userid'] = 'bNEYxOEU4NjctMjQzOS00NzMzLUI0QzgtQjE4N0QxNEQzNDU3';
+		req.headers['x-userid'] = 'mNEYxOEU4NjctMjQzOS00NzMzLUI0QzgtQjE4N0QxNEQzNDU3';
 		// return next();
 		
 		// if (req.path == '/relaunch' || req.path == '/') {
