@@ -429,7 +429,7 @@ angular.module('DashbookApp')
             // pointer = $('.slide-indicator span'); 
             pointer = $('#pointer-'+scope.d.id+' span'); 
             if (!scope.d.content || scope.d.content.length == 0) return;
-            $('.sports-comp .slide-indicator span').removeClass("current");
+            $('.slide-indicator span').removeClass("current");
             $('.slide-indicator').find('span:nth-child('+scope.flipTo.toString()+')').addClass('current');
             flipsnap.element.addEventListener('fspointmove', function() {
               pointer.filter('.current').removeClass('current');
