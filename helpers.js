@@ -27,6 +27,7 @@ module.exports = function(models, redisClient) {
 		console.log('about to create default dashes for ', uuid);
 		for (var i = 0; i < designer_dashes.length; ++i) {
 			models.Dash.findOne(designer_dashes[i], function(error, dash){
+				console.log(dash);
 				var selected = '';			
 
 				if (dash.setting_type == 'radio') {
@@ -68,6 +69,8 @@ module.exports = function(models, redisClient) {
 					collection_name: dash.collection_name,
 					has_settings: dash.has_settings
 				});
+
+				console.log(ud);
 
 				ud.save(function(error){
 					if (error) {
