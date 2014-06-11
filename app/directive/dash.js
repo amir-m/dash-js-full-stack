@@ -11,7 +11,7 @@ angular.module('DashbookApp')
       templateUrl: '/partials/dash.html', 
       link: function (scope, element, attrs) {
 
-        scope.d.content = [], scope.flipTo = 1;
+        scope.d.content = [], scope.flipTo = null;
 
         function apiCallEngine() {
           
