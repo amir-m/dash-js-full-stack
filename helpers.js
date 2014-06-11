@@ -25,48 +25,90 @@ module.exports = function(models, redisClient) {
 
 	function createDefaultDashes(uuid) {
 		console.log('about to create default dashes for ', uuid);
-		models.Dash.find(function(error, dashes){
-			
-			if (error) {
-				console.log(error)
-				return res.send(500);
-				throw error
-			};
-
-
-			for (var i = 0; i < dashes.length; ++i) {
+		for (var i = 0; i < designer_dashes.length; ++i) {
+			models.Dash.findOne(designer_dashes[i], function(error, dash){
 				var selected = '';			
 
-				if (dashes[i].settingType == 'radio')
-					selected = dashes[i].settings[0];
-				else if (dashes[i].settingType == 'text' || dashes[i].settingType == 'textInput') {
-					selected = dashes[i].settings;	
+				if (dash.setting_type == 'radio') {
+					selected = dash.settings[0];
+				}
+				else if (dash.setting_type == 'textInput') {
+					selected = dash.settings;
 				}
 
-				models.dashes.UserDash.create({
-					_id: models.dashes.objectId(),
-					dash_id: dashes[i]._id,
-					dashType: dashes[i].dashType,
+				var ud = new models.UserDash({
+					id: models.id(),
+					dash_id: dash.id,
 					user: uuid,
-					title: dashes[i].title,
-					subTitle: dashes[i].subTitle,
-					description: dashes[i].description,
-					credits: dashes[i].credits,
-					iconLarge: dashes[i].iconLarge,
-					iconSmall: dashes[i].iconSmall,
-					settings: dashes[i].settings,
-					selectedSetting: selected,
-					settingType: dashes[i].settingType
-				}, function(error){
+					title: dash.title,
+					location: {
+						lat: req.param('lat'),
+						lon: req.param('lon')
+					},
+					description: dash.description,
+					credits: dash.credits,
+					icon_small: dash.icon_small,
+					icon_large: dash.icon_large,
+					setting_type: dash.setting_type,
+					selected_setting: selected,
+					selected_setting_uri_field: dash.selected_setting_uri_field || '',
+					source_uri_scheme: dash.source_uri_scheme || '',
+					content_type: dash.content_type,
+					source_uri_keys: dash.source_uri_keys,
+					source_uri_values: dash.source_uri_values,
+					selected_source_uri: (dash.source_uri && dash.source_uri[0]) ? dash.source_uri[0] : '', 
+					handler_placeholder: dash.handler_placeholder,
+					data_container: dash.data_container,
+					settings: dash.settings,
+					source_uri: dash.source_uri,
+					mapper_key: dash.mapper_key,
+					mapper_value: dash.mapper_value,
+					mapper_static_key: dash.mapper_static_key,
+					mapper_static_value: dash.mapper_static_value,
+					collection_name: dash.collection_name,
+					has_settings: dash.has_settings
+				});
+
+				ud.save(function(error){
 					if (error) {
 						console.log(error)
-					}
-					else console.log('default dash created for user %s', uuid);
+						res.send(500);
+						throw error;
+					};
+					models.User.addDash(uuid, ud.id);
 				});
-				
+
+			});
+			var selected = '';			
+
+			if (dashes[i].settingType == 'radio')
+				selected = dashes[i].settings[0];
+			else if (dashes[i].settingType == 'text' || dashes[i].settingType == 'textInput') {
+				selected = dashes[i].settings;	
 			}
+
+			models.dashes.UserDash.create({
+				_id: models.dashes.objectId(),
+				dash_id: dashes[i]._id,
+				dashType: dashes[i].dashType,
+				user: uuid,
+				title: dashes[i].title,
+				subTitle: dashes[i].subTitle,
+				description: dashes[i].description,
+				credits: dashes[i].credits,
+				iconLarge: dashes[i].iconLarge,
+				iconSmall: dashes[i].iconSmall,
+				settings: dashes[i].settings,
+				selectedSetting: selected,
+				settingType: dashes[i].settingType
+			}, function(error){
+				if (error) {
+					console.log(error)
+				}
+				else console.log('default dash created for user %s', uuid);
+			});
 			
-		});
+		}
 	};
 
 	function getBase64(base) {

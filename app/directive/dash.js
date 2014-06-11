@@ -68,17 +68,18 @@ angular.module('DashbookApp')
                 }
                 first_last_diff = last_today_index - first_today_index;
 
-                if (first_today_index > 2) {
-                  apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(first_today_index - 3, apiResponseJson[scope.d.data_container].length);
-                  first_today_index = 3;
+                if (first_today_index > 3) {
+                  apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(first_today_index - 4, apiResponseJson[scope.d.data_container].length);
+                  first_today_index = 4;
                   last_today_index = first_today_index + first_last_diff;
                 }
 
-                if ((apiResponseJson[scope.d.data_container].length - last_today_index) > 3) {
+                if ((apiResponseJson[scope.d.data_container].length - last_today_index) > 4) {
                   console.log(first_today_index, last_today_index, apiResponseJson[scope.d.data_container].length)
-                  apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, last_today_index + 4);
+                  apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, last_today_index + 5);
                 }
 
+                // TODO: Remove this when games start...  
                 if (apiResponseJson[scope.d.data_container].length > 12) 
                   apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, 10);
 
