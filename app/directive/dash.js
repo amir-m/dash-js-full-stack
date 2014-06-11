@@ -1,4 +1,4 @@
-'use strict';
+// 'use strict';
 
 angular.module('DashbookApp')
   .directive('dash', [
@@ -203,7 +203,7 @@ angular.module('DashbookApp')
             }, 
             "error": function(error) {
               console.log(arguments);
-              // apiCallEngine();
+              apiCallEngine();
             }
           });
         };
