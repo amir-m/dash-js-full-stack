@@ -32,7 +32,7 @@ module.exports = function(express, app, mongoose, cookie, models, redisClient) {
 		res.cookie('latitude', '45.495744', { maxAge: 100*60*1000, httpOnly: false });
 		res.cookie('longitude', '-73.563195', { maxAge: 100*60*1000, httpOnly: false });
 
-		return next();
+		// return next();
 		
 		// if (req.path == '/relaunch' || req.path == '/') {
 		// 	console.log(req.path);
