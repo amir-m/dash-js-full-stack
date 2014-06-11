@@ -42,10 +42,6 @@ module.exports = function(models, redisClient) {
 					dash_id: dash.id,
 					user: uuid,
 					title: dash.title,
-					location: {
-						lat: req.param('lat'),
-						lon: req.param('lon')
-					},
 					description: dash.description,
 					credits: dash.credits,
 					icon_small: dash.icon_small,
