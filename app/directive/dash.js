@@ -79,7 +79,8 @@ angular.module('DashbookApp')
                   apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, last_today_index + 4);
                 }
 
-                console.log(apiResponseJson[scope.d.data_container].length)
+                if (apiResponseJson[scope.d.data_container].length > 12) 
+                  apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, 10);
 
                 scope.flipTo = first_today_index > 1 ? first_today_index + 1 : 1;
 
