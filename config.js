@@ -27,16 +27,16 @@ module.exports = function(express, app, mongoose, cookie, models, redisClient) {
 		// console.log('req.path:');
 
 
-		// res.cookie('uuid', 'iNEYxOEU4NjctMjQzOS00NzMzLUI0QzgtQjE4N0QxNEQzNDU3', { maxAge: 100*60*1000, httpOnly: false });
-		// res.cookie('sid', 'NTJhYjcwY2M3YjNhNTk3ODYxMDAwMDAx', { maxAge: 100*60*1000, httpOnly: false });
-		// res.cookie('latitude', '45.495744', { maxAge: 100*60*1000, httpOnly: false });
-		// res.cookie('longitude', '-73.563195', { maxAge: 100*60*1000, httpOnly: false });
+		res.cookie('uuid', 'iNEYxOEU4NjctMjQzOS00NzMzLUI0QzgtQjE4N0QxNEQzNDU3', { maxAge: 100*60*1000, httpOnly: false });
+		res.cookie('sid', 'NTJhYjcwY2M3YjNhNTk3ODYxMDAwMDAx', { maxAge: 100*60*1000, httpOnly: false });
+		res.cookie('latitude', '45.495744', { maxAge: 100*60*1000, httpOnly: false });
+		res.cookie('longitude', '-73.563195', { maxAge: 100*60*1000, httpOnly: false });
 
-		// req.headers['x-latitude'] = '45.495744';
-		// req.headers['x-longitude'] = '-73.563195';
-		// req.headers['x-userid'] = 'iNEYxOEU4NjctMjQzOS00NzMzLUI0QzgtQjE4N0QxNEQzNDU3';
+		req.headers['x-latitude'] = '45.495744';
+		req.headers['x-longitude'] = '-73.563195';
+		req.headers['x-userid'] = 'iNEYxOEU4NjctMjQzOS00NzMzLUI0QzgtQjE4N0QxNEQzNDU3';
 
-		// return next();
+		return next();
 		
 		// if (req.path == '/relaunch' || req.path == '/') {
 		// 	console.log(req.path);
