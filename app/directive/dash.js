@@ -621,7 +621,7 @@ angular.module('DashbookApp')
                   var _scope = scope.$new();
                   _scope.content = apiResponseJson[scope.d.privateDash.data_container][i];
                   
-                  // scope.d.privateDash.content.push(_scope.$id);
+                  scope.d.content.push(_scope.$id);
 
 
                   $('#'+scope.d.id + ' .flipsnap').append($compile(begin)(_scope));
