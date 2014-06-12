@@ -17,7 +17,7 @@ angular.module('DashbookApp')
 
     console.log($scope.user);
 
-    if ($scope.user.notifications > 1) {
+    if ($scope.user.notifications > 0) {
         $http.get('/notifications/'+$scope.user.uuid)
         .success(function(data){
             console.log(data);
