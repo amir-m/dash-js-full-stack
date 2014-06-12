@@ -15,12 +15,12 @@ angular.module('DashbookApp')
       		$rootScope.$apply();
     };
 
-    console.log($scope.user);
-
     if ($scope.user.notifications > 0) {
         $http.get('/notifications/'+$scope.user.uuid)
         .success(function(data){
             console.log(data);
+            $scope.user.nots = data;
+
         })
         .error(function(error){
             console.log(error)

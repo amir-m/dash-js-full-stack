@@ -244,6 +244,7 @@ var NotificationsSchema = new mongoose.Schema({
 	uuid: String,
 	seen: { type: Boolean, default: false },
 	text: String,
+	is_active: { type: Boolean, default: true },
 	seen_at: Number,
 	created_at: Number
 });

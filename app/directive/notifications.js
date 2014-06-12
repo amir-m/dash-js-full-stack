@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('DashbookApp')
-  .directive('notifications', [
+.directive('notifications', [
   '$http', '$timeout', '$rootScope', '$compile',
   function ($http, $timeout, $rootScope, $compile) {
     return {
@@ -12,4 +12,5 @@ angular.module('DashbookApp')
       link: function (scope, element, attrs) {
       }
     };
-  }]);
+  }
+]);

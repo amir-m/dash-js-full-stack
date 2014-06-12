@@ -540,7 +540,7 @@ angular.module('DashbookApp')
         };
 
         function apiCall() {
-          console.log(scope.d.privateDash)
+
           $http.get('http://requestor-env.elasticbeanstalk.com/call?'+scope.d.privateDash.source_uri)
           .success(function(apiResponseJson, status, headers){
 
