@@ -327,7 +327,8 @@ function createUser(user) {
 		created_at: user.created_at,
 		platform: user.platform,
 		app_first_launch_at: user.app_first_launch_at,
-		status: 1 // 1: just created, 2: waiting for confirmation, 3: confirmed
+		status: 1, // 1: just created, 2: waiting for confirmation, 3: confirmed
+		notifications: 0
 	});
 
 	user.is_active = true;

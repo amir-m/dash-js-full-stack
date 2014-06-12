@@ -12,6 +12,8 @@ angular.module('DashbookApp')
       		$rootScope.$apply();
     };
 
+    console.log($scope.user);
+
     $scope.add = function(dash) {
 
         if (!dash.addRequested) {
