@@ -313,6 +313,8 @@ function findOneUser (id, callback) {
 			throw error;
 		}
 
+		_user.notifications = parseInt(_user.notifications);
+
 		if (_user.dashes && _user.dashes.length > 0)
 			_user.dashes = _user.dashes.split(":");
 		
