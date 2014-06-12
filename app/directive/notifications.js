@@ -9,8 +9,8 @@ angular.module('DashbookApp')
       replace: true,
       templateUrl: '/partials/notifications.html', 
       link: function (scope, element, attrs) {
-        console.log(not);
-        $(element).find('.notification-text').append($compile(not.text)(scope));
+        console.log(scope.not);
+        $(element).find('.notification-text').append($compile(scope.not.text)(scope));
       }
     };
   }
