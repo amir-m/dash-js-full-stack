@@ -548,6 +548,8 @@ angular.module('DashbookApp')
               $('#' + scope.d.id + ' .spinner').hide();
 
               var content = [];
+              
+              console.log(apiResponseJson[scope.d.privateDash.container].length);
 
               for (var i = 0; i < apiResponseJson[scope.d.privateDash.container].length; ++i) {
                 if (scope.d.privateDash.type_indicator == 'type_image') {
