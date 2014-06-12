@@ -94,7 +94,6 @@ angular.module('DashbookApp')
 
               for (var i = 0; i < apiResponseJson[scope.d.data_container].length; ++i) {
                 
-
                 apiResponseJson[scope.d.data_container][i].components = {};
 
                 var begin = '<section><div>',
@@ -552,56 +551,86 @@ angular.module('DashbookApp')
               console.log(apiResponseJson[scope.d.privateDash.data_container].length);
 
               for (var i = 0; i < apiResponseJson[scope.d.privateDash.data_container].length; ++i) {
-                if (scope.d.privateDash.type_indicator == 'type_image') {
-                  
-                  var footer = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.footer_key;
-                  eval('footer = apiResponseJson.'+footer+';');
-                  var image = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.image_key;
-                  eval('image = apiResponseJson.'+image+';');
-                  if (i < 10) content.push({
-                    main_img: image,
-                    footer: footer
-                  });
+                                
+                apiResponseJson[scope.d.privateDash.data_container][i].components = {};
+
+                var begin = '<section><div>',
+                  end = '</div></section>';                
+
+                for (var j = 0; j < scope.d.privateDash.content_type.length; ++j) {
+                  apiResponseJson[scope.d.privateDash.data_container][i].components[scope.d.privateDash.content_type[j]] = {};
                 }
-                else if (scope.d.privateDash.type_indicator == 'type_text') {
-                  var footer = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.footer_key;
-                  var text = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.text_key;
-                  var header = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.header_key;
-                  eval('footer = apiResponseJson.'+footer+';');
-                  eval('text = apiResponseJson.'+text+';');
-                  eval('header = apiResponseJson.'+header+';');
-                  if (i < 10) content.push({
-                    text: text,
-                    footer: footer,
-                    header: header
-                  });
+
+                
+                for (var j = 0; j < scope.d.privateDash.mapper_key.length; ++j) {
+                  var value = scope.d.privateDash.mapper_value[j];
+                  if (scope.d.privateDash.mapper_value[j].indexOf('.') != -1) {
+                    value = '';
+                    var values = scope.d.privateDash.mapper_value[j].split('.');
+                    for (var k = 0; k < values.length; ++k) {
+                      value += values[k];
+                      if (k != values.length -1) value += '.';
+                    }
+                  }
+
+                  eval("apiResponseJson[scope.d.privateDash.data_container][i].components."+scope.d.privateDash.mapper_key[j]+
+                    " = apiResponseJson[scope.d.privateDash.data_container][i]." + value);
                 }
-                else {
-                  var footer = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.footer_key;
-                  eval('footer = apiResponseJson.'+footer+';');
-                  var header = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.header_key;
-                  eval('header = apiResponseJson.'+header+';');
-                  var image = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.image_key;
-                  eval('image = apiResponseJson.'+image+';');
-                  
-                  if (i < 10) content.push({
-                    main_img: image,
-                    footer: footer,
-                    header: header
-                  });
+
+                if (scope.d.privateDash.mapper_static_key) {
+                    for (var j = 0; j < scope.d.privateDash.mapper_static_key.length; ++j) {
+                      
+                      var value = scope.d.privateDash.mapper_static_value[j];
+
+                      // console.log(scope.d.privateDash.mapper_static_value);
+  
+                      eval("apiResponseJson[scope.d.privateDash.data_container][i].components."+scope.d.privateDash.mapper_static_key[j]+
+                        " = '"+value+"'");
+                    }
                 }
-                if (i < 10) {
-                  var html = '<section><private></private></section>';
+
+                for (var j = 0; j < scope.d.privateDash.content_type.length; ++j) {
+                  var component = '<' + scope.d.privateDash.content_type[j] +'>' + '</' + scope.d.privateDash.content_type[j] +'>';
+                  begin += component;
+                }
+                
+                // TODO: Make it generic: 
+                if (scope.d.privateDash.title == "Food Near Me" 
+                  || scope.d.privateDash.title == "Coffee Near Me" 
+                  || scope.d.privateDash.title == "Places Near Me") {
+                  begin += end;
                   var _scope = scope.$new();
-                  _scope.content = content[i];
-                  $('#'+scope.d.id + ' .flipsnap').append($compile(html)(_scope));
+                  
+                  _scope.content = apiResponseJson[scope.d.privateDash.data_container][i];
+                  
+
+                  tmp_con.push({
+                    _scope: _scope,
+                    html: begin,
+                    id: _scope.$id
+                  });
+
+                  // $('#'+scope.d.privateDash.id + ' .flipsnap').append($compile(begin)(_scope));
+                  // scope.d.privateDash.content.push(_scope.$id);
                 }
-                // scope.d.content.push(_scope.$id);
+
+                else {
+
+                  begin += end;
+                  var _scope = scope.$new();
+                  _scope.content = apiResponseJson[scope.d.privateDash.data_container][i];
+                  
+                  scope.d.privateDash.content.push(_scope.$id);
+
+
+                  $('#'+scope.d.privateDash.id + ' .flipsnap').append($compile(begin)(_scope));
+                }
+                // scope.d.privateDash.content.push(_scope.$id);
 
               };
               // content.splice(0, 10);
 
-              scope.d.content = content;
+              scope.d.privateDash.content = content;
               scope.attachFlipsnap();
               scope.safeApply();
               // scope.$broadcast('resize');
