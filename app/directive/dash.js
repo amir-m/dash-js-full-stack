@@ -544,12 +544,13 @@ angular.module('DashbookApp')
           $http.get('http://requestor-env.elasticbeanstalk.com/call?'+scope.d.privateDash.source_uri)
           .success(function(apiResponseJson, status, headers){
 
+            if (apiResponseJson[scope.d.data_container].length > 10) 
+                  apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, 10);
+
               $('#' + scope.d.id + ' .spinner').hide();
 
               var content = [];
               
-              console.log(apiResponseJson[scope.d.privateDash.data_container].length);
-
               for (var i = 0; i < apiResponseJson[scope.d.privateDash.data_container].length; ++i) {
                                 
                 apiResponseJson[scope.d.privateDash.data_container][i].components = {};
