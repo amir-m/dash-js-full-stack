@@ -128,17 +128,14 @@ module.exports = function (models, redisClient, cookie) {
 	};
 
 	var getNotifications = function (req, res, next) {
-		console.log(req.param('uuid'));
+
 		models.Notifications.find({ is_active: true, uuid: req.param('uuid') })
 		.exec(function(error, nots){
 			if (error) {
 				res.send(500);
 				throw error;
 			}
-			console.log(nots);
-			return res.send({
-				test: 'yeeeees'
-			});
+			res.send(nots);
 		});
 	};
 
