@@ -549,9 +549,9 @@ angular.module('DashbookApp')
 
               var content = [];
               
-              console.log(apiResponseJson[scope.d.privateDash.container].length);
+              console.log(apiResponseJson[scope.d.privateDash.data_container].length);
 
-              for (var i = 0; i < apiResponseJson[scope.d.privateDash.container].length; ++i) {
+              for (var i = 0; i < apiResponseJson[scope.d.privateDash.data_container].length; ++i) {
                 if (scope.d.privateDash.type_indicator == 'type_image') {
                   
                   var footer = scope.d.privateDash.container + '['+i+'].' + scope.d.privateDash.footer_key;
