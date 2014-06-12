@@ -667,6 +667,29 @@ keyframes jiggle 0%  {
 keyframes jiggle 100%  {
   -webkit-transform: rotate(-1deg); }
 
+.slide-up {
+  -webkit-animation: ease-in-out slide-up 500ms;
+  animation: ease-in-out slide-up 500ms; }
+
+@-webkit-keyframes slide-up {
+  0% {
+    -webkit-transform: translateY(6em);
+    opacity: 0; }
+
+  80% {
+    -webkit-transform: translateY(-0.5em); }
+
+  100% {
+    -webkit-transform: translateY(0); } }
+
+keyframes slide-up 0%  {
+  -webkit-transform: translateY(6em);
+  opacity: 0; }
+keyframes slide-up 80%  {
+  -webkit-transform: translateY(-0.5em); }
+keyframes slide-up 100%  {
+  -webkit-transform: translateY(0); }
+
 /* ==========================================================================
    Helper classes
    ========================================================================== */
