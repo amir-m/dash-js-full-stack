@@ -128,7 +128,7 @@ module.exports = function (models, redisClient, cookie) {
 	};
 
 	var getNotifications = function (req, res, next) {
-		console.log(req.uuid);
+		console.log(req.param('uuid'));
 		return res.send({
 			test: 'yeeeees'
 		});
