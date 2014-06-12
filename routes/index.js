@@ -127,6 +127,13 @@ module.exports = function (models, redisClient, cookie) {
 		});
 	};
 
+	var getNotifications = function (req, res, next) {
+		console.log(req.uuid);
+		return res.send({
+			test: 'yeeeees'
+		});
+	};
+
 	return {
 		init: init,
 		exit: exit,
@@ -134,7 +141,8 @@ module.exports = function (models, redisClient, cookie) {
 		relaunch: relaunch,
 		email: email,
 		count: count,
-		getMe: getMe
+		getMe: getMe,
+		getNotifications: getNotifications
 	}
 }
 

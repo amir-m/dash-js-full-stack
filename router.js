@@ -20,6 +20,7 @@ module.exports = function(routes, app) {
 	app.get('/dashes/:id/settings', routes.settings.read);
 	app.get('/email/count', routes.index.count);
 	app.get('/me/:id', routes.index.getMe);
+	app.get('/notifications/:uuid', routes.index.getNotifications);
 
 	// app.get('/testycool', routes.dashes.create);
 

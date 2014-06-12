@@ -239,6 +239,17 @@ PrivateDashSchema.set('toObject', { virtuals: true });
 var Content = mongoose.model('Content', ContentSchema);
 var WaitingListEntry = mongoose.model('WaitingListEntry', WaitingListEntrySchema);
 
+var NotificationsSchema = new mongoose.Schema({
+	id: String,
+	uuid: String,
+	seen: { type: Boolean, default: false },
+	text: String,
+	seen_at: Number,
+	created_at: Number
+});
+var Notifications = mongoose.model('Notifications', NotificationsSchema);
+
+
 ////	DASH 	////
 function findOneDash(id, callback) {
 	
@@ -506,7 +517,7 @@ function registerUser(user, callback) {
 			}
 		});
 	});
-}; ////	USER 		////
+}; ////	USER 	////
 
 
 ////	SESSION 	////
@@ -655,3 +666,4 @@ exports.ready = ready;
 exports.cipher = cipher;
 exports.decipher = decipher;
 exports.WaitingListEntry = WaitingListEntry;
+exports.Notifications = Notifications;

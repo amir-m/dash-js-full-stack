@@ -2,7 +2,10 @@
 
 angular.module('DashbookApp')
   .controller('MainCtrl', [
-  	'$scope', 'dashes', '$rootScope', '$http',
+  	'$scope', 
+    'dashes', 
+    '$rootScope', 
+    '$http',
   function ($scope, dashes, $rootScope, $http) {
     
     // $rootScope.myDashes = dashes;
@@ -13,6 +16,16 @@ angular.module('DashbookApp')
     };
 
     console.log($scope.user);
+
+    if ($scope.user.notifications > 1) {
+        $http.get('/notifications/'+$scope.user.uuid)
+        .success(function(data){
+            console.log(data);
+        })
+        .error(function(){
+
+        });
+    };
 
     $scope.add = function(dash) {
 
