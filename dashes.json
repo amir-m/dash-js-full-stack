@@ -33,7 +33,7 @@
 	"id": "NHI5NjJwYzUBMwQ3ZjUxWDliMDAwMDAx",
 	"source_uri": "http://engine-env.elasticbeanstalk.com/fifa",
 	"content_type": "src_comp:sports_comp",
-	"title": "World Cup Brasil",
+	"title": "World Cup Brazil",
 	"description": "Displays World Cup matches and live scores.",
 	"credits": "FIFA", 
 	"icon_large": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/worldcup_large_icon.png",

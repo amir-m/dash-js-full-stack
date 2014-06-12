@@ -239,17 +239,7 @@ PrivateDashSchema.set('toObject', { virtuals: true });
 var Content = mongoose.model('Content', ContentSchema);
 var WaitingListEntry = mongoose.model('WaitingListEntry', WaitingListEntrySchema);
 
-function _objectId() {
-	var id = (new mongoose.Types.ObjectId).toString();
-	id = crypto.createHash('sha1').update(id).digest('hex');
-	return (new Buffer(id).toString('base64').replace(/=/g, ""));
-};
-
-function config (m, r) {
-	redisClient = r;
-	return self;
-};
-
+////	DASH 	////
 function findOneDash(id, callback) {
 	
 	redisClient.hgetall('dash:'+id, function(error, _dash){
@@ -283,7 +273,6 @@ function findOneDash(id, callback) {
 
 	});
 };
-
 function findDash(callback) {
 
 	var d = [];
@@ -311,8 +300,10 @@ function findDash(callback) {
 			}(i));
 		}
 	});
-};
+}; ////	DASH 	////
 
+
+////	USER 	////
 function findOneUser (id, callback) {
 	
 	redisClient.hgetall('user:'+id, function(error, _user){
@@ -512,8 +503,10 @@ function registerUser(user, callback) {
 			}
 		});
 	});
-};
+}; ////	USER 		////
 
+
+////	SESSION 	////
 function createSession(session) {
 	
 	// console.log(session)
@@ -587,8 +580,19 @@ function updateSession(update) {
 
 		redisClient.hset('session:'+update.uuid, 'updates', updates);
 	});
-};
+}; ////	SESSION 	////
 
+
+////	Helpers 	////
+function _objectId() {
+	var id = (new mongoose.Types.ObjectId).toString();
+	id = crypto.createHash('sha1').update(id).digest('hex');
+	return (new Buffer(id).toString('base64').replace(/=/g, ""));
+};
+function config (m, r) {
+	redisClient = r;
+	return self;
+};
 function cipher (text) {
 	// change the key
 	var key = 'NmU5MTgzYzJhNjM1N2JkZjhhMjAxZDc5OWM0ODFlZDYzMTYxNmQ3Ng';
@@ -598,7 +602,6 @@ function cipher (text) {
 	crypted += cipher.final('hex');
 	return crypted;		
 };
-
 function decipher(text){
 	var key = 'NmU5MTgzYzJhNjM1N2JkZjhhMjAxZDc5OWM0ODFlZDYzMTYxNmQ3Ng';
 	var decipher = crypto.createDecipher('aes-256-cbc', key);
@@ -606,13 +609,12 @@ function decipher(text){
 	dec += decipher.final('utf8');
 	return dec;
 };
-
 function ready(callback) {
 	mongoose.connect(connectionString, function(err){
 		if (err) throw err;
 		callback();
 	});
-};
+}; ////	Helpers 	////
 
 var Dash = {
 	findOne: findOneDash,
