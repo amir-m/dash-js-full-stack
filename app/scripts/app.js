@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('DashbookApp', [])
-  .config(['$routeProvider',function ($routeProvider) {
+  .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
     $routeProvider
       .when('/', {
         // templateUrl: '//s3.amazonaws.com/dbk-assets/main.html',
