@@ -541,6 +541,7 @@ angular.module('DashbookApp')
         };
 
         function apiCall() {
+          console.log(scope.d.privateDash)
           $http.get('http://requestor-env.elasticbeanstalk.com/call?'+scope.d.privateDash.source_uri)
           .success(function(apiResponseJson, status, headers){
 
@@ -606,13 +607,6 @@ angular.module('DashbookApp')
           .error(function(error, code) {
             if (error == 404 || code == 404) scope.d.notFound = true;
           });
-          // $.ajax({ 
-          //   "url": 'http://requestor-env.elasticbeanstalk.com/call?'+scope.d.privateDash.source_uri,
-          //   "dataType": "json",
-          //   "crossDomain": true,
-          //   "success": ,
-          //   "error": 
-          // });
         };
 
         function ajax(url, callback) {
