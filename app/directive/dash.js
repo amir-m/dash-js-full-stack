@@ -87,7 +87,7 @@ angular.module('DashbookApp')
 
                 for (var i = 0; i < apiResponseJson[scope.d.data_container].length; ++i) {
 
-                  if (apiResponseJson[scope.d.data_container].status.length > 0)
+                  if (apiResponseJson[scope.d.data_container].status && apiResponseJson[scope.d.data_container].status.length > 0)
                     apiResponseJson[scope.d.data_container].date = apiResponseJson[scope.d.data_container].status;
                 }
 
