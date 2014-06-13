@@ -22,6 +22,7 @@ angular.module('DashbookApp')
         .success(function(data){
             $scope.user.nots = data;
             $scope.nots.push($scope.user.nots[0]);
+            $http.post('/notification/'+$scope.user.nots[0]+'/seen');
         })
         .error(function(error){
             console.log(error)

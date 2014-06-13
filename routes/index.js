@@ -139,6 +139,20 @@ module.exports = function (models, redisClient, cookie) {
 		});
 	};
 
+	var postNotificationSeen = function (req, res, next) {
+
+		return res.send(200);
+		
+		models.Notifications.find({ is_active: true, uuid: req.param('uuid') })
+		.exec(function(error, nots){
+			if (error) {
+				res.send(500);
+				throw error;
+			}
+			res.send(nots);
+		});
+	};
+
 	return {
 		init: init,
 		exit: exit,
@@ -147,7 +161,8 @@ module.exports = function (models, redisClient, cookie) {
 		email: email,
 		count: count,
 		getMe: getMe,
-		getNotifications: getNotifications
+		getNotifications: getNotifications,
+		postNotificationSeen: postNotificationSeen
 	}
 }
 
