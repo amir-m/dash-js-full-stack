@@ -12,7 +12,7 @@ angular.module('DashbookApp')
         $(element).find('.notification-text').append($compile(scope.notification.text)(scope));
 
         scope.dismissMe = function() {
-          $http.post('/notification' 
+          $http.post('/notification/' 
             + scope.notification.id 
             + '/dismiss/' + scope.user.uuid, {
             dismissed_at: new Date().getTime()
