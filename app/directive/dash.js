@@ -82,8 +82,25 @@ angular.module('DashbookApp')
                 if (apiResponseJson[scope.d.data_container].length > 12) 
                   apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, 10);
 
-                scope.flipTo = first_today_index > 0 ? first_today_index + 1 : 1;
-                console.log(todays);
+                var index = null;
+                for (var i = 0; i < todays.length; ++i) {
+                  if (todays[i].status 
+                    && todays[i].status.length > 0 
+                    && todays[i].status.toLowerCase() != 'full-time')
+                    index = todays[i].id;
+                }
+                
+                if (index) {
+                  for (var i = 0; i < apiResponseJson[scope.d.data_container].length; i++) {
+                    if(apiResponseJson[scope.d.data_container][i].id == index) {
+                      scope.flipTo = i + 1;
+                    }
+                  };
+                }
+                else {
+                  scope.flipTo = first_today_index > 0 ? first_today_index + 1 : 1;
+                }
+                
 
               }
               else {
