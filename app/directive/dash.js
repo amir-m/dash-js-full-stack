@@ -54,8 +54,8 @@ angular.module('DashbookApp')
               apiResponseJson = apiResponseJson;
 
               if (scope.d.title == 'World Cup Brazil') {
-                var today = new Date(new Date().toLocaleDateString()).getTime(), last_today_index, first_today_index = -1, first_last_diff;
                 var todays = [];
+                var today = new Date(new Date().toLocaleDateString()).getTime(), last_today_index, first_today_index = -1, first_last_diff;
                 for (var i = 0; i < apiResponseJson[scope.d.data_container].length; ++i) {
 
                   apiResponseJson[scope.d.data_container][i].timestamp = new Date(apiResponseJson[scope.d.data_container][i].date).getTime();
@@ -89,7 +89,7 @@ angular.module('DashbookApp')
                     && todays[i].status.toLowerCase() != 'full-time')
                     index = todays[i].id;
                 }
-                
+
                 if (index) {
                   for (var i = 0; i < apiResponseJson[scope.d.data_container].length; i++) {
                     if(apiResponseJson[scope.d.data_container][i].id == index) {
@@ -111,9 +111,14 @@ angular.module('DashbookApp')
 
               for (var i = 0; i < apiResponseJson[scope.d.data_container].length; ++i) {
 
+                if (scope.d.title == 'World Cup Brazil')
+                {
+                  if (apiResponseJson[scope.d.data_container][i].status && apiResponseJson[scope.d.data_container][i].status.length > 0)
+                    apiResponseJson[scope.d.data_container][i].date = apiResponseJson[scope.d.data_container][i].status;
+                  else if (todays.indexOf(apiResponseJson[scope.d.data_container][i]) != -1)
+                    apiResponseJson[scope.d.data_container][i].date = 'Today';
 
-                if (scope.d.title == 'World Cup Brazil' && apiResponseJson[scope.d.data_container][i].status && apiResponseJson[scope.d.data_container][i].status.length > 0)
-                  apiResponseJson[scope.d.data_container][i].date = apiResponseJson[scope.d.data_container][i].status;
+                }
                 
                 apiResponseJson[scope.d.data_container][i].components = {};
 
@@ -166,7 +171,6 @@ angular.module('DashbookApp')
                   
                   _scope.content = apiResponseJson[scope.d.data_container][i];
                   
-
                   tmp_con.push({
                     _scope: _scope,
                     html: begin,
@@ -184,7 +188,6 @@ angular.module('DashbookApp')
                   _scope.content = apiResponseJson[scope.d.data_container][i];
                   
                   scope.d.content.push(_scope.$id);
-
 
                   $('#'+scope.d.id + ' .flipsnap').append($compile(begin)(_scope));
                 }
@@ -563,7 +566,6 @@ angular.module('DashbookApp')
         };
 
         function apiCall() {
-          console.log(scope.d.privateDash)
           $http.get(scope.engine_uri + scope.d.privateDash.source_uri)
           .success(function(apiResponseJson, status, headers){
 
