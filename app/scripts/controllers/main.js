@@ -10,6 +10,8 @@ angular.module('DashbookApp')
     
     // $rootScope.myDashes = dashes;
 
+    $scope.nots = [];
+
     $rootScope.safeApply = function() {
     	if ($rootScope.$$phase != '$apply' && $rootScope.$$phase != '$digest')
       		$rootScope.$apply();
@@ -18,9 +20,8 @@ angular.module('DashbookApp')
     if ($scope.user.notifications > 0) {
         $http.get('/notifications/'+$scope.user.uuid)
         .success(function(data){
-            console.log(data);
             $scope.user.nots = data;
-
+            $scope.nots.push($scope.user.nots[0]);
         })
         .error(function(error){
             console.log(error)
