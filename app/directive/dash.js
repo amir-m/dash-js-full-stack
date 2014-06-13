@@ -85,11 +85,6 @@ angular.module('DashbookApp')
 
                 scope.flipTo = first_today_index > 0 ? first_today_index + 1 : 1;
 
-                for (var i = 0; i < apiResponseJson[scope.d.data_container].length; ++i) {
-                  if (apiResponseJson[scope.d.data_container][i].status && apiResponseJson[scope.d.data_container][i].status.length > 0)
-                    apiResponseJson[scope.d.data_container][i].date = apiResponseJson[scope.d.data_container][i].status;
-                }
-
               }
               else {
 
@@ -98,6 +93,9 @@ angular.module('DashbookApp')
               }
 
               for (var i = 0; i < apiResponseJson[scope.d.data_container].length; ++i) {
+
+                if (scope.d.title == 'World Cup Brazil' && apiResponseJson[scope.d.data_container][i].status && apiResponseJson[scope.d.data_container][i].status.length > 0)
+                  apiResponseJson[scope.d.data_container][i].date = apiResponseJson[scope.d.data_container][i].status;
                 
                 apiResponseJson[scope.d.data_container][i].components = {};
 
