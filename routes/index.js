@@ -141,8 +141,8 @@ module.exports = function (models, redisClient, cookie) {
 
 	var postNotificationSeen = function (req, res, next) {
 
-		return res.send(200);
-		
+		return res.send(400);
+
 		models.Notifications.find({ is_active: true, uuid: req.param('uuid') })
 		.exec(function(error, nots){
 			if (error) {
