@@ -130,6 +130,7 @@ module.exports = function (models, redisClient, cookie) {
 	var getNotifications = function (req, res, next) {
 
 		models.Notifications.find({ is_active: true, uuid: req.param('uuid') })
+		.sort({ created_at: 1 })
 		.exec(function(error, nots){
 			if (error) {
 				res.send(500);
