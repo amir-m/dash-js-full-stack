@@ -20,6 +20,7 @@ angular.module('DashbookApp')
     if ($scope.user.notifications > 0) {
         $http.get('/notifications/'+$scope.user.uuid)
         .success(function(data){
+            console.log(data)
             $scope.user.nots = data;
             $scope.nots.push($scope.user.nots[0]);
             $http.post('/notification/'+$scope.user.nots[0].id+'/seen', 

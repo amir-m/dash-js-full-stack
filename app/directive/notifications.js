@@ -20,7 +20,7 @@ angular.module('DashbookApp')
           
           scope.user.nots.splice(0, 1);
           scope.nots.pop();
-
+          scope.safeApply();
           if (scope.user.nots.length > 0) {
             scope.nots.push(scope.user.nots[0]);
           }
