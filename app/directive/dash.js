@@ -317,6 +317,7 @@ angular.module('DashbookApp')
             .success(function(data){
               scope.flipSettings();
               scope.d.notFound = null;
+              $('#'+scope.d.id + ' .flipsnap').empty();
               scope.d.privateDash = data.privateDash;
               apiCall(data);
               // $('#' + scope.d.id + ' .spinner').hide();
