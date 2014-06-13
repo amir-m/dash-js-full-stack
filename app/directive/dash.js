@@ -92,8 +92,8 @@ angular.module('DashbookApp')
 
               for (var i = 0; i < apiResponseJson[scope.d.data_container].length; ++i) {
 
-                if (scope.d.title == 'World Cup Brazil' && apiResponseJson[scope.d.data_container][i].status && apiResponseJson[scope.d.data_container][i].status.length > 0)
-                  apiResponseJson[scope.d.data_container][i].date = apiResponseJson[scope.d.data_container][i].status;
+                // if (scope.d.title == 'World Cup Brazil' && apiResponseJson[scope.d.data_container][i].status && apiResponseJson[scope.d.data_container][i].status.length > 0)
+                //   apiResponseJson[scope.d.data_container][i].date = apiResponseJson[scope.d.data_container][i].status;
                 
                 apiResponseJson[scope.d.data_container][i].components = {};
 
