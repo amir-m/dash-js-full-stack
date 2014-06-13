@@ -53,7 +53,7 @@ angular.module('DashbookApp')
 
               apiResponseJson = apiResponseJson;
 
-              if (scope.d.title == 'World Cup Brasil') {
+              if (scope.d.title == 'World Cup Brazil') {
                 var today = new Date(new Date().toLocaleDateString()).getTime(), last_today_index, first_today_index = -1, first_last_diff;
                 for (var i = 0; i < apiResponseJson[scope.d.data_container].length; ++i) {
 
