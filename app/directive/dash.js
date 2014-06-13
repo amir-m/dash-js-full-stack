@@ -59,7 +59,7 @@ angular.module('DashbookApp')
 
                   apiResponseJson[scope.d.data_container][i].timestamp = new Date(apiResponseJson[scope.d.data_container][i].date).getTime();
 
-                  console.log(today, apiResponseJson.data[i].timestamp)
+                  console.log(today, apiResponseJson.data[i].timestamp, apiResponseJson[scope.d.data_container][i].date)
 
                   if (apiResponseJson.data[i].timestamp == today) {
                     if (first_today_index == -1) first_today_index = i;
