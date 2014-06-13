@@ -39,7 +39,7 @@ angular.module('DashbookApp')
           // });
 
           $.ajax({
-            "url": 'http://requestor-env.elasticbeanstalk.com/call?'+scope.d.selected_source_uri,
+            "url": scope.engine_uri + scope.d.selected_source_uri,
             "dataType": "json",
             // "xhrFields": {
             //   withCredentials: true
@@ -59,7 +59,7 @@ angular.module('DashbookApp')
 
                   apiResponseJson[scope.d.data_container][i].timestamp = new Date(apiResponseJson[scope.d.data_container][i].date).getTime();
 
-                  // console.log(today, apiResponseJson.data[i].timestamp)
+                  console.log(today, apiResponseJson.data[i].timestamp)
 
                   if (apiResponseJson.data[i].timestamp == today) {
                     if (first_today_index == -1) first_today_index = i;
@@ -540,8 +540,8 @@ angular.module('DashbookApp')
         };
 
         function apiCall() {
-
-          $http.get('http://requestor-env.elasticbeanstalk.com/call?'+scope.d.privateDash.source_uri)
+          console.log(scope.d.privateDash)
+          $http.get scope.engine_uri(+ scope.d.privateDash.source_uri)
           .success(function(apiResponseJson, status, headers){
 
             if (apiResponseJson[scope.d.privateDash.data_container].length > 10) 

@@ -39,7 +39,9 @@ angular.module('DashbookApp', [])
 
     var winWidth = $(window).width();
 
-    $rootScope.apply = function() {
+    $rootScope.engine_uri = 'http://requestor-env.elasticbeanstalk.com/call?';
+
+    $rootScope.safeApply = $rootScope.apply = function() {
       if ($rootScope.$$phase != '$apply' && $rootScope.$$phase != '$digest')
         $rootScope.$apply();
     };
