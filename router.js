@@ -34,6 +34,7 @@ module.exports = function(routes, app) {
 	app.post('/dashes/:id/settings', routes.settings.update); 
 	app.post('/dash/rearrange', routes.dashes.rearrange); 
 	app.post('/notification/:id/seen', routes.index.postNotificationSeen); 
+	app.post('/notification/:id/dismiss/:uuid', routes.index.postNotificationDismiss); 
 	
 	app.put('/dashes/:id/:uuid', routes.dashes.create);
 	app.put('/dashes/:id/accounts', routes.accounts.create);

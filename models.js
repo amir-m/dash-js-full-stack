@@ -245,6 +245,7 @@ var NotificationsSchema = new mongoose.Schema({
 	seen: { type: Boolean, default: false },
 	text: String,
 	is_active: { type: Boolean, default: true },
+	dismissed_at: Number,
 	seen_at: Number,
 	created_at: Number
 });
@@ -282,7 +283,6 @@ function findOneDash(id, callback) {
 			_dash.source_uri_values = _dash.source_uri_values.split(":");
 
 		callback(null, _dash);
-
 	});
 };
 function findDash(callback) {

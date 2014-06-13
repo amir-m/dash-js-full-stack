@@ -153,6 +153,29 @@ module.exports = function (models, redisClient, cookie) {
 		});
 	};
 
+	var postNotificationDismiss = function (req, res, next) {
+
+		models.Notifications.update({ id: req.param('id') }, 
+			{ $set: { is_active: false, dismissed_at: req.param('dismissed_at') } }, 
+			function(error, nots){
+			if (error) {
+				res.send(500);
+				throw error;
+			}
+
+			redisClient.hgetall('user:'+req.param('uuid'), function(error, user){
+
+				if (error) {
+					res.send(500);
+					throw error;
+				}
+				var n = parseInt(user.notifications);
+				redisClient.hset('user:'+req.param('uuid'), 'notifications', n - 1 );
+				res.send(200);
+			});
+		});
+	};
+
 	return {
 		init: init,
 		exit: exit,
@@ -162,7 +185,8 @@ module.exports = function (models, redisClient, cookie) {
 		count: count,
 		getMe: getMe,
 		getNotifications: getNotifications,
-		postNotificationSeen: postNotificationSeen
+		postNotificationSeen: postNotificationSeen,
+		postNotificationDismiss: postNotificationDismiss
 	}
 }
 
