@@ -9,6 +9,7 @@ angular.module('DashbookApp')
       replace: true,
       templateUrl: '/partials/notifications.html', 
       link: function (scope, element, attrs) {
+        
         $(element).find('.notification-text').append($compile(scope.notification.text)(scope));
 
         scope.dismissMe = function() {
@@ -20,9 +21,10 @@ angular.module('DashbookApp')
           
           scope.user.nots.splice(0, 1);
           scope.nots.pop();
-          scope.safeApply();
           if (scope.user.nots.length > 0) {
             scope.nots.push(scope.user.nots[0]);
+            scope.safeApply();
+            $(element).remove();
           }
         };
       }
