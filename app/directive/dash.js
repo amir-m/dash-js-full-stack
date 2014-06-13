@@ -541,7 +541,7 @@ angular.module('DashbookApp')
 
         function apiCall() {
           console.log(scope.d.privateDash)
-          $http.get scope.engine_uri(+ scope.d.privateDash.source_uri)
+          $http.get(scope.engine_uri + scope.d.privateDash.source_uri)
           .success(function(apiResponseJson, status, headers){
 
             if (apiResponseJson[scope.d.privateDash.data_container].length > 10) 
