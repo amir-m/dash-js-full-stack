@@ -112,14 +112,14 @@ angular.module('DashbookApp')
               for (var i = 0; i < apiResponseJson[scope.d.data_container].length; ++i) {
 
                 if (scope.d.title == 'World Cup Brazil') {
-                  console.log(apiResponseJson[scope.d.data_container][i]);
                   scope.d.selected_setting = '2014';
                   if (apiResponseJson[scope.d.data_container][i].status && apiResponseJson[scope.d.data_container][i].status.length > 0)
                     apiResponseJson[scope.d.data_container][i].date = apiResponseJson[scope.d.data_container][i].status;
                   else if (todays.indexOf(apiResponseJson[scope.d.data_container][i]) != -1)
                     apiResponseJson[scope.d.data_container][i].date = 'Today';
-                  else if (apiResponseJson[scope.d.data_container][i].utc_date_time)
-                    apiResponseJson[scope.d.data_container][i].date = new Date().getHours()+":00";
+                  else if (apiResponseJson[scope.d.data_container][i].utc_date_time) {
+                    apiResponseJson[scope.d.data_container][i].status = new Date(apiResponseJson[scope.d.data_container][i].utc_date_time).getHours()+":00";
+                  }
 
                 }
                 
