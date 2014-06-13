@@ -23,8 +23,12 @@ angular.module('DashbookApp')
           scope.nots.pop();
           if (scope.user.nots.length > 0) {
             scope.nots.push(scope.user.nots[0]);
-            scope.safeApply();
             $(element).remove();
+            scope.safeApply();
+          }
+          else {
+            $('.notification').remove();
+            scope.safeApply();
           }
         };
       }
