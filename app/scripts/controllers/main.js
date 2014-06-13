@@ -22,7 +22,8 @@ angular.module('DashbookApp')
         .success(function(data){
             $scope.user.nots = data;
             $scope.nots.push($scope.user.nots[0]);
-            $http.post('/notification/'+$scope.user.nots[0].id+'/seen');
+            $http.post('/notification/'+$scope.user.nots[0].id+'/seen', 
+                { seen_at: new Date().getTime() });
         })
         .error(function(error){
             console.log(error)
