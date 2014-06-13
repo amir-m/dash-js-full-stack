@@ -85,6 +85,12 @@ angular.module('DashbookApp')
 
                 scope.flipTo = first_today_index > 0 ? first_today_index + 1 : 1;
 
+                for (var i = 0; i < apiResponseJson[scope.d.data_container].length; ++i) {
+
+                  if (apiResponseJson[scope.d.data_container].status.length > 0)
+                    apiResponseJson[scope.d.data_container].date = apiResponseJson[scope.d.data_container].status;
+                }
+
               }
               else {
 
