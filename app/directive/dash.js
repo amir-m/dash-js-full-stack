@@ -55,6 +55,7 @@ angular.module('DashbookApp')
 
               if (scope.d.title == 'World Cup Brazil') {
                 var today = new Date(new Date().toLocaleDateString()).getTime(), last_today_index, first_today_index = -1, first_last_diff;
+                var todays = [];
                 for (var i = 0; i < apiResponseJson[scope.d.data_container].length; ++i) {
 
                   apiResponseJson[scope.d.data_container][i].timestamp = new Date(apiResponseJson[scope.d.data_container][i].date).getTime();
@@ -62,6 +63,7 @@ angular.module('DashbookApp')
                   if (apiResponseJson.data[i].timestamp == today) {
                     if (first_today_index == -1) first_today_index = i;
                     last_today_index = i;
+                    todays.push(apiResponseJson.data[i]);
                   }
                 }
                 first_last_diff = last_today_index - first_today_index;
@@ -81,6 +83,7 @@ angular.module('DashbookApp')
                   apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, 10);
 
                 scope.flipTo = first_today_index > 0 ? first_today_index + 1 : 1;
+                console.log(todays);
 
               }
               else {
