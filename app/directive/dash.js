@@ -113,6 +113,7 @@ angular.module('DashbookApp')
 
                 if (scope.d.title == 'World Cup Brazil')
                 {
+                  scope.d.selected_setting = '2014';
                   if (apiResponseJson[scope.d.data_container][i].status && apiResponseJson[scope.d.data_container][i].status.length > 0)
                     apiResponseJson[scope.d.data_container][i].date = apiResponseJson[scope.d.data_container][i].status;
                   else if (todays.indexOf(apiResponseJson[scope.d.data_container][i]) != -1)
