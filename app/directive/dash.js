@@ -118,6 +118,8 @@ angular.module('DashbookApp')
                     apiResponseJson[scope.d.data_container][i].date = apiResponseJson[scope.d.data_container][i].status;
                   else if (todays.indexOf(apiResponseJson[scope.d.data_container][i]) != -1)
                     apiResponseJson[scope.d.data_container][i].date = 'Today';
+                  else if (apiResponseJson[scope.d.data_container][i].utc_date_time)
+                    apiResponseJson[scope.d.data_container][i].date = new Date().getHours()+":00";
 
                 }
                 
