@@ -170,6 +170,8 @@ module.exports = function (models, redisClient, cookie) {
 					throw error;
 				}
 				var n = parseInt(user.notifications);
+				console.log('var n = parseInt(user.notifications);');
+				console.log(n);
 				redisClient.hset('user:'+req.param('uuid'), 'notifications', n - 1 );
 				res.send(200);
 			});
