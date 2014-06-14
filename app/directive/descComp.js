@@ -9,15 +9,17 @@ angular.module('DashbookApp')
       restrict: 'E',
       link: function postLink(scope, element, attrs) {
 
-        if (scope.content.components.desc_comp.header) 
-          scope.content.components.desc_comp.header = scope.content.components.desc_comp.header.substr(0, 16);
-        if (scope.content.components.desc_comp.text) 
-          scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.substr(0, 24);
-
-        if (scope.d.title == 'World Cup News' && scope.content.components.desc_comp.header) 
+        if (scope.d.title == 'World Cup News') {
           scope.content.components.desc_comp.header = scope.content.components.desc_comp.header.substr(0, 36);
-        if (scope.d.title == 'World Cup News' && scope.content.components.desc_comp.text) 
           scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.substr(0, 84);
+        }
+        else {
+          if (scope.content.components.desc_comp.header) 
+            scope.content.components.desc_comp.header = scope.content.components.desc_comp.header.substr(0, 16);
+          if (scope.content.components.desc_comp.text) 
+            scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.substr(0, 24);
+        }
+
 
         
         
