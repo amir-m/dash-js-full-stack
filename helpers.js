@@ -2,7 +2,7 @@ module.exports = function(models, redisClient) {
 
 	var dashes = require('./dashes.json');
 	// dribblle, dribbble stats ad behance 
-	var designer_dashes = ['NHI5NjJwYzUBMwQ3ZjUxWDliMDAwMDAx', 'NTI5NjJmYzUyMzQ3ZjUxZDliMDAwMDAx', 'NTJhOWRmMGYxODNiNTAwMDAwMDAwMDAx','NTI5NjM5ZTlmOGZjY2Q1ODliMDAwMDAx']
+	var default_dashes = ['NTI5NjNiMGYwZWZhNzI1ZTliMDAwMDAx', 'NHI5NjlJwBUkSwQZjUxWJupDAwMDAx', 'NHI5NjJwYzUBMwQ3ZjUxWDliMDAwMDAx'];
 
 	function insertDashesToRedisBackend() {
 		redisClient.keys('dash:*', function(error, _dashes){
@@ -25,8 +25,8 @@ module.exports = function(models, redisClient) {
 
 	function createDefaultDashes(uuid) {
 		console.log('about to create default dashes for ', uuid);
-		for (var i = 0; i < designer_dashes.length; ++i) {
-			models.Dash.findOne(designer_dashes[i], function(error, dash){
+		for (var i = 0; i < default_dashes.length; ++i) {
+			models.Dash.findOne(default_dashes[i], function(error, dash){
 				var selected = '';			
 
 				if (dash.setting_type == 'radio') {
