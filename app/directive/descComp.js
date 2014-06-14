@@ -9,8 +9,8 @@ angular.module('DashbookApp')
       restrict: 'E',
       link: function postLink(scope, element, attrs) {
 
-        scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.replace(/<(*.?)>/g, '');
-        scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.replace(/<\/(*.?)>/g, '');
+        scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.replace(/<+(?=*)>/, '');
+        scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.replace(/<\/+(?=*)>/, '');
 
         if (scope.d.title == 'World Cup News') {
           scope.content.components.desc_comp.header = scope.content.components.desc_comp.header.substr(0, 36);
