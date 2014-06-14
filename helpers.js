@@ -83,7 +83,7 @@ module.exports = function(models, redisClient) {
 
 	function confirmUser(email, from, callback) {
 		
-		email = models.cipher(email);
+		// email = models.cipher(email);
 		
 		models.WaitingListEntry.findOne({ email: email }, function(error, wle){
 			
