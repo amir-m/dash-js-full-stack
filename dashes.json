@@ -47,6 +47,23 @@
 	"has_settings": "false"
 },
 {
+	"id": "NHI5NjlJwBUkSwQZjUxWJupDAwMDAx",
+	"source_uri": "http://engine-env.elasticbeanstalk.com/fifa/news",
+	"content_type": "src_comp:hero_comp:desc_comp:footer_comp",
+	"title": "World Cup News",
+	"description": "Displays World Cup latest news.",
+	"credits": "FIFA", 
+	"icon_large": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/worldcup_large_icon.png",
+	"icon_small": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/worldcup_small_icon.png",
+	"setting_type": "",
+	"location": "",
+	"settings": "",
+	"data_container": "data",
+	"mapper_key": "src_comp.resource_uri:hero_comp.main_img:desc_comp.header:desc_comp.text:footer_comp.footer",
+	"mapper_value": "resource_uri:main_img:title:text:date",
+	"has_settings": "false"
+},
+{
 	"id": "NTJhOWRmMGYxODNiNTAwMDAwMDAwMDAx",
 	"content_type": "src_comp:hero_comp:desc_comp:footer_comp",
 	"title": "Dribbble Stats",
