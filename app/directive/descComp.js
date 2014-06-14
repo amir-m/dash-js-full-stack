@@ -17,7 +17,7 @@ angular.module('DashbookApp')
           // scope.content.components.desc_comp.header = scope.content.components.desc_comp.header.substr(0, 36);
           // scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.substr(0, 84);
           var t = scope.content.components.desc_comp.text.split(' ');
-          t.splice(0, 21);
+          t = t.splice(0, 21);
           scope.content.components.desc_comp.text = t.join(' ');
         }
         else {
