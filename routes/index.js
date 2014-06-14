@@ -13,7 +13,7 @@ module.exports = function (models, redisClient, cookie) {
 			code = req.body.email.split(':')[1];
 			req.body.email = t;
 		}
-		if (code && code == 'notmanparty') {
+		if (code && code == 'worldcup') {
 			setTimeout(function(){
 				require('../helpers')(models, redisClient).confirmUser(req.body.email, code, function(error){
 					if (error) throw error;
