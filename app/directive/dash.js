@@ -121,6 +121,9 @@ angular.module('DashbookApp')
                     apiResponseJson[scope.d.data_container][i].score = new Date(apiResponseJson[scope.d.data_container][i].utc_date_time).getHours()+":00";
                   }
                 }
+                else if (scope.d.title == 'World Cup News') {
+                  scope.d.selected_setting = 'Latest News';
+                }
                 
                 apiResponseJson[scope.d.data_container][i].components = {};
 
