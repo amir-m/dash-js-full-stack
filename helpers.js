@@ -81,15 +81,28 @@ module.exports = function(models, redisClient) {
 		return (new Buffer(base).toString('base64'));
 	};
 
-	function confirmUser(email, from, callback) {
+	function confirmUser(email, uuid, from, callback) {
 		
 		// email = models.cipher(email);
+
+		
 		
 		models.WaitingListEntry.findOne({ email: email }, function(error, wle){
 			
 			if (error && callback) return callback(error);
 			
-			if (!wle) return callback(404);
+			if (!wle) {
+				return callback(404);
+				models.User.register({
+					uuid: req.body.uuid,
+					email: req.body.email
+				}, function(error, status, count, conflict){
+					if ((error && error == 409) || conflict) res.send({ error: 409, count: count });
+					else if (error) return res.send(error);
+					else res.json({ status: status, count: count });
+				});
+			}
+
 
 			wle.confirmed = true;
 			wle.confirmed_by = from;

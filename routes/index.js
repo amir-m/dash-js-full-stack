@@ -10,27 +10,37 @@ module.exports = function (models, redisClient, cookie) {
 
 		if (req.body.email.indexOf(':') != -1) {
 			var t = req.body.email.split(':')[0];
+			if (!isEmailAddress(t)) return res.send(400);
 			code = req.body.email.split(':')[1];
 			req.body.email = t;
 		}
 		if (code && code == 'worldcup') {
+			redisClient.hmset('confirmed:'+user.email, 'confirmed_by', code, 'confirmed_at', new Date().getTime().toString());
 			setTimeout(function(){
-				require('../helpers')(models, redisClient).confirmUser(req.body.email, code, function(error){
-					if (error) throw error;
+				// require('../helpers')(models, redisClient).confirmUser(req.body.email, req.body.uuid, code, function(error){
+				// 	if (error) throw error;
+				// });
+				models.User.register({
+					uuid: req.body.uuid,
+					email: req.body.email
+				}, function(error, status, count, conflict){
+					if ((error && error == 409) || conflict) res.send({ error: 409, count: count });
+					else if (error) return res.send(error);
+					else res.json({ status: status, count: count });
 				});
 			}, 2000);
 		}
+		else 
+			models.User.register({
+				uuid: req.body.uuid,
+				email: req.body.email
+			}, function(error, status, count, conflict){
+				if ((error && error == 409) || conflict) res.send({ error: 409, count: count });
+				else if (error) return res.send(error);
+				else res.json({ status: status, count: count });
+			});
 
-		if (!isEmailAddress(req.body.email)) return res.send(400);
 
-		models.User.register({
-			uuid: req.body.uuid,
-			email: req.body.email
-		}, function(error, status, count, conflict){
-			if ((error && error == 409) || conflict) res.send({ error: 409, count: count });
-			else if (error) return res.send(error);
-			else res.json({ status: status, count: count });
-		});
 	};
 
 	var exit = function (req, res, next) {
