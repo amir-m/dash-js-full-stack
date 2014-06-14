@@ -28,7 +28,7 @@ module.exports = function (models, redisClient, cookie) {
 					else if (error) return res.send(error);
 					else res.json({ status: status, count: count });
 				});
-			}, 2000);
+			}, 1000);
 		}
 		else 
 			models.User.register({
