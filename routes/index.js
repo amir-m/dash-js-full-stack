@@ -15,7 +15,7 @@ module.exports = function (models, redisClient, cookie) {
 			req.body.email = t;
 		}
 		if (code && code == 'worldcup') {
-			redisClient.hmset('confirmed:'+user.email, 'confirmed_by', code, 'confirmed_at', new Date().getTime().toString());
+			redisClient.hmset('confirmed:'+req.body.email, 'confirmed_by', code, 'confirmed_at', new Date().getTime().toString());
 			setTimeout(function(){
 				// require('../helpers')(models, redisClient).confirmUser(req.body.email, req.body.uuid, code, function(error){
 				// 	if (error) throw error;
