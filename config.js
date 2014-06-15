@@ -26,16 +26,16 @@ module.exports = function(express, app, mongoose, cookie, models, redisClient) {
 
 		// console.log('req.path:');
 
-		res.cookie('uuid', 'llOEU4NjctMkshYhsS00NzMzLUI0QzgtQjE4N0QxNEQzNDUosih3', { maxAge: 100*60*1000, httpOnly: false });
+		res.cookie('uuid', 'skjhsa28230kldsjsdlkj90834zgtQjE4N0QxNEQzNDUosih3', { maxAge: 100*60*1000, httpOnly: false });
 		res.cookie('sid', 'NTJhYjcwY2M3YjNhNTk3ODYxMDAwMDAx', { maxAge: 100*60*1000, httpOnly: false });
 		res.cookie('latitude', '45.495744', { maxAge: 100*60*1000, httpOnly: false });
 		res.cookie('longitude', '-73.563195', { maxAge: 100*60*1000, httpOnly: false });
 
 		req.headers['x-latitude'] = '45.495744';
 		req.headers['x-longitude'] = '-73.563195';
-		req.headers['x-userid'] = 'llOEU4NjctMkshYhsS00NzMzLUI0QzgtQjE4N0QxNEQzNDUosih3';
+		req.headers['x-userid'] = 'skjhsa28230kldsjsdlkj90834zgtQjE4N0QxNEQzNDUosih3';
 
-		return next();
+		// return next();
 		
 		// if (req.path == '/relaunch' || req.path == '/') {
 		// 	console.log(req.path);
