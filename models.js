@@ -425,8 +425,8 @@ function registerUser(user, callback) {
 						res.send(500);
 						throw error;
 					}
-					console.log(confirmed)
-					if (confirmed || confirmed.length > 0) {
+
+					if (confirmed) {
 						redisClient.hmset('user:'+user.uuid, 'email', user.email, 'status', 3);
 						callback(null, 3, count + 6233);
 						var wle = new WaitingListEntry({
