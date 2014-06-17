@@ -149,8 +149,6 @@ angular.module('DashbookApp')
                       if (k != values.length -1) value += '.';
                     }
                   }
-                  console.log("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_key[j]+
-                    " = apiResponseJson[scope.d.data_container][i]." + value);
 
                   eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_key[j]+
                     " = apiResponseJson[scope.d.data_container][i]." + value);
@@ -160,10 +158,6 @@ angular.module('DashbookApp')
                     for (var j = 0; j < scope.d.mapper_static_key.length; ++j) {
                       
                       var value = scope.d.mapper_static_value[j];
-
-                      // console.log(scope.d.mapper_static_value);
-                      console.log("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_static_key[j]+
-                        " = '"+value+"'");
 
                       eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_static_key[j]+
                         " = '"+value+"'");
@@ -239,9 +233,6 @@ angular.module('DashbookApp')
               scope.safeApply();
               if (scope.d.title == 'Private Dash') 
                 scope.d.components_settings = scope.d.privateDash.components_settings;
-              // scope.$broadcast('resize');
-              // scope.d.content.splice(0, 10);
-
             }, 
             "error": function(error) {
               console.log(arguments);
@@ -258,7 +249,6 @@ angular.module('DashbookApp')
           clearTimeout(this.downTimer);
           this.downTimer = setTimeout(function() {
             $('#sortable').prop( "disabled", false );
-            // console.log(scope.d.id);
           }, 2000);
         }).mouseup(function(e) {
           $('#sortable').prop( "disabled", true );
@@ -334,7 +324,6 @@ angular.module('DashbookApp')
           if ($('#' + scope.d.id + '-input-text').val()) {
             $('#' + scope.d.id + ' .spinner').show();
             scope.d.selected_setting = $('#' + scope.d.id + '-input-text').val();
-            // scope.d.selected_setting = scope.d.selected_setting.toLowerCase();
             var __id = null;
             var collection_name = scope.d.content ? scope.d.content.collection_name : scope.d.title
             if (scope.d.content && scope.d.content.id)
@@ -359,9 +348,6 @@ angular.module('DashbookApp')
               $('#'+scope.d.id + ' .flipsnap').empty();
               scope.d.privateDash = data.privateDash;
               apiCall(data);
-              // $('#' + scope.d.id + ' .spinner').hide();
-              // attachFlipsnap();
-              // scope.safeApply();
             })
             .error(function(error, code){
               $('#' + scope.d.id + ' .spinner').hide();
