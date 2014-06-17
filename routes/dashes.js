@@ -89,6 +89,7 @@ module.exports = function  (models, publisher) {
 				source_uri_keys: dash.source_uri_keys,
 				source_uri_values: dash.source_uri_values,
 				selected_source_uri: (dash.source_uri && dash.source_uri[0]) ? dash.source_uri[0] : '', 
+				source_return_type: dash.source_return_type,
 				handler_placeholder: dash.handler_placeholder,
 				data_container: dash.data_container,
 				settings: dash.settings,
