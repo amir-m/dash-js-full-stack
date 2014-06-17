@@ -150,8 +150,8 @@ angular.module('DashbookApp')
                     }
                   }
 
-                  eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_key[j]+
-                    " = apiResponseJson[scope.d.data_container][i]." + value);
+                  eval("apiResponseJson[scope.d.data_container][i].components['"+scope.d.mapper_key[j]+"']"+
+                    " = apiResponseJson[scope.d.data_container][i]['" + value +"']");
                 }
 
                 if (scope.d.mapper_static_key) {
@@ -161,7 +161,7 @@ angular.module('DashbookApp')
 
                       // console.log(scope.d.mapper_static_value);
   
-                      eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_static_key[j]+
+                      eval("apiResponseJson[scope.d.data_container][i].components['"+scope.d.mapper_static_key[j]+"']"+
                         " = '"+value+"'");
                     }
                 }
@@ -610,8 +610,8 @@ angular.module('DashbookApp')
                     }
                   }
 
-                  eval("apiResponseJson[scope.d.privateDash.data_container][i].components."+scope.d.privateDash.mapper_key[j]+
-                    " = apiResponseJson[scope.d.privateDash.data_container][i]." + value);
+                  eval("apiResponseJson[scope.d.privateDash.data_container][i].components['"+scope.d.privateDash.mapper_key[j]+"']"+
+                    " = apiResponseJson[scope.d.privateDash.data_container][i]['" + value +"']");
                 }
 
                 if (scope.d.privateDash.mapper_static_key) {
@@ -621,7 +621,7 @@ angular.module('DashbookApp')
 
                       // console.log(scope.d.privateDash.mapper_static_value);
   
-                      eval("apiResponseJson[scope.d.privateDash.data_container][i].components."+scope.d.privateDash.mapper_static_key[j]+
+                      eval("apiResponseJson[scope.d.privateDash.data_container][i].components['"+scope.d.privateDash.mapper_static_key[j]+"']"+
                         " = '"+value+"'");
                     }
                 }
