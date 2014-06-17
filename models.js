@@ -135,6 +135,7 @@ var UserDashSchema = new mongoose.Schema({
 	mapper_static_key: [],
 	mapper_static_value: [],
 	has_settings: Boolean,
+	components_settings: {},
 	collection_name: String
 });
 
@@ -165,6 +166,7 @@ var PrivateDashSchema = new mongoose.Schema({
 	source_uri_keys: [],
 	source_uri_values: [],
 	settings: {},
+	components_settings: {},
 	content_type: [],
 	mapper_key: [],
 	mapper_value: [],

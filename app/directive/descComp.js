@@ -13,6 +13,14 @@ angular.module('DashbookApp')
         scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.replace(/<\/\w*>/g, '');
         scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.replace(/&nbsp;/g, '');
 
+        if (scope.d.components_settings 
+        && scope.d.components_settings.desc_comp 
+        && scope.d.components_settings.desc_comp.trim) {
+          for (var i = 0; scope.d.components_settings.desc_comp.class.length; ++i) {
+            $(element).find('.desc-comp > span').addClass(scope.d.components_settings.desc_comp.class[i]);
+          }
+        };
+
         if (scope.d.title == 'World Cup News') {
           // scope.content.components.desc_comp.header = scope.content.components.desc_comp.header.substr(0, 36);
           // scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.substr(0, 84);

@@ -8,12 +8,19 @@ angular.module('DashbookApp')
     templateUrl: '/partials/hero-comp.html',
     restrict: 'E',
     link: function postLink(scope, element, attrs) {
-     scope.$on('suicide', function(){
-      $(element).parent().parent('section').remove();
-      $timeout(function(){
-       scope.$destroy();
-     });
-    });	
-   }
- };
+      if (scope.d.components_settings 
+        && scope.d.components_settings.hero_comp 
+        && scope.d.components_settings.hero_comp.class) {
+        for (var i = 0; scope.d.components_settings.hero_comp.class.length; ++i) {
+          $(element).find('.hero-comp > span').addClass(scope.d.components_settings.hero_comp.class[i]);
+        }
+      };
+      scope.$on('suicide', function(){
+        $(element).parent().parent('section').remove();
+        $timeout(function(){
+         scope.$destroy();
+       });
+      });	
+    }
+  };
 }]);
