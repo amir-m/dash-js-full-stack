@@ -233,6 +233,8 @@ angular.module('DashbookApp')
 
               scope.attachFlipsnap();
               scope.safeApply();
+              if (scope.d.title == 'Private Dash') 
+                scope.d.components_settings = scope.d.privateDash.components_settings;
               // scope.$broadcast('resize');
               // scope.d.content.splice(0, 10);
 
@@ -666,6 +668,7 @@ angular.module('DashbookApp')
               // content.splice(0, 10);
 
               scope.d.privateDash.content = content;
+              scope.d.components_settings = scope.d.privateDash.components_settings;
               scope.attachFlipsnap();
               scope.safeApply();
               // scope.$broadcast('resize');
