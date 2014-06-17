@@ -142,18 +142,26 @@ angular.module('DashbookApp')
 
                 
                 for (var j = 0; j < scope.d.mapper_key.length; ++j) {
-                  var value = scope.d.mapper_value[j];
-                  if (scope.d.mapper_value[j].indexOf('.') != -1) {
-                    value = '';
-                    var values = scope.d.mapper_value[j].split('.');
-                    for (var k = 0; k < values.length; ++k) {
-                      value += values[k];
-                      if (k != values.length -1) value += '.';
+                  if (source_return_type == 'json') {
+                    var value = scope.d.mapper_value[j];
+                    if (scope.d.mapper_value[j].indexOf('.') != -1) {
+                      value = '';
+                      var values = scope.d.mapper_value[j].split('.');
+                      for (var k = 0; k < values.length; ++k) {
+                        value += values[k];
+                        if (k != values.length -1) value += '.';
+                      }
                     }
-                  }
-
-                  eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_key[j]+
+                    console.log("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_key[j]+
                     " = apiResponseJson[scope.d.data_container][i]." + value);
+                    
+                    eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_key[j]+
+                    " = apiResponseJson[scope.d.data_container][i]." + value);
+                  }
+                  else {
+                    eval("apiResponseJson[scope.d.data_container][i].components"+scope.d.mapper_key[j]+
+                    " = apiResponseJson[scope.d.data_container][i]" + value);
+                  }
                 }
 
                 if (scope.d.mapper_static_key) {
