@@ -9,7 +9,6 @@ angular.module('DashbookApp')
     restrict: 'E',
     link: function postLink(scope, element, attrs) {
       console.log(scope.d.components_settings)
-      return
       if (scope.d.components_settings 
         && scope.d.components_settings.hero_comp 
         && scope.d.components_settings.hero_comp.class) {
