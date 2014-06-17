@@ -14,10 +14,10 @@ angular.module('DashbookApp')
       if (scope.d.components_settings 
         && scope.d.components_settings.hero_comp 
         && scope.d.components_settings.hero_comp.class) {
-        for (var i = 0; scope.d.components_settings.hero_comp.class.length; ++i) {
-          console.log(scope.d.components_settings.hero_comp.class[i]);
+        // for (var i = 0; scope.d.components_settings.hero_comp.class.length; ++i) {
+          console.log(scope.d.components_settings.hero_comp);
           // $(element).find('.hero-comp span').addClass(scope.d.components_settings.hero_comp.class[i]);
-        }
+        // }
       };
       scope.$on('suicide', function(){
         $(element).parent().parent('section').remove();
