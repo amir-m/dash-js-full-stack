@@ -142,7 +142,7 @@ angular.module('DashbookApp')
 
                 
                 for (var j = 0; j < scope.d.mapper_key.length; ++j) {
-                  if (source_return_type == 'json') {
+                  if (scope.d.source_return_type == 'json') {
                     var value = scope.d.mapper_value[j];
                     if (scope.d.mapper_value[j].indexOf('.') != -1) {
                       value = '';
