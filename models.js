@@ -284,6 +284,39 @@ function findOneDash(id, callback) {
 		else 
 			_dash.source_uri_values = _dash.source_uri_values.split(":");
 
+		// if (_dash.components_settings) {
+			
+		// 	var components_settings = _dash.components_settings.split('|');
+		// 	var components = {};
+
+		// 	for (var i = 0; i < components_settings.length; ++i) {
+		// 		// desc_comp:trim:text=21
+		// 		//hero_comp:class=temp_class&yoo
+
+		// 		var nested_structure = components_settings[i].split(':');
+		// 		// desc_comp, trim, text=21
+		// 		//hero_comp, class=temp_class&yoo
+
+		// 		components[nested_structure[0]] = {}; 
+
+		// 		nested_structure.splice(0, 1);
+		// 		// trim, text=21
+		// 		// class=temp_class&yoo
+		// 	}
+		// }
+
+		if (_dash.title == 'World Cup News') {
+			_dash['components_settings'] = {};
+			_dash['components_settings']['desc_comp'] = {
+				trim: {
+					text: 21
+				}
+			};
+			_dash['components_settings']['hero_comp'] = {
+				class: ['temp_class', 'yoo']
+			};
+		}
+
 		callback(null, _dash);
 	});
 };

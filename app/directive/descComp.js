@@ -13,11 +13,27 @@ angular.module('DashbookApp')
         scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.replace(/<\/\w*>/g, '');
         scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.replace(/&nbsp;/g, '');
 
+        console.log(scope.d.components_settings)
         if (scope.d.components_settings 
         && scope.d.components_settings.desc_comp 
         && scope.d.components_settings.desc_comp.trim) {
-          for (var i = 0; scope.d.components_settings.desc_comp.class.length; ++i) {
-            $(element).find('.desc-comp > span').addClass(scope.d.components_settings.desc_comp.class[i]);
+          if (scope.d.components_settings.desc_comp.trim.header) {
+            var l = scope.d.components_settings.desc_comp.trim.header;
+            var threeDots, temp = scope.content.components.desc_comp.header.split(' ');
+            threeDots = temp.length > l ? '...' : '';
+            temp = temp.splice(0, l);
+
+            scope.content.components.desc_comp.header = temp.join(' ');
+            scope.content.components.desc_comp.header += threeDots;
+          }
+          if (scope.d.components_settings.desc_comp.trim.text) {
+            var l = scope.d.components_settings.desc_comp.trim.text;
+            var threeDots, temp = scope.content.components.desc_comp.text.split(' ');
+            threeDots = temp.length > l ? '...' : '';
+            temp = temp.splice(0, l);
+
+            scope.content.components.desc_comp.text = temp.join(' ');
+            scope.content.components.desc_comp.text += threeDots;
           }
         };
 
