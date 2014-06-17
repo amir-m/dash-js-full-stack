@@ -149,6 +149,8 @@ angular.module('DashbookApp')
                       if (k != values.length -1) value += '.';
                     }
                   }
+                  console.log("apiResponseJson[scope.d.data_container][i].components['"+scope.d.mapper_key[j]+"']"+
+                    " = apiResponseJson[scope.d.data_container][i]['" + value +"']");
 
                   eval("apiResponseJson[scope.d.data_container][i].components['"+scope.d.mapper_key[j]+"']"+
                     " = apiResponseJson[scope.d.data_container][i]['" + value +"']");
@@ -160,7 +162,9 @@ angular.module('DashbookApp')
                       var value = scope.d.mapper_static_value[j];
 
                       // console.log(scope.d.mapper_static_value);
-  
+                      console.log("apiResponseJson[scope.d.data_container][i].components['"+scope.d.mapper_static_key[j]+"']"+
+                        " = '"+value+"'");
+
                       eval("apiResponseJson[scope.d.data_container][i].components['"+scope.d.mapper_static_key[j]+"']"+
                         " = '"+value+"'");
                     }
@@ -610,6 +614,9 @@ angular.module('DashbookApp')
                     }
                   }
 
+                  console.log("apiResponseJson[scope.d.privateDash.data_container][i].components['"+scope.d.privateDash.mapper_key[j]+"']"+
+                    " = apiResponseJson[scope.d.privateDash.data_container][i]['" + value +"']");
+
                   eval("apiResponseJson[scope.d.privateDash.data_container][i].components['"+scope.d.privateDash.mapper_key[j]+"']"+
                     " = apiResponseJson[scope.d.privateDash.data_container][i]['" + value +"']");
                 }
@@ -620,7 +627,10 @@ angular.module('DashbookApp')
                       var value = scope.d.privateDash.mapper_static_value[j];
 
                       // console.log(scope.d.privateDash.mapper_static_value);
-  
+                      
+                      console.log("apiResponseJson[scope.d.privateDash.data_container][i].components['"+scope.d.privateDash.mapper_static_key[j]+"']"+
+                        " = '"+value+"'");
+                      
                       eval("apiResponseJson[scope.d.privateDash.data_container][i].components['"+scope.d.privateDash.mapper_static_key[j]+"']"+
                         " = '"+value+"'");
                     }
