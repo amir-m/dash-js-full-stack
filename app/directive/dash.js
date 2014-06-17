@@ -153,8 +153,8 @@ angular.module('DashbookApp')
                       }
                     }
                     console.log("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_key[j]+
-                    " = apiResponseJson[scope.d.data_container][i]." + value);
-                    
+                    " = apiResponseJson[scope.d.data_container][i].---" + value);
+
                     eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_key[j]+
                     " = apiResponseJson[scope.d.data_container][i]." + value);
                   }
