@@ -14,6 +14,8 @@ angular.module('DashbookApp')
         scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.replace(/&nbsp;/g, '');
 
         console.log(scope.d.components_settings)
+        return;
+        
         if (scope.d.components_settings 
         && scope.d.components_settings.desc_comp 
         && scope.d.components_settings.desc_comp.trim) {
