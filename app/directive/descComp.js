@@ -13,9 +13,6 @@ angular.module('DashbookApp')
         scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.replace(/<\/\w*>/g, '');
         scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.replace(/&nbsp;/g, '');
 
-        console.log(scope.d.components_settings)
-        return;
-        
         if (scope.d.components_settings 
         && scope.d.components_settings.desc_comp 
         && scope.d.components_settings.desc_comp.trim) {
@@ -39,7 +36,7 @@ angular.module('DashbookApp')
           }
         };
 
-        if (scope.d.title == 'World Cup News') {
+        // if (scope.d.title == 'World Cup News') {
           // scope.content.components.desc_comp.header = scope.content.components.desc_comp.header.substr(0, 36);
           // scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.substr(0, 84);
           var a, t = scope.content.components.desc_comp.text.split(' ');
@@ -48,13 +45,13 @@ angular.module('DashbookApp')
 
           scope.content.components.desc_comp.text = t.join(' ');
           scope.content.components.desc_comp.text += a;
-        }
-        else {
-          if (scope.content.components.desc_comp.header) 
+        // }
+        // else {
+          if (scope.d.title != 'World Cup News' && scope.content.components.desc_comp.header) 
             scope.content.components.desc_comp.header = scope.content.components.desc_comp.header.substr(0, 16);
-          if (scope.content.components.desc_comp.text) 
+          if (scope.d.title != 'World Cup News' && scope.content.components.desc_comp.text) 
             scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.substr(0, 24);
-        }
+        // }
 
 
         

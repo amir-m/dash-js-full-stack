@@ -312,9 +312,6 @@ function findOneDash(id, callback) {
 					text: 21
 				}
 			};
-			_dash['components_settings']['hero_comp'] = {
-				class: ['temp_class', 'yoo']
-			};
 		}
 
 		callback(null, _dash);
