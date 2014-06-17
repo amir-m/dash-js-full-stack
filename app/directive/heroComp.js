@@ -15,7 +15,8 @@ angular.module('DashbookApp')
         && scope.d.components_settings.hero_comp 
         && scope.d.components_settings.hero_comp.class) {
         for (var i = 0; scope.d.components_settings.hero_comp.class.length; ++i) {
-          $(element).find('.hero-comp span').addClass(scope.d.components_settings.hero_comp.class[i]);
+          console.log(scope.d.components_settings.hero_comp.class[i]);
+          // $(element).find('.hero-comp span').addClass(scope.d.components_settings.hero_comp.class[i]);
         }
       };
       scope.$on('suicide', function(){
