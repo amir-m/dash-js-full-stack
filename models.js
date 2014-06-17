@@ -125,7 +125,7 @@ var UserDashSchema = new mongoose.Schema({
 	data_container: String, // 'body.shots'
 	source_uri_scheme: String,
 	selected_setting_uri_field: String,
-	source_return_type: String
+	source_return_type: String,
 	has_settings: Boolean,
 	source_uri_keys: [],
 	source_uri_values: [],
@@ -158,7 +158,7 @@ var PrivateDashSchema = new mongoose.Schema({
 	dash_type: String,
 	data_container: String,
 	source_uri: String,
-	source_return_type: String
+	source_return_type: String,
 	source_uri_scheme: String,
 	selected_setting_uri_field: String,
 	content_type: [],
