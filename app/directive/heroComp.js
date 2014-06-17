@@ -8,7 +8,7 @@ angular.module('DashbookApp')
     templateUrl: '/partials/hero-comp.html',
     restrict: 'E',
     link: function postLink(scope, element, attrs) {
-      console.log(scope.d.title, scope.d.components_settings)
+      console.log(scope.d);
       if (scope.d.components_settings 
         && scope.d.components_settings.hero_comp 
         && scope.d.components_settings.hero_comp.class) {
