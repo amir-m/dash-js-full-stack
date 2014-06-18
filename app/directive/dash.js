@@ -107,7 +107,7 @@ angular.module('DashbookApp')
               }
               else {
 
-                if (apiResponseJson[scope.d.data_container].length > 10) 
+                if (apiResponseJson[scope.d.data_container].length > 20) 
                   apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, 10);
               }
 
@@ -577,13 +577,10 @@ angular.module('DashbookApp')
         function apiCall() {
           $http.get(scope.engine_uri + scope.d.privateDash.source_uri)
           .success(function(apiResponseJson, status, headers){
-
-            console.log(scope.d.privateDash);
             
-            if (apiResponseJson[scope.d.privateDash.data_container].length > 10) 
-                  apiResponseJson[scope.d.privateDash.data_container] = apiResponseJson[scope.d.privateDash.data_container].splice(0, 10);
-
-              $('#' + scope.d.id + ' .spinner').hide();
+            if (scope.d.privateDash.source_return_type == 'json') {
+              if (apiResponseJson[scope.d.privateDash.data_container].length > 20) 
+                    apiResponseJson[scope.d.privateDash.data_container] = apiResponseJson[scope.d.privateDash.data_container].splice(0, 10);
 
               var content = [];
               
@@ -669,15 +666,18 @@ angular.module('DashbookApp')
                   $('#'+scope.d.id + ' .flipsnap').append($compile(begin)(_scope));
                 }
                 // scope.d.privateDash.content.push(_scope.$id);
-
               };
-              // content.splice(0, 10);
+            }
+            else {
 
-              scope.d.privateDash.content = content;
-              scope.d.components_settings = scope.d.privateDash.components_settings;
-              scope.attachFlipsnap();
-              scope.safeApply();
-              // scope.$broadcast('resize');
+            }
+            // content.splice(0, 10);
+            $('#' + scope.d.id + ' .spinner').hide();
+            scope.d.privateDash.content = content;
+            scope.d.components_settings = scope.d.privateDash.components_settings;
+            scope.attachFlipsnap();
+            scope.safeApply();
+            // scope.$broadcast('resize');
           })
           .error(function(error, code) {
             if (error == 404 || code == 404) scope.d.notFound = true;
