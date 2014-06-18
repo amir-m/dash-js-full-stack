@@ -577,12 +577,12 @@ angular.module('DashbookApp')
         function apiCall() {
           $http.get(scope.engine_uri + scope.d.privateDash.source_uri)
           .success(function(apiResponseJson, status, headers){
-            
+            var content = [], container;
             if (scope.d.privateDash.source_return_type == 'json') {
               if (apiResponseJson[scope.d.privateDash.data_container].length > 20) 
                     apiResponseJson[scope.d.privateDash.data_container] = apiResponseJson[scope.d.privateDash.data_container].splice(0, 10);
 
-              var content = [];
+              
               
               for (var i = 0; i < apiResponseJson[scope.d.privateDash.data_container].length; ++i) {
                                 
@@ -669,12 +669,10 @@ angular.module('DashbookApp')
               };
             }
             else {
-              console.log(apiResponseJson);
-              eval('apiResponseJson[scope.d.privateDash.data_container] = apiResponseJson.' + 'scope.d.privateDash.data_container');
+              eval('container = apiResponseJson.' + 'scope.d.privateDash.data_container');
+              console.log(container);
               if (apiResponseJson[scope.d.privateDash.data_container].length > 20) 
                     apiResponseJson[scope.d.privateDash.data_container] = apiResponseJson[scope.d.privateDash.data_container].splice(0, 10);
-
-              var content = [];
               
               for (var i = 0; i < apiResponseJson[scope.d.privateDash.data_container].length; ++i) {
                                 
