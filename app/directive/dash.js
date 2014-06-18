@@ -13,8 +13,6 @@ angular.module('DashbookApp')
 
         scope.d.content = [], scope.flipTo = 1;
 
-        console.log(scope.d);
-
         function apiCallEngine() {
           
           if (scope.d.source_uri_keys && scope.d.source_uri_keys.length > 0) {
