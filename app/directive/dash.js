@@ -578,6 +578,8 @@ angular.module('DashbookApp')
           $http.get(scope.engine_uri + scope.d.privateDash.source_uri)
           .success(function(apiResponseJson, status, headers){
 
+            console.log(scope.d.privateDash);
+            
             if (apiResponseJson[scope.d.privateDash.data_container].length > 10) 
                   apiResponseJson[scope.d.privateDash.data_container] = apiResponseJson[scope.d.privateDash.data_container].splice(0, 10);
 
