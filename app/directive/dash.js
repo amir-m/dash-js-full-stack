@@ -669,7 +669,95 @@ angular.module('DashbookApp')
               };
             }
             else {
+              eval('apiResponseJson[scope.d.privateDash.data_container] = apiResponseJson. + scope.d.privateDash.data_container');
+              if (apiResponseJson[scope.d.privateDash.data_container].length > 20) 
+                    apiResponseJson[scope.d.privateDash.data_container] = apiResponseJson[scope.d.privateDash.data_container].splice(0, 10);
 
+              var content = [];
+              
+              for (var i = 0; i < apiResponseJson[scope.d.privateDash.data_container].length; ++i) {
+                                
+                apiResponseJson[scope.d.privateDash.data_container][i].components = {};
+
+                var begin = '<section><div>',
+                  end = '</div></section>';                
+
+                for (var j = 0; j < scope.d.privateDash.content_type.length; ++j) {
+                  apiResponseJson[scope.d.privateDash.data_container][i].components[scope.d.privateDash.content_type[j]] = {};
+                }
+
+                
+                for (var j = 0; j < scope.d.privateDash.mapper_key.length; ++j) {
+                  var value = scope.d.privateDash.mapper_value[j];
+                  if (scope.d.privateDash.mapper_value[j].indexOf('.') != -1) {
+                    value = '';
+                    var values = scope.d.privateDash.mapper_value[j].split('.');
+                    for (var k = 0; k < values.length; ++k) {
+                      value += values[k];
+                      if (k != values.length -1) value += '.';
+                    }
+                  }
+
+                  console.log("apiResponseJson[scope.d.privateDash.data_container][i].components."+scope.d.privateDash.mapper_key[j]+
+                    " = apiResponseJson[scope.d.privateDash.data_container][i]" + value +"'");
+
+                  eval("apiResponseJson[scope.d.privateDash.data_container][i].components."+scope.d.privateDash.mapper_key[j]+
+                    " = apiResponseJson[scope.d.privateDash.data_container][i]" + value +"'");
+                }
+
+                if (scope.d.privateDash.mapper_static_key) {
+                    for (var j = 0; j < scope.d.privateDash.mapper_static_key.length; ++j) {
+                      
+                      var value = scope.d.privateDash.mapper_static_value[j];
+
+                      // console.log(scope.d.privateDash.mapper_static_value);
+                      
+                      console.log("apiResponseJson[scope.d.privateDash.data_container][i].components['"+scope.d.privateDash.mapper_static_key[j]+"']"+
+                        " = '"+value+"'");
+                      
+                      eval("apiResponseJson[scope.d.privateDash.data_container][i].components['"+scope.d.privateDash.mapper_static_key[j]+"']"+
+                        " = '"+value+"'");
+                    }
+                }
+
+                for (var j = 0; j < scope.d.privateDash.content_type.length; ++j) {
+                  var component = '<' + scope.d.privateDash.content_type[j] +'>' + '</' + scope.d.privateDash.content_type[j] +'>';
+                  begin += component;
+                }
+                
+                // TODO: Make it generic: 
+                if (scope.d.privateDash.title == "Food Near Me" 
+                  || scope.d.privateDash.title == "Coffee Near Me" 
+                  || scope.d.privateDash.title == "Places Near Me") {
+                  begin += end;
+                  var _scope = scope.$new();
+                  
+                  _scope.content = apiResponseJson[scope.d.privateDash.data_container][i];
+                  
+
+                  tmp_con.push({
+                    _scope: _scope,
+                    html: begin,
+                    id: _scope.$id
+                  });
+
+                  // $('#'+scope.d.privateDash.id + ' .flipsnap').append($compile(begin)(_scope));
+                  // scope.d.privateDash.content.push(_scope.$id);
+                }
+
+                else {
+
+                  begin += end;
+                  var _scope = scope.$new();
+                  _scope.content = apiResponseJson[scope.d.privateDash.data_container][i];
+                  
+                  scope.d.content.push(_scope.$id);
+
+
+                  $('#'+scope.d.id + ' .flipsnap').append($compile(begin)(_scope));
+                }
+                // scope.d.privateDash.content.push(_scope.$id);
+              };
             }
             // content.splice(0, 10);
             $('#' + scope.d.id + ' .spinner').hide();
