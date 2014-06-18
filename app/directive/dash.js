@@ -694,10 +694,10 @@ angular.module('DashbookApp')
                   }
 
                   console.log("container[i].components."+scope.d.privateDash.mapper_key[j]+
-                    " = container[i]" + value +"'");
+                    " = container[i]" + value);
 
                   eval("container[i].components."+scope.d.privateDash.mapper_key[j]+
-                    " = container[i]" + value +"'");
+                    " = container[i]" + value);
                 }
 
                 if (scope.d.privateDash.mapper_static_key) {
