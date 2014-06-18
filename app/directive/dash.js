@@ -667,18 +667,18 @@ angular.module('DashbookApp')
             else {
               eval('container = apiResponseJson.' + scope.d.privateDash.data_container);
               console.log(container);
-              if (apiResponseJson[scope.d.privateDash.data_container].length > 20) 
-                    apiResponseJson[scope.d.privateDash.data_container] = apiResponseJson[scope.d.privateDash.data_container].splice(0, 10);
+              if (container.length > 20) 
+                    container = container.splice(0, 10);
               
-              for (var i = 0; i < apiResponseJson[scope.d.privateDash.data_container].length; ++i) {
+              for (var i = 0; i < container.length; ++i) {
                                 
-                apiResponseJson[scope.d.privateDash.data_container][i].components = {};
+                container[i].components = {};
 
                 var begin = '<section><div>',
                   end = '</div></section>';                
 
                 for (var j = 0; j < scope.d.privateDash.content_type.length; ++j) {
-                  apiResponseJson[scope.d.privateDash.data_container][i].components[scope.d.privateDash.content_type[j]] = {};
+                  container[i].components[scope.d.privateDash.content_type[j]] = {};
                 }
 
                 
@@ -693,11 +693,11 @@ angular.module('DashbookApp')
                     }
                   }
 
-                  console.log("apiResponseJson[scope.d.privateDash.data_container][i].components."+scope.d.privateDash.mapper_key[j]+
-                    " = apiResponseJson[scope.d.privateDash.data_container][i]" + value +"'");
+                  console.log("container[i].components."+scope.d.privateDash.mapper_key[j]+
+                    " = container[i]" + value +"'");
 
-                  eval("apiResponseJson[scope.d.privateDash.data_container][i].components."+scope.d.privateDash.mapper_key[j]+
-                    " = apiResponseJson[scope.d.privateDash.data_container][i]" + value +"'");
+                  eval("container[i].components."+scope.d.privateDash.mapper_key[j]+
+                    " = container[i]" + value +"'");
                 }
 
                 if (scope.d.privateDash.mapper_static_key) {
@@ -707,10 +707,10 @@ angular.module('DashbookApp')
 
                       // console.log(scope.d.privateDash.mapper_static_value);
                       
-                      console.log("apiResponseJson[scope.d.privateDash.data_container][i].components['"+scope.d.privateDash.mapper_static_key[j]+"']"+
+                      console.log("container[i].components['"+scope.d.privateDash.mapper_static_key[j]+"']"+
                         " = '"+value+"'");
                       
-                      eval("apiResponseJson[scope.d.privateDash.data_container][i].components['"+scope.d.privateDash.mapper_static_key[j]+"']"+
+                      eval("container[i].components['"+scope.d.privateDash.mapper_static_key[j]+"']"+
                         " = '"+value+"'");
                     }
                 }
@@ -727,7 +727,7 @@ angular.module('DashbookApp')
                   begin += end;
                   var _scope = scope.$new();
                   
-                  _scope.content = apiResponseJson[scope.d.privateDash.data_container][i];
+                  _scope.content = container[i];
                   
 
                   tmp_con.push({
@@ -744,7 +744,7 @@ angular.module('DashbookApp')
 
                   begin += end;
                   var _scope = scope.$new();
-                  _scope.content = apiResponseJson[scope.d.privateDash.data_container][i];
+                  _scope.content = container[i];
                   
                   scope.d.content.push(_scope.$id);
 
