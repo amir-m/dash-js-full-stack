@@ -606,10 +606,10 @@ angular.module('DashbookApp')
                   }
 
                   console.log("apiResponseJson[scope.d.privateDash.data_container][i].components."+scope.d.privateDash.mapper_key[j]+
-                    " = apiResponseJson[scope.d.privateDash.data_container][i]" + value +"'");
+                    " = apiResponseJson[scope.d.privateDash.data_container][i]." + value +"'");
 
                   eval("apiResponseJson[scope.d.privateDash.data_container][i].components."+scope.d.privateDash.mapper_key[j]+
-                    " = apiResponseJson[scope.d.privateDash.data_container][i]" + value +"'");
+                    " = apiResponseJson[scope.d.privateDash.data_container][i]." + value +"'");
                 }
 
                 if (scope.d.privateDash.mapper_static_key) {
