@@ -49,190 +49,192 @@ angular.module('DashbookApp')
 
               $('#' + scope.d.id + ' .spinner').hide();
 
-              var content = [], tmp_con = [];
+              var content = [], tmp_con = [], container;
 
-              apiResponseJson = apiResponseJson;
+              if (scope.d.source_return_type == 'json') {
 
-              if (scope.d.title == 'World Cup Brazil') {
-                var todays = [];
-                var today = new Date(new Date().toLocaleDateString()).getTime(), last_today_index, first_today_index = -1, first_last_diff;
-                for (var i = 0; i < apiResponseJson[scope.d.data_container].length; ++i) {
+                if (scope.d.title == 'World Cup Brazil') {
+                  var todays = [];
+                  var today = new Date(new Date().toLocaleDateString()).getTime(), last_today_index, first_today_index = -1, first_last_diff;
+                  for (var i = 0; i < apiResponseJson[scope.d.data_container].length; ++i) {
 
-                  apiResponseJson[scope.d.data_container][i].timestamp = new Date(apiResponseJson[scope.d.data_container][i].date).getTime();
+                    apiResponseJson[scope.d.data_container][i].timestamp = new Date(apiResponseJson[scope.d.data_container][i].date).getTime();
 
-                  if (apiResponseJson.data[i].timestamp == today) {
-                    if (first_today_index == -1) first_today_index = i;
-                    last_today_index = i;
-                    todays.push(apiResponseJson.data[i]);
+                    if (apiResponseJson.data[i].timestamp == today) {
+                      if (first_today_index == -1) first_today_index = i;
+                      last_today_index = i;
+                      todays.push(apiResponseJson.data[i]);
+                    }
+                  }
+                  first_last_diff = last_today_index - first_today_index;
+
+                  if (first_today_index > 3) {
+                    apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(first_today_index - 4, apiResponseJson[scope.d.data_container].length);
+                    first_today_index = 4;
+                    last_today_index = first_today_index + first_last_diff;
+                  }
+
+                  if ((apiResponseJson[scope.d.data_container].length - last_today_index) > 4) {
+                    apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, last_today_index + 5);
+                  }
+
+                  // TODO: Remove this when games start...  
+                  if (apiResponseJson[scope.d.data_container].length > 12) 
+                    apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, 10);
+
+                  var index = null;
+                  for (var i = 0; i < todays.length; ++i) {
+                    if (todays[i].status 
+                      && todays[i].status.length > 0 
+                      && todays[i].status.toLowerCase() != 'full-time')
+                      index = todays[i].id;
+                  }
+
+                  if (index) {
+                    for (var i = 0; i < apiResponseJson[scope.d.data_container].length; i++) {
+                      if(apiResponseJson[scope.d.data_container][i].id == index) {
+                        scope.flipTo = i + 1;
+                      }
+                    };
+                  }
+                  else {
+                    scope.flipTo = first_today_index > 0 ? first_today_index + 1 : 1;
                   }
                 }
-                first_last_diff = last_today_index - first_today_index;
-
-                if (first_today_index > 3) {
-                  apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(first_today_index - 4, apiResponseJson[scope.d.data_container].length);
-                  first_today_index = 4;
-                  last_today_index = first_today_index + first_last_diff;
-                }
-
-                if ((apiResponseJson[scope.d.data_container].length - last_today_index) > 4) {
-                  apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, last_today_index + 5);
-                }
-
-                // TODO: Remove this when games start...  
-                if (apiResponseJson[scope.d.data_container].length > 12) 
-                  apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, 10);
-
-                var index = null;
-                for (var i = 0; i < todays.length; ++i) {
-                  if (todays[i].status 
-                    && todays[i].status.length > 0 
-                    && todays[i].status.toLowerCase() != 'full-time')
-                    index = todays[i].id;
-                }
-
-                if (index) {
-                  for (var i = 0; i < apiResponseJson[scope.d.data_container].length; i++) {
-                    if(apiResponseJson[scope.d.data_container][i].id == index) {
-                      scope.flipTo = i + 1;
-                    }
-                  };
-                }
                 else {
-                  scope.flipTo = first_today_index > 0 ? first_today_index + 1 : 1;
+
+                  if (apiResponseJson[scope.d.data_container].length > 20) 
+                    apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, 10);
                 }
-                
+
+                for (var i = 0; i < apiResponseJson[scope.d.data_container].length; ++i) {
+
+                  if (scope.d.title == 'World Cup Brazil') {
+                    scope.d.selected_setting = '2014';
+                    if (apiResponseJson[scope.d.data_container][i].status && apiResponseJson[scope.d.data_container][i].status.length > 0)
+                      apiResponseJson[scope.d.data_container][i].date = apiResponseJson[scope.d.data_container][i].status;
+                    else if (todays.indexOf(apiResponseJson[scope.d.data_container][i]) != -1) {
+                      apiResponseJson[scope.d.data_container][i].date = 'Today';
+                    }
+                    else if (apiResponseJson[scope.d.data_container][i].utc_date_time) {
+                      apiResponseJson[scope.d.data_container][i].score = new Date(apiResponseJson[scope.d.data_container][i].utc_date_time).getHours()+":00";
+                    }
+                    if (todays.indexOf(apiResponseJson[scope.d.data_container][i]) != -1 && apiResponseJson[scope.d.data_container][i].utc_date_time && apiResponseJson[scope.d.data_container][i].score.indexOf("-") == -1) {
+                      apiResponseJson[scope.d.data_container][i].score = new Date(apiResponseJson[scope.d.data_container][i].utc_date_time).getHours()+":00";
+                    } 
+                  }
+                  else if (scope.d.title == 'World Cup News') {
+                    scope.d.selected_setting = 'Latest News';
+                  }
+                  
+                  apiResponseJson[scope.d.data_container][i].components = {};
+
+                  var begin = '<section><div>',
+                    end = '</div></section>';                
+
+                  for (var j = 0; j < scope.d.content_type.length; ++j) {
+                    apiResponseJson[scope.d.data_container][i].components[scope.d.content_type[j]] = {};
+                  }
+
+                  
+                  for (var j = 0; j < scope.d.mapper_key.length; ++j) {
+                    var value = scope.d.mapper_value[j];
+                    if (scope.d.source_return_type == 'json') {
+                      if (scope.d.mapper_value[j].indexOf('.') != -1) {
+                        value = '';
+                        var values = scope.d.mapper_value[j].split('.');
+                        for (var k = 0; k < values.length; ++k) {
+                          value += values[k];
+                          if (k != values.length -1) value += '.';
+                        }
+                      }
+
+                      eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_key[j]+
+                      " = apiResponseJson[scope.d.data_container][i]." + value);
+                    }
+                    else {
+                      eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_key[j]+
+                      " = apiResponseJson[scope.d.data_container][i]" + value);
+                    }
+                  }
+
+                  if (scope.d.mapper_static_key) {
+                      for (var j = 0; j < scope.d.mapper_static_key.length; ++j) {
+                        
+                        var value = scope.d.mapper_static_value[j];
+
+                        eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_static_key[j]+
+                          " = '"+value+"'");
+                      }
+                  }
+
+                  for (var j = 0; j < scope.d.content_type.length; ++j) {
+                    var component = '<' + scope.d.content_type[j] +'>' + '</' + scope.d.content_type[j] +'>';
+                    begin += component;
+                  }
+                  
+                  // TODO: Make it generic: 
+                  if (scope.d.title == "Food Near Me" 
+                    || scope.d.title == "Coffee Near Me" 
+                    || scope.d.title == "Places Near Me") {
+                    begin += end;
+                    var _scope = scope.$new();
+                    
+                    _scope.content = apiResponseJson[scope.d.data_container][i];
+                    
+                    tmp_con.push({
+                      _scope: _scope,
+                      html: begin,
+                      id: _scope.$id
+                    });
+
+                    // $('#'+scope.d.id + ' .flipsnap').append($compile(begin)(_scope));
+                    // scope.d.content.push(_scope.$id);
+                  }
+
+                  else {
+
+                    begin += end;
+                    var _scope = scope.$new();
+                    _scope.content = apiResponseJson[scope.d.data_container][i];
+                    
+                    scope.d.content.push(_scope.$id);
+
+                    $('#'+scope.d.id + ' .flipsnap').append($compile(begin)(_scope));
+                  }
+
+                };
+                // TODO: Make it generic: 
+                if (tmp_con.length > 0) {
+                  for (var i = 0; i < tmp_con.length; ++i) {
+
+                    var R = 6371000; // meters
+                    var dLat = toRad($rootScope.latitude - parseFloat(tmp_con[i]._scope.content.components.geo_comp.latitude));
+                    var dLon = toRad($rootScope.longitude - parseFloat(tmp_con[i]._scope.content.components.geo_comp.longitude));
+                    var lat1 = toRad($rootScope.latitude);
+                    var lat2 = toRad(parseFloat(tmp_con[i]._scope.content.components.geo_comp.latitude));
+
+                    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                    Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+                    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+                    tmp_con[i]._scope.content.components.geo_comp.scalar = Math.round(R * c);
+                    tmp_con[i]._scope.content.components.geo_comp.unit = Math.round(R * c) > 1000 ? 'KM' : 'M';
+
+                  }
+
+                  tmp_con.sort(function(a, b){
+                    return a._scope.content.components.geo_comp.scalar -b._scope.content.components.geo_comp.scalar;
+                  });
+
+                  for (var i = 0; i < tmp_con.length; ++i) {
+                    $('#'+scope.d.id + ' .flipsnap').append($compile(tmp_con[i].html)(tmp_con[i]._scope));
+                    scope.d.content.push(tmp_con[i].id);
+                  }
+                }
 
               }
               else {
 
-                if (apiResponseJson[scope.d.data_container].length > 20) 
-                  apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, 10);
-              }
-
-              for (var i = 0; i < apiResponseJson[scope.d.data_container].length; ++i) {
-
-                if (scope.d.title == 'World Cup Brazil') {
-                  scope.d.selected_setting = '2014';
-                  if (apiResponseJson[scope.d.data_container][i].status && apiResponseJson[scope.d.data_container][i].status.length > 0)
-                    apiResponseJson[scope.d.data_container][i].date = apiResponseJson[scope.d.data_container][i].status;
-                  else if (todays.indexOf(apiResponseJson[scope.d.data_container][i]) != -1) {
-                    apiResponseJson[scope.d.data_container][i].date = 'Today';
-                  }
-                  else if (apiResponseJson[scope.d.data_container][i].utc_date_time) {
-                    apiResponseJson[scope.d.data_container][i].score = new Date(apiResponseJson[scope.d.data_container][i].utc_date_time).getHours()+":00";
-                  }
-                  if (todays.indexOf(apiResponseJson[scope.d.data_container][i]) != -1 && apiResponseJson[scope.d.data_container][i].utc_date_time && apiResponseJson[scope.d.data_container][i].score.indexOf("-") == -1) {
-                    apiResponseJson[scope.d.data_container][i].score = new Date(apiResponseJson[scope.d.data_container][i].utc_date_time).getHours()+":00";
-                  } 
-                }
-                else if (scope.d.title == 'World Cup News') {
-                  scope.d.selected_setting = 'Latest News';
-                }
-                
-                apiResponseJson[scope.d.data_container][i].components = {};
-
-                var begin = '<section><div>',
-                  end = '</div></section>';                
-
-                for (var j = 0; j < scope.d.content_type.length; ++j) {
-                  apiResponseJson[scope.d.data_container][i].components[scope.d.content_type[j]] = {};
-                }
-
-                
-                for (var j = 0; j < scope.d.mapper_key.length; ++j) {
-                  var value = scope.d.mapper_value[j];
-                  if (scope.d.source_return_type == 'json') {
-                    if (scope.d.mapper_value[j].indexOf('.') != -1) {
-                      value = '';
-                      var values = scope.d.mapper_value[j].split('.');
-                      for (var k = 0; k < values.length; ++k) {
-                        value += values[k];
-                        if (k != values.length -1) value += '.';
-                      }
-                    }
-
-                    eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_key[j]+
-                    " = apiResponseJson[scope.d.data_container][i]." + value);
-                  }
-                  else {
-                    eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_key[j]+
-                    " = apiResponseJson[scope.d.data_container][i]" + value);
-                  }
-                }
-
-                if (scope.d.mapper_static_key) {
-                    for (var j = 0; j < scope.d.mapper_static_key.length; ++j) {
-                      
-                      var value = scope.d.mapper_static_value[j];
-
-                      eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_static_key[j]+
-                        " = '"+value+"'");
-                    }
-                }
-
-                for (var j = 0; j < scope.d.content_type.length; ++j) {
-                  var component = '<' + scope.d.content_type[j] +'>' + '</' + scope.d.content_type[j] +'>';
-                  begin += component;
-                }
-                
-                // TODO: Make it generic: 
-                if (scope.d.title == "Food Near Me" 
-                  || scope.d.title == "Coffee Near Me" 
-                  || scope.d.title == "Places Near Me") {
-                  begin += end;
-                  var _scope = scope.$new();
-                  
-                  _scope.content = apiResponseJson[scope.d.data_container][i];
-                  
-                  tmp_con.push({
-                    _scope: _scope,
-                    html: begin,
-                    id: _scope.$id
-                  });
-
-                  // $('#'+scope.d.id + ' .flipsnap').append($compile(begin)(_scope));
-                  // scope.d.content.push(_scope.$id);
-                }
-
-                else {
-
-                  begin += end;
-                  var _scope = scope.$new();
-                  _scope.content = apiResponseJson[scope.d.data_container][i];
-                  
-                  scope.d.content.push(_scope.$id);
-
-                  $('#'+scope.d.id + ' .flipsnap').append($compile(begin)(_scope));
-                }
-
-              };
-
-              // TODO: Make it generic: 
-              if (tmp_con.length > 0) {
-                for (var i = 0; i < tmp_con.length; ++i) {
-
-                  var R = 6371000; // meters
-                  var dLat = toRad($rootScope.latitude - parseFloat(tmp_con[i]._scope.content.components.geo_comp.latitude));
-                  var dLon = toRad($rootScope.longitude - parseFloat(tmp_con[i]._scope.content.components.geo_comp.longitude));
-                  var lat1 = toRad($rootScope.latitude);
-                  var lat2 = toRad(parseFloat(tmp_con[i]._scope.content.components.geo_comp.latitude));
-
-                  var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                  Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
-                  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-                  tmp_con[i]._scope.content.components.geo_comp.scalar = Math.round(R * c);
-                  tmp_con[i]._scope.content.components.geo_comp.unit = Math.round(R * c) > 1000 ? 'KM' : 'M';
-
-                }
-
-                tmp_con.sort(function(a, b){
-                  return a._scope.content.components.geo_comp.scalar -b._scope.content.components.geo_comp.scalar;
-                });
-
-                for (var i = 0; i < tmp_con.length; ++i) {
-                  $('#'+scope.d.id + ' .flipsnap').append($compile(tmp_con[i].html)(tmp_con[i]._scope));
-                  scope.d.content.push(tmp_con[i].id);
-                }
               }
 
               scope.attachFlipsnap();
@@ -692,9 +694,6 @@ angular.module('DashbookApp')
                       if (k != values.length -1) value += '.';
                     }
                   }
-
-                  console.log("container[i].components."+scope.d.privateDash.mapper_key[j]+
-                    " = container[i]" + value);
 
                   eval("container[i].components."+scope.d.privateDash.mapper_key[j]+
                     " = container[i]" + value);

@@ -11,7 +11,7 @@ var cluster = require('cluster'),
 var forked = false;
 
 // publisher = redis.createClient(6379, '54.185.233.146');
-publisher = redis.createClient(6379, 'dbkcache.serzbc.0001.usw2.cache.amazonaws.com');
+publisher = redis.createClient(6379, 'dbk-cache.serzbc.0001.usw2.cache.amazonaws.com');
 
 // var models = {
 // 	dashes: require('./models/dash').config(mongoose, publisher),
@@ -28,7 +28,7 @@ setTimeout(function() {
 	// 	console.log('amir@doob.io just got confirmed');
 	// });
 
-	// require('./helpers')(models, publisher).insertDashesToRedisBackend();
+	require('./helpers')(models, publisher).insertDashesToRedisBackend();
 	// require('./helpers')(models, publisher).deleteAllUsers();
 	// require('./helpers')(models, publisher).fixSomething();
 
