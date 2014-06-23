@@ -43,7 +43,7 @@ var routes = {
 	accounts: require('./routes/accounts').init(models)	
 };
 
-require('./router')(routes, app);
+require('./router')(routes, app, models, redisClient);
 
 if (cluster.isMaster) {
 	for (var i = 0; i < cpuCount; i++) {

@@ -1,4 +1,4 @@
-module.exports = function(routes, app) {
+module.exports = function(routes, app, models, redisClient) {
 	app.get('/partials/*', function(req, res, next){
 		res.set({
 			'Content-type': 'text/html; charset=utf-8'
@@ -23,7 +23,7 @@ module.exports = function(routes, app) {
 	app.get('/notifications/:uuid', routes.index.getNotifications);
 	app.get('/fixsomething', function (req, res) {
 		res.send(200);
-		require('./helpers')(models, publisher).fixSomething()
+		require('./helpers')(models, redisClient).fixSomething()
 	});
 
 	// app.get('/testycool', routes.dashes.create);
