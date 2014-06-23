@@ -469,6 +469,8 @@ angular.module('DashbookApp')
 
           setTimeout(function(){
 
+            $('#'+scope.d.id+' .slide-indicator span:lt(9)').show();
+
             flipsnap.refresh();
 
             pointer = $('#pointer-'+scope.d.id+' span'); 
