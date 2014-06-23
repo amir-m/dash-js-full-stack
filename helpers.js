@@ -121,8 +121,8 @@ module.exports = function(models, redisClient) {
 	};
 
 	function fixSomething() {
-		// 
-		models.WaitingListEntry.find({ $or: [{ status: 3 }, { status: '3' }], app_launched: true })
+		// $or: [{ status: 3 }, { status: '3' }], app_launched: true
+		models.WaitingListEntry.find({  })
 		.exec(function(error, wlz) {
 			
 			if (error) throw error;
