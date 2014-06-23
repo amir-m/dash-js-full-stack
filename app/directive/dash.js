@@ -473,9 +473,11 @@ angular.module('DashbookApp')
 
             if (!scope.d.content || scope.d.content.length == 0) return;
 
-            // if (scope.d.content.length > 9) {
             $('.slide-indicator span:gt(9)').hide();
-            // };
+            
+            if (scope.d.content.length > 9) {
+              $('.slide-indicator .plus').show();
+            };
 
             pointer.eq(flipsnap.currentPoint).addClass('current');
 
