@@ -121,34 +121,34 @@ module.exports = function(models, redisClient) {
 	};
 
 	function fixSomething() {
-		// models.WaitingListEntry.find()
-		// .exec(function(error, wlz) {
+		models.WaitingListEntry.find({ $or: [{ status: 3 }, { status: '3' }] })
+		.exec(function(error, wlz) {
 			
-		// 	if (error) throw error;
-			
-		// 	for (var i = 0; i < wlz.length; ++i) {
+			if (error) throw error;
+			console.log(wlz[0]);
+			// for (var i = 0; i < wlz.length; ++i) {
 				
-		// 		if (wlz[i].uuids.length == 0) {
-		// 			wlz[i].platform = 'web'; 
-		// 			console.log('web ', wlz[i].email)
-		// 		}
-		// 		else {
-		// 			console.log('iPhone ', wlz[i].email)
-		// 			wlz[i].platform = 'iPhone'; 
-		// 		}
+			// 	if (wlz[i].uuids.length == 0) {
+			// 		wlz[i].platform = 'web'; 
+			// 		console.log('web ', wlz[i].email)
+			// 	}
+			// 	else {
+			// 		console.log('iPhone ', wlz[i].email)
+			// 		wlz[i].platform = 'iPhone'; 
+			// 	}
 				
-		// 		wlz[i].save();
-		// 		// if (wlz[i].added_from == 'iOS' && wlz[i].uuids.indexOf(wlz[i].uuid) == -1) {
-		// 		// 	wlz[i].uuids.push(wlz[i].uuid);
-		// 		// 	wlz[i].uuid_addaded_at.push(wlz[i].created_at);
-		// 		// 	wlz[i].save();
-		// 		// }
-		// 		// wlz[i].platform = wlz[i].added_from == 'iOS' ? 'iPhone' : wlz[i].added_from; 
+			// 	wlz[i].save();
+			// 	// if (wlz[i].added_from == 'iOS' && wlz[i].uuids.indexOf(wlz[i].uuid) == -1) {
+			// 	// 	wlz[i].uuids.push(wlz[i].uuid);
+			// 	// 	wlz[i].uuid_addaded_at.push(wlz[i].created_at);
+			// 	// 	wlz[i].save();
+			// 	// }
+			// 	// wlz[i].platform = wlz[i].added_from == 'iOS' ? 'iPhone' : wlz[i].added_from; 
 
-		// 		// wlz[i].email = models.decipher(wlz[i].email);
-		// 		// wlz[i].save();
-		// 	}
-		// });
+			// 	// wlz[i].email = models.decipher(wlz[i].email);
+			// 	// wlz[i].save();
+			// }
+		});
 		
 		// redisClient.keys('user:*', function(error, users){
 		// 	if (error) throw error;
@@ -164,12 +164,12 @@ module.exports = function(models, redisClient) {
 		// 	}
 		// });
 		
-		redisClient.keys('user:*', function(error, users){
-			if (error) throw error;
-			for (var i = 0; i < users.length; ++i) {
-				redisClient.hset(users[i], 'notifications', '0');
-			}
-		});
+		// redisClient.keys('user:*', function(error, users){
+		// 	if (error) throw error;
+		// 	for (var i = 0; i < users.length; ++i) {
+		// 		redisClient.hset(users[i], 'notifications', '0');
+		// 	}
+		// });
 	};	
 
 	return {
