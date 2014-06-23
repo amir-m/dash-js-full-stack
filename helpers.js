@@ -140,12 +140,13 @@ module.exports = function(models, redisClient) {
 				// 		notifications: 0
 				// 	});
 				// }
-				// if (wlz[i].uuid_addaded_at && wlz[i].uuid_addaded_at.length > 0 && wlz[i].uuid_added_at.length == 0 ) {
+				if (wlz[i].uuid_addaded_at && wlz[i].uuid_addaded_at.length > 0 ) {
 					console.log('uuid_addaded_at: ', wlz[i].uuid_addaded_at);
 					console.log('uuid_added_at: ', wlz[i].uuid_added_at);
-				// 	wlz[i].uuid_added_at.push(wlz[i].uuid_addaded_at[0]);
-				// 	wlz[i].save();
-				// }
+					if (wlz[i].uuid_added_at.indexOf(wlz[i].uuid_addaded_at[0]) == -1) 
+						wlz[i].uuid_added_at.push(wlz[i].uuid_addaded_at[0]);
+					wlz[i].save();
+				}
 			}
 		});
 		
