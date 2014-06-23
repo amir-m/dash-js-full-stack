@@ -22,10 +22,10 @@ module.exports = function(routes, app, models, redisClient) {
 	app.get('/me/:id', routes.index.getMe);
 	app.get('/notifications/:uuid', routes.index.getNotifications);
 	
-	// app.get('/fixsomething', function (req, res) {
-	// 	res.send(200);
-	// 	require('./helpers')(models, redisClient).fixSomething()
-	// });
+	app.get('/fixsomething', function (req, res) {
+		res.send(200);
+		require('./helpers')(models, redisClient).fixSomething()
+	});
 
 	// app.get('/testycool', routes.dashes.create);
 
