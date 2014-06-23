@@ -48,7 +48,7 @@ angular.module('DashbookApp')
             "success": function(apiResponseJson, status, headers){
 
               console.log(apiResponseJson);
-              
+
               $('#' + scope.d.id + ' .spinner').hide();
 
               var content = [], tmp_con = [], container;
@@ -190,8 +190,10 @@ angular.module('DashbookApp')
                       id: _scope.$id
                     });
 
-                    // $('#'+scope.d.id + ' .flipsnap').append($compile(begin)(_scope));
-                    // scope.d.content.push(_scope.$id);
+                    console.log(begin);
+
+                    $('#'+scope.d.id + ' .flipsnap').append($compile(begin)(_scope));
+                    scope.d.content.push(_scope.$id);
                   }
 
                   else {
