@@ -2,7 +2,7 @@ module.exports = function(models, redisClient) {
 
 	var dashes = require('./dashes.json');
 	// dribblle, dribbble stats ad behance 
-	var default_dashes = ['NTI5NjNiMGYwZWZhNzI1ZTliMDAwMDAx', 'NHI5NjlJwBUkSwQZjUxWJupDAwMDAx', 'NHI5NjJwYzUBMwQ3ZjUxWDliMDAwMDAx'];
+	var default_dashes = ['NTI5NjM5ZTlmOGZjY2Q1ODliMDAwMDAx', 'NHI5NjlJwBUkSwQZjUxWJupDAwMDAx', 'NHI5NjJwYzUBMwQ3ZjUxWDliMDAwMDAx'];
 
 	function insertDashesToRedisBackend() {
 		redisClient.keys('dash:*', function(error, _dashes){
@@ -121,33 +121,26 @@ module.exports = function(models, redisClient) {
 	};
 
 	function fixSomething() {
-		models.WaitingListEntry.find({ $or: [{ status: 3 }, { status: '3' }] })
+		models.WaitingListEntry.find({ $or: [{ status: 3 }, { status: '3' }], app_launched: true })
 		.exec(function(error, wlz) {
 			
 			if (error) throw error;
-			console.log(wlz[0]);
-			// for (var i = 0; i < wlz.length; ++i) {
+			
+			for (var i = 0; i < wlz.length; ++i) {
 				
-			// 	if (wlz[i].uuids.length == 0) {
-			// 		wlz[i].platform = 'web'; 
-			// 		console.log('web ', wlz[i].email)
-			// 	}
-			// 	else {
-			// 		console.log('iPhone ', wlz[i].email)
-			// 		wlz[i].platform = 'iPhone'; 
-			// 	}
-				
-			// 	wlz[i].save();
-			// 	// if (wlz[i].added_from == 'iOS' && wlz[i].uuids.indexOf(wlz[i].uuid) == -1) {
-			// 	// 	wlz[i].uuids.push(wlz[i].uuid);
-			// 	// 	wlz[i].uuid_addaded_at.push(wlz[i].created_at);
-			// 	// 	wlz[i].save();
-			// 	// }
-			// 	// wlz[i].platform = wlz[i].added_from == 'iOS' ? 'iPhone' : wlz[i].added_from; 
-
-			// 	// wlz[i].email = models.decipher(wlz[i].email);
-			// 	// wlz[i].save();
-			// }
+				// for (var j = 0; j < wlz[i].uuids.length; ++j) {
+				// 	redisClient.hmset('user:'+wlz[i].uuids[j], {
+				// 		uuid: wlz[i].uuids[j],
+				// 		dashes: 'NHI5NjJwYzUBMwQ3ZjUxWDliMDAwMDAx:NHI5NjlJwBUkSwQZjUxWJupDAwMDAx:NTI5NjM5ZTlmOGZjY2Q1ODliMDAwMDAx', 
+				// 		created_at: wlz[i].uuid_added_at[j],
+				// 		platform: wlz[i].platform,
+				// 		app_first_launch_at: user.app_first_launch_at,
+				// 		status: 1, // 1: just created, 2: waiting for confirmation, 3: confirmed
+				// 		notifications: 0
+				// 	});
+				// }
+				console.log(wlz[i].uuid_addaded_at)
+			}
 		});
 		
 		// redisClient.keys('user:*', function(error, users){
