@@ -121,8 +121,8 @@ module.exports = function(models, redisClient) {
 	};
 
 	function fixSomething() {
-		// $or: [{ status: 3 }, { status: '3' }], app_launched: true
-		models.WaitingListEntry.find({  })
+		// 
+		models.WaitingListEntry.find({ $or: [{ status: 3 }, { status: '3' }], app_launched: true })
 		.exec(function(error, wlz) {
 			
 			if (error) throw error;
@@ -142,6 +142,7 @@ module.exports = function(models, redisClient) {
 				// }
 				// if (wlz[i].uuid_addaded_at) {
 					console.log(wlz[i].uuid_addaded_at);
+					console.log(wlz[i].uuid_added_at);
 				// }
 			}
 		});
