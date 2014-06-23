@@ -141,8 +141,8 @@ module.exports = function(models, redisClient) {
 				// 	});
 				// }
 				// if (wlz[i].uuid_addaded_at) {
-					console.log(wlz[i].uuid_addaded_at);
-					console.log(wlz[i].uuid_added_at);
+					console.log('uuid_addaded_at: ', wlz[i].uuid_addaded_at);
+					console.log('uuid_added_at: ', wlz[i].uuid_added_at);
 				// }
 			}
 		});
