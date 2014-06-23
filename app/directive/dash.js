@@ -461,7 +461,7 @@ angular.module('DashbookApp')
 
         scope.attachFlipsnap = function() {
           
-          $('.slide-indicator ').hide();
+          $('.slide-indicator span').hide();
 
           flipsnap = Flipsnap('#'+scope.d.id+ ' .flipsnap');
 
