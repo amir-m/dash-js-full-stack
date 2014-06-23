@@ -13,8 +13,6 @@ angular.module('DashbookApp')
 
         scope.d.content = [], scope.flipTo = 1;
 
-        console.log(scope.engine_uri + scope.d.selected_source_uri);
-
         function apiCallEngine() {
           
           if (scope.d.source_uri_keys && scope.d.source_uri_keys.length > 0) {
@@ -39,7 +37,7 @@ angular.module('DashbookApp')
           // ajax(scope.d.selected_source_uri, function(){
 
           // });
-
+          
           $.ajax({
             "url": scope.engine_uri + scope.d.selected_source_uri,
             "dataType": "json",
@@ -49,6 +47,8 @@ angular.module('DashbookApp')
             "crossDomain": true,
             "success": function(apiResponseJson, status, headers){
 
+              console.log(apiResponseJson);
+              
               $('#' + scope.d.id + ' .spinner').hide();
 
               var content = [], tmp_con = [], container;
