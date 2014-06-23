@@ -1,4 +1,4 @@
-module.exports = function(routes, app, ) {
+module.exports = function(routes, app) {
 	app.get('/partials/*', function(req, res, next){
 		res.set({
 			'Content-type': 'text/html; charset=utf-8'
