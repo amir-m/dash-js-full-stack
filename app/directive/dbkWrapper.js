@@ -12,11 +12,7 @@ angular.module('DashbookApp')
           if ($rootScope.sortableEnabled) return;
       		$(".dbk-wrapper").toggleClass("push-screen");
       	}
-        $('article').addClass('slide-up');
-
-        setTimeout(function (argument) {
-          $('article').removeClass('slide-up');
-        }, 1000);
+      
       }
     };
   }]);

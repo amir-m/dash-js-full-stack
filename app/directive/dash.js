@@ -11,6 +11,12 @@ angular.module('DashbookApp')
       templateUrl: '/partials/dash.html', 
       link: function (scope, element, attrs) {
 
+        $('article').addClass('slide-up');
+
+        setTimeout(function (argument) {
+          $('article').removeClass('slide-up');
+        }, 1000);
+
         scope.d.content = [], scope.flipTo = 1;
 
         function apiCallEngine() {
