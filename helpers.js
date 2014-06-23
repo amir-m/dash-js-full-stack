@@ -122,24 +122,25 @@ module.exports = function(models, redisClient) {
 
 	function fixSomething() {
 		// $or: [{ status: 3 }, { status: '3' }], app_launched: true
-		models.WaitingListEntry.find({  })
+		models.WaitingListEntry.find({ $or: [{ status: 3 }, { status: '3' }], app_launched: true })
 		.exec(function(error, wlz) {
 			
 			if (error) throw error;
 			
 			for (var i = 0; i < wlz.length; ++i) {
 				
-				// for (var j = 0; j < wlz[i].uuids.length; ++j) {
-				// 	redisClient.hmset('user:'+wlz[i].uuids[j], {
-				// 		uuid: wlz[i].uuids[j],
-				// 		dashes: 'NHI5NjJwYzUBMwQ3ZjUxWDliMDAwMDAx:NHI5NjlJwBUkSwQZjUxWJupDAwMDAx:NTI5NjM5ZTlmOGZjY2Q1ODliMDAwMDAx', 
-				// 		created_at: wlz[i].uuid_added_at[j],
-				// 		platform: wlz[i].platform,
-				// 		app_first_launch_at: user.app_first_launch_at,
-				// 		status: 1, // 1: just created, 2: waiting for confirmation, 3: confirmed
-				// 		notifications: 0
-				// 	});
-				// }
+				for (var j = 0; j < wlz[i].uuids.length; ++j) {
+					redisClient.hmset('user:'+wlz[i].uuids[j], {
+						uuid: wlz[i].uuids[j],
+						dashes: 'NHI5NjJwYzUBMwQ3ZjUxWDliMDAwMDAx:NHI5NjlJwBUkSwQZjUxWJupDAwMDAx:NTI5NjM5ZTlmOGZjY2Q1ODliMDAwMDAx', 
+						created_at: wlz[i].uuid_added_at[j],
+						platform: wlz[i].platform,
+						app_first_launch_at: new Date().getTime(),
+						status: 3, // 1: just created, 2: waiting for confirmation, 3: confirmed
+						notifications: 0
+					});
+				}
+
 				// if (wlz[i].uuid_addaded_at && wlz[i].uuid_addaded_at.length > 0 ) {
 				// 	console.log('uuid_addaded_at: ', wlz[i].uuid_addaded_at);
 				// 	console.log('uuid_added_at: ', wlz[i].uuid_added_at);
