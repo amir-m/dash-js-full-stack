@@ -495,7 +495,7 @@ angular.module('DashbookApp')
               }
 
             }, false);
-          }, 1);
+          }, 25);
         };
 
         function scheduleContentFecth(interval) {
