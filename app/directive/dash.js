@@ -460,20 +460,10 @@ angular.module('DashbookApp')
         }
 
         scope.attachFlipsnap = function() {
-          $(".flipsnap section").each(function(){
-              $(".slide-indicator").append($("<span>"));
-          });
-
-          $( ".slide-indicator span:gt(9)" ).hide();
-          
-          if (scope.d.content.length > 9) {
-              $(".slide-indicator").append($("<span class='plus'>"))
-          }
 
           flipsnap = Flipsnap('#'+scope.d.id+ ' .flipsnap');
 
           flipsnap.moveToPoint(scope.flipTo - 1);
-
           setTimeout(function(){
 
             flipsnap.refresh();
@@ -488,11 +478,7 @@ angular.module('DashbookApp')
               
               pointer.filter('.current').removeClass('current');
               pointer.eq(flipsnap.currentPoint).addClass('current');
-
-              if (flipsnap.currentPoint > 9) {
-                  $(".plus").addClass("current");
-              }
-
+              
             }, false);
           }, 1000);
         };
