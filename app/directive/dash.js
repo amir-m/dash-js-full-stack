@@ -476,7 +476,7 @@ angular.module('DashbookApp')
             $('#'+scope.d.id+' .slide-indicator span:gt(9)').hide();
             
             if (scope.d.content.length > 9) {
-              $('.slide-indicator .plus').show();
+              $('#'+scope.d.id+' .slide-indicator .plus').show();
             };
 
             pointer.eq(flipsnap.currentPoint).addClass('current');
@@ -485,6 +485,11 @@ angular.module('DashbookApp')
               
               pointer.filter('.current').removeClass('current');
               pointer.eq(flipsnap.currentPoint).addClass('current');
+
+              if (flipsnap.currentPoint > 9) {
+                $('.slide-indicator .plus').addClass('current');
+              }
+
             }, false);
           }, 1000);
         };
