@@ -109,6 +109,8 @@ angular.module('DashbookApp')
                     apiResponseJson[scope.d.data_container] = apiResponseJson[scope.d.data_container].splice(0, 10);
                 }
 
+                console.log(apiResponseJson[scope.d.data_container].length);
+                
                 for (var i = 0; i < apiResponseJson[scope.d.data_container].length; ++i) {
 
                   if (scope.d.title == 'World Cup Brazil') {
@@ -190,10 +192,10 @@ angular.module('DashbookApp')
                       id: _scope.$id
                     });
 
-                    console.log(begin);
+                    // console.log(begin);
 
-                    $('#'+scope.d.id + ' .flipsnap').append($compile(begin)(_scope));
-                    scope.d.content.push(_scope.$id);
+                    // $('#'+scope.d.id + ' .flipsnap').append($compile(begin)(_scope));
+                    // scope.d.content.push(_scope.$id);
                   }
 
                   else {
@@ -203,7 +205,7 @@ angular.module('DashbookApp')
                     _scope.content = apiResponseJson[scope.d.data_container][i];
                     
                     scope.d.content.push(_scope.$id);
-                                        console.log(begin);
+                    console.log(begin);
                     $('#'+scope.d.id + ' .flipsnap').append($compile(begin)(_scope));
                   }
 
