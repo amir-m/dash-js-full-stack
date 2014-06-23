@@ -130,15 +130,8 @@ module.exports = function(models, redisClient) {
 			for (var i = 0; i < wlz.length; ++i) {
 				
 				for (var j = 0; j < wlz[i].uuids.length; ++j) {
-					redisClient.hmset('user:'+wlz[i].uuids[j], {
-						uuid: wlz[i].uuids[j],
-						dashes: 'NHI5NjJwYzUBMwQ3ZjUxWDliMDAwMDAx:NHI5NjlJwBUkSwQZjUxWJupDAwMDAx:NTI5NjM5ZTlmOGZjY2Q1ODliMDAwMDAx', 
-						created_at: wlz[i].uuid_added_at[j],
-						platform: wlz[i].platform,
-						app_first_launch_at: new Date().getTime(),
-						status: 3, // 1: just created, 2: waiting for confirmation, 3: confirmed
-						notifications: 0
-					});
+					redisClient.hset('user:'+wlz[i].uuids[j], 'dashes', '');
+					createDefaultDashes(wlz[i].uuids[j]);
 				}
 
 				// if (wlz[i].uuid_addaded_at && wlz[i].uuid_addaded_at.length > 0 ) {
