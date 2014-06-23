@@ -16,6 +16,9 @@ angular.module('DashbookApp')
           $rootScope.user = data.user;
           $rootScope.myDashes = data.dashes;
 
+          console.log($rootScope.user);
+          console.log($rootScope.myDashes);
+
           if ($rootScope.user.status != 3 || $rootScope.user.status != '3') {
             return $location.path('/register');
           } 
