@@ -203,7 +203,7 @@ angular.module('DashbookApp')
                     _scope.content = apiResponseJson[scope.d.data_container][i];
                     
                     scope.d.content.push(_scope.$id);
-
+                                        console.log(begin);
                     $('#'+scope.d.id + ' .flipsnap').append($compile(begin)(_scope));
                   }
 
