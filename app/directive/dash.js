@@ -460,21 +460,39 @@ angular.module('DashbookApp')
         }
 
         scope.attachFlipsnap = function() {
+          $(".flipsnap section").each(function(){
+              $(".slide-indicator").append($("<span>"));
+          });
+
+          $( ".slide-indicator span:gt(9)" ).hide();
+          
+          if (slidesLength > 9) {
+              $(".slide-indicator").append($("<span class='plus'>"))
+          }
 
           flipsnap = Flipsnap('#'+scope.d.id+ ' .flipsnap');
-          // flipsnap.moveToPoint(scope.flipTo);
+
           flipsnap.moveToPoint(scope.flipTo - 1);
+
           setTimeout(function(){
-            // $('article').find('.current').removeClass('current');
+
             flipsnap.refresh();
-            // pointer = $('.slide-indicator span'); 
+
             pointer = $('#pointer-'+scope.d.id+' span'); 
+
             if (!scope.d.content || scope.d.content.length == 0) return;
-            //$('.slide-indicator').find('span:nth-child('+scope.flipTo.toString()+')').addClass('current');
+
             pointer.eq(flipsnap.currentPoint).addClass('current');
+
             flipsnap.element.addEventListener('fspointmove', function() {
+              
               pointer.filter('.current').removeClass('current');
               pointer.eq(flipsnap.currentPoint).addClass('current');
+
+              if (flipsnap.currentPoint > 9) {
+                  $(".plus").addClass("current");
+              }
+
             }, false);
           }, 1000);
         };

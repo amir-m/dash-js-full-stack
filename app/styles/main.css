@@ -346,12 +346,20 @@ article {
     display: inline-block;
     width: 6px;
     height: 6px;
-    border-radius: 4px;
+    border-radius: 100%;
     margin: 0 2px;
-    vertical-align: middle; }
+    vertical-align: middle;
+    opacity: 0.6; }
   .slide-indicator .current {
     background-color: transparent;
-    border: 1px solid #566b75; }
+    border: 1px solid #566b75;
+    opacity: 1; }
+  .slide-indicator .plus {
+    border: none;
+    background: transparent url(../img/more-slides.png) no-repeat center center;
+    background-size: contain;
+    width: 8px;
+    height: 8px; }
 
 .table {
   display: table;
@@ -579,6 +587,7 @@ article {
   right: 0;
   width: 80%;
   height: 100%;
+  min-height: 480px;
   z-index: 1;
   background: #0b1c24;
   overflow: auto;
@@ -689,6 +698,56 @@ keyframes slide-up 80%  {
   -webkit-transform: translateY(-0.5em); }
 keyframes slide-up 100%  {
   -webkit-transform: translateY(0); }
+
+.lightbox {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  height: 100%;
+  background-color: #000; }
+  .lightbox button {
+    background: none;
+    border: 1px solid #fff;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    padding: 0.5em 1em 0.75em;
+    color: #fff;
+    border-radius: 4px;
+    opacity: 0.6; }
+  .lightbox .wrapper {
+    margin: auto;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%); }
+  .lightbox .viewport {
+    height: 100%;
+    width: 320px;
+    margin: auto;
+    /*border: solid 1px;*/ }
+    @media all and (min-width: 460px) {
+      .lightbox .viewport {
+        width: 400px; } }
+    .lightbox .viewport section {
+      width: 320px;
+      vertical-align: middle;
+      display: table-cell;
+      float: none; }
+      @media all and (min-width: 460px) {
+        .lightbox .viewport section {
+          width: 400px; } }
+      .lightbox .viewport section div {
+        padding: 0; }
+        .lightbox .viewport section div span {
+          background-size: contain;
+          background-color: #000;
+          padding-bottom: 0;
+          height: 568px; }
+          @media all and (min-width: 460px) {
+            .lightbox .viewport section div span {
+              height: 768px; } }
+        .lightbox .viewport section div img {
+          width: 100%; }
 
 /* ==========================================================================
    Helper classes
