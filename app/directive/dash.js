@@ -466,7 +466,7 @@ angular.module('DashbookApp')
 
           $( ".slide-indicator span:gt(9)" ).hide();
           
-          if (scope.d.content > 9) {
+          if (scope.d.content.length > 9) {
               $(".slide-indicator").append($("<span class='plus'>"))
           }
 
