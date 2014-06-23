@@ -6,40 +6,40 @@ var cluster = require('cluster'),
 	app = express(),
 	mongoose = require('mongoose'),
 	cookie = require('cookie'),
-    publisher, workers = {},
+    redisClient, workers = {},
     cpuCount = require('os').cpus().length;
 var forked = false;
 
-// publisher = redis.createClient(6379, '54.185.233.146');
-publisher = redis.createClient(6379, 'dbk-cache.serzbc.0001.usw2.cache.amazonaws.com');
+// redisClient = redis.createClient(6379, '54.185.233.146');
+redisClient = redis.createClient(6379, 'dbk-cache.serzbc.0001.usw2.cache.amazonaws.com');
 
 // var models = {
-// 	dashes: require('./models/dash').config(mongoose, publisher),
+// 	dashes: require('./models/dash').config(mongoose, redisClient),
 // 	users: require('./models/user').config(mongoose)
 // };
 
-var models = require('./models').config(mongoose, publisher);
+var models = require('./models').config(mongoose, redisClient);
 
 
 setTimeout(function() {
 	// console.log('in timeout');
-	// require('./helpers')(models, publisher).confirmUser('amir@doob.io', 'Amir', function(error){
+	// require('./helpers')(models, redisClient).confirmUser('amir@doob.io', 'Amir', function(error){
 	// 	if (error) throw error;
 	// 	console.log('amir@doob.io just got confirmed');
 	// });
 
-	// require('./helpers')(models, publisher).insertDashesToRedisBackend();
-	// require('./helpers')(models, publisher).deleteAllUsers();
-	// require('./helpers')(models, publisher).fixSomething();
+	// require('./helpers')(models, redisClient).insertDashesToRedisBackend();
+	// require('./helpers')(models, redisClient).deleteAllUsers();
+	// require('./helpers')(models, redisClient).fixSomething();
 
 }, 3000);
 
-require('./config')(express, app, mongoose, cookie, models, publisher);
+require('./config')(express, app, mongoose, cookie, models, redisClient);
 
 var routes = {
-	index: require('./routes/index')(models, publisher, cookie),
-	dashes: require('./routes/dashes')(models, publisher, mongoose),
-	settings: require('./routes/settings')(models, publisher),
+	index: require('./routes/index')(models, redisClient, cookie),
+	dashes: require('./routes/dashes')(models, redisClient, mongoose),
+	settings: require('./routes/settings')(models, redisClient),
 	accounts: require('./routes/accounts').init(models)	
 };
 
@@ -61,7 +61,7 @@ if (cluster.isMaster) {
 	});
 }
 
-publisher.on('error', function(error){
+redisClient.on('error', function(error){
 	console.log(error);
 });
 
