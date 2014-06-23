@@ -460,25 +460,26 @@ angular.module('DashbookApp')
         }
 
         scope.attachFlipsnap = function() {
-          if (!scope.d.content || scope.d.content.length == 0) return;
-
-          $('#'+scope.d.id+' .slide-indicator span:gt(9)').hide();
           
-          if (scope.d.content.length > 9) {
-            $('#'+scope.d.id+' .slide-indicator .plus').show();
-          };
+          $('#'+scope.d.id+' .slide-indicator span:gt(9)').hide();
 
           flipsnap = Flipsnap('#'+scope.d.id+ ' .flipsnap');
 
           flipsnap.moveToPoint(scope.flipTo - 1);
 
           setTimeout(function(){
-            
 
             flipsnap.refresh();
 
             pointer = $('#pointer-'+scope.d.id+' span'); 
 
+            if (!scope.d.content || scope.d.content.length == 0) return;
+
+            $('#'+scope.d.id+' .slide-indicator span:gt(9)').hide();
+            
+            if (scope.d.content.length > 9) {
+              $('#'+scope.d.id+' .slide-indicator .plus').show();
+            };
 
             pointer.eq(flipsnap.currentPoint).addClass('current');
 
