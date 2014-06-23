@@ -140,9 +140,9 @@ module.exports = function(models, redisClient) {
 				// 		notifications: 0
 				// 	});
 				// }
-				if (wlz[i].uuid_addaded_at) {
+				// if (wlz[i].uuid_addaded_at) {
 					console.log(wlz[i].uuid_addaded_at);
-				}
+				// }
 			}
 		});
 		
