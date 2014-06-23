@@ -55,6 +55,7 @@ module.exports = function(models, redisClient) {
 					selected_source_uri: (dash.source_uri && dash.source_uri[0]) ? dash.source_uri[0] : '', 
 					handler_placeholder: dash.handler_placeholder,
 					data_container: dash.data_container,
+					source_return_type: dash.source_return_type || 'json',
 					settings: dash.settings,
 					source_uri: dash.source_uri,
 					mapper_key: dash.mapper_key,
