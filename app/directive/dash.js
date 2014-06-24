@@ -94,6 +94,10 @@ angular.module('DashbookApp')
                       && todays[i].status.length > 0 
                       && todays[i].status.toLowerCase() != 'full-time')
                       index = todays[i].id;
+                    if (todays[i].status == 'LIVE') {
+                      index = todays[i].id;
+                      break;
+                    }
                   }
 
                   if (index) {

@@ -13,6 +13,26 @@
 	"has_settings": "true"
 },
 {
+	"id": "MTY7KiQnZxLQMzQ3ZjUxZDliMDAwMDAx",	
+	"source_uri": "https://api.instagram.com/v1/media/search?lat={latitude}&lng={longitude}&distance=5000&client_id={client_id}",
+	"source_uri_keys": "{latitude}:{longitude}:{keyword}:{client_id}",
+	"source_uri_values": "latitude:longitude:279a55cf0c324a83b90d36c29bf503ff",
+	"source_return_type": "json",
+	"content_type": "src_comp:hero_comp:desc_comp",
+	"title": "Photos Around Me",
+	"description": "Displays latest photos taken near your current location.",
+	"credits": "Instagram", 
+	"icon_large": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/photos_around_me_large_icon.png",
+	"icon_small": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/photos_around_me_small_icon.png",
+	"setting_type": "",
+	"location": "",
+	"settings": "",
+	"data_container": "data",
+	"mapper_key": "src_comp.resource_uri:desc_comp.header:desc_comp.text:desc_comp.avatar_img:hero_comp.main_img",
+	"mapper_value": "link:user.full_name:caption.text:user.profile_picture:images.standard_resolution.url",
+	"has_settings": "true"
+},
+{
 	"id": "NTI5NjJmYzUyMzQ3ZjUxZDliMDAwMDAx",	
 	"source_uri": "https://api.dribbble.com/shots/popular?per_page=10|^._.^|https://api.dribbble.com/shots/debuts?per_page=10|^._.^|https://api.dribbble.com/shots/everyone?per_page=10",
 	"source_return_type": "json",
@@ -114,8 +134,8 @@
 {
 	"id": "NTI5NjM5ZTlmOGZjY2Q1ODliMDAwMDAx",
 	"title": "Coffee Near Me",
-	"source_uri": "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={latitude},{longitude}&rankBy=distance&radius=4000&keyword={keyword}&sensor=true&key={api_key}",
 	"source_return_type": "json",
+	"source_uri": "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={latitude},{longitude}&rankBy=distance&radius=4000&keyword={keyword}&sensor=true&key={api_key}",
 	"source_uri_keys": "{latitude}:{longitude}:{keyword}:{api_key}",
 	"source_uri_values": "latitude:longitude:coffee:AIzaSyAfzGESbROgOjoOqJrMbtIKNRtebL3w0Lc",
 	"content_type": "src_comp:geo_comp",
