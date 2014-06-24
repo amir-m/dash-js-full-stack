@@ -30,7 +30,7 @@
 	"data_container": "data",
 	"mapper_key": "src_comp.resource_uri:desc_comp.header:desc_comp.text:desc_comp.avatar_img:hero_comp.main_img",
 	"mapper_value": "link:user.full_name:caption.text:user.profile_picture:images.standard_resolution.url",
-	"has_settings": "true"
+	"has_settings": "false"
 },
 {
 	"id": "NTI5NjJmYzUyMzQ3ZjUxZDliMDAwMDAx",	
