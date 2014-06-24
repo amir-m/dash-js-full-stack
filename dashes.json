@@ -15,7 +15,7 @@
 {
 	"id": "MTY7KiQnZxLQMzQ3ZjUxZDliMDAwMDAx",	
 	"source_uri": "https://api.instagram.com/v1/media/search?lat={latitude}&lng={longitude}&distance=5000&client_id={client_id}",
-	"source_uri_keys": "{latitude}:{longitude}:{keyword}:{client_id}",
+	"source_uri_keys": "{latitude}:{longitude}:{client_id}",
 	"source_uri_values": "latitude:longitude:279a55cf0c324a83b90d36c29bf503ff",
 	"source_return_type": "json",
 	"content_type": "src_comp:hero_comp:desc_comp",
