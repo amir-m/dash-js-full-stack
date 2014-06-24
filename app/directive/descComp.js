@@ -9,9 +9,11 @@ angular.module('DashbookApp')
       restrict: 'E',
       link: function postLink(scope, element, attrs) {
 
-        scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.replace(/<\w*>/g, '');
-        scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.replace(/<\/\w*>/g, '');
-        scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.replace(/&nbsp;/g, '');
+        if (scope.content.components.desc_comp.text) {
+          scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.replace(/<\w*>/g, '');
+          scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.replace(/<\/\w*>/g, '');
+          scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.replace(/&nbsp;/g, '');
+        }
 
         if (scope.d.components_settings 
         && scope.d.components_settings.desc_comp 
