@@ -161,12 +161,22 @@ angular.module('DashbookApp')
                         }
                       }
 
-                      eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_key[j]+
-                      " = apiResponseJson[scope.d.data_container][i]." + value);
+                      try{
+                        eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_key[j]+
+                        " = apiResponseJson[scope.d.data_container][i]." + value);
+                      }
+                      catch(error) {
+                        throw error;
+                      }
                     }
                     else {
-                      eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_key[j]+
-                      " = apiResponseJson[scope.d.data_container][i]" + value);
+                      try{
+                        eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_key[j]+
+                        " = apiResponseJson[scope.d.data_container][i]" + value);
+                      }
+                      catch(error) {
+                        throw error;
+                      }
                     }
                   }
 
@@ -174,9 +184,13 @@ angular.module('DashbookApp')
                       for (var j = 0; j < scope.d.mapper_static_key.length; ++j) {
                         
                         var value = scope.d.mapper_static_value[j];
-
-                        eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_static_key[j]+
-                          " = '"+value+"'");
+                        try{
+                          eval("apiResponseJson[scope.d.data_container][i].components."+scope.d.mapper_static_key[j]+
+                            " = '"+value+"'");
+                        }
+                        catch(error) {
+                          throw error;
+                        }
                       }
                   }
 
@@ -637,9 +651,13 @@ angular.module('DashbookApp')
                       if (k != values.length -1) value += '.';
                     }
                   }
-
-                  eval("apiResponseJson[scope.d.privateDash.data_container][i].components."+scope.d.privateDash.mapper_key[j]+
-                    " = apiResponseJson[scope.d.privateDash.data_container][i]." + value);
+                  try {
+                    eval("apiResponseJson[scope.d.privateDash.data_container][i].components."+scope.d.privateDash.mapper_key[j]+
+                      " = apiResponseJson[scope.d.privateDash.data_container][i]." + value);
+                  }
+                  catch(error) {
+                    throw error;
+                  }
                 }
 
                 if (scope.d.privateDash.mapper_static_key) {
@@ -651,9 +669,13 @@ angular.module('DashbookApp')
                       
                       console.log("apiResponseJson[scope.d.privateDash.data_container][i].components['"+scope.d.privateDash.mapper_static_key[j]+"']"+
                         " = '"+value+"'");
-                      
-                      eval("apiResponseJson[scope.d.privateDash.data_container][i].components['"+scope.d.privateDash.mapper_static_key[j]+"']"+
-                        " = '"+value+"'");
+                      try {
+                        eval("apiResponseJson[scope.d.privateDash.data_container][i].components['"+scope.d.privateDash.mapper_static_key[j]+"']"+
+                          " = '"+value+"'");
+                      }
+                      catch(error) {
+                        throw error;
+                      }
                     }
                 }
 
@@ -697,8 +719,13 @@ angular.module('DashbookApp')
               };
             }
             else {
-              eval('container = apiResponseJson.' + scope.d.privateDash.data_container);
-              console.log(container);
+              try {
+                eval('container = apiResponseJson.' + scope.d.privateDash.data_container);
+              }
+              catch(error) {
+                throw error;
+              }
+              
               if (container.length > 20) 
                     container = container.splice(0, 10);
               
@@ -724,9 +751,13 @@ angular.module('DashbookApp')
                       if (k != values.length -1) value += '.';
                     }
                   }
-
-                  eval("container[i].components."+scope.d.privateDash.mapper_key[j]+
-                    " = container[i]" + value);
+                  try {
+                    eval("container[i].components."+scope.d.privateDash.mapper_key[j]+
+                      " = container[i]" + value);
+                  }
+                  catch(error) {
+                    throw error;
+                  }
                 }
 
                 if (scope.d.privateDash.mapper_static_key) {
@@ -738,9 +769,13 @@ angular.module('DashbookApp')
                       
                       console.log("container[i].components['"+scope.d.privateDash.mapper_static_key[j]+"']"+
                         " = '"+value+"'");
-                      
-                      eval("container[i].components['"+scope.d.privateDash.mapper_static_key[j]+"']"+
-                        " = '"+value+"'");
+                      try {
+                        eval("container[i].components['"+scope.d.privateDash.mapper_static_key[j]+"']"+
+                          " = '"+value+"'");
+                      }
+                      catch(error) {
+                        throw error;
+                      }
                     }
                 }
 
