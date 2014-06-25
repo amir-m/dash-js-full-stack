@@ -322,9 +322,10 @@ angular.module('DashbookApp')
         });
 
         scope.updateInputText = function() {
-            if ($('#' + scope.d.id + '-input-text').val()) {
+          scope.settings_input_value
+            if (scope.settings_input_value) {
               $('#' + scope.d.id + ' .spinner').show();
-              var selected_setting = $('#' + scope.d.id + '-input-text').val();
+              var selected_setting = scope.settings_input_value;
 
               scope.d.selected_setting = selected_setting.toLowerCase();
               scope.d.selected_source_uri = scope.d.source_uri_scheme;
@@ -356,10 +357,10 @@ angular.module('DashbookApp')
             else return;
         };
 
-        scope.updatePrivateDashSetting = function() {
-          if ($('#' + scope.d.id + '-input-text').val()) {
+        scope.setPrivateDash = function() {
+          if (scope.settings_input_value) {
             $('#' + scope.d.id + ' .spinner').show();
-            scope.d.selected_setting = $('#' + scope.d.id + '-input-text').val();
+            scope.d.selected_setting = scope.settings_input_value;
             var __id = null;
             var collection_name = scope.d.content ? scope.d.content.collection_name : scope.d.title
             if (scope.d.content && scope.d.content.id)

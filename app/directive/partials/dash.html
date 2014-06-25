@@ -44,7 +44,7 @@
 			<a class="settings-btn" ng-click="flipSettings()"><span></span></a>
 		</header>
 
-		<div class="settings">
+		<div class="settings" ng-show="d.title != 'Private Dash' || (d.title == 'Private Dash' && !d.dash_has_been_set)">
 			<section class="error-comp centered" ng-show="!d.has_settings">
 				<p class="grey">This dash has no settings</p>
 			</section>
@@ -62,14 +62,14 @@
 			</section>
 			<section class="input-comp" ng-show="d.setting_type == 'textInput'">
 				<input 
-					id="{{d.id}}-input-text" 
+					ng-model="settings_input_value" 
 					class="clearable" type="text" 
 					placeholder="Search" 
 					name="search_term" 
 					value="{{d.selected_setting}}"
 					ng-show="d.title != 'Private Dash'">
 				<input 
-					id="{{d.id}}-input-text" 
+					ng-model="settings_input_value" 
 					class="clearable" type="text" 
 					placeholder="Enter Dash Name" 
 					name="search_term" 
@@ -80,12 +80,53 @@
 
 				<button 
 					ng-show="d.title == 'Private Dash'" 
-					ng-click="updatePrivateDashSetting()"
+					ng-click="setPrivateDash()"
 				>Save
 				</button>
 				<button 
 					ng-show="d.title != 'Private Dash'" 
 					ng-click="updateInputText()">Save</button>
+			</section>
+			<footer>
+				<a class="remove-btn" ng-click="removeDash()" id="{{d.id}}-remove-btn">
+					<span>
+						Remove
+					</span>
+				</a>					
+				<p class="credit">Powered by {{d.credits}}</p>
+			</footer>
+		</div>
+		<div class="settings" ng-show="d.title == 'Private Dash' && d.dash_has_been_set)">
+			<section class="error-comp centered" ng-show="!d.has_settings">
+				<p class="grey">This dash has no settings</p>
+			</section>
+			<section class="list-comp">
+				<ul ng-show="d.setting_type == 'radio'">
+					<li ng-repeat="setting in d.settings" 
+						ng-class="{selected: setting == d.selected_setting}" 
+						ng-click="selectSetting($index)">
+						{{setting}}
+					</li>
+				</ul>
+			</section>
+			<section class="error-comp centered" style="display:none;">
+				<p class="grey">This is error...</p>
+			</section>
+			<section class="input-comp" ng-show="d.setting_type == 'textInput'">
+				<input 
+					ng-model="settings_input_value" 
+					class="clearable" type="text" 
+					placeholder="Search" 
+					name="search_term" 
+					value="{{d.privateDash.selected_setting}}">
+					
+				<p ng-show="d.notFound" class="grey centered">Dash Not Found!</p>
+
+				<button 
+					ng-show="d.title == 'Private Dash'" 
+					ng-click="updatePrivateDashSettings()"
+				>Save
+				</button>
 			</section>
 			<footer>
 				<a class="remove-btn" ng-click="removeDash()" id="{{d.id}}-remove-btn">
