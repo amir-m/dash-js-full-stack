@@ -546,7 +546,9 @@ angular.module('DashbookApp')
             longitude: $rootScope.longitude,
             timestamp: new Date().getTime()
           })
-          .success(function () {})
+          .success(function () {
+            scope.flipSettings();
+          })
           .error(function () {
             throw error;
           })
