@@ -888,6 +888,7 @@ angular.module('DashbookApp')
         };
 
         if (!scope.d.dash_has_been_set) scope.flipSettings();
+        console.log(scope.d.dash_has_been_set)
       }
     };
   }]);
