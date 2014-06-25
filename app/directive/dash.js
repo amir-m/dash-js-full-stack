@@ -381,6 +381,7 @@ angular.module('DashbookApp')
             .success(function(data){
               scope.flipSettings();
               scope.d.notFound = null;
+              scope.d.dash_has_been_set = true;
               scope.d.content = []
               $('#'+scope.d.id + ' .flipsnap').empty();
               scope.d.private_dash = data.private_dash;
