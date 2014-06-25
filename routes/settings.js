@@ -413,6 +413,7 @@ var map = {
 	return {
 		create: create,
 		update: update,
-		read: read
+		read: read,
+		postPrivateDashSettingsUpdate: postPrivateDashSettingsUpdate
 	}
 }
