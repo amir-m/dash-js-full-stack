@@ -887,11 +887,14 @@ angular.module('DashbookApp')
         else {
         };
 
-        if (!scope.d.dash_has_been_set) {
-          $('#' + scope.d.id ).addClass('flip');
-          flipped = true;
-          // scope.flipSettings();
-        }
+        setTimeout(function (argument) {
+          if (!scope.d.dash_has_been_set) {
+            $('#' + scope.d.id ).addClass('flip');
+            // flipped = true;
+            // scope.flipSettings();
+            console.log('should be effected');
+          }
+        }, 2000);
       }
     };
   }]);
