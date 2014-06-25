@@ -68,14 +68,6 @@
 					name="search_term" 
 					value="{{d.selected_setting}}"
 					ng-show="d.title != 'Private Dash'">
-				<input 
-					ng-model="settings_input_value" 
-					class="clearable" type="text" 
-					placeholder="Enter Dash Name" 
-					name="search_term" 
-					value="{{d.selected_setting}}"
-					ng-show="d.title == 'Private Dash'">
-					
 				<p ng-show="d.notFound" class="grey centered">Dash Not Found!</p>
 
 				<button 
@@ -113,7 +105,6 @@
 				<p class="grey">This is error...</p>
 			</section>
 			<section class="input-comp" ng-show="d.private_dash.setting_type == 'textInput'">
-			{{d.private_dash.selected_setting}}
 				<input 
 					ng-model="private_dash_settings_input_value" 
 					class="clearable" type="text" 
