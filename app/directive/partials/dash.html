@@ -44,7 +44,7 @@
 			<a class="settings-btn" ng-click="flipSettings()"><span></span></a>
 		</header>
 
-		<div class="settings" ng-show="d.title != 'Private Dash' || (d.title == 'Private Dash' && !d.dash_has_been_set)">
+		<div class="settings" ng-show="isNotPrivateDashSettings()">
 			<section class="error-comp centered" ng-show="!d.has_settings">
 				<p class="grey">This dash has no settings</p>
 			</section>
@@ -96,7 +96,7 @@
 				<p class="credit">Powered by {{d.credits}}</p>
 			</footer>
 		</div>
-		<div class="settings" ng-show="d.title == 'Private Dash' && d.dash_has_been_set)">
+		<div class="settings" ng-show="isPrivateDashSettings()">
 			<section class="error-comp centered" ng-show="!d.has_settings">
 				<p class="grey">This dash has no settings</p>
 			</section>

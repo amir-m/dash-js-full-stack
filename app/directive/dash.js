@@ -523,6 +523,13 @@ angular.module('DashbookApp')
           }, 25);
         };
 
+        scope.isPrivateDashSettings = function () {
+          return scope.d.title == 'Private Dash' && scope.d.dash_has_been_set;
+        };
+
+        scope.isNotPrivateDashSettings = function () {
+          return scope.d.title != 'Private Dash' || (scope.d.title == 'Private Dash' && !scope.d.dash_has_been_set);
+        };
         function scheduleContentFecth(interval) {
           setTimeout(function(){
             $http.get('/content?t='+scope.d.title+'&s='+scope.d.selected_setting+'&skip='+scope.skip)
