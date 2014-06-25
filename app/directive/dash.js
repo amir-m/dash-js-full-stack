@@ -13,8 +13,6 @@ angular.module('DashbookApp')
 
         $('article').addClass('slide-up');
 
-        console.log(scope.d);
-
         setTimeout(function (argument) {
           $('article').removeClass('slide-up');
         }, 1000);
@@ -633,6 +631,30 @@ angular.module('DashbookApp')
         };
 
         function apiCall() {
+
+          if (scope.d.private_dash.source_uri_keys && scope.d.private_dash.source_uri_keys.length > 0) {
+            if (scope.d.private_dash.source_uri_keys.indexOf('{latitude}') != -1) {
+              scope.d.private_dash.source_uri = scope.d.private_dash.source_uri.replace('{latitude}', scope.latitude);
+              // scope.d.private_dash.source_uri_keys.splice(scope.d.private_dash.source_uri_keys.indexOf('{latitude}'), 1);
+              // scope.d.private_dash.source_uri_values.splice(0, 1);
+            }
+            if (scope.d.private_dash.source_uri_keys.indexOf('{longitude}') != -1) {
+              scope.d.private_dash.source_uri = scope.d.private_dash.source_uri.replace('{longitude}', scope.longitude);
+              // scope.d.private_dash.source_uri_keys.splice(scope.d.private_dash.source_uri_keys.indexOf('{longitude}'), 1);
+              // scope.d.private_dash.source_uri_values.splice(0, 1);
+            }
+            if (scope.d.private_dash.source_uri_keys.indexOf('{selected_setting}') != -1) {
+              scope.d.private_dash.source_uri = scope.d.private_dash.source_uri.replace('{selected_setting}', scope.d.private_dash.selected_setting);
+            }
+            if ($scope.privateDash.source_uri_keys.indexOf('{selected_setting}') != -1) {
+              scope.d.private_dash.source_uri = $scope.privateDash.source_uri.replace('{selected_setting}', scope.d.private_dash.selected_setting);
+            }
+            for (var i = 0; i < scope.d.private_dash.source_uri_keys.length; ++i) {
+              if (scope.d.private_dash.source_uri_keys[i] != '{latitude}' && scope.d.private_dash.source_uri_keys[i] != '{longitude}' && scope.d.private_dash.source_uri_keys[i] != '{selected_setting}')
+                scope.d.private_dash.source_uri = scope.d.private_dash.source_uri.replace(scope.d.private_dash.source_uri_keys[i], scope.d.private_dash.source_uri_values[i]);
+            }
+          };
+
           $http.get(scope.engine_uri + scope.d.private_dash.source_uri)
           .success(function(apiResponseJson, status, headers){
             var content = [], container;
@@ -870,8 +892,6 @@ angular.module('DashbookApp')
         };
 
         if (scope.d.title == 'Private Dash') {
-
-          console.log(scope.d.private_dash);
 
           if (scope.d.selected_setting) {
             setTimeout(function(){

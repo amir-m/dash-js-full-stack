@@ -97,13 +97,13 @@
 			</footer>
 		</div>
 		<div class="settings" ng-show="isPrivateDashSettings()">
-			<section class="error-comp centered" ng-show="!d.has_settings">
+			<section class="error-comp centered" ng-show="!d.private_dash.has_settings">
 				<p class="grey">This dash has no settings</p>
 			</section>
 			<section class="list-comp">
-				<ul ng-show="d.setting_type == 'radio'">
-					<li ng-repeat="setting in d.settings" 
-						ng-class="{selected: setting == d.selected_setting}" 
+				<ul ng-show="d.private_dash.setting_type == 'radio'">
+					<li ng-repeat="setting in d.private_dash.settings" 
+						ng-class="{selected: setting == d.private_dash.selected_setting}" 
 						ng-click="selectSetting($index)">
 						{{setting}}
 					</li>
@@ -112,7 +112,7 @@
 			<section class="error-comp centered" style="display:none;">
 				<p class="grey">This is error...</p>
 			</section>
-			<section class="input-comp" ng-show="d.setting_type == 'textInput'">
+			<section class="input-comp" ng-show="d.private_dash.setting_type == 'textInput'">
 				<input 
 					ng-model="private_dash_settings_input_value" 
 					class="clearable" type="text" 
@@ -120,13 +120,9 @@
 					name="search_term" 
 					value="{{d.private_dash.selected_setting}}">
 					
-				<p ng-show="d.notFound" class="grey centered">Dash Not Found!</p>
-
-				<button 
-					ng-show="d.title == 'Private Dash'" 
-					ng-click="updatePrivateDashSettings()"
-				>Save
-				</button>
+<!-- 				<p ng-show="d.notFound" class="grey centered">Dash Not Found!</p>
+ -->
+				<button ng-click="updatePrivateDashSettings()">Save</button>
 			</section>
 			<footer>
 				<a class="remove-btn" ng-click="removeDash()" id="{{d.id}}-remove-btn">

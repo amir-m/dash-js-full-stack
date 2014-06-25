@@ -163,6 +163,8 @@ var PrivateDashSchema = new mongoose.Schema({
 	source_return_type: String,
 	source_uri_scheme: String,
 	selected_setting_uri_field: String,
+	selected_setting: String,
+	setting_type: String,
 	content_type: [],
 	mapper_key: [],
 	mapper_value: [],
