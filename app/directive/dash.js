@@ -531,7 +531,7 @@ angular.module('DashbookApp')
         };
 
         scope.isNotPrivateDashSettings = function () {
-          console.log(scope.d.title != 'Private Dash' || (scope.d.title == 'Private Dash' && !scope.d.dash_has_been_set))
+          console.log(scope.$$phase);
           return scope.d.title != 'Private Dash' || (scope.d.title == 'Private Dash' && !scope.d.dash_has_been_set);
         };
         function scheduleContentFecth(interval) {
