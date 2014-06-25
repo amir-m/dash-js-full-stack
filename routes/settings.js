@@ -366,7 +366,7 @@ var map = {
 						dash.dash_has_been_set = true;
 
 						dash.save(function(error){
-							return res.send({ dash: dash, privateDash: doc.json() });
+							return res.send({ dash: dash, private_dash: doc.json() });
 						});
 					});
 				}
