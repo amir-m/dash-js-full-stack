@@ -646,7 +646,7 @@ angular.module('DashbookApp')
             if (scope.d.private_dash.source_uri_keys.indexOf('{selected_setting}') != -1) {
               scope.d.private_dash.source_uri = scope.d.private_dash.source_uri.replace('{selected_setting}', scope.d.private_dash.selected_setting);
             }
-            if ($scope.privateDash.source_uri_keys.indexOf('{selected_setting}') != -1) {
+            if (scope.d.private_dash.source_uri_keys.indexOf('{selected_setting}') != -1) {
               scope.d.private_dash.source_uri = $scope.privateDash.source_uri.replace('{selected_setting}', scope.d.private_dash.selected_setting);
             }
             for (var i = 0; i < scope.d.private_dash.source_uri_keys.length; ++i) {
