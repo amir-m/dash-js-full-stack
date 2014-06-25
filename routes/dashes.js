@@ -102,9 +102,9 @@ module.exports = function  (models, publisher) {
 				has_settings: dash.has_settings
 			};
 
-			if (dash.title == 'Private Dash') {
-				user_dash.dash_has_been_set = fa;
-			}
+			// if (dash.title == 'Private Dash') {
+			// 	user_dash.dash_has_been_set = fa;
+			// }
 
 			var ud = new models.UserDash(user_dash);
 
