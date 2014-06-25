@@ -177,7 +177,7 @@ var map = {
 
 					if (req.body.source_uri_values && req.body.source_uri_values.length > 0)
 						dash.source_uri_values = req.body.source_uri_values;
-					
+
 					dash.save(function(error){
 						
 						if (error) throw error;
@@ -362,8 +362,11 @@ var map = {
 						
 						if (!doc) return res.send(404);
 
+						dash.private_dash = doc.json();
+						dash.dash_has_been_set = true;
+
 						dash.save(function(error){
-							return res.send({dash: dash, privateDash: doc.json()});
+							return res.send({ dash: dash, privateDash: doc.json() });
 						});
 					});
 				}

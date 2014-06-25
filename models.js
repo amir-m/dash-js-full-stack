@@ -131,6 +131,7 @@ var UserDashSchema = new mongoose.Schema({
 	source_uri_keys: [],
 	source_uri_values: [],
 	settings: {},
+	private_dash: {},
 	content_type: [],
 	source_uri: [],
 	mapper_key: [],
