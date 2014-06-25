@@ -67,8 +67,7 @@ module.exports = function  (models, publisher) {
 			else if (dash.setting_type == 'textInput') {
 				selected = dash.settings;
 			}
-
-			var ud = new models.UserDash({
+			var user_dash = {
 				id: models.id(),
 				dash_id: dash.id,
 				user: req.param('uuid'),
@@ -101,7 +100,13 @@ module.exports = function  (models, publisher) {
 				components_settings: dash.components_settings || '',
 				collection_name: dash.collection_name,
 				has_settings: dash.has_settings
-			});
+			};
+
+			if (dash.title == 'Private Dash') {
+				user_dash.dash_has_been_set = fa;
+			}
+
+			var ud = new models.UserDash(user_dash);
 
 			ud.save(function(error){
 				if (error) {

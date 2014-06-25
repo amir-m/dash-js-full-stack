@@ -122,6 +122,7 @@ var UserDashSchema = new mongoose.Schema({
 	selected_source_uri: String,
 	handler_placeholder: String, 
 	is_active: { type: Boolean, default: true },
+	dash_has_been_set: { type: Boolean, default: false },
 	data_container: String, // 'body.shots'
 	source_uri_scheme: String,
 	selected_setting_uri_field: String,

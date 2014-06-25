@@ -10,27 +10,8 @@
 	"setting_type": "textInput",
 	"location": "",
 	"settings": "",
-	"has_settings": "true"
-},
-{
-	"id": "MTY7KiQnZxLQMzQ3ZjUxZDliMDAwMDAx",	
-	"source_uri": "https://api.instagram.com/v1/media/search?lat={latitude}&lng={longitude}&distance=5000&client_id={client_id}",
-	"source_uri_keys": "{latitude}:{longitude}:{client_id}",
-	"source_uri_values": "latitude:longitude:279a55cf0c324a83b90d36c29bf503ff",
-	"source_return_type": "json",
-	"content_type": "src_comp:hero_comp:desc_comp",
-	"title": "Photos Around Me",
-	"description": "Displays latest photos taken near your current location.",
-	"credits": "Instagram", 
-	"icon_large": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/photos_around_me_large_icon.png",
-	"icon_small": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/photos_around_me_small_icon.png",
-	"setting_type": "",
-	"location": "",
-	"settings": "",
-	"data_container": "data",
-	"mapper_key": "src_comp.resource_uri:desc_comp.header:desc_comp.avatar_img:hero_comp.main_img",
-	"mapper_value": "link:user.full_name:user.profile_picture:images.standard_resolution.url",
-	"has_settings": "false"
+	"has_settings": "true",
+	"dash_has_been_set": "false"
 },
 {
 	"id": "NTI5NjJmYzUyMzQ3ZjUxZDliMDAwMDAx",	
@@ -109,6 +90,26 @@
 	"mapper_static_key": "hero_comp.label1:hero_comp.label2:hero_comp.label3",
 	"mapper_static_value": "Views:Likes:Comments",
 	"has_settings": "true"
+},
+{
+	"id": "MTY7KiQnZxLQMzQ3ZjUxZDliMDAwMDAx",	
+	"source_uri": "https://api.instagram.com/v1/media/search?lat={latitude}&lng={longitude}&distance=5000&client_id={client_id}",
+	"source_uri_keys": "{latitude}:{longitude}:{client_id}",
+	"source_uri_values": "latitude:longitude:279a55cf0c324a83b90d36c29bf503ff",
+	"source_return_type": "json",
+	"content_type": "src_comp:hero_comp:desc_comp",
+	"title": "Photos Around Me",
+	"description": "Displays latest photos taken near your current location.",
+	"credits": "Instagram", 
+	"icon_large": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/photos_around_me_large_icon.png",
+	"icon_small": "https://s3.amazonaws.com/s3.dashbook.co/dash_icons/photos_around_me_small_icon.png",
+	"setting_type": "",
+	"location": "",
+	"settings": "",
+	"data_container": "data",
+	"mapper_key": "src_comp.resource_uri:desc_comp.header:desc_comp.avatar_img:hero_comp.main_img",
+	"mapper_value": "link:user.full_name:user.profile_picture:images.standard_resolution.url",
+	"has_settings": "false"
 },
 {
 	"id": "NTI5NjNhNjFmNTliN2Y1YzliMDAwMDAx",

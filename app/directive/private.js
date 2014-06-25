@@ -7,6 +7,7 @@ angular.module('DashbookApp')
       templateUrl: '/partials/private.html', 
       restrict: 'E',
       link: function postLink(scope, element, attrs) {
+      	console.log(scope.d);
       }
     };
   }]);

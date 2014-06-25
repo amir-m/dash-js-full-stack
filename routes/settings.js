@@ -174,8 +174,10 @@ var map = {
 				if (req.body.title != 'Private Dash') {
 
 					dash.selected_setting = req.body.selected_setting.toLowerCase();
+
 					if (req.body.source_uri_values && req.body.source_uri_values.length > 0)
 						dash.source_uri_values = req.body.source_uri_values;
+					
 					dash.save(function(error){
 						
 						if (error) throw error;
