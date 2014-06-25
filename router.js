@@ -37,6 +37,7 @@ module.exports = function(routes, app, models, redisClient) {
 	app.post('/exit', routes.index.exit);
 	app.post('/readcontent', routes.dashes.uirOpened); 
 	app.post('/dashes/:id/settings', routes.settings.update); 
+	app.post('/dash/private/:id/settings', routes.settings.postPrivateDashSettingsUpdate); 
 	app.post('/dash/rearrange', routes.dashes.rearrange); 
 	app.post('/notification/:id/seen', routes.index.postNotificationSeen); 
 	app.post('/notification/:id/dismiss/:uuid', routes.index.postNotificationDismiss); 

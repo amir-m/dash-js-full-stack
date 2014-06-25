@@ -66,7 +66,6 @@
 					class="clearable" type="text" 
 					placeholder="Search" 
 					name="search_term" 
-					value="{{d.selected_setting}}"
 					ng-show="d.title != 'Private Dash'">
 				<p ng-show="d.notFound" class="grey centered">Dash Not Found!</p>
 
@@ -109,8 +108,7 @@
 					ng-model="private_dash_settings_input_value" 
 					class="clearable" type="text" 
 					placeholder="Search" 
-					name="search_term" 
-					value="{{d.private_dash.selected_setting}}">
+					name="search_term">
 					
 				<button ng-click="updatePrivateDashSettings()">Save</button>
 			</section>

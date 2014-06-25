@@ -531,6 +531,27 @@ angular.module('DashbookApp')
         scope.isNotPrivateDashSettings = function () {
           return scope.d.title != 'Private Dash' || (scope.d.title == 'Private Dash' && !scope.d.dash_has_been_set);
         };
+
+        scope.updatePrivateDashSettings = function (argument) {
+          if (!scope.private_dash_settings_input_value || scope.private_dash_settings_input_value.length == 0) {
+            return;
+          }
+          scope.d.private_dash.selected_setting = scope.private_dash_settings_input_value;
+          apiCall();
+          $http.post('/dash/private/'+scope.d.id+'/settings',{
+            setting_type: scope.d.private_dash.setting_type,
+            selected_setting: scope.d.private_dash.selected_setting,
+            uuid: scope.uuid,
+            latitude: $rootScope.latitude,
+            longitude: $rootScope.longitude,
+            timestamp: new Date().getTime()
+          })
+          .success(function () {})
+          .error(function () {
+            throw error;
+          })
+        };
+
         function scheduleContentFecth(interval) {
           setTimeout(function(){
             $http.get('/content?t='+scope.d.title+'&s='+scope.d.selected_setting+'&skip='+scope.skip)
@@ -921,12 +942,11 @@ angular.module('DashbookApp')
           }
         }
         else {
+          scope.settings_input_value = scope.d.selected_setting;
         };
 
         setTimeout(function (argument) {
-          if (!scope.d.dash_has_been_set) {
-            // $('#' + scope.d.id ).addClass('flip');
-            // // flipped = true;
+          if (!scope.d.dash_has_been_set && scope.d.title == 'Private Dash') {
             scope.flipSettings();
           }
         }, 2000);

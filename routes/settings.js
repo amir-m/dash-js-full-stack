@@ -375,6 +375,37 @@ var map = {
 
 	};
 
+	var postPrivateDashSettingsUpdate = function (req, res, next) {
+		if (!req.param('uuid') || !req.param('id'))
+			return res.send(400);
+
+		models.UserDash.findOne({id: req.param('id'), user: req.param('uuid')}, 
+			function(error, dash) {
+
+				if (error) return res.send(500);
+
+				if (!dash) return res.send(400);
+				
+				dash.private_dash.selected_setting = req.param('id').toLowerCase();
+
+				if (req.param('source_uri_values') && req.param('source_uri_values').length > 0)
+					dash.private_dash.source_uri_values = req.param('source_uri_values');
+
+				dash.markModified('private_dash');
+
+				dash.save(function(error){
+					
+					if (error) {
+						res.send(500);
+						throw error;
+					}
+
+					res.send(200);
+				});
+
+			});
+	};
+
 	var read = function (req, res, next) {
 		
 	};
