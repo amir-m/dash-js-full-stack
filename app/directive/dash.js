@@ -11,6 +11,8 @@ angular.module('DashbookApp')
       templateUrl: '/partials/dash.html', 
       link: function (scope, element, attrs) {
 
+        console.log(scope.d.private_dash.source_uri);
+
         $('article').addClass('slide-up');
 
         setTimeout(function (argument) {
@@ -666,9 +668,9 @@ angular.module('DashbookApp')
               // scope.d.private_dash.source_uri_keys.splice(scope.d.private_dash.source_uri_keys.indexOf('{longitude}'), 1);
               // scope.d.private_dash.source_uri_values.splice(0, 1);
             }
-            if (scope.d.private_dash.source_uri_keys.indexOf('{selected_setting}') != -1) {
-              scope.d.private_dash.source_uri = scope.d.private_dash.source_uri.replace('{selected_setting}', scope.d.private_dash.selected_setting);
-            }
+            // if (scope.d.private_dash.source_uri_keys.indexOf('{selected_setting}') != -1) {
+            //   scope.d.private_dash.source_uri = scope.d.private_dash.source_uri.replace('{selected_setting}', scope.d.private_dash.selected_setting);
+            // }
             if (scope.d.private_dash.source_uri_keys.indexOf('{selected_setting}') != -1) {
               scope.d.private_dash.source_uri = scope.d.private_dash.source_uri.replace('{selected_setting}', scope.d.private_dash.selected_setting);
             }
