@@ -678,6 +678,8 @@ angular.module('DashbookApp')
             }
           };
 
+          console.log(scope.d.private_dash.source_uri)
+          console.log(scope.d.private_dash.selected_setting)
           $http.get(scope.engine_uri + scope.d.private_dash.source_uri)
           .success(function(apiResponseJson, status, headers){
             var content = [], container;
