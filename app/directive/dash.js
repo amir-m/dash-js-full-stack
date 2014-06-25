@@ -889,10 +889,9 @@ angular.module('DashbookApp')
 
         setTimeout(function (argument) {
           if (!scope.d.dash_has_been_set) {
-            $('#' + scope.d.id ).addClass('flip');
-            // flipped = true;
-            // scope.flipSettings();
-            console.log('should be effected');
+            // $('#' + scope.d.id ).addClass('flip');
+            // // flipped = true;
+            scope.flipSettings();
           }
         }, 2000);
       }
