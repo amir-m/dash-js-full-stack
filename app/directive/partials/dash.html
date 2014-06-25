@@ -113,6 +113,7 @@
 				<p class="grey">This is error...</p>
 			</section>
 			<section class="input-comp" ng-show="d.private_dash.setting_type == 'textInput'">
+			{{d.private_dash.selected_setting}}
 				<input 
 					ng-model="private_dash_settings_input_value" 
 					class="clearable" type="text" 
