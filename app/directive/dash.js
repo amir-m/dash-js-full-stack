@@ -437,7 +437,7 @@ angular.module('DashbookApp')
           // console.log(scope.d.private_dash.settings[index])
           // console.log(scope.d.private_dash.selected_setting)
           // console.log('-------------------in selectPrivateSetting')
-          apiCall();
+          apiCall(true);
           scope.flipSettings();
           $('#' + scope.d.id + ' .spinner').show();
           var selectedTime = new Date().getTime();
@@ -558,6 +558,47 @@ angular.module('DashbookApp')
             }, false);
           }, 25);
         };
+
+        scope.appendFlipsnap = function() {
+          
+          // $('#'+scope.d.id+' .slide-indicator').hide();
+
+          flipsnap = Flipsnap('#'+scope.d.id+ ' .flipsnap');
+
+          flipsnap.refresh();
+
+          // flipsnap.moveToPoint(scope.flipTo - 1);
+
+          // setTimeout(function(){
+
+          //   $('#'+scope.d.id+' .slide-indicator').show();
+
+          //   flipsnap.refresh();
+
+          //   pointer = $('#pointer-'+scope.d.id+' span'); 
+
+          //   if (!scope.d.content || scope.d.content.length == 0) return;
+
+          //   $('#'+scope.d.id+' .slide-indicator span:gt(9)').hide();
+            
+          //   if (scope.d.content.length > 9) {
+          //     $('#'+scope.d.id+' .slide-indicator .plus').show();
+          //   };
+
+          //   pointer.eq(flipsnap.currentPoint).addClass('current');
+
+          //   flipsnap.element.addEventListener('fspointmove', function() {
+              
+          //     pointer.filter('.current').removeClass('current');
+          //     pointer.eq(flipsnap.currentPoint).addClass('current');
+
+          //     if (flipsnap.currentPoint > 9) {
+          //       $('.slide-indicator .plus').addClass('current');
+          //     }
+
+          //   }, false);
+          // }, 25);
+        };        
 
         scope.isPrivateDashSettings = function () {
           return scope.d.title == 'Private Dash' && scope.d.dash_has_been_set;
@@ -688,7 +729,7 @@ angular.module('DashbookApp')
           return num * (Math.PI / 180); 
         };
 
-        function apiCall() {
+        function apiCall(append) {
           
           if (scope.d.private_dash.source_uri_scheme && scope.d.private_dash.source_uri_scheme.length > 0) {
             scope.d.private_dash.selected_source_uri = scope.d.private_dash.source_uri_scheme.length == 1 ? scope.d.private_dash.source_uri_scheme[0] : scope.d.private_dash.source_uri_scheme[scope.d.private_dash.settings.indexOf(scope.d.private_dash.selected_setting)];
@@ -928,7 +969,12 @@ angular.module('DashbookApp')
             $('#' + scope.d.id + ' .spinner').hide();
             scope.d.private_dash.content = content;
             scope.d.components_settings = scope.d.private_dash.components_settings;
-            scope.attachFlipsnap();
+            if (append) {
+              scope.appendFlipsnap();
+            }
+            else {
+              scope.attachFlipsnap();
+            }
             scope.safeApply();
             // scope.$broadcast('resize');
           })
