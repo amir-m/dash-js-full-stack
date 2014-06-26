@@ -424,6 +424,33 @@ angular.module('DashbookApp')
           });
         };
 
+        scope.selectPrivateSetting = function(index) {
+          scope.d.content = [];
+          scope.$broadcast('suicide');
+          scope.d.private_dash.selected_source_uri = scope.d.private_dash.source_uri[index];
+          apiCall();
+          scope.flipSettings();
+          $('#' + scope.d.id + ' .spinner').show();
+          var selectedTime = new Date().getTime();
+          scope.d.private_dash.selected_setting = scope.d.private_dash.settings[index];
+          return;
+
+          $http.post('/dashes/'+scope.d.id+'/settings', {
+            selected_setting: scope.d.selected_setting,
+            selected_source_uri: scope.d.selected_source_uri,
+            uuid: scope.uuid,
+            setting_type: 'radio',
+            sid: $rootScope.sid,
+            latitude: $rootScope.latitude,
+            longitude: $rootScope.longitude,
+            timestamp: new Date().getTime()
+          }).success(function(data){
+
+          })
+          .error(function(error){
+          });
+        };
+
         scope.flipSettings = function() {
           if ($rootScope.sortableEnabled) return;
           if (flipped) {
