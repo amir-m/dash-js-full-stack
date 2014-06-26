@@ -421,7 +421,6 @@ module.exports = function  (models, publisher) {
 				throw error;
 			};
 
-			console.log(dashes);
 			res.send(dashes);
 		})
 	};
