@@ -264,7 +264,7 @@ angular.module('DashbookApp')
               else {
 
               }
-
+              scope.flipsnap_width = scope._width*scope.d.content.length;
               scope.attachFlipsnap();
               scope.safeApply();
               if (scope.d.title == 'Private Dash') 
@@ -972,6 +972,7 @@ angular.module('DashbookApp')
             // content.splice(0, 10);
             $('#' + scope.d.id + ' .spinner').hide();
             scope.d.private_dash.content = content;
+            scope.flipsnap_width = scope._width*scope.d.content.length;
             scope.d.components_settings = scope.d.private_dash.components_settings;
             console.log(append);
             if (append) {
