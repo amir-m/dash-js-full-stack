@@ -414,7 +414,7 @@ module.exports = function  (models, publisher) {
 
 	var library = function (req, res, next) {
 
-		models.Dash.find().toArray((function (error, dashes) {
+		models.Dash.find().toArray(function (error, dashes) {
 
 			if (error) {
 				res.send(500);
