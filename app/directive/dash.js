@@ -681,7 +681,7 @@ angular.module('DashbookApp')
                 scope.d.private_dash.source_uri = scope.d.private_dash.source_uri.replace(scope.d.private_dash.source_uri_keys[i], scope.d.private_dash.source_uri_values[i]);
             }
           };
-
+          console.log(scope.d.private_dash.source_uri_scheme)
           console.log(scope.d.private_dash.source_uri)
           console.log(scope.d.private_dash.selected_setting)
           $http.get(scope.engine_uri + scope.d.private_dash.source_uri)
