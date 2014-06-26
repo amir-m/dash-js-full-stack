@@ -676,7 +676,7 @@ function ready(callback) {
 		    Dash = db.collection('test_insert');
 			Dash.count(function(error, count) {
 				if(error) throw error;
-				console.log(format("count = %s", count));
+				console.log("count = %s", count);
 				callback();
 			});
 		  });
