@@ -425,20 +425,18 @@ angular.module('DashbookApp')
         };
 
         scope.selectPrivateSetting = function(index) {
-          // console.log(scope.d.private_dash.selected_setting)
-          // console.log('-------------------in selectPrivateSetting')
 
           // scope.d.content = [];
           // $('#'+scope.d.id + ' .flipsnap').empty();
           scope.$broadcast('suicide');
           scope.d.private_dash.selected_source_uri = scope.d.private_dash.source_uri[index];
           scope.d.private_dash.selected_setting = scope.d.private_dash.settings[index];
-          console.log('-------------------in selectPrivateSetting')
-          console.log(index)
-          console.log(scope.d.private_dash.source_uri[index])
-          console.log(scope.d.private_dash.settings[index])
-          console.log(scope.d.private_dash.selected_setting)
-          console.log('-------------------in selectPrivateSetting')
+          // console.log('-------------------in selectPrivateSetting')
+          // console.log(index)
+          // console.log(scope.d.private_dash.source_uri[index])
+          // console.log(scope.d.private_dash.settings[index])
+          // console.log(scope.d.private_dash.selected_setting)
+          // console.log('-------------------in selectPrivateSetting')
           apiCall();
           scope.flipSettings();
           $('#' + scope.d.id + ' .spinner').show();
@@ -733,8 +731,8 @@ angular.module('DashbookApp')
           $http.get(scope.engine_uri + scope.d.private_dash.selected_source_uri)
           .success(function(apiResponseJson, status, headers){
             var content = [], container;
-            scope.d.content = [];
-            $('#'+scope.d.id + ' .flipsnap').empty();
+            scope.d.content = scope.d.content || [];
+            if (scope.d.content.length == 0) $('#'+scope.d.id + ' .flipsnap').empty();
             if (scope.d.private_dash.source_return_type == 'json') {
               if (apiResponseJson[scope.d.private_dash.data_container].length > 20) 
                     apiResponseJson[scope.d.private_dash.data_container] = apiResponseJson[scope.d.private_dash.data_container].splice(0, 10);
