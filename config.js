@@ -15,9 +15,10 @@ module.exports = function(express, app, mongoose, cookie, models, redisClient) {
 		console.log('connected to mongoDB');
 		
 
-		// setTimeout(function (argument) {
-		// 	require('./helpers')(models, redisClient).insertDashesToMongoBackend();
-		// }, 3000);
+		setTimeout(function (argument) {
+			// require('./helpers')(models, redisClient).insertDashesToMongoBackend();
+			require('./helpers')(models, redisClient).fixSomething();
+		}, 3000);
 	});
 
 	app.set('views', __dirname + '/app');

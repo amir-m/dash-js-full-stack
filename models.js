@@ -159,7 +159,7 @@ var PrivateDashSchema = new mongoose.Schema({
 	dash_title: String,
 	dash_type: String,
 	data_container: String,
-	source_uri: String,
+	source_uri: [],
 	source_return_type: String,
 	source_uri_scheme: String,
 	selected_setting_uri_field: String,

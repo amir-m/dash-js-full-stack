@@ -123,7 +123,16 @@ module.exports = function(models, redisClient) {
 	};
 
 	function fixSomething() {
-		// $or: [{ status: 3 }, { status: '3' }], app_launched: true
+
+		models.privateDash.find({}, function (error, dashes) {
+			if (error) throw error;
+			for (var i = 0; i < dashes.length; ++i) {
+				if (dashes[i].source_uri) console.log(dashes[i].source_uri[0]);
+			}
+		});
+		
+		return;
+
 		models.WaitingListEntry.find({ $or: [{ status: 3 }, { status: '3' }], app_launched: true })
 		.exec(function(error, wlz) {
 			
