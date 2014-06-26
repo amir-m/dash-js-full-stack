@@ -608,7 +608,7 @@ angular.module('DashbookApp')
           return scope.d.title != 'Private Dash' || (scope.d.title == 'Private Dash' && !scope.d.dash_has_been_set);
         };
 
-        scope.updatePrivateDashSettings = function (argument) {
+        scope.updatePrivateDashSettings = function () {
           if (scope.d.private_dash.setting_type == 'textInput' && (!scope.private_dash_settings_input_value || scope.private_dash_settings_input_value.length == 0)) {
             return;
           }
@@ -628,6 +628,10 @@ angular.module('DashbookApp')
           .error(function () {
             throw error;
           })
+        };
+
+        scope.getWidth = function () {
+          return 'width:'+scope._width*scope.d.content.length+'px;'
         };
 
         function scheduleContentFecth(interval) {
