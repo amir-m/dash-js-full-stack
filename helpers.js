@@ -168,13 +168,21 @@ module.exports = function(models, redisClient) {
 		// });
 	};	
 
+	function insertDashesToMongoBackend () {
+		models.Dash.remove({}, { multi: true }, function (error) {
+			if (error) throw error;
+			console.log(dashes);
+		});
+	};
+
 	return {
 		createDefaultDashes: createDefaultDashes,
 		insertDashesToRedisBackend: insertDashesToRedisBackend,
 		getBase64Encoding: getBase64,
 		confirmUser: confirmUser,
 		deleteAllUsers: deleteAllUsers,
-		fixSomething: fixSomething
+		fixSomething: fixSomething,
+		insertDashesToMongoBackend: insertDashesToMongoBackend
 	};
 };
 

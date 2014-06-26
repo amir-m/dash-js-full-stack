@@ -9,8 +9,11 @@ module.exports = function(express, app, mongoose, cookie, models, redisClient) {
 	// 	if (err) throw err;
 	// });
 
+	var helpers = require('./helpers')(models, redisClient);
+
 	models.ready(function () {		
 		console.log('connected to mongoDB');
+		require('./helpers')(models, redisClient).insertDashesToMongoBackend();
 	});
 
 	app.set('views', __dirname + '/app');
@@ -23,7 +26,6 @@ module.exports = function(express, app, mongoose, cookie, models, redisClient) {
 	// 	// app.use(app.logger)
 	// });
 
-	var helpers = require('./helpers')(models, redisClient);
 
 	app.use(function(req, res, next){
 
