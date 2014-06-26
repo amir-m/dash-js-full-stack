@@ -385,7 +385,7 @@ angular.module('DashbookApp')
               scope.d.content = []
               $('#'+scope.d.id + ' .flipsnap').empty();
               scope.d.private_dash = data.private_dash;
-              apiCall(data);
+              apiCall();
             })
             .error(function(error, code){
               $('#' + scope.d.id + ' .spinner').hide();
@@ -1027,7 +1027,7 @@ angular.module('DashbookApp')
               // scope.d.notFound = null;
               // scope.d.private_dash = data;
               // apiCall(data);
-              apiCall(scope.d.private_dash);
+              apiCall();
             // })
             // .error(function(error, code) { 
             //   $('#' + scope.d.id + ' .spinner').hide();
