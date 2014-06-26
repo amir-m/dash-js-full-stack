@@ -425,6 +425,10 @@ angular.module('DashbookApp')
         };
 
         scope.selectPrivateSetting = function(index) {
+          console.log(index)
+          console.log(scope.d.private_dash.source_uri[index])
+          console.log(scope.d.private_dash.selected_setting)
+          
           scope.d.content = [];
           scope.$broadcast('suicide');
           scope.d.private_dash.selected_source_uri = scope.d.private_dash.source_uri[index];
@@ -711,9 +715,7 @@ angular.module('DashbookApp')
                 scope.d.private_dash.selected_source_uri = scope.d.private_dash.selected_source_uri.replace(scope.d.private_dash.source_uri_keys[i], scope.d.private_dash.source_uri_values[i]);
             }
           };
-      
-          console.log(scope.d.private_dash.selected_source_uri)
-          console.log(scope.d.private_dash.selected_setting)
+    
           $http.get(scope.engine_uri + scope.d.private_dash.selected_source_uri)
           .success(function(apiResponseJson, status, headers){
             var content = [], container;
