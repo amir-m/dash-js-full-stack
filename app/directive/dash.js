@@ -682,7 +682,12 @@ angular.module('DashbookApp')
 
         function apiCall() {
           
-          if (scope.d.private_dash.source_uri_scheme) scope.d.private_dash.selected_source_uri = scope.d.private_dash.source_uri_scheme;
+          if (scope.d.private_dash.source_uri_scheme && scope.d.private_dash.source_uri_scheme.length > 0) {
+            scope.d.private_dash.selected_source_uri = scope.d.private_dash.source_uri_scheme.length == 1 ? scope.d.private_dash.source_uri_scheme.;
+          }
+          else {
+            scope.d.private_dash.selected_source_uri = scope.d.private_dash.source_uri.length == 1 ? scope.d.private_dash.source_uri[0] : scope.d.private_dash.source_uri[scope.d.private_dash.settings.indexOf(scope.d.private_dash.selected_setting)];
+          }
 
           if (scope.d.private_dash.source_uri_keys && scope.d.private_dash.source_uri_keys.length > 0) {
             if (scope.d.private_dash.source_uri_keys.indexOf('{latitude}') != -1) {
