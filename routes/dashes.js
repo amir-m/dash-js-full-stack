@@ -420,6 +420,8 @@ module.exports = function  (models, publisher) {
 				res.send(500);
 				throw error;
 			};
+
+			console.log(dashes);
 			res.send(dashes);
 		})
 	};
