@@ -11,8 +11,8 @@ angular.module('DashbookApp')
       templateUrl: '/partials/dash.html', 
       link: function (scope, element, attrs) {
 
-        console.log(scope.d.private_dash.source_uri);
-        console.log(scope.d.private_dash
+        console.log(scope.d.id);
+        console.log(scope.d.private_dash)
 
         $('article').addClass('slide-up');
 
