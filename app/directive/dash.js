@@ -427,8 +427,8 @@ angular.module('DashbookApp')
         scope.selectPrivateSetting = function(index) {
           console.log(index)
           console.log(scope.d.private_dash.source_uri[index])
-          console.log(scope.d.private_dash.selected_setting)
-          
+          console.log(scope.d.private_dash.settings[index])
+
           scope.d.content = [];
           scope.$broadcast('suicide');
           scope.d.private_dash.selected_source_uri = scope.d.private_dash.source_uri[index];
