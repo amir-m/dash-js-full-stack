@@ -969,6 +969,7 @@ angular.module('DashbookApp')
             $('#' + scope.d.id + ' .spinner').hide();
             scope.d.private_dash.content = content;
             scope.d.components_settings = scope.d.private_dash.components_settings;
+            console.log(append);
             if (append) {
               scope.appendFlipsnap();
             }
