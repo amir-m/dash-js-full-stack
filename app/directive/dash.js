@@ -425,10 +425,6 @@ angular.module('DashbookApp')
         };
 
         scope.selectPrivateSetting = function(index) {
-          console.log('-------------------in selectPrivateSetting')
-          console.log(index)
-          console.log(scope.d.private_dash.source_uri[index])
-          console.log(scope.d.private_dash.settings[index])
           // console.log(scope.d.private_dash.selected_setting)
           // console.log('-------------------in selectPrivateSetting')
 
@@ -436,13 +432,17 @@ angular.module('DashbookApp')
           // $('#'+scope.d.id + ' .flipsnap').empty();
           scope.$broadcast('suicide');
           scope.d.private_dash.selected_source_uri = scope.d.private_dash.source_uri[index];
+          scope.d.private_dash.selected_setting = scope.d.private_dash.settings[index];
+          console.log('-------------------in selectPrivateSetting')
+          console.log(index)
+          console.log(scope.d.private_dash.source_uri[index])
+          console.log(scope.d.private_dash.settings[index])
+          console.log(scope.d.private_dash.selected_setting)
+          console.log('-------------------in selectPrivateSetting')
           apiCall();
           scope.flipSettings();
           $('#' + scope.d.id + ' .spinner').show();
           var selectedTime = new Date().getTime();
-          scope.d.private_dash.selected_setting = scope.d.private_dash.settings[index];
-          console.log(scope.d.private_dash.selected_setting)
-          console.log('-------------------in selectPrivateSetting')
           return;
 
           $http.post('/dashes/'+scope.d.id+'/settings', {
