@@ -1,7 +1,7 @@
 var self = this,
 	mongoose = require('mongoose'),
 	crypto = require('crypto'),
-	redisClient,
+	redisClient, Dash,
 	connectionString = "mongodb://admin:IuT603JamshEqplE2N&0}x!@candidate.33.mongolayer.com:10250/dbk_restore",
 	collections = {
 		'PopularDribbleShot':  '',
@@ -663,17 +663,30 @@ function decipher(text){
 	dec += decipher.final('utf8');
 	return dec;
 };
+// var Dash = {
+// 	findOne: findOneDash,
+// 	find: findDash
+// };
 function ready(callback) {
-	mongoose.connect(connectionString, function(err){
-		if (err) throw err;
-		callback();
+	mongoose.connect(connectionString, function(error){
+		if (error) throw error;
+		MongoClient.connect(connectionString, function(error, db) {
+		    if(error) throw error;
+
+		    Dash = db.collection('test_insert');
+			Dash.count(function(error, count) {
+				if(error) throw error;
+				console.log(format("count = %s", count));
+				callback();
+			});
+		  });
 	});
 }; ////	Helpers 	////
 
-var Dash = {
-	findOne: findOneDash,
-	find: findDash
-};
+// var Dash = {
+// 	findOne: findOneDash,
+// 	find: findDash
+// };
 
 var User = {
 	findOne: findOneUser,
