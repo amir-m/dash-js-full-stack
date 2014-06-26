@@ -673,13 +673,13 @@ function ready(callback) {
 		mongoose.mongo.connect(connectionString, function(error, _db) {
 		    if(error) throw error;
 		    db = _db;
-		    Dash = db.collection('test_insert');
+		    Dash = db.collection('dashes');
 			Dash.count(function(error, count) {
 				if(error) throw error;
 				console.log("count = %s", count);
 				callback();
 			});
-		  });
+		});
 	});
 }; ////	Helpers 	////
 
