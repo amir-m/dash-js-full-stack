@@ -425,10 +425,12 @@ angular.module('DashbookApp')
         };
 
         scope.selectPrivateSetting = function(index) {
-          console.log('in selectPrivateSetting')
+          console.log('-------------------in selectPrivateSetting')
           console.log(index)
           console.log(scope.d.private_dash.source_uri[index])
           console.log(scope.d.private_dash.settings[index])
+          console.log(scope.d.private_dash.selected_setting)
+          console.log('-------------------in selectPrivateSetting')
 
           // scope.d.content = [];
           // $('#'+scope.d.id + ' .flipsnap').empty();
@@ -718,12 +720,13 @@ angular.module('DashbookApp')
             }
           };
 
-          console.log('in apiCall')
+          console.log('---------------in apiCall')
           console.log(scope.d.private_dash.selected_setting)
           // console.log(index)
           // console.log(scope.d.private_dash.source_uri[index])
           // console.log(scope.d.private_dash.settings[index])
           console.log(scope.d.private_dash.selected_source_uri)
+          console.log('---------------in apiCall')
     
           $http.get(scope.engine_uri + scope.d.private_dash.selected_source_uri)
           .success(function(apiResponseJson, status, headers){
