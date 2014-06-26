@@ -49,7 +49,7 @@ module.exports = function  (models, publisher) {
 		if (!req.param('uuid') || !req.param('id'))
 			return res.send(400);
 
-		models.Dash.findOne(req.param('id'), function(error, dash){
+		models.Dash.findOne({ id: req.param('id') }, function(error, dash){
 			
 			if (error) {
 				console.log(error)
