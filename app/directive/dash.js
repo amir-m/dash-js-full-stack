@@ -12,7 +12,7 @@ angular.module('DashbookApp')
       link: function (scope, element, attrs) {
 
         console.log(scope.d.private_dash.source_uri);
-        console.log(scope.d.private_dash.source_uri_scheme)
+        console.log(scope.d.private_dash
 
         $('article').addClass('slide-up');
 
