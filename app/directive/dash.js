@@ -683,7 +683,7 @@ angular.module('DashbookApp')
         function apiCall() {
           
           if (scope.d.private_dash.source_uri_scheme && scope.d.private_dash.source_uri_scheme.length > 0) {
-            scope.d.private_dash.selected_source_uri = scope.d.private_dash.source_uri_scheme.length == 1 ? scope.d.private_dash.source_uri_scheme.;
+            scope.d.private_dash.selected_source_uri = scope.d.private_dash.source_uri_scheme.length == 1 ? scope.d.private_dash.source_uri_scheme[0] : scope.d.private_dash.source_uri_scheme[scope.d.private_dash.settings.indexOf(scope.d.private_dash.selected_setting)];
           }
           else {
             scope.d.private_dash.selected_source_uri = scope.d.private_dash.source_uri.length == 1 ? scope.d.private_dash.source_uri[0] : scope.d.private_dash.source_uri[scope.d.private_dash.settings.indexOf(scope.d.private_dash.selected_setting)];
