@@ -425,6 +425,7 @@ angular.module('DashbookApp')
         };
 
         scope.selectPrivateSetting = function(index) {
+          console.log('in selectPrivateSetting')
           console.log(index)
           console.log(scope.d.private_dash.source_uri[index])
           console.log(scope.d.private_dash.settings[index])
@@ -716,6 +717,12 @@ angular.module('DashbookApp')
                 scope.d.private_dash.selected_source_uri = scope.d.private_dash.selected_source_uri.replace(scope.d.private_dash.source_uri_keys[i], scope.d.private_dash.source_uri_values[i]);
             }
           };
+
+          console.log('in apiCall')
+          console.log(index)
+          console.log(scope.d.private_dash.source_uri[index])
+          console.log(scope.d.private_dash.settings[index])
+          console.log(scope.d.private_dash.selected_source_uri)
     
           $http.get(scope.engine_uri + scope.d.private_dash.selected_source_uri)
           .success(function(apiResponseJson, status, headers){
