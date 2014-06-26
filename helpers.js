@@ -174,7 +174,7 @@ module.exports = function(models, redisClient) {
 		// 	console.log(dashes);
 		// });
 		// console.log(dashes);
-		console.log(models.Dash);
+		console.log(models);
 	};
 
 	return {

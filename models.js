@@ -677,6 +677,7 @@ function ready(callback) {
 			Dash.count(function(error, count) {
 				if(error) throw error;
 				console.log("count = %s", count);
+				exports.Dash = Dash;
 				callback();
 			});
 		});
