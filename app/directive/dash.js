@@ -429,8 +429,8 @@ angular.module('DashbookApp')
           console.log(scope.d.private_dash.source_uri[index])
           console.log(scope.d.private_dash.settings[index])
 
-          scope.d.content = [];
-          $('#'+scope.d.id + ' .flipsnap').empty();
+          // scope.d.content = [];
+          // $('#'+scope.d.id + ' .flipsnap').empty();
           scope.$broadcast('suicide');
           scope.d.private_dash.selected_source_uri = scope.d.private_dash.source_uri[index];
           apiCall();
