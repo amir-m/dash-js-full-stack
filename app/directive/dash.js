@@ -14,6 +14,7 @@ angular.module('DashbookApp')
         $('article').addClass('slide-up');
 
         console.log(scope.d);
+        return;
 
         setTimeout(function (argument) {
           $('article').removeClass('slide-up');
