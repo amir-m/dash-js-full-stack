@@ -685,6 +685,7 @@ angular.module('DashbookApp')
           $http.get(scope.engine_uri + scope.d.private_dash.source_uri)
           .success(function(apiResponseJson, status, headers){
             var content = [], container;
+            $('#'+scope.d.id + ' .flipsnap').empty();
             if (scope.d.private_dash.source_return_type == 'json') {
               if (apiResponseJson[scope.d.private_dash.data_container].length > 20) 
                     apiResponseJson[scope.d.private_dash.data_container] = apiResponseJson[scope.d.private_dash.data_container].splice(0, 10);
