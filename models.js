@@ -670,7 +670,7 @@ function decipher(text){
 function ready(callback) {
 	mongoose.connect(connectionString, function(error){
 		if (error) throw error;
-		MongoClient.connect(connectionString, function(error, db) {
+		mongoose.mongo.connect(connectionString, function(error, db) {
 		    if(error) throw error;
 
 		    Dash = db.collection('test_insert');
