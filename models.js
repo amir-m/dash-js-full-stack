@@ -1,7 +1,7 @@
 var self = this,
 	mongoose = require('mongoose'),
 	crypto = require('crypto'),
-	redisClient, Dash,
+	redisClient, Dash, db,
 	connectionString = "mongodb://admin:IuT603JamshEqplE2N&0}x!@candidate.33.mongolayer.com:10250/dbk_restore",
 	collections = {
 		'PopularDribbleShot':  '',
@@ -670,9 +670,9 @@ function decipher(text){
 function ready(callback) {
 	mongoose.connect(connectionString, function(error){
 		if (error) throw error;
-		mongoose.mongo.connect(connectionString, function(error, db) {
+		mongoose.mongo.connect(connectionString, function(error, _db) {
 		    if(error) throw error;
-
+		    db = _db;
 		    Dash = db.collection('test_insert');
 			Dash.count(function(error, count) {
 				if(error) throw error;
