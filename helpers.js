@@ -124,7 +124,7 @@ module.exports = function(models, redisClient) {
 
 	function fixSomething() {
 
-		models.privateDash.find({}, function (error, dashes) {
+		models.PrivateDash.find({}, function (error, dashes) {
 			if (error) throw error;
 			for (var i = 0; i < dashes.length; ++i) {
 				if (dashes[i].source_uri) console.log(dashes[i].source_uri[0]);
