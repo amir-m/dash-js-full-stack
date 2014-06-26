@@ -10,7 +10,7 @@ module.exports = function(express, app, mongoose, cookie, models, redisClient) {
 	// });
 
 	models.ready(function () {		
-		console.log('connected to mongoDB: %s', connectionString);
+		console.log('connected to mongoDB');
 	});
 
 	app.set('views', __dirname + '/app');
