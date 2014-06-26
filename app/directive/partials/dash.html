@@ -67,6 +67,12 @@
 					placeholder="Search" 
 					name="search_term" 
 					ng-show="d.title != 'Private Dash'">
+					<input 
+					ng-model="settings_input_value" 
+					class="clearable" type="text" 
+					placeholder="Enter Dash Name" 
+					name="search_term" 
+					ng-show="d.title == 'Private Dash'">
 				<p ng-show="d.notFound" class="grey centered">Dash Not Found!</p>
 
 				<button 
