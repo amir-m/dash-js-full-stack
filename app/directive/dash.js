@@ -429,8 +429,8 @@ angular.module('DashbookApp')
           console.log(index)
           console.log(scope.d.private_dash.source_uri[index])
           console.log(scope.d.private_dash.settings[index])
-          console.log(scope.d.private_dash.selected_setting)
-          console.log('-------------------in selectPrivateSetting')
+          // console.log(scope.d.private_dash.selected_setting)
+          // console.log('-------------------in selectPrivateSetting')
 
           // scope.d.content = [];
           // $('#'+scope.d.id + ' .flipsnap').empty();
@@ -441,6 +441,8 @@ angular.module('DashbookApp')
           $('#' + scope.d.id + ' .spinner').show();
           var selectedTime = new Date().getTime();
           scope.d.private_dash.selected_setting = scope.d.private_dash.settings[index];
+          console.log(scope.d.private_dash.selected_setting)
+          console.log('-------------------in selectPrivateSetting')
           return;
 
           $http.post('/dashes/'+scope.d.id+'/settings', {
