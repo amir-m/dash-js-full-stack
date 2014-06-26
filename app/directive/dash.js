@@ -11,9 +11,6 @@ angular.module('DashbookApp')
       templateUrl: '/partials/dash.html', 
       link: function (scope, element, attrs) {
 
-        console.log(scope.d.id);
-        console.log(scope.d.private_dash)
-
         $('article').addClass('slide-up');
 
         setTimeout(function (argument) {
@@ -658,7 +655,7 @@ angular.module('DashbookApp')
 
         function apiCall() {
           
-          scope.d.private_dash.selected_source_uri = scope.d.private_dash.source_uri_scheme;
+          scope.d.private_dash.source_uri = scope.d.private_dash.source_uri_scheme;
 
           if (scope.d.private_dash.source_uri_keys && scope.d.private_dash.source_uri_keys.length > 0) {
             if (scope.d.private_dash.source_uri_keys.indexOf('{latitude}') != -1) {
