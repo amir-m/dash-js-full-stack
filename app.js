@@ -28,11 +28,13 @@ setTimeout(function() {
 	// 	console.log('amir@doob.io just got confirmed');
 	// });
 
-	require('./helpers')(models, redisClient).insertDashesToRedisBackend();
+	// require('./helpers')(models, redisClient).insertDashesToRedisBackend();
 	// require('./helpers')(models, redisClient).deleteAllUsers();
 	// require('./helpers')(models, redisClient).fixSomething();
 
 }, 3000);
+
+
 
 require('./config')(express, app, mongoose, cookie, models, redisClient);
 
