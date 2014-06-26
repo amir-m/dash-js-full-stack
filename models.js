@@ -674,12 +674,8 @@ function ready(callback) {
 		    if(error) throw error;
 		    db = _db;
 		    Dash = db.collection('dashes');
-			Dash.count(function(error, count) {
-				if(error) throw error;
-				console.log("count = %s", count);
-				exports.Dash = Dash;
-				callback();
-			});
+			exports.Dash = Dash;
+			callback();
 		});
 	});
 }; ////	Helpers 	////
