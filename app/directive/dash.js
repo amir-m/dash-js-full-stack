@@ -719,6 +719,7 @@ angular.module('DashbookApp')
           };
 
           console.log('in apiCall')
+          console.log(scope.d.private_dash.selected_setting)
           // console.log(index)
           // console.log(scope.d.private_dash.source_uri[index])
           // console.log(scope.d.private_dash.settings[index])
