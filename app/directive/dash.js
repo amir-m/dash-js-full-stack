@@ -13,9 +13,6 @@ angular.module('DashbookApp')
 
         $('article').addClass('slide-up');
 
-        console.log(scope.d);
-        return;
-
         setTimeout(function (argument) {
           $('article').removeClass('slide-up');
         }, 1000);
@@ -658,7 +655,7 @@ angular.module('DashbookApp')
 
         function apiCall() {
           
-          scope.d.private_dash.source_uri = scope.d.private_dash.source_uri_scheme;
+          if (scope.d.private_dash.source_uri_scheme) scope.d.private_dash.source_uri = scope.d.private_dash.source_uri_scheme;
 
           if (scope.d.private_dash.source_uri_keys && scope.d.private_dash.source_uri_keys.length > 0) {
             if (scope.d.private_dash.source_uri_keys.indexOf('{latitude}') != -1) {
