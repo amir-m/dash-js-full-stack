@@ -560,7 +560,7 @@ angular.module('DashbookApp')
         };
 
         scope.updatePrivateDashSettings = function (argument) {
-          if (!scope.private_dash_settings_input_value || scope.private_dash_settings_input_value.length == 0) {
+          if (scope.d.private_dash.setting_type == 'textInput' && (!scope.private_dash_settings_input_value || scope.private_dash_settings_input_value.length == 0)) {
             return;
           }
           scope.d.private_dash.selected_setting = scope.private_dash_settings_input_value;
