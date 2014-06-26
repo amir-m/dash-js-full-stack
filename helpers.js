@@ -169,12 +169,13 @@ module.exports = function(models, redisClient) {
 	};	
 
 	function insertDashesToMongoBackend () {
-		// models.Dash.remove({}, { multi: true }, function (error) {
-		// 	if (error) throw error;
-		// 	console.log(dashes);
-		// });
-		// console.log(dashes);
-		console.log(models);
+		models.Dash.remove({}, { multi: true }, function (error) {
+			if (error) throw error;
+			models.Dash.insert(dashes, function (error) {
+				if (error) throw error;
+				console.log('dashes are now created! check em on mongo');
+			});
+		});
 	};
 
 	return {
