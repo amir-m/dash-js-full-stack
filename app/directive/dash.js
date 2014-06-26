@@ -428,7 +428,7 @@ angular.module('DashbookApp')
 
           // scope.d.content = [];
           // $('#'+scope.d.id + ' .flipsnap').empty();
-          scope.$broadcast('suicide');
+          // scope.$broadcast('suicide');
           scope.d.private_dash.selected_source_uri = scope.d.private_dash.source_uri[index];
           scope.d.private_dash.selected_setting = scope.d.private_dash.settings[index];
           // console.log('-------------------in selectPrivateSetting')
