@@ -569,7 +569,7 @@ angular.module('DashbookApp')
 
           setTimeout(function(){
             flipsnap.refresh();
-            flipsnap.moveToPoint(scope.currentPoint, 1);
+            flipsnap.moveToPoint(scope.currentPoint, 0);
             $('#'+scope.d.id+' .slide-indicator span:gt(9)').hide();
               if (scope.d.content.length > 10) {
                 $('#'+scope.d.id+' .slide-indicator .plus').show();
