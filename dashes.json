@@ -157,7 +157,7 @@
 	"source_uri": ["https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={latitude},{longitude}&rankBy=distance&radius={radius}&keyword={keyword}&sensor=true&key={api_key}"],
 	"source_return_type": "json",
 	"source_uri_keys": ["{latitude}", "{longitude}", "{keyword}", "{api_key}", "{radius}"],
-	"source_uri_values": ["latitude", "longitude", "food", "AIzaSyAfzGESbROgOjoOqJrMbtIKNRtebL3w0Lc"],
+	"source_uri_values": ["latitude", "longitude", "food", "AIzaSyAfzGESbROgOjoOqJrMbtIKNRtebL3w0Lc", "4000"],
 	"content_type": ["src_comp", "geo_comp"],
 	"settings": "food",
 	"setting_type": "n/a",
