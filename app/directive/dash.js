@@ -559,8 +559,6 @@ angular.module('DashbookApp')
             flipsnap.element.addEventListener('fspointmove', function() {
 
               scope.currentPoint = flipsnap.currentPoint;
-
-              console.log(scope.currentPoint)
               
               pointer.filter('.current').removeClass('current');
               pointer.eq(flipsnap.currentPoint).addClass('current');
@@ -1091,8 +1089,8 @@ angular.module('DashbookApp')
           if (scope.d.setting_type == 'radio') {
 
             scope.$watch('currentPoint', function () {
-              console.log(scope.d.selected_setting)
               if (scope.currentPoint == scope.d.content.length - 2 && scope.d.settings.length > scope.d.settings.indexOf(scope.d.selected_setting) + 1) {
+              console.log(scope.d.selected_setting)
                 scope.selectSetting(scope.d.settings.indexOf(scope.d.selected_setting) + 1, false, false);
               }
             });
