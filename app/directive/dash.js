@@ -17,7 +17,7 @@ angular.module('DashbookApp')
           $('article').removeClass('slide-up');
         }, 1000);
 
-        scope.d.content = [], scope.flipTo = 1;
+        scope.d.content = [], scope.flipTo = 1, scope.currentPoint = null;
 
         function apiCallEngine() {
           
@@ -547,7 +547,7 @@ angular.module('DashbookApp')
             pointer.eq(flipsnap.currentPoint).addClass('current');
 
             flipsnap.element.addEventListener('fspointmove', function() {
-              console.log(flipsnap.currentPoint)
+              scope.currentPoint = flipsnap.currentPoint;
               pointer.filter('.current').removeClass('current');
               pointer.eq(flipsnap.currentPoint).addClass('current');
 
@@ -564,8 +564,10 @@ angular.module('DashbookApp')
           // $('#'+scope.d.id+' .slide-indicator').hide();
 
           flipsnap = Flipsnap('#'+scope.d.id+ ' .flipsnap');
+          flipsnap.moveToPoint(scope.currentPoint);
 
           setTimeout(function(){
+            flipsnap.moveToPoint(scope.currentPoint);
             flipsnap.refresh();
             $('#'+scope.d.id+' .slide-indicator span:gt(9)').hide();
               if (scope.d.content.length > 10) {
@@ -579,7 +581,7 @@ angular.module('DashbookApp')
                 pointer.filter('.current').removeClass('current');
                 pointer.eq(flipsnap.currentPoint).addClass('current');
 
-                console.log(flipsnap.currentPoint)
+                scope.currentPoint = flipsnap.currentPoint;
 
                 if (flipsnap.currentPoint > 9) {
                   $('.slide-indicator .plus').addClass('current');
