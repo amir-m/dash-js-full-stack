@@ -557,7 +557,10 @@ angular.module('DashbookApp')
             pointer.eq(flipsnap.currentPoint).addClass('current');
 
             flipsnap.element.addEventListener('fspointmove', function() {
+
               scope.currentPoint = flipsnap.currentPoint;
+
+              console.log(scope.currentPoint)
               
               pointer.filter('.current').removeClass('current');
               pointer.eq(flipsnap.currentPoint).addClass('current');
