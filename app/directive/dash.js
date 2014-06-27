@@ -565,7 +565,9 @@ angular.module('DashbookApp')
 
           flipsnap = Flipsnap('#'+scope.d.id+ ' .flipsnap');
 
-          flipsnap.refresh();
+          setTimeout(function(){
+            flipsnap.refresh();
+          }, 25);
 
           // flipsnap.moveToPoint(scope.flipTo - 1);
 
