@@ -23,22 +23,22 @@ angular.module('DashbookApp')
           console.log(scope.d.source_uri[0])
           scope.d.selected_source_uri = scope.d.selected_source_uri || scope.d.source_uri[0];
           
-          if (scope.d.source_uri_keys && scope.d.source_uri_keys.length > 0) {
-            if (scope.d.source_uri_keys.indexOf('{latitude}') != -1) {
-              scope.d.selected_source_uri = scope.d.selected_source_uri.replace('{latitude}', scope.latitude);
-              // scope.d.source_uri_keys.splice(scope.d.source_uri_keys.indexOf('{latitude}'), 1);
-              // scope.d.source_uri_values.splice(0, 1);
-            }
-            if (scope.d.source_uri_keys.indexOf('{longitude}') != -1) {
-              scope.d.selected_source_uri = scope.d.selected_source_uri.replace('{longitude}', scope.longitude);
-              // scope.d.source_uri_keys.splice(scope.d.source_uri_keys.indexOf('{longitude}'), 1);
-              // scope.d.source_uri_values.splice(0, 1);
-            }
-            for (var i = 0; i < scope.d.source_uri_keys.length; ++i) {
-              if (scope.d.source_uri_keys[i] != '{latitude}' && scope.d.source_uri_keys[i] != '{longitude}')
-                scope.d.selected_source_uri = scope.d.selected_source_uri.replace(scope.d.source_uri_keys[i], scope.d.source_uri_values[i]);
-            }
-          };
+          // if (scope.d.source_uri_keys && scope.d.source_uri_keys.length > 0) {
+          //   if (scope.d.source_uri_keys.indexOf('{latitude}') != -1) {
+          //     scope.d.selected_source_uri = scope.d.selected_source_uri.replace('{latitude}', scope.latitude);
+          //     // scope.d.source_uri_keys.splice(scope.d.source_uri_keys.indexOf('{latitude}'), 1);
+          //     // scope.d.source_uri_values.splice(0, 1);
+          //   }
+          //   if (scope.d.source_uri_keys.indexOf('{longitude}') != -1) {
+          //     scope.d.selected_source_uri = scope.d.selected_source_uri.replace('{longitude}', scope.longitude);
+          //     // scope.d.source_uri_keys.splice(scope.d.source_uri_keys.indexOf('{longitude}'), 1);
+          //     // scope.d.source_uri_values.splice(0, 1);
+          //   }
+          //   for (var i = 0; i < scope.d.source_uri_keys.length; ++i) {
+          //     if (scope.d.source_uri_keys[i] != '{latitude}' && scope.d.source_uri_keys[i] != '{longitude}')
+          //       scope.d.selected_source_uri = scope.d.selected_source_uri.replace(scope.d.source_uri_keys[i], scope.d.source_uri_values[i]);
+          //   }
+          // };
 
           // scope.d.selected_source_uri += '&callback=temp';
 
