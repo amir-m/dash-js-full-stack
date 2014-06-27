@@ -30,14 +30,15 @@ angular.module('DashbookApp')
             scope.content.components.desc_comp.header += threeDots;
           }
           if (scope.d.private_dash.components_settings.desc_comp.trim.text) {
-            console.log(scope.d.private_dash)
-            var l = scope.d.private_dash.components_settings.desc_comp.trim.text;
+          
+            var l = parseInt(scope.d.private_dash.components_settings.desc_comp.trim.text);
             var threeDots, temp = scope.content.components.desc_comp.text.split(' ');
             threeDots = temp.length > l ? '...' : '';
             temp = temp.splice(0, l);
 
             scope.content.components.desc_comp.text = temp.join(' ');
             scope.content.components.desc_comp.text += threeDots;
+            console.log('pashmak')
           }
         };
 
