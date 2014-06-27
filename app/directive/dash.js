@@ -566,6 +566,7 @@ angular.module('DashbookApp')
           flipsnap = Flipsnap('#'+scope.d.id+ ' .flipsnap');
 
           setTimeout(function(){
+            $('#'+scope.d.id+' .slide-indicator span:gt(9)').hide();
             flipsnap.refresh();
           }, 25);
 
