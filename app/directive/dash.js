@@ -13,8 +13,6 @@ angular.module('DashbookApp')
 
         $('article').addClass('slide-up');
 
-        if (scope.d.private_dash.selected_setting)
-
         setTimeout(function (argument) {
           $('article').removeClass('slide-up');
         }, 1000);
