@@ -52,7 +52,7 @@
 				<ul ng-show="d.setting_type == 'radio'">
 					<li ng-repeat="setting in d.settings" 
 						ng-class="{selected: setting == d.selected_setting}" 
-						ng-click="selectSetting($index)">
+						ng-click="selectSetting($index, true, true)">
 						{{setting}}
 					</li>
 				</ul>
