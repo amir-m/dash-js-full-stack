@@ -45,8 +45,6 @@ angular.module('DashbookApp')
           // ajax(scope.d.selected_source_uri, function(){
 
           // });
-
-          return;
           
           $.ajax({
             "url": scope.engine_uri + scope.d.selected_source_uri,
@@ -1093,8 +1091,6 @@ angular.module('DashbookApp')
         else {
           
           scope.settings_input_value = scope.d.selected_setting;
-
-          console.log(scope.d.setting_type);
 
           if (scope.d.setting_type == 'radio') {
 
