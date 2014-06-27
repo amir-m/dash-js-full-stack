@@ -43,6 +43,9 @@ angular.module('DashbookApp')
           // ajax(scope.d.selected_source_uri, function(){
 
           // });
+
+          console.log(scope.d.selected_source_uri)
+          return;
           
           $.ajax({
             "url": scope.engine_uri + scope.d.selected_source_uri,
