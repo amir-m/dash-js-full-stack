@@ -451,7 +451,7 @@ angular.module('DashbookApp')
             scope.currentPoint = 0;
             $http.post('/dashes/'+scope.d.id+'/settings', {
               selected_setting: scope.d.private_dash.selected_setting,
-              selected_source_uri: scope.private_dash.d.selected_source_uri,
+              selected_source_uri: scope.d.private_dash.selected_source_uri,
               uuid: scope.uuid,
               setting_type: 'radio',
               sid: $rootScope.sid,
