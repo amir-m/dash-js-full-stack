@@ -101,7 +101,7 @@
 				<ul ng-show="d.private_dash.setting_type == 'radio'">
 					<li ng-repeat="setting in d.private_dash.settings" 
 						ng-class="{selected: setting == d.private_dash.selected_setting}" 
-						ng-click="selectPrivateSetting($index)">
+						ng-click="selectPrivateSetting($index, true, true)">
 						{{setting}}
 					</li>
 				</ul>
