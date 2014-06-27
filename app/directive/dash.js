@@ -565,11 +565,11 @@ angular.module('DashbookApp')
           // $('#'+scope.d.id+' .slide-indicator').hide();
 
           flipsnap = Flipsnap('#'+scope.d.id+ ' .flipsnap');
-          flipsnap.moveToPoint(scope.currentPoint, 10000);
+          // flipsnap.moveToPoint(scope.currentPoint, 10000);
 
           setTimeout(function(){
             flipsnap.refresh();
-            flipsnap.moveToPoint(scope.currentPoint);
+            flipsnap.moveToPoint(scope.currentPoint, 1);
             $('#'+scope.d.id+' .slide-indicator span:gt(9)').hide();
               if (scope.d.content.length > 10) {
                 $('#'+scope.d.id+' .slide-indicator .plus').show();
