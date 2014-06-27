@@ -1086,11 +1086,13 @@ angular.module('DashbookApp')
           
           scope.settings_input_value = scope.d.selected_setting;
 
+          console.log(scope.d.setting_type);
+
           if (scope.d.setting_type == 'radio') {
 
             scope.$watch('currentPoint', function () {
+              console.log(scope.d.selected_setting, scope.currentPoint, scope.d.content.length - 2, scope.d.settings.length, )
               if (scope.currentPoint == scope.d.content.length - 2 && scope.d.settings.length > scope.d.settings.indexOf(scope.d.selected_setting) + 1) {
-              console.log(scope.d.selected_setting)
                 scope.selectSetting(scope.d.settings.indexOf(scope.d.selected_setting) + 1, false, false);
               }
             });
