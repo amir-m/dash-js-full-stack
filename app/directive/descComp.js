@@ -17,11 +17,11 @@ angular.module('DashbookApp')
           scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.replace(/&nbsp;/g, '');
         }
 
-        if (scope.d.components_settings 
-        && scope.d.components_settings.desc_comp 
-        && scope.d.components_settings.desc_comp.trim) {
-          if (scope.d.components_settings.desc_comp.trim.header) {
-            var l = scope.d.components_settings.desc_comp.trim.header;
+        if (scope.d.private_dash.components_settings 
+        && scope.d.private_dash.components_settings.desc_comp 
+        && scope.d.private_dash.components_settings.desc_comp.trim) {
+          if (scope.d.private_dash.components_settings.desc_comp.trim.header) {
+            var l = scope.d.private_dash.components_settings.desc_comp.trim.header;
             var threeDots, temp = scope.content.components.desc_comp.header.split(' ');
             threeDots = temp.length > l ? '...' : '';
             temp = temp.splice(0, l);
@@ -29,8 +29,8 @@ angular.module('DashbookApp')
             scope.content.components.desc_comp.header = temp.join(' ');
             scope.content.components.desc_comp.header += threeDots;
           }
-          if (scope.d.components_settings.desc_comp.trim.text) {
-            var l = scope.d.components_settings.desc_comp.trim.text;
+          if (scope.d.private_dash.components_settings.desc_comp.trim.text) {
+            var l = scope.d.private_dash.components_settings.desc_comp.trim.text;
             var threeDots, temp = scope.content.components.desc_comp.text.split(' ');
             threeDots = temp.length > l ? '...' : '';
             temp = temp.splice(0, l);
