@@ -1054,7 +1054,7 @@ angular.module('DashbookApp')
 
             scope.$watch('currentPoint', function () {
               console.log(scope.currentPoint, scope.d.content.length - 1, scope.d.private_dash.settings.length, scope.d.private_dash.settings.indexOf(scope.d.private_dash.selected_setting))
-              if (scope.currentPoint == scope.d.content.length - 1 && scope.d.private_dash.settings.length < scope.d.private_dash.settings.indexOf(scope.d.private_dash.selected_setting) + 1) {
+              if (scope.currentPoint == scope.d.content.length - 1 && scope.d.private_dash.settings.length > scope.d.private_dash.settings.indexOf(scope.d.private_dash.selected_setting) + 1) {
                 console.log('should fetch now')
               }
             });
