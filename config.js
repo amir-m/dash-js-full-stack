@@ -16,7 +16,7 @@ module.exports = function(express, app, mongoose, cookie, models, redisClient) {
 		
 
 		setTimeout(function (argument) {
-			require('./helpers')(models, redisClient).insertDashesToMongoBackend();
+			// require('./helpers')(models, redisClient).insertDashesToMongoBackend();
 			// require('./helpers')(models, redisClient).fixSomething();
 		}, 3000);
 	});
