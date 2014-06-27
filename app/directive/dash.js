@@ -455,7 +455,7 @@ angular.module('DashbookApp')
             scope.$broadcast('suicide');
             scope.currentPoint = 0;
 
-            $http.post('/dashes/private/'+scope.d.id+'/settings', {
+            $http.post('/dash/private/'+scope.d.id+'/settings', {
               selected_setting: scope.d.private_dash.selected_setting,
               selected_source_uri: scope.d.private_dash.selected_source_uri,
               uuid: scope.uuid,
