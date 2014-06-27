@@ -387,6 +387,7 @@ var map = {
 
 				if (!dash) return res.send(400);
 				
+				// TODO check if the selected_settings is coming from an input, make it lowercace..
 				dash.private_dash.selected_setting = req.param('selected_setting');
 
 				// if (req.param('source_uri_values') && req.param('source_uri_values').length > 0)
