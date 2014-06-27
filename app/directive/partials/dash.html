@@ -6,7 +6,7 @@
 				{{d.title}} • 
 				<!-- Change d.title to d.dash_type... -->
 				<span ng-show="d.title == 'Private Dash'">
-					{{d.selected_setting || 'No Dash Selected'}}
+					{{d.private_dash.selected_setting || 'No Dash Selected'}}
 				</span>
 				<span ng-show="d.title != 'Private Dash'">
 					{{d.selected_setting || 'Current Location'}}
