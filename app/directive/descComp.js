@@ -38,10 +38,10 @@ angular.module('DashbookApp')
           }
         };
 
-        if (scope.d.title != 'World Cup News' && scope.content.components.desc_comp.header) 
-          scope.content.components.desc_comp.header = scope.content.components.desc_comp.header.substr(0, 16);
-        if (scope.d.title != 'World Cup News' && scope.content.components.desc_comp.text) 
-          scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.substr(0, 24);
+        // if (scope.d.title != 'World Cup News' && scope.content.components.desc_comp.header) 
+        //   scope.content.components.desc_comp.header = scope.content.components.desc_comp.header.substr(0, 16);
+        // if (scope.d.title != 'World Cup News' && scope.content.components.desc_comp.text) 
+        //   scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.substr(0, 24);
 
       	scope.$on('suicide', function(){
       		
