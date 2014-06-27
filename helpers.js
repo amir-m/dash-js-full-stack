@@ -26,7 +26,7 @@ module.exports = function(models, redisClient) {
 	function createDefaultDashes(uuid) {
 		console.log('about to create default dashes for ', uuid);
 		for (var i = 0; i < default_dashes.length; ++i) {
-			models.Dash.findOne(default_dashes[i], function(error, dash){
+			models.Dash.findOne({id: default_dashes[i]}, function(error, dash){
 				var selected = '';			
 
 				if (dash.setting_type == 'radio') {
@@ -52,7 +52,6 @@ module.exports = function(models, redisClient) {
 					content_type: dash.content_type,
 					source_uri_keys: dash.source_uri_keys,
 					source_uri_values: dash.source_uri_values,
-					selected_source_uri: (dash.source_uri && dash.source_uri[0]) ? dash.source_uri[0] : '', 
 					handler_placeholder: dash.handler_placeholder,
 					data_container: dash.data_container,
 					source_return_type: dash.source_return_type || 'json',
@@ -133,41 +132,41 @@ module.exports = function(models, redisClient) {
 		
 		// return;
 
-		// models.WaitingListEntry.find({ $or: [{ status: 3 }, { status: '3' }], app_launched: true })
-		// .exec(function(error, wlz) {
+		models.WaitingListEntry.find({ $or: [{ status: 3 }, { status: '3' }], app_launched: true })
+		.exec(function(error, wlz) {
 			
-		// 	if (error) throw error;
-			
-		// 	for (var i = 0; i < wlz.length; ++i) {
-				
-		// 		for (var j = 0; j < wlz[i].uuids.length; ++j) {
-		// 			redisClient.hset('user:'+wlz[i].uuids[j], 'dashes', '');
-		// 			createDefaultDashes(wlz[i].uuids[j]);
-		// 		}
-
-		// 		// if (wlz[i].uuid_addaded_at && wlz[i].uuid_addaded_at.length > 0 ) {
-		// 		// 	console.log('uuid_addaded_at: ', wlz[i].uuid_addaded_at);
-		// 		// 	console.log('uuid_added_at: ', wlz[i].uuid_added_at);
-		// 		// 	if (wlz[i].uuid_added_at.indexOf(wlz[i].uuid_addaded_at[0]) == -1) 
-		// 		// 		wlz[i].uuid_added_at.push(wlz[i].uuid_addaded_at[0]);
-		// 		// 	wlz[i].save();
-		// 		// }
-		// 	}
-		// });
-		
-		redisClient.keys('user:*', function(error, users){
 			if (error) throw error;
-			for (var i = 0; i < users.length; ++i) {
+			
+			for (var i = 0; i < wlz.length; ++i) {
+				
+				for (var j = 0; j < wlz[i].uuids.length; ++j) {
+					redisClient.hset('user:'+wlz[i].uuids[j], 'dashes', '');
+					createDefaultDashes(wlz[i].uuids[j]);
+				}
+
+				// if (wlz[i].uuid_addaded_at && wlz[i].uuid_addaded_at.length > 0 ) {
+				// 	console.log('uuid_addaded_at: ', wlz[i].uuid_addaded_at);
+				// 	console.log('uuid_added_at: ', wlz[i].uuid_added_at);
+				// 	if (wlz[i].uuid_added_at.indexOf(wlz[i].uuid_addaded_at[0]) == -1) 
+				// 		wlz[i].uuid_added_at.push(wlz[i].uuid_addaded_at[0]);
+				// 	wlz[i].save();
+				// }
+			}
+		});
+		
+		// redisClient.keys('user:*', function(error, users){
+			// if (error) throw error;
+			// for (var i = 0; i < users.length; ++i) {
 				// redisClient.hgetall(users[i], function(error, user){
 					// if (error) throw error;
 					// if (!user.platform) {
-						redisClient.hset(users[i], 'dashes', '');
+						// redisClient.hset(users[i], 'dashes', '');
 					// }
 					
 					// console.log(users[i]);
 				// });
-			}
-		});
+			// }
+		// });
 		
 		// redisClient.keys('user:*', function(error, users){
 		// 	if (error) throw error;
