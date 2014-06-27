@@ -1070,9 +1070,11 @@ angular.module('DashbookApp')
             });
           }
 
-          if (scope.d.private_dash) scope.private_dash_settings_input_value = scope.d.private_dash.selected_setting;
+          if (scope.d.private_dash) {
+            scope.private_dash_settings_input_value = scope.d.private_dash.selected_setting;
+            apiCall();
+          }
 
-          apiCall();
 
           if (scope.d.private_dash && scope.d.private_dash.selected_setting) {
             setTimeout(function(){
