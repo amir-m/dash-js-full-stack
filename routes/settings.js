@@ -389,8 +389,8 @@ var map = {
 				
 				dash.private_dash.selected_setting = req.param('selected_setting').toLowerCase();
 
-				if (req.param('source_uri_values') && req.param('source_uri_values').length > 0)
-					dash.private_dash.source_uri_values = req.param('source_uri_values');
+				// if (req.param('source_uri_values') && req.param('source_uri_values').length > 0)
+				// 	dash.private_dash.source_uri_values = req.param('source_uri_values');
 
 				dash.markModified('private_dash');
 
