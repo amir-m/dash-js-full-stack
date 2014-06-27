@@ -68,7 +68,7 @@
 	"has_settings": "false",
 	"components_settings": {
 		"hero_comp": {
-			"class": ["banner-narrow"]
+			"class": ["narrow-banner"]
 		}, 
 		"desc_comp": {
 			"trim": {

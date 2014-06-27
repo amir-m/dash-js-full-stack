@@ -1057,7 +1057,7 @@ angular.module('DashbookApp')
           if (!scope.d.dash_has_been_set && scope.d.title == 'Private Dash') {
             scope.flipSettings();
           }
-        }, 2000);
+        }, 1000);
 
         if (scope.d.title == 'Private Dash') {
 
