@@ -18,7 +18,7 @@ angular.module('DashbookApp')
           $(element).find('.hero-comp span').addClass(scope.d.components_settings.hero_comp.class[i]);
         }
       };
-      if (scope.d.private_dash.components_settings 
+      if (scope.d.private_dash && scope.d.private_dash.components_settings 
         && scope.d.private_dash.components_settings.hero_comp 
         && scope.d.private_dash.components_settings.hero_comp.class) {
         for (var i = 0; i < scope.d.private_dash.components_settings.hero_comp.class.length; ++i) {
