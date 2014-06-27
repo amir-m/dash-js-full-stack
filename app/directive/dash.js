@@ -1052,7 +1052,7 @@ angular.module('DashbookApp')
 
           if (scope.d.private_dash.setting_type == 'radio') {
 
-            scope.$watch('scope.currentPoint', function () {
+            scope.$watch('currentPoint', function () {
               console.log('yyyy')
               if (scope.currentPoint == scope.d.content.length - 1 && scope.d.private_dash.settings.length < scope.d.private_dash.settings.indexOf(scope.d.private_dash.selected_setting) + 1) {
                 console.log('should fetch now')
