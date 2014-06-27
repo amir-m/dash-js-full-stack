@@ -13,8 +13,6 @@ angular.module('DashbookApp')
 
         $('article').addClass('slide-up');
 
-        console.log(scope.d);
-
         setTimeout(function (argument) {
           $('article').removeClass('slide-up');
         }, 1000);
@@ -812,12 +810,9 @@ angular.module('DashbookApp')
             }
           };
 
-          console.log((scope.engine_uri + scope.d.private_dash.selected_source_uri))
-
           $http.get(scope.engine_uri + scope.d.private_dash.selected_source_uri)
           .success(function(apiResponseJson, status, headers){
-            console.log(apiResponseJson)
-            return
+
             var content = [], container;
             scope.d.content = scope.d.content || [];
             if (scope.d.content.length == 0) $('#'+scope.d.id + ' .flipsnap').empty();
