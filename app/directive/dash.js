@@ -19,7 +19,7 @@ angular.module('DashbookApp')
 
         scope.d.content = [], scope.flipTo = 1, scope.currentPoint = null;
 
-        function apiCallEngine() {
+        function apiCallEngine(append) {
           
           if (scope.d.source_uri_keys && scope.d.source_uri_keys.length > 0) {
             if (scope.d.source_uri_keys.indexOf('{latitude}') != -1) {
@@ -56,6 +56,7 @@ angular.module('DashbookApp')
               $('#' + scope.d.id + ' .spinner').hide();
 
               var content = [], tmp_con = [], container;
+              scope.d.content = scope.d.content || [];
 
               if (scope.d.source_return_type == 'json') {
 
@@ -265,7 +266,12 @@ angular.module('DashbookApp')
 
               }
               scope.flipsnap_width = scope._width*scope.d.content.length;
-              scope.attachFlipsnap();
+              if (append) {
+                  scope.appendFlipsnap();
+              } 
+              else {
+                scope.attachFlipsnap();
+              }
               scope.safeApply();
               if (scope.d.title == 'Private Dash') 
                 scope.d.components_settings = scope.d.private_dash.components_settings;
@@ -398,30 +404,35 @@ angular.module('DashbookApp')
           else return;
         };
 
-        scope.selectSetting = function(index) {
-          scope.d.content = [];
-          scope.$broadcast('suicide');
+        scope.selectSetting = function(index, flip, manual) {
+          if (manual) {
+            scope.d.content = [];
+            $('#'+scope.d.id + ' .flipsnap').empty();
+            scope.$broadcast('suicide');
+            scope.currentPoint = 0;
+            $http.post('/dashes/'+scope.d.id+'/settings', {
+              selected_setting: scope.d.selected_setting,
+              selected_source_uri: scope.d.selected_source_uri,
+              uuid: scope.uuid,
+              setting_type: 'radio',
+              sid: $rootScope.sid,
+              latitude: $rootScope.latitude,
+              longitude: $rootScope.longitude,
+              timestamp: new Date().getTime()
+            }).success(function(data){
+
+            })
+            .error(function(error){
+            });
+          }
+
           scope.d.selected_source_uri = scope.d.source_uri[index];
-          apiCallEngine();
-          scope.flipSettings();
+          scope.d.selected_setting = scope.d.settings[index];
+          apiCallEngine(true);
+          if ( flip ) scope.flipSettings();
           $('#' + scope.d.id + ' .spinner').show();
-          var selectedTime = new Date().getTime();
           scope.d.selected_setting = scope.d.settings[index];
 
-          $http.post('/dashes/'+scope.d.id+'/settings', {
-            selected_setting: scope.d.selected_setting,
-            selected_source_uri: scope.d.selected_source_uri,
-            uuid: scope.uuid,
-            setting_type: 'radio',
-            sid: $rootScope.sid,
-            latitude: $rootScope.latitude,
-            longitude: $rootScope.longitude,
-            timestamp: new Date().getTime()
-          }).success(function(data){
-
-          })
-          .error(function(error){
-          });
         };
 
         scope.selectPrivateSetting = function(index, flip, manual) {
@@ -431,6 +442,19 @@ angular.module('DashbookApp')
             $('#'+scope.d.id + ' .flipsnap').empty();
             scope.$broadcast('suicide');
             scope.currentPoint = 0;
+            $http.post('/dashes/'+scope.d.id+'/settings', {
+              selected_setting: scope.d.private_dash.selected_setting,
+              selected_source_uri: scope.private_dash.d.selected_source_uri,
+              uuid: scope.uuid,
+              setting_type: 'radio',
+              sid: $rootScope.sid,
+              latitude: $rootScope.latitude,
+              longitude: $rootScope.longitude,
+              timestamp: new Date().getTime()
+            }).success(function(data){
+            })
+            .error(function(error){
+            });
           }
           scope.d.private_dash.selected_source_uri = scope.d.private_dash.source_uri[index];
           scope.d.private_dash.selected_setting = scope.d.private_dash.settings[index];
@@ -442,24 +466,7 @@ angular.module('DashbookApp')
           // console.log('-------------------in selectPrivateSetting')
           apiCall(true);
           if ( flip ) scope.flipSettings();
-          $('#' + scope.d.id + ' .spinner').show();
-          var selectedTime = new Date().getTime();
-          return;
-
-          $http.post('/dashes/'+scope.d.id+'/settings', {
-            selected_setting: scope.d.selected_setting,
-            selected_source_uri: scope.d.selected_source_uri,
-            uuid: scope.uuid,
-            setting_type: 'radio',
-            sid: $rootScope.sid,
-            latitude: $rootScope.latitude,
-            longitude: $rootScope.longitude,
-            timestamp: new Date().getTime()
-          }).success(function(data){
-
-          })
-          .error(function(error){
-          });
+          $('#' + scope.d.id + ' .spinner').show();        
         };
 
         scope.flipSettings = function() {
@@ -792,14 +799,6 @@ angular.module('DashbookApp')
             }
           };
 
-          console.log('---------------in apiCall')
-          console.log(scope.d.private_dash.selected_setting)
-          // console.log(index)
-          // console.log(scope.d.private_dash.source_uri[index])
-          // console.log(scope.d.private_dash.settings[index])
-          console.log(scope.d.private_dash.selected_source_uri)
-          console.log('---------------in apiCall')
-    
           $http.get(scope.engine_uri + scope.d.private_dash.selected_source_uri)
           .success(function(apiResponseJson, status, headers){
             var content = [], container;
@@ -1001,7 +1000,6 @@ angular.module('DashbookApp')
             scope.d.private_dash.content = content;
             scope.flipsnap_width = scope._width*scope.d.content.length;
             scope.d.components_settings = scope.d.private_dash.components_settings;
-            console.log(append);
             if (append) {
               scope.appendFlipsnap();
             }
@@ -1050,7 +1048,6 @@ angular.module('DashbookApp')
           if (scope.d.private_dash.setting_type == 'radio') {
 
             scope.$watch('currentPoint', function () {
-              console.log(scope.currentPoint, scope.d.content.length - 1, scope.d.private_dash.settings.length, scope.d.private_dash.settings.indexOf(scope.d.private_dash.selected_setting))
               if (scope.currentPoint == scope.d.content.length - 2 && scope.d.private_dash.settings.length > scope.d.private_dash.settings.indexOf(scope.d.private_dash.selected_setting) + 1) {
                 scope.selectPrivateSetting(scope.d.private_dash.settings.indexOf(scope.d.private_dash.selected_setting) + 1, false, false);
               }
@@ -1085,7 +1082,18 @@ angular.module('DashbookApp')
           }
         }
         else {
+          
           scope.settings_input_value = scope.d.selected_setting;
+
+          if (scope.d.setting_type == 'radio') {
+
+            scope.$watch('currentPoint', function () {
+              if (scope.currentPoint == scope.d.content.length - 2 && scope.d.settings.length > scope.d.settings.indexOf(scope.d.selected_setting) + 1) {
+                scope.selectSetting(scope.d.settings.indexOf(scope.d.selected_setting) + 1, false, false);
+              }
+            });
+          }
+
         };
 
         setTimeout(function (argument) {
