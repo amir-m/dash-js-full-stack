@@ -413,10 +413,12 @@ angular.module('DashbookApp')
           scope.d.selected_setting = scope.d.settings[index];
 
           if (manual) {
+
             scope.d.content = [];
             $('#'+scope.d.id + ' .flipsnap').empty();
             scope.$broadcast('suicide');
             scope.currentPoint = 0;
+
             $http.post('/dashes/'+scope.d.id+'/settings', {
               selected_setting: scope.d.selected_setting,
               selected_source_uri: scope.d.selected_source_uri,
@@ -438,17 +440,21 @@ angular.module('DashbookApp')
           }
           if ( flip ) scope.flipSettings();
           $('#' + scope.d.id + ' .spinner').show();
-          scope.d.selected_setting = scope.d.settings[index];
 
         };
 
         scope.selectPrivateSetting = function(index, flip, manual) {
-
+          
+          scope.d.private_dash.selected_source_uri = scope.d.private_dash.source_uri[index];
+          scope.d.private_dash.selected_setting = scope.d.private_dash.settings[index];
+          
           if (manual) {
+            
             scope.d.content = [];
             $('#'+scope.d.id + ' .flipsnap').empty();
             scope.$broadcast('suicide');
             scope.currentPoint = 0;
+
             $http.post('/dashes/'+scope.d.id+'/settings', {
               selected_setting: scope.d.private_dash.selected_setting,
               selected_source_uri: scope.d.private_dash.selected_source_uri,
@@ -462,16 +468,11 @@ angular.module('DashbookApp')
             })
             .error(function(error){
             });
+            apiCall();
           }
-          scope.d.private_dash.selected_source_uri = scope.d.private_dash.source_uri[index];
-          scope.d.private_dash.selected_setting = scope.d.private_dash.settings[index];
-          // console.log('-------------------in selectPrivateSetting')
-          // console.log(index)
-          // console.log(scope.d.private_dash.source_uri[index])
-          // console.log(scope.d.private_dash.settings[index])
-          // console.log(scope.d.private_dash.selected_setting)
-          // console.log('-------------------in selectPrivateSetting')
-          apiCall(true);
+          else {
+            apiCall(true);
+          }
           if ( flip ) scope.flipSettings();
           $('#' + scope.d.id + ' .spinner').show();        
         };
