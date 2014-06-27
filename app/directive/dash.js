@@ -13,6 +13,8 @@ angular.module('DashbookApp')
 
         $('article').addClass('slide-up');
 
+        console.log(scope.d);
+
         setTimeout(function (argument) {
           $('article').removeClass('slide-up');
         }, 1000);
