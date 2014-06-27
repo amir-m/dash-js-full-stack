@@ -17,7 +17,7 @@ angular.module('DashbookApp')
           $('article').removeClass('slide-up');
         }, 1000);
 
-        scope.d.content = [], scope.flipTo = 1, scope.currentPoint = null;
+        scope.d.content = [], scope.flipTo = 1, scope.currentPoint = 0;
 
         function apiCallEngine(append) {
           scope.d.selected_source_uri = scope.d.selected_source_uri || scope.d.source_uri[0];
@@ -106,11 +106,13 @@ angular.module('DashbookApp')
                     for (var i = 0; i < apiResponseJson[scope.d.data_container].length; i++) {
                       if(apiResponseJson[scope.d.data_container][i].id == index) {
                         scope.flipTo = i + 1;
+                        scope.currentPoint = i;
                       }
                     };
                   }
                   else {
                     scope.flipTo = first_today_index > 0 ? first_today_index + 1 : 1;
+                    scope.currentPoint = first_today_index > 0 ? first_today_index : 0;
                   }
                 }
                 else {
@@ -537,7 +539,8 @@ angular.module('DashbookApp')
 
           flipsnap = Flipsnap('#'+scope.d.id+ ' .flipsnap');
 
-          flipsnap.moveToPoint(scope.flipTo - 1);
+          // flipsnap.moveToPoint(scope.flipTo - 1);
+          flipsnap.moveToPoint(scope.currentPoint);
 
           setTimeout(function(){
 
