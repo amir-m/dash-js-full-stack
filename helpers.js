@@ -141,7 +141,12 @@ module.exports = function(models, redisClient) {
 				
 				for (var j = 0; j < wlz[i].uuids.length; ++j) {
 					redisClient.hset('user:'+wlz[i].uuids[j], 'dashes', '');
-					createDefaultDashes(wlz[i].uuids[j]);
+					
+					(function (i, j) {
+						setTimeout(function(){
+							createDefaultDashes(wlz[i].uuids[j]);
+						}, 200)
+					}(i, j))
 				}
 
 				// if (wlz[i].uuid_addaded_at && wlz[i].uuid_addaded_at.length > 0 ) {
