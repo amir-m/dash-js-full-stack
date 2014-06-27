@@ -9,7 +9,7 @@ angular.module('DashbookApp')
       restrict: 'E',
       link: function postLink(scope, element, attrs) {
 
-
+        console.log(scope.d.private_dash)
 
         if (scope.content.components.desc_comp.text) {
           scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.replace(/<\w*>/g, '');
