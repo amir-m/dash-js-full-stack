@@ -780,20 +780,20 @@ angular.module('DashbookApp')
 
           if(scope.d.private_dash)scope.d.private_dash.selected_source_uri = scope.d.private_dash.selected_source_uri || scope.d.private_dash.source_uri[0];
           
-          if (scope.d.private_dash.source_uri_scheme && scope.d.private_dash.source_uri_scheme.length > 0) {
+          if (scope.d.private_dash && scope.d.private_dash.source_uri_scheme && scope.d.private_dash.source_uri_scheme.length > 0) {
             scope.d.private_dash.selected_source_uri = scope.d.private_dash.source_uri_scheme.length == 1 ? scope.d.private_dash.source_uri_scheme[0] : scope.d.private_dash.source_uri_scheme[scope.d.private_dash.settings.indexOf(scope.d.private_dash.selected_setting)];
           }
-          else {
+          else if (scope.d.private_dash) {
             scope.d.private_dash.selected_source_uri = scope.d.private_dash.source_uri.length == 1 ? scope.d.private_dash.source_uri[0] : scope.d.private_dash.source_uri[scope.d.private_dash.settings.indexOf(scope.d.private_dash.selected_setting)];
           }
 
-          if (scope.d.private_dash.source_uri_keys && scope.d.private_dash.source_uri_keys.length > 0) {
-            if (scope.d.private_dash.source_uri_keys.indexOf('{latitude}') != -1) {
+          if (scope.d.private_dash &&  scope.d.private_dash.source_uri_keys && scope.d.private_dash.source_uri_keys.length > 0) {
+            if (scope.d.private_dash && scope.d.private_dash.source_uri_keys.indexOf('{latitude}') != -1) {
               scope.d.private_dash.selected_source_uri = scope.d.private_dash.selected_source_uri.replace('{latitude}', scope.latitude);
               // scope.d.private_dash.source_uri_keys.splice(scope.d.private_dash.source_uri_keys.indexOf('{latitude}'), 1);
               // scope.d.private_dash.source_uri_values.splice(0, 1);
             }
-            if (scope.d.private_dash.source_uri_keys.indexOf('{longitude}') != -1) {
+            if (scope.d.private_dash && scope.d.private_dash.source_uri_keys.indexOf('{longitude}') != -1) {
               scope.d.private_dash.selected_source_uri = scope.d.private_dash.selected_source_uri.replace('{longitude}', scope.longitude);
               // scope.d.private_dash.source_uri_keys.splice(scope.d.private_dash.source_uri_keys.indexOf('{longitude}'), 1);
               // scope.d.private_dash.source_uri_values.splice(0, 1);
@@ -801,11 +801,11 @@ angular.module('DashbookApp')
             // if (scope.d.private_dash.source_uri_keys.indexOf('{selected_setting}') != -1) {
             //   scope.d.private_dash.selected_source_uri = scope.d.private_dash.selected_source_uri.replace('{selected_setting}', scope.d.private_dash.selected_setting);
             // }
-            if (scope.d.private_dash.source_uri_keys.indexOf('{selected_setting}') != -1) {
+            if (scope.d.private_dash && scope.d.private_dash.source_uri_keys.indexOf('{selected_setting}') != -1) {
               scope.d.private_dash.selected_source_uri = scope.d.private_dash.selected_source_uri.replace('{selected_setting}', scope.d.private_dash.selected_setting);
             }
             for (var i = 0; i < scope.d.private_dash.source_uri_keys.length; ++i) {
-              if (scope.d.private_dash.source_uri_keys[i] != '{latitude}' && scope.d.private_dash.source_uri_keys[i] != '{longitude}' && scope.d.private_dash.source_uri_keys[i] != '{selected_setting}')
+              if (scope.d.private_dash && scope.d.private_dash.source_uri_keys[i] != '{latitude}' && scope.d.private_dash.source_uri_keys[i] != '{longitude}' && scope.d.private_dash.source_uri_keys[i] != '{selected_setting}')
                 scope.d.private_dash.selected_source_uri = scope.d.private_dash.selected_source_uri.replace(scope.d.private_dash.source_uri_keys[i], scope.d.private_dash.source_uri_values[i]);
             }
           };
