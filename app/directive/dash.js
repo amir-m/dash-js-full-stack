@@ -441,7 +441,7 @@ angular.module('DashbookApp')
           // console.log(scope.d.private_dash.selected_setting)
           // console.log('-------------------in selectPrivateSetting')
           apiCall(true);
-          if ( dontFlip ) scope.flipSettings();
+          if ( flip ) scope.flipSettings();
           $('#' + scope.d.id + ' .spinner').show();
           var selectedTime = new Date().getTime();
           return;
