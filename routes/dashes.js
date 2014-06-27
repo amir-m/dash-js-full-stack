@@ -438,6 +438,14 @@ module.exports = function  (models, publisher) {
 		res.send(200);
 	};
 
+	var postPrivateDashSettingsUpdate = function(req, res, next) {
+
+		console.log(req.body);
+
+		res.send(200);
+
+	};
+
 	return {
 		create: create,
 		remove: remove,
@@ -445,6 +453,7 @@ module.exports = function  (models, publisher) {
 		readData: readData,
 		library: library,
 		uirOpened: uirOpened,
-		rearrange: rearrange
+		rearrange: rearrange,
+		postPrivateDashSettingsUpdate: postPrivateDashSettingsUpdate
 	}
 }
