@@ -17,7 +17,7 @@ angular.module('DashbookApp')
           scope.content.components.desc_comp.text = scope.content.components.desc_comp.text.replace(/&nbsp;/g, '');
         }
 
-        if (scope.d.private_dash.components_settings 
+        if (scope.d.private_dash && scope.d.private_dash.components_settings 
         && scope.d.private_dash.components_settings.desc_comp 
         && scope.d.private_dash.components_settings.desc_comp.trim) {
           if (scope.d.private_dash.components_settings.desc_comp.trim.header) {
