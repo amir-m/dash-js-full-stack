@@ -376,6 +376,7 @@ var map = {
 	};
 
 	var postPrivateDashSettingsUpdate = function (req, res, next) {
+		console.log(req.body);
 		if (!req.param('uuid') || !req.param('id'))
 			return res.send(400);
 
