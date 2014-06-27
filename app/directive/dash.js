@@ -1050,6 +1050,14 @@ angular.module('DashbookApp')
 
           // if (!scope.d.private_dash) scope.d.private_dash = {};
 
+          if (scope.d.private_dash.setting_type == 'radio') {
+            scope.$watch('scope.currentPoint', function () {
+              if (scope.currentPoint == scope.d.content.length - 1 && scope.d.private_dash.settings.length < scope.d.private_dash.settings.indexOf(scope.d.private_dash.selected_setting) + 1) {
+                console.log('should fetch now')
+              }
+            });
+          }
+
           if (scope.d.private_dash) scope.private_dash_settings_input_value = scope.d.private_dash.selected_setting;
 
           if (scope.d.selected_setting) {
