@@ -1047,7 +1047,7 @@ angular.module('DashbookApp')
 
         if (scope.d.title == 'Private Dash') {
 
-          // if (!scope.d.private_dash) scope.d.private_dash = {};
+          if (!scope.d.private_dash) break;
 
           if (scope.d.private_dash.setting_type == 'radio') {
 
