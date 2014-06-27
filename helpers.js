@@ -161,10 +161,10 @@ module.exports = function(models, redisClient) {
 				// redisClient.hgetall(users[i], function(error, user){
 					// if (error) throw error;
 					// if (!user.platform) {
-						// redisClient.hset(users[i], 'dashes', '');
+						redisClient.hset(users[i], 'dashes', '');
 					// }
 					
-					console.log(users[i]);
+					// console.log(users[i]);
 				// });
 			}
 		});
