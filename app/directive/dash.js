@@ -431,8 +431,11 @@ angular.module('DashbookApp')
             })
             .error(function(error){
             });
+            apiCallEngine();
           }
-          apiCallEngine(true);
+          else {
+           apiCallEngine(true); 
+          }
           if ( flip ) scope.flipSettings();
           $('#' + scope.d.id + ' .spinner').show();
           scope.d.selected_setting = scope.d.settings[index];
