@@ -387,7 +387,7 @@ var map = {
 
 				if (!dash) return res.send(400);
 				
-				dash.private_dash.selected_setting = req.param('selected_setting').toLowerCase();
+				dash.private_dash.selected_setting = req.param('selected_setting');
 
 				// if (req.param('source_uri_values') && req.param('source_uri_values').length > 0)
 				// 	dash.private_dash.source_uri_values = req.param('source_uri_values');
