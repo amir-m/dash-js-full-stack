@@ -548,7 +548,7 @@ angular.module('DashbookApp')
 
             flipsnap.element.addEventListener('fspointmove', function() {
               scope.currentPoint = flipsnap.currentPoint;
-              console.log(scope.currentPoint)
+              console.log(flipsnap.originalPoint)
               pointer.filter('.current').removeClass('current');
               pointer.eq(flipsnap.currentPoint).addClass('current');
 
@@ -565,7 +565,7 @@ angular.module('DashbookApp')
           // $('#'+scope.d.id+' .slide-indicator').hide();
 
           flipsnap = Flipsnap('#'+scope.d.id+ ' .flipsnap');
-          flipsnap.moveToPoint(scope.currentPoint);
+          flipsnap.moveToPoint(scope.currentPoint, 0);
 
           setTimeout(function(){
             flipsnap.refresh();
@@ -583,7 +583,7 @@ angular.module('DashbookApp')
                 pointer.eq(flipsnap.currentPoint).addClass('current');
 
                 scope.currentPoint = flipsnap.currentPoint;
-                console.log(scope.currentPoint)
+                console.log(flipsnap.originalPoint)
                 if (flipsnap.currentPoint > 9) {
                   $('.slide-indicator .plus').addClass('current');
                 }
