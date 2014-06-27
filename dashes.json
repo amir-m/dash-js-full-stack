@@ -33,7 +33,7 @@
 },
 {
 	"id": "NHI5NjJwYzUBMwQ3ZjUxWDliMDAwMDAx",
-	"source_uri": "http://engine-env.elasticbeanstalk.com/fifa",
+	"source_uri": ["http://engine-env.elasticbeanstalk.com/fifa"],
 	"source_return_type": "json",
 	"content_type": ["src_comp", "sports_comp"],
 	"title": "World Cup Brazil",
@@ -51,7 +51,7 @@
 },
 {
 	"id": "NHI5NjlJwBUkSwQZjUxWJupDAwMDAx",
-	"source_uri": "http://engine-env.elasticbeanstalk.com/fifa/news",
+	"source_uri": ["http://engine-env.elasticbeanstalk.com/fifa/news"],
 	"source_return_type": "json",
 	"content_type": ["src_comp", "hero_comp", "desc_comp", "footer_comp"],
 	"title": "World Cup News",
@@ -71,7 +71,7 @@
 	"id": "NTJhOWRmMGYxODNiNTAwMDAwMDAwMDAx",
 	"content_type": ["src_comp", "hero_comp", "desc_comp", "footer_comp"],
 	"title": "Dribbble Stats",
-	"source_uri": "https://api.dribbble.com/players/{id}/shots?page={page}&per_page=20",
+	"source_uri": ["https://api.dribbble.com/players/{id}/shots?page={page}&per_page=20"],
 	"source_return_type": "json",
 	"source_uri_scheme": "https://api.dribbble.com/players/{id}/shots?page={page}&per_page=20",
 	"source_uri_keys": ["{id}", "{page}"],
@@ -93,7 +93,7 @@
 },
 {
 	"id": "MTY7KiQnZxLQMzQ3ZjUxZDliMDAwMDAx",	
-	"source_uri": "https://api.instagram.com/v1/media/search?lat={latitude}&lng={longitude}&distance=5000&client_id={client_id}",
+	"source_uri": ["https://api.instagram.com/v1/media/search?lat={latitude}&lng={longitude}&distance=5000&client_id={client_id}"],
 	"source_uri_keys": ["{latitude}", "{longitude}", "{client_id}"],
 	"source_uri_values": ["latitude", "longitude", "279a55cf0c324a83b90d36c29bf503ff"],
 	"source_return_type": "json",
@@ -114,7 +114,7 @@
 {
 	"id": "NTI5NjNhNjFmNTliN2Y1YzliMDAwMDAx",
 	"title": "Places Near Me",
-	"source_uri": "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={latitude},{longitude}&rankBy=distance&radius={radius}&keyword={keyword}&sensor=true&key={api_key}",
+	"source_uri": ["https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={latitude},{longitude}&rankBy=distance&radius={radius}&keyword={keyword}&sensor=true&key={api_key}"],
 	"source_return_type": "json",
 	"source_uri_scheme": "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={latitude},{longitude}&rankBy=distance&radius={radius}&keyword={keyword}&sensor=true&key={api_key}",
 	"source_uri_keys": ["{latitude}", "{longitude}", "{keyword}", "{api_key}", "{radius}"],
@@ -136,7 +136,7 @@
 	"id": "NTI5NjM5ZTlmOGZjY2Q1ODliMDAwMDAx",
 	"title": "Coffee Near Me",
 	"source_return_type": "json",
-	"source_uri": "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={latitude},{longitude}&rankBy=distance&radius={radius}&keyword={keyword}&sensor=true&key={api_key}",
+	"source_uri": ["https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={latitude},{longitude}&rankBy=distance&radius={radius}&keyword={keyword}&sensor=true&key={api_key}"],
 	"source_uri_keys": ["{latitude}", "{longitude}", "{keyword}", "{api_key}", "{radius}"],
 	"source_uri_values": ["latitude", "longitude", "coffee", "AIzaSyAfzGESbROgOjoOqJrMbtIKNRtebL3w0Lc", "4000"],
 	"content_type": ["src_comp", "geo_comp"],
@@ -154,7 +154,7 @@
 {
 	"id": "NTI5NjNiMGYwZWZhNzI1ZTliMDAwMDAx",
 	"title": "Food Near Me",
-	"source_uri": "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={latitude},{longitude}&rankBy=distance&radius={radius}&keyword={keyword}&sensor=true&key={api_key}",
+	"source_uri": ["https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={latitude},{longitude}&rankBy=distance&radius={radius}&keyword={keyword}&sensor=true&key={api_key}"],
 	"source_return_type": "json",
 	"source_uri_keys": ["{latitude}", "{longitude}", "{keyword}", "{api_key}", "{radius}"],
 	"source_uri_values": ["latitude", "longitude", "food", "AIzaSyAfzGESbROgOjoOqJrMbtIKNRtebL3w0Lc"],

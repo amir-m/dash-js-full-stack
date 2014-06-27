@@ -19,6 +19,8 @@ angular.module('DashbookApp')
 
         scope.d.content = [], scope.flipTo = 1, scope.currentPoint = null;
 
+        console.log(scope.d.selected_source_uri)
+
         function apiCallEngine(append) {
           
           if (scope.d.source_uri_keys && scope.d.source_uri_keys.length > 0) {
@@ -44,7 +46,6 @@ angular.module('DashbookApp')
 
           // });
 
-          console.log(scope.d.selected_source_uri)
           return;
           
           $.ajax({
