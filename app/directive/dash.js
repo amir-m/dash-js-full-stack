@@ -424,11 +424,14 @@ angular.module('DashbookApp')
           });
         };
 
-        scope.selectPrivateSetting = function(index, dontFlip) {
+        scope.selectPrivateSetting = function(index, flip, manual) {
 
-          // scope.d.content = [];
-          // $('#'+scope.d.id + ' .flipsnap').empty();
-          // scope.$broadcast('suicide');
+          if (manual) {
+            scope.d.content = [];
+            $('#'+scope.d.id + ' .flipsnap').empty();
+            scope.$broadcast('suicide');
+            scope.currentPoint = 0;
+          }
           scope.d.private_dash.selected_source_uri = scope.d.private_dash.source_uri[index];
           scope.d.private_dash.selected_setting = scope.d.private_dash.settings[index];
           // console.log('-------------------in selectPrivateSetting')
@@ -438,7 +441,7 @@ angular.module('DashbookApp')
           // console.log(scope.d.private_dash.selected_setting)
           // console.log('-------------------in selectPrivateSetting')
           apiCall(true);
-          if ( !dontFlip ) scope.flipSettings();
+          if ( dontFlip ) scope.flipSettings();
           $('#' + scope.d.id + ' .spinner').show();
           var selectedTime = new Date().getTime();
           return;
@@ -1049,7 +1052,7 @@ angular.module('DashbookApp')
             scope.$watch('currentPoint', function () {
               console.log(scope.currentPoint, scope.d.content.length - 1, scope.d.private_dash.settings.length, scope.d.private_dash.settings.indexOf(scope.d.private_dash.selected_setting))
               if (scope.currentPoint == scope.d.content.length - 1 && scope.d.private_dash.settings.length > scope.d.private_dash.settings.indexOf(scope.d.private_dash.selected_setting) + 1) {
-                scope.selectPrivateSetting(scope.d.private_dash.settings.indexOf(scope.d.private_dash.selected_setting) + 1, true);
+                scope.selectPrivateSetting(scope.d.private_dash.settings.indexOf(scope.d.private_dash.selected_setting) + 1, false, false);
               }
             });
           }
