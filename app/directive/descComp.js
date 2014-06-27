@@ -42,6 +42,31 @@ angular.module('DashbookApp')
           }
         };
 
+        if (scope.d.components_settings 
+        && scope.d.components_settings.desc_comp 
+        && scope.d.components_settings.desc_comp.trim) {
+          if (scope.d.components_settings.desc_comp.trim.header) {
+            var l = scope.d.components_settings.desc_comp.trim.header;
+            var threeDots, temp = scope.content.components.desc_comp.header.split(' ');
+            threeDots = temp.length > l ? '...' : '';
+            temp = temp.splice(0, l);
+
+            scope.content.components.desc_comp.header = temp.join(' ');
+            scope.content.components.desc_comp.header += threeDots;
+          }
+          if (scope.d.components_settings.desc_comp.trim.text) {
+          
+            var l = parseInt(scope.d.components_settings.desc_comp.trim.text);
+            var threeDots, temp = scope.content.components.desc_comp.text.split(' ');
+            threeDots = temp.length > l ? '...' : '';
+            temp = temp.splice(0, l);
+
+            scope.content.components.desc_comp.text = temp.join(' ');
+            scope.content.components.desc_comp.text += threeDots;
+            console.log('pashmak')
+          }
+        };
+
         // if (scope.d.title != 'World Cup News' && scope.content.components.desc_comp.header) 
         //   scope.content.components.desc_comp.header = scope.content.components.desc_comp.header.substr(0, 16);
         // if (scope.d.title != 'World Cup News' && scope.content.components.desc_comp.text) 

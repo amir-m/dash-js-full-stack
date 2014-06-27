@@ -65,7 +65,17 @@
 	"data_container": "data",
 	"mapper_key": ["src_comp.resource_uri", "hero_comp.main_img", "desc_comp.header", "desc_comp.text", "footer_comp.footer"],
 	"mapper_value": ["resource_uri", "main_img", "title", "text", "date"],
-	"has_settings": "false"
+	"has_settings": "false",
+	"components_settings": {
+		"hero_comp": {
+			"class": ["banner-narrow"]
+		}, 
+		"desc_comp": {
+			"trim": {
+				"text": 30
+			}
+		}
+	}
 },
 {
 	"id": "NTJhOWRmMGYxODNiNTAwMDAwMDAwMDAx",
