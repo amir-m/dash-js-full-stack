@@ -1091,7 +1091,6 @@ angular.module('DashbookApp')
           if (scope.d.setting_type == 'radio') {
 
             scope.$watch('currentPoint', function () {
-              console.log(scope.d.selected_setting, scope.currentPoint, scope.d.content.length - 2, scope.d.settings.length, scope.d.settings.indexOf(scope.d.selected_setting) + 1);
               if (scope.currentPoint == scope.d.content.length - 2 && scope.d.settings.length > scope.d.settings.indexOf(scope.d.selected_setting) + 1) {
                 scope.selectSetting(scope.d.settings.indexOf(scope.d.selected_setting) + 1, false, false);
               }
