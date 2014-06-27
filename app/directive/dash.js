@@ -424,7 +424,7 @@ angular.module('DashbookApp')
           });
         };
 
-        scope.selectPrivateSetting = function(index) {
+        scope.selectPrivateSetting = function(index, dontFlip) {
 
           // scope.d.content = [];
           // $('#'+scope.d.id + ' .flipsnap').empty();
@@ -438,7 +438,7 @@ angular.module('DashbookApp')
           // console.log(scope.d.private_dash.selected_setting)
           // console.log('-------------------in selectPrivateSetting')
           apiCall(true);
-          scope.flipSettings();
+          if ( !dontFlip ) scope.flipSettings();
           $('#' + scope.d.id + ' .spinner').show();
           var selectedTime = new Date().getTime();
           return;
@@ -1055,7 +1055,7 @@ angular.module('DashbookApp')
             scope.$watch('currentPoint', function () {
               console.log(scope.currentPoint, scope.d.content.length - 1, scope.d.private_dash.settings.length, scope.d.private_dash.settings.indexOf(scope.d.private_dash.selected_setting))
               if (scope.currentPoint == scope.d.content.length - 1 && scope.d.private_dash.settings.length > scope.d.private_dash.settings.indexOf(scope.d.private_dash.selected_setting) + 1) {
-                scope.selectPrivateSetting(scope.d.private_dash.settings.indexOf(scope.d.private_dash.selected_setting) + 1);
+                scope.selectPrivateSetting(scope.d.private_dash.settings.indexOf(scope.d.private_dash.selected_setting) + 1, true);
               }
             });
           }
