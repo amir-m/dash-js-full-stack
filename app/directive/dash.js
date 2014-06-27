@@ -408,6 +408,10 @@ angular.module('DashbookApp')
         };
 
         scope.selectSetting = function(index, flip, manual) {
+          
+          scope.d.selected_source_uri = scope.d.source_uri[index];
+          scope.d.selected_setting = scope.d.settings[index];
+
           if (manual) {
             scope.d.content = [];
             $('#'+scope.d.id + ' .flipsnap').empty();
@@ -428,9 +432,6 @@ angular.module('DashbookApp')
             .error(function(error){
             });
           }
-
-          scope.d.selected_source_uri = scope.d.source_uri[index];
-          scope.d.selected_setting = scope.d.settings[index];
           apiCallEngine(true);
           if ( flip ) scope.flipSettings();
           $('#' + scope.d.id + ' .spinner').show();
