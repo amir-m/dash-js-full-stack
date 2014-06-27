@@ -565,7 +565,7 @@ angular.module('DashbookApp')
           // $('#'+scope.d.id+' .slide-indicator').hide();
 
           flipsnap = Flipsnap('#'+scope.d.id+ ' .flipsnap');
-          flipsnap.moveToPoint(scope.currentPoint, 1);
+          flipsnap.moveToPoint(scope.currentPoint, 10000);
 
           setTimeout(function(){
             flipsnap.refresh();
@@ -592,7 +592,7 @@ angular.module('DashbookApp')
               flipsnap.element.addEventListener('fstouchend', function() {
                 
                 console.log('biiiiiict');
-                
+
               }, false);
 
           }, 25);
