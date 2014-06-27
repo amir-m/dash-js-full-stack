@@ -19,8 +19,8 @@ angular.module('DashbookApp')
 
         scope.d.content = [], scope.flipTo = 1, scope.currentPoint = null;
 
-        function apiCallEngine(append) {
           console.log(scope.d.source_uri[0], scope.d.selected_source_uri)
+        function apiCallEngine(append) {
           scope.d.selected_source_uri = scope.d.selected_source_uri || scope.d.source_uri[0];
           
           if (scope.d.source_uri_keys && scope.d.source_uri_keys.length > 0) {
