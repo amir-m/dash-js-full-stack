@@ -589,12 +589,6 @@ angular.module('DashbookApp')
                 }
               }, false);
 
-              flipsnap.element.addEventListener('fstouchend', function() {
-                
-                console.log('biiiiiict');
-
-              }, false);
-
           }, 25);
 
           // flipsnap.moveToPoint(scope.flipTo - 1);
